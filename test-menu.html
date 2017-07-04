@@ -192,17 +192,6 @@ input:-webkit-autofill:active {
 		</div>
 		</div>
 	<script type="text/javascript">
-	
-	$('#menu-button').click(function(){
-		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) {
-		  $( "#menu-body" ).removeClass( "hide-menu-body" );
-		  $('#menu-body').animate({height:'1000'});
-		} else {
-		  $( "#menu-body").addClass( "hide-menu-body");
-		  $('#menu-body').animate({height:'80'});
-		}
-	});
-
 
 	menu = document.getElementById("menu");
 
@@ -267,6 +256,21 @@ input:-webkit-autofill:active {
 
 		
 	});
+
+	$('#menu-button').click(function(){
+		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) { 
+		  $('.menu-left__item').show();
+		  $('.new_menu__item').hide();
+		  $('.back_menu__item').remove();
+		  $( "#menu-body" ).removeClass( "hide-menu-body" );
+		  $('#menu-body').animate({height:'1000'});
+		} else {
+		  $( "#menu-body").addClass( "hide-menu-body");
+		  $('#menu-body').animate({height:'80'});
+
+		}
+	});
+
 
 	</script>
 </body>
