@@ -29,11 +29,6 @@ input:-webkit-autofill:active {
 	display: none !important;
 }
 
-.center_side {
-    margin: 0 auto;
-    max-width: 1150px;
-}
-
 .main-content {
 	display: flex;
 	flex-direction: row;
@@ -147,12 +142,12 @@ input:-webkit-autofill:active {
 } 
 .hide-menu {
     transform: translate3d(-1000px,0,0); 
-    transition: all 2s linear;
+    transition: all 1s linear;
 }
 
 .show-menu {
     transform: translate3d(0,0,0);      
-    transition: all 2s linear;
+    transition: all 1s linear;
    
 }  
 @media all and (max-width: 800px){
@@ -173,14 +168,22 @@ input:-webkit-autofill:active {
 			<div class="menu-left__content show-menu" id="menu">
 				<div class="menu-left__content-block">
 					<div class="menu-left__item-block">
-						<div class="menu-left__item">ITEM1</div>
+						<div class="menu-left__item">ITEM1
+
 							<div class="sub-menu">
 								<div class="sub-menu__item">SUBITEM1</div>
 								<div class="sub-menu__item">SUBITEM2</div>
 								<div class="sub-menu__item">SUBITEM3</div>
 								<div class="sub-menu__item">SUBITEM4</div>
 							</div>
-						<div class="menu-left__item">ITEM2</div>
+						</div>
+							
+						<div class="menu-left__item">ITEM2
+							<div class="sub-menu">
+								<div class="sub-menu__item">ROSES ARE RED</div>
+								<div class="sub-menu__item">VIOLETS ARE BLUE</div>
+							</div>
+						</div>
 						<div class="menu-left__item">ITEM3</div>
 						<div class="menu-left__item">ITEM4</div>
 					</div>
@@ -189,26 +192,8 @@ input:-webkit-autofill:active {
 		</div>
 		</div>
 	<script type="text/javascript">
-		
-	// var init = function(){
-
-	// 	menuButton = document.getElementById("menu-button");
-	// 	menuBody = document.getElementById("menu-body");
-	// 	menu = document.getElementById("menu");
-
-	// 	menuButton.addEventListener('click', function(event){
-	// 		event.stopPropagation();
-	// 		menu.classList.toggle("show-menu");
-	// 		menu.classList.toggle("hide-menu");
-	// 	});
-
-		
-	// };
-
-	// init();
 	
 	$('#menu-button').click(function(){
-		console.log("clicked");
 		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) {
 		  $( "#menu-body" ).removeClass( "hide-menu-body" );
 		  $('#menu-body').animate({height:'1000'});
@@ -217,25 +202,48 @@ input:-webkit-autofill:active {
 		  $('#menu-body').animate({height:'80'});
 		}
 	});
+
+
 	menu = document.getElementById("menu");
+
 	$('.sub-menu').hide();
-	$('.menu-left__item').click(function(event){
-			event.stopPropagation();
-			
-			menu.classList.toggle("hide-menu");
 
-			var parent = $('.menu-left__item');
-			var child = $('.sub-menu__item');
+	$('.menu-left__item').click(function(){
 
-			$("parent:has(child)").click(function(){
-				$(parent).replaceWith(child);
-			});
 
-			
-			menu.classList.toggle("show-menu");
+
+		var subItems = $(this).children().children().toArray();
+		var menuContent = document.querySelector(".menu-left__item-block");
+		console.log(subItems);
+
+		if (subItems.length > 0) {
+			menu.classList.remove("show-menu");
+			menu.classList.add("hide-menu");
+
+
+			setTimeout(function(){
+				menu.classList.add("show-menu");
+			}, 100);
+
+			var old_menu__items = $(this).parent().children();
+
+			var back_menu__item = document.createElement("div");
+			    back_menu__item.setAttribute("class", "menu-left__item");
+			    back_menu__item.textContent = this.childNodes[0].textContent;
+			     menuContent.appendChild(back_menu__item)
+
+			for (var i = 0; i < subItems.length; i++) {
+				var new_menu__item = document.createElement("div");
+			    new_menu__item.setAttribute("class", "menu-left__item");
+			    new_menu__item.textContent = subItems[i].textContent;
+			    old_menu__items.remove();
+
+			    menuContent.appendChild(new_menu__item);
+			}
+		}
 
 		
-		});
+	});
 
 
 
