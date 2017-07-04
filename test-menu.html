@@ -214,7 +214,7 @@ input:-webkit-autofill:active {
 
 		var subItems = $(this).children().children().toArray();
 		var menuContent = document.querySelector(".menu-left__item-block");
-		console.log(subItems);
+
 
 		if (subItems.length > 0) {
 			menu.classList.remove("show-menu");
@@ -228,25 +228,45 @@ input:-webkit-autofill:active {
 			var old_menu__items = $(this).parent().children();
 
 			var back_menu__item = document.createElement("div");
-			    back_menu__item.setAttribute("class", "menu-left__item");
+			    back_menu__item.setAttribute("class", "menu-left__item back_menu__item");
 			    back_menu__item.textContent = this.childNodes[0].textContent;
-			     menuContent.appendChild(back_menu__item)
+			    back_menu__item.addEventListener("click", menuBack);
+			    menuContent.appendChild(back_menu__item);
+
+
 
 			for (var i = 0; i < subItems.length; i++) {
 				var new_menu__item = document.createElement("div");
-			    new_menu__item.setAttribute("class", "menu-left__item");
+			    new_menu__item.setAttribute("class", "menu-left__item new_menu__item");
 			    new_menu__item.textContent = subItems[i].textContent;
-			    old_menu__items.remove();
+			    old_menu__items.hide();
 
 			    menuContent.appendChild(new_menu__item);
 			}
 		}
 
+		function menuBack() {
+			menu.classList.remove("show-menu");
+			menu.classList.add("hide-menu");
+
+			setTimeout(function(){
+				menu.classList.add("show-menu");
+			}, 100);
+
+			old_menu__items.show();
+			new_menu__items = document.querySelectorAll(".new_menu__item");
+			for (var i = 0; i < new_menu__items.length; i++) {
+				new_menu__items[i].classList.add("hide");
+			}
+			
+			this.remove();
+
+		}
+
+		
+
 		
 	});
-
-
-
 
 	</script>
 </body>
