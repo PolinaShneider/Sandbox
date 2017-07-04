@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+	html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    letter-spacing: .1px;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+body {
+	margin: 0;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.hide {
+	display: none !important;
+}
+
+.center_side {
+    margin: 0 auto;
+    max-width: 1150px;
+}
+
+.main-content {
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+.menu__item-block {
+	display: flex;
+	flex-direction: column;
+}
+.menu__item {
+	display: flex;
+    align-items: center;
+	padding: 15px 0;
+	color: #4d4d4d;
+}
+.menu__item:hover {
+	background-color: #F7F7F7;
+	cursor: pointer;
+	margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+.menu__icon {
+	font-size: 20px !important;
+	width: 35px;
+}
+		.menu-left {
+	min-width: 240px;
+	background-color: #25282e;
+	font-weight: 200;
+	position: relative;
+}
+.menu-left__header {
+	height: 80px;
+	background-color: #22252a;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 100;
+}
+.menu-left__hamburger {
+	color: #7a7c7f;
+	font-size: 22px;
+	padding: 8px 10px;
+	border: 1px solid #37393e;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 30px;
+}
+.menu-left__hamburger:hover {
+	color: #aaacb0;
+}
+.menu-left__content {
+	padding: 35px 25px;
+	overflow-y: auto;
+	box-sizing: border-box;
+    height: calc(100vh - 140px);
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+}
+.menu-left__content-block:not(:first-child) {
+	padding-top: 20px;
+}
+.menu-left__item-block {
+	display: flex;
+	flex-direction: column;
+}
+.menu-left__title {
+	font-size: 11px;
+	color: #5c5d5f;
+}
+.menu-left__title:hover {
+	color: #aaacb0;
+	cursor: pointer;
+}
+.menu-left__item {
+	display: flex;
+    align-items: center;
+	padding: 15px 0;
+	color: #bebebe;
+}
+.menu-left__item:hover {
+	color: #dbdbdb;
+	cursor: pointer;
+}
+.menu-left__icon {
+	font-size: 20px !important;
+	width: 35px;
+}
+
+
+/*Behaviour styles*/
+
+.hide-menu-body {
+    overflow: hidden;
+    height: 80px;
+}
+
+.show-menu-body {
+    height: 1000px;
+} 
+.hide-menu {
+    transform: translate3d(-1000px,0,0); 
+    transition: all 2s linear;
+}
+
+.show-menu {
+    transform: translate3d(0,0,0);      
+    transition: all 2s linear;
+   
+}  
+@media all and (max-width: 800px){
+	.menu-left {
+		width: 100%;
+	}
+}
+	</style>
+</head>
+<body>
+<div class="main-content">
+	<div class="menu-left hide-menu-body" id="menu-body">
+			<div class="menu-left__header">
+				<div class="menu-left__hamburger" id="menu-button">
+					<i class="fa fa-bars"></i>
+				</div>
+			</div>
+			<div class="menu-left__content show-menu" id="menu">
+				<div class="menu-left__content-block">
+					<div class="menu-left__item-block">
+						<div class="menu-left__item">ITEM1</div>
+							<div class="sub-menu">
+								<div class="sub-menu__item">SUBITEM1</div>
+								<div class="sub-menu__item">SUBITEM2</div>
+								<div class="sub-menu__item">SUBITEM3</div>
+								<div class="sub-menu__item">SUBITEM4</div>
+							</div>
+						<div class="menu-left__item">ITEM2</div>
+						<div class="menu-left__item">ITEM3</div>
+						<div class="menu-left__item">ITEM4</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	<script type="text/javascript">
+		
+	// var init = function(){
+
+	// 	menuButton = document.getElementById("menu-button");
+	// 	menuBody = document.getElementById("menu-body");
+	// 	menu = document.getElementById("menu");
+
+	// 	menuButton.addEventListener('click', function(event){
+	// 		event.stopPropagation();
+	// 		menu.classList.toggle("show-menu");
+	// 		menu.classList.toggle("hide-menu");
+	// 	});
+
+		
+	// };
+
+	// init();
+	
+	$('#menu-button').click(function(){
+		console.log("clicked");
+		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) {
+		  $( "#menu-body" ).removeClass( "hide-menu-body" );
+		  $('#menu-body').animate({height:'1000'});
+		} else {
+		  $( "#menu-body").addClass( "hide-menu-body");
+		  $('#menu-body').animate({height:'80'});
+		}
+	});
+	menu = document.getElementById("menu");
+	$('.sub-menu').hide();
+	$('.menu-left__item').click(function(event){
+			event.stopPropagation();
+			
+			menu.classList.toggle("hide-menu");
+
+			var parent = $('.menu-left__item');
+			var child = $('.sub-menu__item');
+
+			$("parent:has(child)").click(function(){
+				$(parent).replaceWith(child);
+			});
+
+			
+			menu.classList.toggle("show-menu");
+
+		
+		});
+
+
+
+
+	</script>
+</body>
+</html>
+
