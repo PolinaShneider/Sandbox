@@ -141,7 +141,7 @@ input:-webkit-autofill:active {
     height: 1000px;
 } 
 .hide-menu {
-    transform: translate3d(-1000px,0,0); 
+    transform: translate3d(1000px,0,0); 
     transition: all 1s linear;
 }
 
@@ -171,17 +171,25 @@ input:-webkit-autofill:active {
 						<div class="menu-left__item">ITEM1
 
 							<div class="sub-menu">
-								<div class="sub-menu__item">SUBITEM1</div>
-								<div class="sub-menu__item">SUBITEM2</div>
-								<div class="sub-menu__item">SUBITEM3</div>
-								<div class="sub-menu__item">SUBITEM4</div>
+								<div class="menu-left__item">SUBITEM1</div>
+								<div class="menu-left__item">SUBITEM2</div>
+								<div class="menu-left__item">SUBITEM3</div>
+								<div class="menu-left__item">SUBITEM4</div>
 							</div>
 						</div>
 							
 						<div class="menu-left__item">ITEM2
 							<div class="sub-menu">
-								<div class="sub-menu__item">ROSES ARE RED</div>
-								<div class="sub-menu__item">VIOLETS ARE BLUE</div>
+								<div class="menu-left__item">ROSES ARE RED
+									<div class="sub-menu">
+										<div class="menu-left__item">SUBMENU LEV 2</div>
+										<div class="menu-left__item">CHECK</div>
+										<div class="menu-left__item">IF</div>
+										<div class="menu-left__item">IT</div>
+										<div class="menu-left__item">WORKS!</div>
+									</div>
+								</div>
+								<div class="menu-left__item">VIOLETS ARE BLUE</div>
 							</div>
 						</div>
 						<div class="menu-left__item">ITEM3</div>
@@ -194,74 +202,46 @@ input:-webkit-autofill:active {
 	<script type="text/javascript">
 
 	menu = document.getElementById("menu");
+	var menuContent = $('.menu-left__item-block');
 
 	$('.sub-menu').hide();
 
 	$('.menu-left__item').click(function(){
 
+		menu.classList.remove("show-menu");
+		menu.classList.add("hide-menu");
 
+		setTimeout(function(){
+			menu.classList.add("show-menu");
+		}, 100);
 
-		var subItems = $(this).children().children().toArray();
-		var menuContent = document.querySelector(".menu-left__item-block");
+		var subItems = $(this).children('.sub-menu').children('.menu-left__item');
+		console.log($(this).children('.sub-menu'));
 
-
-		if (subItems.length > 0) {
-			menu.classList.remove("show-menu");
-			menu.classList.add("hide-menu");
-
-
-			setTimeout(function(){
-				menu.classList.add("show-menu");
-			}, 100);
-
-			var old_menu__items = $(this).parent().children();
-
-			var back_menu__item = document.createElement("div");
-			    back_menu__item.setAttribute("class", "menu-left__item back_menu__item");
-			    back_menu__item.textContent = this.childNodes[0].textContent;
-			    back_menu__item.addEventListener("click", menuBack);
-			    menuContent.appendChild(back_menu__item);
-
-
-
-			for (var i = 0; i < subItems.length; i++) {
-				var new_menu__item = document.createElement("div");
-			    new_menu__item.setAttribute("class", "menu-left__item new_menu__item");
-			    new_menu__item.textContent = subItems[i].textContent;
-			    old_menu__items.hide();
-
-			    menuContent.appendChild(new_menu__item);
-			}
-		}
-
-		function menuBack() {
-			menu.classList.remove("show-menu");
-			menu.classList.add("hide-menu");
-
-			setTimeout(function(){
-				menu.classList.add("show-menu");
-			}, 100);
-
-			old_menu__items.show();
-			new_menu__items = document.querySelectorAll(".new_menu__item");
-			for (var i = 0; i < new_menu__items.length; i++) {
-				new_menu__items[i].classList.add("hide");
-			}
+		if (subItems.length > 0) { 
 			
-			this.remove();
+
+			if ($(this).hasClass("opened")) {
+
+				$(this).siblings().not(".hide").remove(); //возвращаемся на уровень назад
+				$(this).siblings(".hide").removeClass("hide"); 
+				$(this).removeClass("opened");
+
+			} else {
+
+				$(this).addClass("opened"); 
+				$(this).siblings().addClass("hide"); //скрываем, чтоб вернуться
+				subItems.clone(true,true).appendTo(menuContent); //добавляем сиблингов c детьми (суб-меню)
+				
+			}
+    		
 
 		}
-
-		
-
 		
 	});
 
 	$('#menu-button').click(function(){
 		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) { 
-		  $('.menu-left__item').show();
-		  $('.new_menu__item').hide();
-		  $('.back_menu__item').remove();
 		  $( "#menu-body" ).removeClass( "hide-menu-body" );
 		  $('#menu-body').animate({height:'1000'});
 		} else {
