@@ -115,8 +115,7 @@ input:-webkit-autofill:active {
 	cursor: pointer;
 }
 .menu-left__item {
-	display: flex;
-    align-items: center;
+	display: block;
 	padding: 15px 0;
 	color: #bebebe;
 }
@@ -131,6 +130,13 @@ input:-webkit-autofill:active {
 
 
 /*Behaviour styles*/
+
+/*.menu-left__item {
+	display: none;
+}
+.menu-left__item.parent {
+	display: flex;
+}*/
 
 .hide-menu-body {
     overflow: hidden;
@@ -166,47 +172,58 @@ input:-webkit-autofill:active {
 				</div>
 			</div>
 			<div class="menu-left__content show-menu" id="menu">
-				<div class="menu-left__content-block">
-					<div class="menu-left__item-block">
-						<div class="menu-left__item parent">ITEM1
+			
+					<ul class="menu-left__content-block">
+						<li class="menu-left__item parent">ITEM1
+							<ul>
+							
+								<li class="menu-left__item">SUBITEM1</li>
+								<li class="menu-left__item">SUBITEM2</li>
+								<li class="menu-left__item">SUBITEM3</li>
+								<li class="menu-left__item">SUBITEM4</li>
 
+							</ul>
 							
-								<div class="menu-left__item">SUBITEM1</div>
-								<div class="menu-left__item">SUBITEM2</div>
-								<div class="menu-left__item">SUBITEM3</div>
-								<div class="menu-left__item">SUBITEM4</div>
-						
-						</div>
+						</li>
 							
-						<div class="menu-left__item parent">ITEM2
-							<div class="sub-menu">
-								<div class="menu-left__item">ROSES ARE RED
-									<div class="sub-menu">
-										<div class="menu-left__item">SUBMENU LEV 2</div>
-										<div class="menu-left__item">CHECK</div>
-										<div class="menu-left__item">IF</div>
-										<div class="menu-left__item">IT</div>
-										<div class="menu-left__item">WORKS!</div>
-									</div>
-								</div>
-								<div class="menu-left__item">VIOLETS ARE BLUE</div>
-							</div>
-						</div>
-						<div class="menu-left__item parent">ITEM3</div>
-						<div class="menu-left__item parent">ITEM4</div>
-					</div>
-				</div>
+						<li class="menu-left__item parent">ITEM2
+	
+								<ul>
+									<li class="menu-left__item">ROSES ARE RED
+										<ul>
+											<li class="menu-left__item">SUBMENU LEV 2</li>
+											<li class="menu-left__item">CHECK</li>
+											<li class="menu-left__item">IF</li>
+											<li class="menu-left__item">IT</li>
+											<li class="menu-left__item">WORKS!</li>
+										</ul>
+									</li>
+									<li class="menu-left__item">VIOLETS ARE BLUE</li>
+								</ul>
+							
+						</li>
+						<li class="menu-left__item parent">ITEM3</li>
+						<li class="menu-left__item parent">ITEM4</li>
+					</ul>
+				
 			</div>
 		</div>
 		</div>
 	<script type="text/javascript">
 
 	menu = document.getElementById("menu");
-	var menuContent = $('.menu-left__item-block');
-
-	$('.sub-menu').hide();
+	var menuContent = $('.menu-left__content-block');
+	var children = $(".menu-left__item").find(".menu-left__item");
+	children.addClass("hide");
 
 	$('.menu-left__item').click(function(){
+
+		
+	var subItems = $(this).closest("ul").children(".menu-left__item");
+		
+
+		if (subItems.length > 0) { 
+
 
 		menu.classList.remove("show-menu");
 		menu.classList.add("hide-menu");
@@ -215,23 +232,21 @@ input:-webkit-autofill:active {
 			menu.classList.add("show-menu");
 		}, 100);
 
-		var subItems = $(this).children('.menu-left__item');
-		console.log($(this).children('.sub-menu'));
-
-		if (subItems.length > 0) { 
 			
 
 			if ($(this).hasClass("opened")) {
 
-				$(this).siblings().not(".hide").remove(); //возвращаемся на уровень назад
-				$(this).siblings(".hide").removeClass("hide"); 
+				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
+				$(this).siblings().removeClass("hide");
 				$(this).removeClass("opened");
 
 			} else {
+				console.log($(this).siblings());
+				$(this).addClass("opened").removeClass("hide"); 
+				$(this).siblings().addClass("hide");
+				$(this).children("ul").children(".menu-left__item").removeClass("hide"); //скрываем, чтоб вернуться
 
-				$(this).addClass("opened"); 
-				$(this).siblings().addClass("hide"); //скрываем и помечаем сиблингов, чтоб вернуться
-				subItems.clone(true,true).appendTo(menuContent); //добавляем сиблингов c детьми (суб-меню)
+				
 				
 			}
     		
