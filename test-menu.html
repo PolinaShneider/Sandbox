@@ -168,17 +168,17 @@ input:-webkit-autofill:active {
 			<div class="menu-left__content show-menu" id="menu">
 				<div class="menu-left__content-block">
 					<div class="menu-left__item-block">
-						<div class="menu-left__item">ITEM1
+						<div class="menu-left__item parent">ITEM1
 
-							<div class="sub-menu">
+							
 								<div class="menu-left__item">SUBITEM1</div>
 								<div class="menu-left__item">SUBITEM2</div>
 								<div class="menu-left__item">SUBITEM3</div>
 								<div class="menu-left__item">SUBITEM4</div>
-							</div>
+						
 						</div>
 							
-						<div class="menu-left__item">ITEM2
+						<div class="menu-left__item parent">ITEM2
 							<div class="sub-menu">
 								<div class="menu-left__item">ROSES ARE RED
 									<div class="sub-menu">
@@ -192,8 +192,8 @@ input:-webkit-autofill:active {
 								<div class="menu-left__item">VIOLETS ARE BLUE</div>
 							</div>
 						</div>
-						<div class="menu-left__item">ITEM3</div>
-						<div class="menu-left__item">ITEM4</div>
+						<div class="menu-left__item parent">ITEM3</div>
+						<div class="menu-left__item parent">ITEM4</div>
 					</div>
 				</div>
 			</div>
@@ -215,7 +215,7 @@ input:-webkit-autofill:active {
 			menu.classList.add("show-menu");
 		}, 100);
 
-		var subItems = $(this).children('.sub-menu').children('.menu-left__item');
+		var subItems = $(this).children('.menu-left__item');
 		console.log($(this).children('.sub-menu'));
 
 		if (subItems.length > 0) { 
@@ -230,7 +230,7 @@ input:-webkit-autofill:active {
 			} else {
 
 				$(this).addClass("opened"); 
-				$(this).siblings().addClass("hide"); //скрываем, чтоб вернуться
+				$(this).siblings().addClass("hide"); //скрываем и помечаем сиблингов, чтоб вернуться
 				subItems.clone(true,true).appendTo(menuContent); //добавляем сиблингов c детьми (суб-меню)
 				
 			}
