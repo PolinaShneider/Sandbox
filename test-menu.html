@@ -20,6 +20,7 @@ body {
 
 ul {
 	padding-left: 0;
+	margin: 0;
 }
 
 .hide {
@@ -50,10 +51,12 @@ ul {
 	font-size: 20px !important;
 	width: 35px;
 }
-		.menu-left {
-	min-width: 240px;
+.menu-left {
+	min-width: 800px;
 	background-color: #FFFFFF;
 	position: relative;
+	border: 1px solid #d3d1d1;
+	overflow: hidden;
 }
 .menu-left__header {
 	height: 80px;
@@ -65,6 +68,7 @@ ul {
     right: 0;
     left: 0;
     z-index: 100;
+    border-bottom: 1px solid #d3d1d1
 }
 .menu-left__hamburger {
 	color: #000;
@@ -78,8 +82,6 @@ ul {
 	color: #aaacb0;
 }
 .menu-left__content {
-	padding: 0 25px;
-	overflow-y: auto;
 	box-sizing: border-box;
     height: calc(100vh - 140px);
     position: absolute;
@@ -102,13 +104,24 @@ li.menu-left__item li.menu-left__item:first-child {
 
 li.menu-left__item {
 	display: block;
-	padding: 15px 0;
+	padding: 15px;
 	color: #000;
 	border-bottom: 1px solid #d3d1d1;
 	position: relative;
 }
+
+li.menu-left__item.active {
+	background-color: #ebe8e8;
+}
+.children_active {
+	background-color: #FFFFFF;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+
 li.menu-left__item.opened {
 	border-bottom: 0px solid transparent;
+	padding-bottom: 0;
 }
 
 li.menu-left__item.opened > .submenu-ic {
@@ -117,13 +130,13 @@ li.menu-left__item.opened > .submenu-ic {
 
 .submenu-ic {
 	position: absolute;
-	right: 0;
+	right: 40px;
 	bottom: 15px;
 	font-size: 20px;
 }
 
-ul.paddTop {
-	padding-top: 15px;
+ul.margTop {
+	margin-top: 15px;
 }
 
 .menu-left__item:hover {
@@ -242,14 +255,16 @@ ul.paddTop {
 			
 
 			if ($(this).hasClass("opened")) {
-				$(this).children("ul").removeClass("paddTop");	
+				$(this).children("ul").removeClass("margTop");	
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
 				$(this).siblings().removeClass("hide");
-				$(this).removeClass("opened");
+				$(this).children("ul").removeClass("children_active");
+				$(this).removeClass("opened active");
 
 			} else {
-				$(this).addClass("opened").removeClass("hide"); 
-				$(this).children("ul").addClass("paddTop");	
+				$(this).addClass("opened active").removeClass("hide"); 
+				$(this).children("ul").addClass("children_active");
+				$(this).children("ul").addClass("margTop");	
 				$(this).siblings().addClass("hide");
 				$(this).children("ul").children(".menu-left__item").removeClass("hide"); //скрываем, чтоб вернуться
 
