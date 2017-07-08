@@ -98,11 +98,11 @@ ul {
 	flex-direction: column;
 }
 
-li.menu-left__item li.menu-left__item:first-child {
+.menu-left__item .menu-left__item:first-child {
 	border-top: 1px solid #d3d1d1;
 }
 
-li.menu-left__item {
+.menu-left__item {
 	display: block;
 	padding: 15px;
 	color: #000;
@@ -110,21 +110,21 @@ li.menu-left__item {
 	position: relative;
 }
 
-li.menu-left__item.active {
-	background-color: #ebe8e8;
-}
-.children_active {
-	background-color: #FFFFFF;
-	margin-right: -15px;
-	margin-left: -15px;
-}
-
-li.menu-left__item.opened {
+.menu-left__item.opened {
 	border-bottom: 0px solid transparent;
 	padding-bottom: 0;
+	background-color: #ebe8e8;
 }
 
-li.menu-left__item.opened > .submenu-ic {
+.menu-left__item.opened > ul {
+	margin-top: 15px;
+	margin-right: -15px;
+	margin-left: -15px;
+	background-color: #FFFFFF;
+}
+
+
+.menu-left__item.opened > .submenu-ic {
 	display: none;
 }
 
@@ -133,10 +133,6 @@ li.menu-left__item.opened > .submenu-ic {
 	right: 40px;
 	bottom: 15px;
 	font-size: 20px;
-}
-
-ul.margTop {
-	margin-top: 15px;
 }
 
 .menu-left__item:hover {
@@ -255,21 +251,16 @@ ul.margTop {
 			
 
 			if ($(this).hasClass("opened")) {
-				$(this).children("ul").removeClass("margTop");	
+
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
 				$(this).siblings().removeClass("hide");
-				$(this).children("ul").removeClass("children_active");
-				$(this).removeClass("opened active");
+				$(this).removeClass("opened");
 
 			} else {
-				$(this).addClass("opened active").removeClass("hide"); 
-				$(this).children("ul").addClass("children_active");
-				$(this).children("ul").addClass("margTop");	
-				$(this).siblings().addClass("hide");
-				$(this).children("ul").children(".menu-left__item").removeClass("hide"); //скрываем, чтоб вернуться
 
-				
-				
+				$(this).addClass("opened").removeClass("hide"); 
+				$(this).siblings().addClass("hide");
+				$(this).children("ul").children(".menu-left__item").removeClass("hide"); 
 			}
     		
 
