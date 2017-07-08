@@ -6,23 +6,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style type="text/css">
-	html {
+
+html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 14px;
     line-height: 1.5em;
     letter-spacing: .1px;
 }
-::-webkit-scrollbar { 
-    display: none; 
-}
+
 body {
 	margin: 0;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
+
+ul {
+	padding-left: 0;
 }
 
 .hide {
@@ -40,12 +37,6 @@ input:-webkit-autofill:active {
 	display: flex;
 	flex-direction: column;
 }
-.menu__item {
-	display: flex;
-    align-items: center;
-	padding: 15px 0;
-	color: #4d4d4d;
-}
 .menu__item:hover {
 	background-color: #F7F7F7;
 	cursor: pointer;
@@ -61,13 +52,12 @@ input:-webkit-autofill:active {
 }
 		.menu-left {
 	min-width: 240px;
-	background-color: #25282e;
-	font-weight: 200;
+	background-color: #FFFFFF;
 	position: relative;
 }
 .menu-left__header {
 	height: 80px;
-	background-color: #22252a;
+	background-color: #FFFFFF;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -77,11 +67,10 @@ input:-webkit-autofill:active {
     z-index: 100;
 }
 .menu-left__hamburger {
-	color: #7a7c7f;
+	color: #000;
 	font-size: 22px;
+	font-weight: 300;
 	padding: 8px 10px;
-	border: 1px solid #37393e;
-	border-radius: 4px;
 	cursor: pointer;
 	margin-right: 30px;
 }
@@ -89,7 +78,7 @@ input:-webkit-autofill:active {
 	color: #aaacb0;
 }
 .menu-left__content {
-	padding: 35px 25px;
+	padding: 0 25px;
 	overflow-y: auto;
 	box-sizing: border-box;
     height: calc(100vh - 140px);
@@ -106,21 +95,38 @@ input:-webkit-autofill:active {
 	display: flex;
 	flex-direction: column;
 }
-.menu-left__title {
-	font-size: 11px;
-	color: #5c5d5f;
+
+li.menu-left__item li.menu-left__item:first-child {
+	border-top: 1px solid #d3d1d1;
 }
-.menu-left__title:hover {
-	color: #aaacb0;
-	cursor: pointer;
-}
-.menu-left__item {
+
+li.menu-left__item {
 	display: block;
 	padding: 15px 0;
-	color: #bebebe;
+	color: #000;
+	border-bottom: 1px solid #d3d1d1;
+	position: relative;
 }
+li.menu-left__item.opened {
+	border-bottom: 0px solid transparent;
+}
+
+li.menu-left__item.opened > .submenu-ic {
+	display: none;
+}
+
+.submenu-ic {
+	position: absolute;
+	right: 0;
+	bottom: 15px;
+	font-size: 20px;
+}
+
+ul.paddTop {
+	padding-top: 15px;
+}
+
 .menu-left__item:hover {
-	color: #dbdbdb;
 	cursor: pointer;
 }
 .menu-left__icon {
@@ -130,13 +136,6 @@ input:-webkit-autofill:active {
 
 
 /*Behaviour styles*/
-
-/*.menu-left__item {
-	display: none;
-}
-.menu-left__item.parent {
-	display: flex;
-}*/
 
 .hide-menu-body {
     overflow: hidden;
@@ -148,12 +147,12 @@ input:-webkit-autofill:active {
 } 
 .hide-menu {
     transform: translate3d(1000px,0,0); 
-    transition: all 1s linear;
+    transition: all 0.5s linear;
 }
 
 .show-menu {
     transform: translate3d(0,0,0);      
-    transition: all 1s linear;
+    transition: all 0.5s linear;
    
 }  
 @media all and (max-width: 800px){
@@ -174,36 +173,44 @@ input:-webkit-autofill:active {
 			<div class="menu-left__content show-menu" id="menu">
 			
 					<ul class="menu-left__content-block">
-						<li class="menu-left__item parent">ITEM1
+						<li class="menu-left__item">ТОВАРЫ ДЛЯ ЛЕТНЕГО ОТДЫХА
+						<i class="fa fa-angle-right submenu-ic"></i>
 							<ul>
-							
-								<li class="menu-left__item">SUBITEM1</li>
-								<li class="menu-left__item">SUBITEM2</li>
-								<li class="menu-left__item">SUBITEM3</li>
-								<li class="menu-left__item">SUBITEM4</li>
+								<li class="menu-left__item">ВЕЩИ В ДОРОГУ</li>
+								<li class="menu-left__item">ПЛЯЖНЫЙ ОТДЫХ</li>
+								<li class="menu-left__item">ОТДЫХ ЗА ГОРОДОМ И НА ДАЧЕ</li>
+								<li class="menu-left__item">ПИКНИК И ШАШЛЫКИ</li>
 
 							</ul>
-							
 						</li>
-							
-						<li class="menu-left__item parent">ITEM2
-	
+						<li class="menu-left__item">ЭЛЕКТРОНИКА
+						<i class="fa fa-angle-right submenu-ic"></i>
 								<ul>
-									<li class="menu-left__item">ROSES ARE RED
+									<li class="menu-left__item">ТЕЛЕФОНЫ
+									<i class="fa fa-angle-right submenu-ic"></i>
 										<ul>
-											<li class="menu-left__item">SUBMENU LEV 2</li>
-											<li class="menu-left__item">CHECK</li>
-											<li class="menu-left__item">IF</li>
-											<li class="menu-left__item">IT</li>
-											<li class="menu-left__item">WORKS!</li>
+											<li class="menu-left__item">МОБИЛЬНЫЕ ТЕЛЕФОНЫ
+											<i class="fa fa-angle-right submenu-ic"></i>
+												<ul>
+													<li class="menu-left__item">APPLE</li>
+													<li class="menu-left__item">SAMSUNG</li>
+													<li class="menu-left__item">NOKIA</li>
+													<li class="menu-left__item">MOTOROLLA</li>
+													<li class="menu-left__item">SIEMENS</li>
+												</ul>
+											</li>
+											<li class="menu-left__item">РАДИОТЕЛЕФОНЫ</li>
+											<li class="menu-left__item">РАЦИИ</li>
+											<li class="menu-left__item">ЗАЩИТНЫЕ ПЛЕНКИ И СТЕКЛА</li>
+											<li class="menu-left__item">АКСЕССУАРЫ</li>
 										</ul>
 									</li>
-									<li class="menu-left__item">VIOLETS ARE BLUE</li>
+									<li class="menu-left__item">ПЛАНШЕТЫ</li>
 								</ul>
 							
 						</li>
-						<li class="menu-left__item parent">ITEM3</li>
-						<li class="menu-left__item parent">ITEM4</li>
+						<li class="menu-left__item">КОМПЬЮТЕРНАЯ ТЕХНИКА</li>
+						<li class="menu-left__item">БЫТОВАЯ ТЕХНИКА</li>
 					</ul>
 				
 			</div>
@@ -216,15 +223,15 @@ input:-webkit-autofill:active {
 	var children = $(".menu-left__item").find(".menu-left__item");
 	children.addClass("hide");
 
-	$('.menu-left__item').click(function(){
+	$('.menu-left__item').click(function( event ){
 
 		
-	var subItems = $(this).closest("ul").children(".menu-left__item");
+	var subItems = $(this).children("ul").children(".menu-left__item");
 		
 
 		if (subItems.length > 0) { 
 
-
+		event.stopPropagation();
 		menu.classList.remove("show-menu");
 		menu.classList.add("hide-menu");
 
@@ -235,14 +242,14 @@ input:-webkit-autofill:active {
 			
 
 			if ($(this).hasClass("opened")) {
-
+				$(this).children("ul").removeClass("paddTop");	
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
 				$(this).siblings().removeClass("hide");
 				$(this).removeClass("opened");
 
 			} else {
-				console.log($(this).siblings());
 				$(this).addClass("opened").removeClass("hide"); 
+				$(this).children("ul").addClass("paddTop");	
 				$(this).siblings().addClass("hide");
 				$(this).children("ul").children(".menu-left__item").removeClass("hide"); //скрываем, чтоб вернуться
 
@@ -251,6 +258,8 @@ input:-webkit-autofill:active {
 			}
     		
 
+		} else if (subItems.length == 0) {
+			return false;
 		}
 		
 	});
