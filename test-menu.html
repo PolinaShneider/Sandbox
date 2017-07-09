@@ -47,10 +47,7 @@ ul {
     padding-right: 20px;
     width: 100%;
 }
-.menu__icon {
-	font-size: 20px !important;
-	width: 35px;
-}
+
 .menu-left {
 	min-width: 800px;
 	background-color: #FFFFFF;
@@ -138,11 +135,6 @@ ul {
 .menu-left__item:hover {
 	cursor: pointer;
 }
-.menu-left__icon {
-	font-size: 20px !important;
-	width: 35px;
-}
-
 
 /*Behaviour styles*/
 
@@ -270,13 +262,30 @@ ul {
 		
 	});
 
+	/**
+	 * Close menu button and reset styles
+	 */
+
 	$('#menu-button').click(function(){
+
 		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) { 
+
 		  $( "#menu-body" ).removeClass( "hide-menu-body" );
-		  $('#menu-body').animate({height:'1000'});
+
+		  	setTimeout(function(){
+				$('#menu-body').height(1000);
+			}, 70);
+
 		} else {
+		  children.addClass("hide");
+		  $("#menu").find(".opened").removeClass("opened");
+		  $("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
 		  $( "#menu-body").addClass( "hide-menu-body");
-		  $('#menu-body').animate({height:'80'});
+		  
+		  	setTimeout(function(){
+				$('#menu-body').height(80);
+			}, 70);
+
 
 		}
 	});
