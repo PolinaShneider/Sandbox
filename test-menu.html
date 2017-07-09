@@ -101,10 +101,14 @@ ul {
 
 .menu-left__item {
 	display: block;
-	padding: 15px;
 	color: #000;
 	border-bottom: 1px solid #d3d1d1;
 	position: relative;
+}
+
+.menu-left__item > a {
+	padding: 15px;
+	display: inline-block;
 }
 
 .menu-left__item.opened {
@@ -114,9 +118,6 @@ ul {
 }
 
 .menu-left__item.opened > ul {
-	margin-top: 15px;
-	margin-right: -15px;
-	margin-left: -15px;
 	background-color: #FFFFFF;
 }
 
@@ -174,44 +175,44 @@ ul {
 			<div class="menu-left__content show-menu" id="menu">
 			
 					<ul class="menu-left__content-block">
-						<li class="menu-left__item">ТОВАРЫ ДЛЯ ЛЕТНЕГО ОТДЫХА
+						<li class="menu-left__item"><a>ТОВАРЫ ДЛЯ ЛЕТНЕГО ОТДЫХА</a>
 						<i class="fa fa-angle-right submenu-ic"></i>
 							<ul>
-								<li class="menu-left__item">ВЕЩИ В ДОРОГУ</li>
-								<li class="menu-left__item">ПЛЯЖНЫЙ ОТДЫХ</li>
-								<li class="menu-left__item">ОТДЫХ ЗА ГОРОДОМ И НА ДАЧЕ</li>
-								<li class="menu-left__item">ПИКНИК И ШАШЛЫКИ</li>
+								<li class="menu-left__item"><a>ВЕЩИ В ДОРОГУ</a></li>
+								<li class="menu-left__item"><a>ПЛЯЖНЫЙ ОТДЫХ</a></li>
+								<li class="menu-left__item"><a>ОТДЫХ ЗА ГОРОДОМ И НА ДАЧЕ</a></li>
+								<li class="menu-left__item"><a>ПИКНИК И ШАШЛЫКИ</a></li>
 
 							</ul>
 						</li>
-						<li class="menu-left__item">ЭЛЕКТРОНИКА
+						<li class="menu-left__item"><a>ЭЛЕКТРОНИКА</a>
 						<i class="fa fa-angle-right submenu-ic"></i>
 								<ul>
-									<li class="menu-left__item">ТЕЛЕФОНЫ
+									<li class="menu-left__item"><a>ТЕЛЕФОНЫ</a>
 									<i class="fa fa-angle-right submenu-ic"></i>
 										<ul>
-											<li class="menu-left__item">МОБИЛЬНЫЕ ТЕЛЕФОНЫ
+											<li class="menu-left__item"><a>МОБИЛЬНЫЕ ТЕЛЕФОНЫ</a>
 											<i class="fa fa-angle-right submenu-ic"></i>
 												<ul>
-													<li class="menu-left__item">APPLE</li>
-													<li class="menu-left__item">SAMSUNG</li>
-													<li class="menu-left__item">NOKIA</li>
-													<li class="menu-left__item">MOTOROLLA</li>
-													<li class="menu-left__item">SIEMENS</li>
+													<li class="menu-left__item"><a>APPLE</a></li>
+													<li class="menu-left__item"><a>SAMSUNG</a></li>
+													<li class="menu-left__item"><a>NOKIA</a></li>
+													<li class="menu-left__item"><a>MOTOROLLA</a></li>
+													<li class="menu-left__item"><a>SIEMENS</a></li>
 												</ul>
 											</li>
-											<li class="menu-left__item">РАДИОТЕЛЕФОНЫ</li>
-											<li class="menu-left__item">РАЦИИ</li>
-											<li class="menu-left__item">ЗАЩИТНЫЕ ПЛЕНКИ И СТЕКЛА</li>
-											<li class="menu-left__item">АКСЕССУАРЫ</li>
+											<li class="menu-left__item"><a>РАДИОТЕЛЕФОНЫ</a></li>
+											<li class="menu-left__item"><a>РАЦИИ</a></li>
+											<li class="menu-left__item"><a>ЗАЩИТНЫЕ ПЛЕНКИ И СТЕКЛА</a></li>
+											<li class="menu-left__item"><a>АКСЕССУАРЫ</a></li>
 										</ul>
 									</li>
-									<li class="menu-left__item">ПЛАНШЕТЫ</li>
+									<li class="menu-left__item"><a>ПЛАНШЕТЫ</a></li>
 								</ul>
 							
 						</li>
-						<li class="menu-left__item">КОМПЬЮТЕРНАЯ ТЕХНИКА</li>
-						<li class="menu-left__item">БЫТОВАЯ ТЕХНИКА</li>
+						<li class="menu-left__item"><a>КОМПЬЮТЕРНАЯ ТЕХНИКА</a></li>
+						<li class="menu-left__item"><a>БЫТОВАЯ ТЕХНИКА</a></li>
 					</ul>
 				
 			</div>
@@ -245,12 +246,14 @@ ul {
 			if ($(this).hasClass("opened")) {
 
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
+				$(this).parents(".opened").first().children("a").removeClass("hide");
 				$(this).siblings().removeClass("hide");
 				$(this).removeClass("opened");
 
 			} else {
 
 				$(this).addClass("opened").removeClass("hide"); 
+				$(this).parents(".opened").children("a").addClass("hide");
 				$(this).siblings().addClass("hide");
 				$(this).children("ul").children(".menu-left__item").removeClass("hide"); 
 			}
@@ -274,7 +277,7 @@ ul {
 
 		  	setTimeout(function(){
 				$('#menu-body').height(1000);
-			}, 50);
+			}, 70);
 
 		} else {
 		  children.addClass("hide");
@@ -284,7 +287,7 @@ ul {
 		  
 		  	setTimeout(function(){
 				$('#menu-body').height(80);
-			}, 50);
+			}, 70);
 
 
 		}
