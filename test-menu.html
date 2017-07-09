@@ -277,17 +277,18 @@ ul {
 
 		  	setTimeout(function(){
 				$('#menu-body').height(1000);
-			}, 70);
+			}, 50);
 
 		} else {
 		  children.addClass("hide");
 		  $("#menu").find(".opened").removeClass("opened");
+		  $("#menu").find("a.hidden").removeClass("hidden");
 		  $("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
 		  $( "#menu-body").addClass( "hide-menu-body");
 		  
 		  	setTimeout(function(){
 				$('#menu-body').height(60);
-			}, 70);
+			}, 50);
 
 
 		}
