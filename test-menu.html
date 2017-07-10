@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
+<html><head>
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -30,8 +28,6 @@ ul {
 .main-content {
 	display: flex;
 	flex-direction: row;
-	height: 100vh;
-    overflow-y: hidden;
     overflow-x: auto;
 }
 .menu__item-block {
@@ -80,7 +76,6 @@ ul {
 }
 .menu-left__content {
 	box-sizing: border-box;
-    height: calc(100vh - 140px);
     position: absolute;
     top: 60px;
     left: 0;
@@ -109,6 +104,8 @@ ul {
 .menu-left__item > a {
 	padding: 15px;
 	display: inline-block;
+	color: inherit;
+	text-decoration: none;
 }
 
 .menu-left__item.opened {
@@ -145,7 +142,7 @@ ul {
 }
 
 .show-menu-body {
-    height: 1000px;
+    /*height: 1000px;*/
 } 
 .hide-menu {
     transform: translate3d(1000px,0,0); 
@@ -164,7 +161,7 @@ ul {
 }
 	</style>
 </head>
-<body>
+<body cz-shortcut-listen="true">
 <div class="main-content">
 	<div class="menu-left hide-menu-body" id="menu-body">
 			<div class="menu-left__header">
@@ -175,44 +172,81 @@ ul {
 			<div class="menu-left__content show-menu" id="menu">
 			
 					<ul class="menu-left__content-block">
-						<li class="menu-left__item"><a>ТОВАРЫ ДЛЯ ЛЕТНЕГО ОТДЫХА</a>
+						<li class="menu-left__item"><a href="http://ost-klinika.ru/">Главная</a></li>
+						<li class="menu-left__item"><a href="https://ost-klinika.ru/o-klinike-osteopatii/">О нас</a></li>
+						<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
 						<i class="fa fa-angle-right submenu-ic"></i>
-							<ul>
-								<li class="menu-left__item"><a>ВЕЩИ В ДОРОГУ</a></li>
-								<li class="menu-left__item"><a>ПЛЯЖНЫЙ ОТДЫХ</a></li>
-								<li class="menu-left__item"><a>ОТДЫХ ЗА ГОРОДОМ И НА ДАЧЕ</a></li>
-								<li class="menu-left__item"><a>ПИКНИК И ШАШЛЫКИ</a></li>
-
+							<ul class="sub-menu">
+								<li class="menu-left__item"><a>Нервной системы</a>
+								<i class="fa fa-angle-right submenu-ic"></i>
+									<ul class="sub-menu">
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-dtsp-v-sankt-peterburge/">ДЦП</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/ishias-simptomy-i-lechenie/">Ишиас</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/miozit-lechenie-simptomy/">Миозит</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-nevralgii/">Невралгия</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-tservikalgii/">Цервикалгия</a></li>
+									</ul>
+								</li>
+								<li class="menu-left__item"><a>Позвоночника</a>
+								<i class="fa fa-angle-right submenu-ic"></i>
+									<ul class="sub-menu">
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-shmorlya/">Грыжа Шморля</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-kompressionnogo-pereloma-pozvonochnika-v-klinike/">Компрессионный перелом</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbalgiya-lechenie-i-simptomy/">Люмбалгия</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbago-simptomy-prichiny-i-lechenie/">Люмбаго</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/nestabilnost-pozvonkov/">Нестабильность позвонков</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-osteohondroza/">Остеохондроз</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Поясничный радикулит</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-protruzii-diska/">Протрузия диска</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-radikulita/">Радикулит</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/shejnyj-radikulit/">Радикулит шейного отдела</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Радикулит поясничного отдела</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/reabilitatsiya-posle-pereloma-pozvonochnika/">Реабилитация после перелома</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-i-reabilitatsiya-posle-travmy-pozvonochnika/">Реабилитация после травмы</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-sindroma-pozvonochnoj-arterii/">Синдром позвоночной артерии</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-skolioza/">Сколиоз</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-pozvonkov-poyasnichnogo-otdela/">Смещение позвонков поясницы</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-shejnyh-pozvonkov/">Смещение шейных позвонков</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/spondiloartroz-kak-lechit/">Спондилоартроз</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a></li>
+									</ul>
+								</li>
+								<li class="menu-left__item"><a>Суставов</a>
+								<i class="fa fa-angle-right submenu-ic"></i>
+									<ul class="sub-menu">
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-ploskostopiya/">Плоскостопие</a></li>
+										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-halyus-valgusa-bez-operatsii/">Халюс Вальгус</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
-						<li class="menu-left__item"><a>ЭЛЕКТРОНИКА</a>
+						<li class="menu-left__item"><a>Методы лечения</a>
 						<i class="fa fa-angle-right submenu-ic"></i>
-								<ul>
-									<li class="menu-left__item"><a>ТЕЛЕФОНЫ</a>
-									<i class="fa fa-angle-right submenu-ic"></i>
-										<ul>
-											<li class="menu-left__item"><a>МОБИЛЬНЫЕ ТЕЛЕФОНЫ</a>
-											<i class="fa fa-angle-right submenu-ic"></i>
-												<ul>
-													<li class="menu-left__item"><a>APPLE</a></li>
-													<li class="menu-left__item"><a>SAMSUNG</a></li>
-													<li class="menu-left__item"><a>NOKIA</a></li>
-													<li class="menu-left__item"><a>MOTOROLLA</a></li>
-													<li class="menu-left__item"><a>SIEMENS</a></li>
-												</ul>
-											</li>
-											<li class="menu-left__item"><a>РАДИОТЕЛЕФОНЫ</a></li>
-											<li class="menu-left__item"><a>РАЦИИ</a></li>
-											<li class="menu-left__item"><a>ЗАЩИТНЫЕ ПЛЕНКИ И СТЕКЛА</a></li>
-											<li class="menu-left__item"><a>АКСЕССУАРЫ</a></li>
-										</ul>
-									</li>
-									<li class="menu-left__item"><a>ПЛАНШЕТЫ</a></li>
-								</ul>
-							
+							<ul class="sub-menu">
+								<li class="menu-left__item"><a>Гирудотерапия</a></li>
+								<li class="menu-left__item"><a>Изготовление ортопед. стелек</a></li>
+								<li class="menu-left__item"><a>Лечебный массаж</a></li>
+								<li class="menu-left__item"><a>Мануальная терапия</a></li>
+								<li class="menu-left__item"><a>Медикаментозное лечение</a></li>
+								<li class="menu-left__item"><a>Неврология</a></li>
+								<li class="menu-left__item"><a>Остеопатия</a></li>
+								<li class="menu-left__item"><a>Рефлексотерапия</a></li>
+								<li class="menu-left__item"><a>Кинезиология</a></li>
+								<li class="menu-left__item"><a>Физиотерапия</a></li>
+							</ul>
 						</li>
-						<li class="menu-left__item"><a>КОМПЬЮТЕРНАЯ ТЕХНИКА</a></li>
-						<li class="menu-left__item"><a>БЫТОВАЯ ТЕХНИКА</a></li>
+						<li class="menu-left__item"><a>Цены</a></li>
+						<li class="menu-left__item"><a>Акции</a></li>
+						<li class="menu-left__item"><a>Отзывы</a></li>
+						<li class="menu-left__item"><a>Контакты</a></li>
 					</ul>
 				
 			</div>
@@ -276,7 +310,7 @@ ul {
 		  $( "#menu-body" ).removeClass( "hide-menu-body" );
 
 		  	setTimeout(function(){
-				$('#menu-body').height(1000);
+				$('#menu-body').height(1300);
 			}, 50);
 
 		} else {
@@ -296,6 +330,7 @@ ul {
 
 
 	</script>
-</body>
-</html>
 
+
+
+</body></html>
