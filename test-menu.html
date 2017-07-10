@@ -132,14 +132,34 @@ ul {
 
 /*Behaviour styles*/
 
-.hide-menu .menu-left__item > a {
-    transform: translate3d(-1000px,0,0); 
-    transition: all 0.4s linear;
+div#menu {
+    position: relative;
+    -webkit-animation-name: menuMove; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: 3; /* Safari 4.0 - 8.0 */
+    -webkit-animation-direction: reverse; /* Safari 4.0 - 8.0 */
+    animation-name: menuMove;
+    animation-duration: 4s;
+    animation-iteration-count: 3;
+    animation-direction: reverse;    
 }
 
-.show-menu .menu-left__item > a {
+@keyframes menuMove {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+}
+
+.hide-menu {
+    transform: translate3d(1000px,0,0); 
+    transition: all 0.3s linear;
+}
+
+.show-menu {
     transform: translate3d(0,0,0);      
-    transition: all 0.4s linear;
+    transition: all 0.3s linear;
    
 }  
 @media all and (max-width: 800px){
@@ -261,6 +281,11 @@ ul {
 		menu.classList.add("hide-menu");
 
 		setTimeout(function(){
+			menu.classList.add("move-menu");
+		}, 100);
+
+		setTimeout(function(){
+			menu.classList.remove("move-menu");
 			menu.classList.add("show-menu");
 		}, 100);
 
