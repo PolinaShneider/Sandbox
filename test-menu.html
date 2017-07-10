@@ -132,36 +132,25 @@ ul {
 
 /*Behaviour styles*/
 
-div#menu {
-    position: relative;
-    -webkit-animation-name: menuMove; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-    -webkit-animation-iteration-count: 3; /* Safari 4.0 - 8.0 */
-    -webkit-animation-direction: reverse; /* Safari 4.0 - 8.0 */
-    animation-name: menuMove;
-    animation-duration: 4s;
-    animation-iteration-count: 3;
-    animation-direction: reverse;    
-}
-
-@keyframes menuMove {
-    0%   {background-color:red; left:0px; top:0px;}
-    25%  {background-color:yellow; left:200px; top:0px;}
-    50%  {background-color:blue; left:200px; top:200px;}
-    75%  {background-color:green; left:0px; top:200px;}
-    100% {background-color:red; left:0px; top:0px;}
-}
 
 .hide-menu {
-    transform: translate3d(1000px,0,0); 
+    transform: translate3d(-425px,0,0); 
     transition: all 0.3s linear;
 }
-
+.hide-menu-right {
+    transform: translate3d(425px,0,0); 
+    transition: all 0.3s;
+    
+}
 .show-menu {
     transform: translate3d(0,0,0);      
     transition: all 0.3s linear;
-   
 }  
+.fast-transition {
+	transition: all 0s;
+	visibility: hidden;
+}
+
 @media all and (max-width: 800px){
 	.menu-left {
 		width: 100%;
@@ -277,18 +266,37 @@ div#menu {
 		if (subItems.length > 0) { 
 
 		event.stopPropagation();
-		menu.classList.remove("show-menu");
-		menu.classList.add("hide-menu");
 
+		if ($(this).hasClass("opened")) {
+
+			$("#menu").toggleClass("hide-menu-right show-menu");
+			
+
+			setTimeout(function(){
+					$("#menu").toggleClass("fast-transition", true);
+					$("#menu").toggleClass("hide-menu-right hide-menu");
+			}, 300);
+
+		} else {
+
+			$("#menu").toggleClass("hide-menu show-menu");
+			
+
+			setTimeout(function(){
+				$("#menu").toggleClass("fast-transition", true);
+					$("#menu").toggleClass("hide-menu-right hide-menu");
+			}, 300);
+
+			
+
+		}
+
+	
 		setTimeout(function(){
-			menu.classList.add("move-menu");
-		}, 100);
-
-		setTimeout(function(){
-			menu.classList.remove("move-menu");
-			menu.classList.add("show-menu");
-		}, 100);
-
+					$("#menu").toggleClass("fast-transition", false);
+						$("#menu").toggleClass("hide-menu-right hide-menu", false);
+						$("#menu").addClass("show-menu");
+					}, 600);
 			
 
 			if ($(this).hasClass("opened")) {
@@ -300,6 +308,9 @@ div#menu {
 
 			} else {
 
+				$("#menu").addClass("hide-menu");
+				$("#menu").removeClass("show-menu");
+				
 				$(this).addClass("opened").removeClass("hide"); 
 				$(this).parents(".opened").children("a").addClass("hide");
 				$(this).siblings().addClass("hide");
