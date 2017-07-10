@@ -21,37 +21,26 @@ ul {
 	margin: 0;
 }
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 .hide {
 	display: none !important;
 }
 
 .main-content {
 	display: flex;
-	flex-direction: row;
-	height: 100vh;
-    overflow-y: scroll;
-    overflow-x: auto;
+	height: 100%;
 }
-.menu__item-block {
-	display: flex;
-	flex-direction: column;
-}
-.menu__item:hover {
-	background-color: #F7F7F7;
-	cursor: pointer;
-	margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 100%;
-}
+
 
 .menu-left {
 	width: 800px;
 	background-color: #FFFFFF;
 	position: relative;
 	border: 1px solid #d3d1d1;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .menu-left__header {
 	height: 60px;
@@ -77,8 +66,6 @@ ul {
 	color: #aaacb0;
 }
 .menu-left__content {
-	box-sizing: border-box;
-    /*height: calc(100vh - 140px);*/
     position: absolute;
     top: 60px;
     left: 0;
@@ -88,10 +75,6 @@ ul {
 }
 .menu-left__content-block:not(:first-child) {
 	padding-top: 20px;
-}
-.menu-left__item-block {
-	display: flex;
-	flex-direction: column;
 }
 
 .menu-left__item .menu-left__item:first-child {
@@ -118,6 +101,10 @@ ul {
 	background-color: #ebe8e8;
 }
 
+.sub-menu {
+	overflow: scroll;
+}
+
 .menu-left__item.opened > ul {
 	background-color: #FFFFFF;
 }
@@ -140,22 +127,14 @@ ul {
 
 /*Behaviour styles*/
 
-.hide-menu-body {
-    overflow: hidden;
-    height: 60px;
+.hide-menu .menu-left__item > a {
+    transform: translate3d(-1000px,0,0); 
+    transition: all 0.4s linear;
 }
 
-.show-menu-body {
-    height: 1000px;
-} 
-.hide-menu {
-    transform: translate3d(1000px,0,0); 
-    transition: all 0.5s linear;
-}
-
-.show-menu {
+.show-menu .menu-left__item > a {
     transform: translate3d(0,0,0);      
-    transition: all 0.5s linear;
+    transition: all 0.4s linear;
    
 }  
 @media all and (max-width: 800px){
@@ -167,12 +146,13 @@ ul {
 </head>
 <body cz-shortcut-listen="true">
 <div class="main-content">
-	<div class="menu-left hide-menu-body" id="menu-body">
+	<div class="menu-left" id="menu-body">
 			<div class="menu-left__header">
 				<div class="menu-left__hamburger" id="menu-button">
 					<i class="fa fa-bars"></i>
 				</div>
 			</div>
+			
 			<div class="menu-left__content show-menu" id="menu">
 			
 					<ul class="menu-left__content-block">
@@ -258,7 +238,7 @@ ul {
 		</div>
 	<script type="text/javascript">
 
-	menu = document.getElementById("menu");
+	var menu = document.getElementById("menu");
 	var menuContent = $('.menu-left__content-block');
 	var children = $(".menu-left__item").find(".menu-left__item");
 	children.addClass("hide");
@@ -309,27 +289,15 @@ ul {
 
 	$('#menu-button').click(function(){
 
-		if ($( "#menu-body" ).hasClass( "hide-menu-body" )) { 
-
-		  $( "#menu-body" ).removeClass( "hide-menu-body" );
-
+		$(".menu-left__content").slideToggle("fast");
 		  	setTimeout(function(){
-				$('#menu-body').height(1000);
-			}, 50);
-
-		} else {
-		  children.addClass("hide");
-		  $("#menu").find(".opened").removeClass("opened");
-		  $("#menu").find("a.hide").removeClass("hide");
-		  $("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
-		  $( "#menu-body").addClass( "hide-menu-body");
-		  
-		  	setTimeout(function(){
-				$('#menu-body').height(60);
-			}, 50);
+				children.addClass("hide");
+				$("#menu").find(".opened").removeClass("opened");
+				$("#menu").find("a.hide").removeClass("hide");
+				$("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
+			}, 500);
 
 
-		}
 	});
 
 
