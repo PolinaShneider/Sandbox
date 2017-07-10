@@ -28,6 +28,8 @@ ul {
 .main-content {
 	display: flex;
 	flex-direction: row;
+	height: 100vh;
+    overflow-y: scroll;
     overflow-x: auto;
 }
 .menu__item-block {
@@ -76,9 +78,11 @@ ul {
 }
 .menu-left__content {
 	box-sizing: border-box;
+    /*height: calc(100vh - 140px);*/
     position: absolute;
     top: 60px;
     left: 0;
+    bottom: 0;
     z-index: 1;
     width: 100%;
 }
@@ -142,7 +146,7 @@ ul {
 }
 
 .show-menu-body {
-    /*height: 1000px;*/
+    height: 1000px;
 } 
 .hide-menu {
     transform: translate3d(1000px,0,0); 
@@ -310,7 +314,7 @@ ul {
 		  $( "#menu-body" ).removeClass( "hide-menu-body" );
 
 		  	setTimeout(function(){
-				$('#menu-body').height(1300);
+				$('#menu-body').height(1000);
 			}, 50);
 
 		} else {
