@@ -37,7 +37,7 @@ ul {
 
 
 .menu-left {
-	width: 800px;
+	width: 320px;
 	background-color: #FFFFFF;
 	position: relative;
 	border: 1px solid #d3d1d1;
@@ -74,9 +74,6 @@ ul {
     z-index: 1;
     width: 100%;
 }
-.menu-left__content-block:not(:first-child) {
-	padding-top: 20px;
-}
 
 .menu-left__item .menu-left__item:first-child {
 	border-top: 1px solid #d3d1d1;
@@ -86,6 +83,7 @@ ul {
 	display: block;
 	color: #000;
 	border-bottom: 1px solid #d3d1d1;
+	font-size: 16px;
 	position: relative;
 }
 
@@ -95,6 +93,7 @@ ul {
 
 .menu-left__item > a {
 	padding: 15px;
+	margin-left: 40px;
 	display: inline-block;
 	color: inherit;
 	text-decoration: none;
@@ -103,27 +102,30 @@ ul {
 .menu-left__item.opened {
 	border-bottom: 0px solid transparent;
 	padding-bottom: 0;
-	background-color: #ebe8e8;
 }
+
 
 .sub-menu {
 	overflow: scroll;
 }
 
-.menu-left__item.opened > ul {
-	background-color: #FFFFFF;
-}
 
-
-.menu-left__item.opened > .submenu-ic {
+.menu-left__item.opened > .submenu-ic-fwd {
 	display: none;
 }
 
-.submenu-ic {
+.submenu-ic-fwd {
 	position: absolute;
 	right: 40px;
 	bottom: 15px;
 	font-size: 20px;
+}
+
+.submenu-ic-back {
+	position: absolute;
+    left: 20px;
+    top: 15px;
+    font-size: 20px;
 }
 
 .menu-left__item:hover {
@@ -156,7 +158,77 @@ ul {
 		width: 100%;
 	}
 }
-	</style>
+
+/*Transfer existing styles from site*/
+
+.mdl-textfield__input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    display: block;
+    font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
+    margin: 0;
+    padding: 4px 0;
+    width: 100%;
+    background: 0 0;
+    text-align: left;
+    color: inherit;
+}
+.mdl-textfield__label {
+    bottom: 0;
+    color: #000; /*Modified*/
+    font-size: 16px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 24px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.mdl-textfield {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0;
+}
+.mdl-menu__item__search__field {
+    margin: 0 45px 0 15px;
+    margin-left: 55px;
+    width: 225px;
+}
+
+
+
+/*Added to search styles*/
+
+.search-ic {
+	position: absolute;
+    color: #a7a7a7;
+    font-size: 17px;
+    right: 40px;
+    top: 26px;
+    cursor: pointer;
+}	
+
+form.search {
+	margin-bottom: 0;
+}
+
+input:focus {
+    outline: none;
+}	
+
+</style>
+
 </head>
 <body cz-shortcut-listen="true">
 <div class="main-content">
@@ -166,79 +238,86 @@ ul {
 					<i class="fa fa-bars"></i>
 				</div>
 			</div>
-			
 			<div class="menu-left__content show-menu" id="menu">
-			
 					<ul class="menu-left__content-block">
+						<li class="menu-left__item">
+							<form role="search" method="get" id="searchform" class="search" action="https://ost-klinika.ru/">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-menu__item__search__field is-upgraded" data-upgraded=",MaterialTextfield">
+									<input class="mdl-textfield__input" type="text" id="search" value="" name="s">
+									<label class="mdl-textfield__label" for="search">Поиск</label>					  
+								</div>
+								<i class="fa fa-search search-ic"></i>
+							</form>
+						</li>
 						<li class="menu-left__item"><a href="http://ost-klinika.ru/">Главная</a></li>
 						<li class="menu-left__item"><a href="https://ost-klinika.ru/o-klinike-osteopatii/">О нас</a></li>
 						<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
-						<i class="fa fa-angle-right submenu-ic"></i>
+						<i class="fa fa-angle-right submenu-ic-fwd"></i>
 							<ul class="sub-menu">
-								<li class="menu-left__item"><a>Нервной системы</a>
-								<i class="fa fa-angle-right submenu-ic"></i>
+								<li class="menu-left__item hide"><a>Нервной системы</a>
+								<i class="fa fa-angle-right submenu-ic-fwd"></i>
 									<ul class="sub-menu">
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-dtsp-v-sankt-peterburge/">ДЦП</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/ishias-simptomy-i-lechenie/">Ишиас</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/miozit-lechenie-simptomy/">Миозит</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-nevralgii/">Невралгия</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-tservikalgii/">Цервикалгия</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-dtsp-v-sankt-peterburge/">ДЦП</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/ishias-simptomy-i-lechenie/">Ишиас</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/miozit-lechenie-simptomy/">Миозит</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-nevralgii/">Невралгия</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-tservikalgii/">Цервикалгия</a></li>
 									</ul>
 								</li>
-								<li class="menu-left__item"><a>Позвоночника</a>
-								<i class="fa fa-angle-right submenu-ic"></i>
+								<li class="menu-left__item hide"><a>Позвоночника</a>
+								<i class="fa fa-angle-right submenu-ic-fwd"></i>
 									<ul class="sub-menu">
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-shmorlya/">Грыжа Шморля</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-kompressionnogo-pereloma-pozvonochnika-v-klinike/">Компрессионный перелом</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbalgiya-lechenie-i-simptomy/">Люмбалгия</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbago-simptomy-prichiny-i-lechenie/">Люмбаго</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/nestabilnost-pozvonkov/">Нестабильность позвонков</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-osteohondroza/">Остеохондроз</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Поясничный радикулит</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-protruzii-diska/">Протрузия диска</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-radikulita/">Радикулит</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/shejnyj-radikulit/">Радикулит шейного отдела</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Радикулит поясничного отдела</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/reabilitatsiya-posle-pereloma-pozvonochnika/">Реабилитация после перелома</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-i-reabilitatsiya-posle-travmy-pozvonochnika/">Реабилитация после травмы</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-sindroma-pozvonochnoj-arterii/">Синдром позвоночной артерии</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-skolioza/">Сколиоз</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-pozvonkov-poyasnichnogo-otdela/">Смещение позвонков поясницы</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-shejnyh-pozvonkov/">Смещение шейных позвонков</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/spondiloartroz-kak-lechit/">Спондилоартроз</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-shmorlya/">Грыжа Шморля</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-kompressionnogo-pereloma-pozvonochnika-v-klinike/">Компрессионный перелом</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbalgiya-lechenie-i-simptomy/">Люмбалгия</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbago-simptomy-prichiny-i-lechenie/">Люмбаго</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/nestabilnost-pozvonkov/">Нестабильность позвонков</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-osteohondroza/">Остеохондроз</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Поясничный радикулит</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-protruzii-diska/">Протрузия диска</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-radikulita/">Радикулит</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/shejnyj-radikulit/">Радикулит шейного отдела</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Радикулит поясничного отдела</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/reabilitatsiya-posle-pereloma-pozvonochnika/">Реабилитация после перелома</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-i-reabilitatsiya-posle-travmy-pozvonochnika/">Реабилитация после травмы</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-sindroma-pozvonochnoj-arterii/">Синдром позвоночной артерии</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-skolioza/">Сколиоз</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-pozvonkov-poyasnichnogo-otdela/">Смещение позвонков поясницы</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-shejnyh-pozvonkov/">Смещение шейных позвонков</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/spondiloartroz-kak-lechit/">Спондилоартроз</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a></li>
 									</ul>
 								</li>
-								<li class="menu-left__item"><a>Суставов</a>
-								<i class="fa fa-angle-right submenu-ic"></i>
+								<li class="menu-left__item hide"><a>Суставов</a>
+								<i class="fa fa-angle-right submenu-ic-fwd"></i>
 									<ul class="sub-menu">
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-ploskostopiya/">Плоскостопие</a></li>
-										<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-halyus-valgusa-bez-operatsii/">Халюс Вальгус</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-ploskostopiya/">Плоскостопие</a></li>
+										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-halyus-valgusa-bez-operatsii/">Халюс Вальгус</a></li>
 									</ul>
 								</li>
 							</ul>
 						</li>
 						<li class="menu-left__item"><a>Методы лечения</a>
-						<i class="fa fa-angle-right submenu-ic"></i>
+						<i class="fa fa-angle-right submenu-ic-fwd"></i>
 							<ul class="sub-menu">
-								<li class="menu-left__item"><a>Гирудотерапия</a></li>
-								<li class="menu-left__item"><a>Изготовление ортопед. стелек</a></li>
-								<li class="menu-left__item"><a>Лечебный массаж</a></li>
-								<li class="menu-left__item"><a>Мануальная терапия</a></li>
-								<li class="menu-left__item"><a>Медикаментозное лечение</a></li>
-								<li class="menu-left__item"><a>Неврология</a></li>
-								<li class="menu-left__item"><a>Остеопатия</a></li>
-								<li class="menu-left__item"><a>Рефлексотерапия</a></li>
-								<li class="menu-left__item"><a>Кинезиология</a></li>
-								<li class="menu-left__item"><a>Физиотерапия</a></li>
+								<li class="menu-left__item hide"><a>Гирудотерапия</a></li>
+								<li class="menu-left__item hide"><a>Изготовление ортопед. стелек</a></li>
+								<li class="menu-left__item hide"><a>Лечебный массаж</a></li>
+								<li class="menu-left__item hide"><a>Мануальная терапия</a></li>
+								<li class="menu-left__item hide"><a>Медикаментозное лечение</a></li>
+								<li class="menu-left__item hide"><a>Неврология</a></li>
+								<li class="menu-left__item hide"><a>Остеопатия</a></li>
+								<li class="menu-left__item hide"><a>Рефлексотерапия</a></li>
+								<li class="menu-left__item hide"><a>Кинезиология</a></li>
+								<li class="menu-left__item hide"><a>Физиотерапия</a></li>
 							</ul>
 						</li>
 						<li class="menu-left__item"><a>Цены</a></li>
@@ -293,18 +372,21 @@ ul {
 
 	
 		setTimeout(function(){
-					$("#menu").toggleClass("fast-transition", false);
-						$("#menu").toggleClass("hide-menu-right hide-menu", false);
-						$("#menu").addClass("show-menu");
-					}, 600);
+
+			$("#menu").toggleClass("fast-transition", false);
+				$("#menu").toggleClass("hide-menu-right hide-menu", false);
+				$("#menu").addClass("show-menu");
+			}, 600);
 			
 
 			if ($(this).hasClass("opened")) {
 
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
-				$(this).parents(".opened").first().children("a").removeClass("hide");
+				$(this).parents(".opened").first().children("a").removeClass("hide"); 
+				$(this).parents(".opened").children(".submenu-ic-back ").removeClass("hide"); /*Add and remove back arrow ic*/
 				$(this).siblings().removeClass("hide");
 				$(this).removeClass("opened");
+				$(this).children(".submenu-ic-back").removeClass("submenu-ic-back fa-angle-left").addClass("submenu-ic-fwd fa-angle-right ");
 
 			} else {
 
@@ -312,7 +394,9 @@ ul {
 				$("#menu").removeClass("show-menu");
 				
 				$(this).addClass("opened").removeClass("hide"); 
+				$(this).children(".submenu-ic-fwd").removeClass("submenu-ic-fwd fa-angle-right").addClass("submenu-ic-back fa-angle-left"); 
 				$(this).parents(".opened").children("a").addClass("hide");
+				$(this).parents(".opened").children(".submenu-ic-back ").addClass("hide"); /*Add and remove back arrow ic*/
 				$(this).siblings().addClass("hide");
 				$(this).children("ul").children(".menu-left__item").removeClass("hide"); 
 			}
