@@ -153,6 +153,10 @@ ul {
 	visibility: hidden;
 }
 
+.disableClick{
+    pointer-events: none;
+}
+
 @media all and (max-width: 800px){
 	.menu-left {
 		width: 100%;
@@ -334,6 +338,7 @@ input:focus {
 	var menuContent = $('.menu-left__content-block');
 	var children = $(".menu-left__item").find(".menu-left__item");
 	children.addClass("hide");
+	$(".menu-left__item").children("a").addClass("disableClick");
 
 	$('.menu-left__item').click(function( event ){
 		
@@ -342,31 +347,31 @@ input:focus {
 
 		if (subItems.length > 0) { 
 
-		event.stopPropagation();
+			event.stopPropagation();
 
-		if ($(this).hasClass("opened")) {
+			if ($(this).hasClass("opened")) {
 
-			$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
-			
+				$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
+				
 
-			setTimeout(function(){
+				setTimeout(function(){
+						$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
+						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
+				}, 300);
+
+			} else {
+
+				$("#menu").toggleClass("js-menu-left__content--hide-menuu js-menu-left__content--show-menu");
+				
+
+				setTimeout(function(){
 					$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
-			}, 300);
+						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
+				}, 300);
 
-		} else {
+				
 
-			$("#menu").toggleClass("js-menu-left__content--hide-menuu js-menu-left__content--show-menu");
-			
-
-			setTimeout(function(){
-				$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
-			}, 300);
-
-			
-
-		}
+			}
 
 
 
@@ -403,13 +408,8 @@ input:focus {
     		
 
 		} else if (subItems.length == 0) {
+			window.location.href = $(this).children("a").attr('href');
 			return false;
-		}
-
-		if (!($(this).children("a").attr('href') == undefined)) {
-			$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
-			// window.location.href = $(this).children("a").attr('href');
-		
 		}
 		
 	});
