@@ -408,7 +408,9 @@ input:focus {
     		
 
 		} else if (subItems.length == 0) {
-			window.location.href = $(this).children("a").attr('href');
+			if (!($(this).children("a").attr('href') == undefined)) {
+				window.location.href = $(this).children("a").attr('href');
+			}
 			return false;
 		}
 		
