@@ -135,20 +135,20 @@ ul {
 /*Behaviour styles*/
 
 
-.hide-menu {
-    transform: translate3d(-425px,0,0); 
+.js-menu-left__content--hide-menu {
+    transform: translate3d(-600px,0,0); 
     transition: all 0.3s linear;
 }
-.hide-menu-right {
-    transform: translate3d(425px,0,0); 
+.js-menu-left__content--hide-menu-right {
+    transform: translate3d(600px,0,0); 
     transition: all 0.3s;
     
 }
-.show-menu {
+.js-menu-left__content--show-menu {
     transform: translate3d(0,0,0);      
     transition: all 0.3s linear;
 }  
-.fast-transition {
+.js-menu-left__content-fast-transition {
 	transition: all 0s;
 	visibility: hidden;
 }
@@ -166,7 +166,6 @@ ul {
     border-bottom: 1px solid rgba(0,0,0,.12);
     display: block;
     font-size: 16px;
-    font-family: "Helvetica","Arial",sans-serif;
     margin: 0;
     padding: 4px 0;
     width: 100%;
@@ -238,7 +237,7 @@ input:focus {
 					<i class="fa fa-bars"></i>
 				</div>
 			</div>
-			<div class="menu-left__content show-menu" id="menu">
+			<div class="menu-left__content js-menu-left__content--show-menu" id="menu">
 					<ul class="menu-left__content-block">
 						<li class="menu-left__item">
 							<form role="search" method="get" id="searchform" class="search" action="https://ost-klinika.ru/">
@@ -337,7 +336,6 @@ input:focus {
 	children.addClass("hide");
 
 	$('.menu-left__item').click(function( event ){
-
 		
 	var subItems = $(this).children("ul").children(".menu-left__item");
 		
@@ -348,34 +346,36 @@ input:focus {
 
 		if ($(this).hasClass("opened")) {
 
-			$("#menu").toggleClass("hide-menu-right show-menu");
+			$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
 			
 
 			setTimeout(function(){
-					$("#menu").toggleClass("fast-transition", true);
-					$("#menu").toggleClass("hide-menu-right hide-menu");
+					$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
+					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
 			}, 300);
 
 		} else {
 
-			$("#menu").toggleClass("hide-menu show-menu");
+			$("#menu").toggleClass("js-menu-left__content--hide-menuu js-menu-left__content--show-menu");
 			
 
 			setTimeout(function(){
-				$("#menu").toggleClass("fast-transition", true);
-					$("#menu").toggleClass("hide-menu-right hide-menu");
+				$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
+					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
 			}, 300);
 
 			
 
 		}
 
+
+
 	
 		setTimeout(function(){
 
-			$("#menu").toggleClass("fast-transition", false);
-				$("#menu").toggleClass("hide-menu-right hide-menu", false);
-				$("#menu").addClass("show-menu");
+			$("#menu").toggleClass("js-menu-left__content-fast-transition", false);
+				$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
+				$("#menu").addClass("js-menu-left__content--show-menu");
 			}, 600);
 			
 
@@ -390,8 +390,8 @@ input:focus {
 
 			} else {
 
-				$("#menu").addClass("hide-menu");
-				$("#menu").removeClass("show-menu");
+				$("#menu").addClass("js-menu-left__content--hide-menu");
+				$("#menu").removeClass("js-menu-left__content--show-menu");
 				
 				$(this).addClass("opened").removeClass("hide"); 
 				$(this).children(".submenu-ic-fwd").removeClass("submenu-ic-fwd fa-angle-right").addClass("submenu-ic-back fa-angle-left"); 
@@ -404,6 +404,12 @@ input:focus {
 
 		} else if (subItems.length == 0) {
 			return false;
+		}
+
+		if (!($(this).children("a").attr('href') == undefined)) {
+			$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
+			// window.location.href = $(this).children("a").attr('href');
+		
 		}
 		
 	});
