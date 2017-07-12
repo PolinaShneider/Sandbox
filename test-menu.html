@@ -80,11 +80,17 @@ ul {
 }
 
 .menu-left__item {
-	display: block;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	min-height: 45px;
 	color: #000;
 	border-bottom: 1px solid #d3d1d1;
 	font-size: 16px;
-	position: relative;
+}
+.menu-left__item--search {
+	height: initial;
 }
 
 .menu-left__item:last-child {
@@ -92,9 +98,8 @@ ul {
 }
 
 .menu-left__item > a {
-	padding: 15px;
-	margin-left: 40px;
-	display: inline-block;
+	display: flex;
+	flex-grow: 1;
 	color: inherit;
 	text-decoration: none;
 }
@@ -102,6 +107,10 @@ ul {
 .menu-left__item.opened {
 	border-bottom: 0px solid transparent;
 	padding-bottom: 0;
+}
+
+.menu-left__item.opened > ul {
+	width: 100%;
 }
 
 
@@ -114,18 +123,17 @@ ul {
 	display: none;
 }
 
-.submenu-ic-fwd {
-	position: absolute;
-	right: 40px;
-	bottom: 15px;
-	font-size: 20px;
+.menu-left__item > i {
+	width: 45px;
+	height: 45px;
 }
-
-.submenu-ic-back {
-	position: absolute;
-    left: 20px;
-    top: 15px;
-    font-size: 20px;
+.submenu-ic-fwd, .submenu-ic-back {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	/*padding: 12px;*/
+	
 }
 
 .menu-left__item:hover {
@@ -243,7 +251,7 @@ input:focus {
 			</div>
 			<div class="menu-left__content js-menu-left__content--show-menu" id="menu">
 					<ul class="menu-left__content-block">
-						<li class="menu-left__item">
+						<li class="menu-left__item menu-left__item--search"">
 							<form role="search" method="get" id="searchform" class="search" action="https://ost-klinika.ru/">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-menu__item__search__field is-upgraded" data-upgraded=",MaterialTextfield">
 									<input class="mdl-textfield__input" type="text" id="search" value="" name="s">
@@ -254,11 +262,12 @@ input:focus {
 						</li>
 						<li class="menu-left__item"><a href="http://ost-klinika.ru/">Главная</a></li>
 						<li class="menu-left__item"><a href="https://ost-klinika.ru/o-klinike-osteopatii/">О нас</a></li>
-						<li class="menu-left__item"><a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
-						<i class="fa fa-angle-right submenu-ic-fwd"></i>
+						<li class="menu-left__item">
+							<a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
+							
 							<ul class="sub-menu">
-								<li class="menu-left__item hide"><a>Нервной системы</a>
-								<i class="fa fa-angle-right submenu-ic-fwd"></i>
+								<li class="menu-left__item hide">
+								<a>Нервной системы</a>
 									<ul class="sub-menu">
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a></li>
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a></li>
@@ -271,7 +280,6 @@ input:focus {
 									</ul>
 								</li>
 								<li class="menu-left__item hide"><a>Позвоночника</a>
-								<i class="fa fa-angle-right submenu-ic-fwd"></i>
 									<ul class="sub-menu">
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a></li>
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a></li>
@@ -297,8 +305,9 @@ input:focus {
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a></li>
 									</ul>
 								</li>
-								<li class="menu-left__item hide"><a>Суставов</a>
-								<i class="fa fa-angle-right submenu-ic-fwd"></i>
+								<li class="menu-left__item hide">
+									<a>Суставов</a>
+									
 									<ul class="sub-menu">
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a></li>
 										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a></li>
@@ -309,7 +318,6 @@ input:focus {
 							</ul>
 						</li>
 						<li class="menu-left__item"><a>Методы лечения</a>
-						<i class="fa fa-angle-right submenu-ic-fwd"></i>
 							<ul class="sub-menu">
 								<li class="menu-left__item hide"><a>Гирудотерапия</a></li>
 								<li class="menu-left__item hide"><a>Изготовление ортопед. стелек</a></li>
@@ -338,16 +346,28 @@ input:focus {
 	var menuContent = $('.menu-left__content-block');
 	var children = $(".menu-left__item").find(".menu-left__item");
 	children.addClass("hide");
+
+
+	$(".menu-left__item").not(".menu-left__item--search").append('<i></i>');
+	$(".menu-left__item").not(".menu-left__item--search").prepend('<i></i>');
+
+	$(".menu-left__item").has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
+	
+
+
 	$(".menu-left__item").children("a").addClass("disableClick");
 
 	$('.menu-left__item').click(function( event ){
 		
-	var subItems = $(this).children("ul").children(".menu-left__item");
+		var subItems = $(this).children("ul").children(".menu-left__item");
 		
 
 		if (subItems.length > 0) { 
 
+
+
 			event.stopPropagation();
+
 
 			if ($(this).hasClass("opened")) {
 
@@ -387,11 +407,11 @@ input:focus {
 			if ($(this).hasClass("opened")) {
 
 				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
+				$(this).children("i").first().removeClass("submenu-ic-back fa fa-angle-left");
 				$(this).parents(".opened").first().children("a").removeClass("hide"); 
-				$(this).parents(".opened").children(".submenu-ic-back ").removeClass("hide"); /*Add and remove back arrow ic*/
+				$(this).parents(".opened").first().children("i").removeClass("hide");
 				$(this).siblings().removeClass("hide");
 				$(this).removeClass("opened");
-				$(this).children(".submenu-ic-back").removeClass("submenu-ic-back fa-angle-left").addClass("submenu-ic-fwd fa-angle-right ");
 
 			} else {
 
@@ -399,9 +419,9 @@ input:focus {
 				$("#menu").removeClass("js-menu-left__content--show-menu");
 				
 				$(this).addClass("opened").removeClass("hide"); 
-				$(this).children(".submenu-ic-fwd").removeClass("submenu-ic-fwd fa-angle-right").addClass("submenu-ic-back fa-angle-left"); 
+				$(this).children("i").first().addClass("submenu-ic-back fa fa-angle-left");
 				$(this).parents(".opened").children("a").addClass("hide");
-				$(this).parents(".opened").children(".submenu-ic-back ").addClass("hide"); /*Add and remove back arrow ic*/
+				$(this).parents(".opened").children("i").addClass("hide");
 				$(this).siblings().addClass("hide");
 				$(this).children("ul").children(".menu-left__item").removeClass("hide"); 
 			}
