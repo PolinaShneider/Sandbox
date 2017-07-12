@@ -456,6 +456,8 @@ input:focus {
 					return false;
 				});
 
+			return false;
+
 
 			} else {
 
@@ -493,6 +495,7 @@ input:focus {
 				$("#menu").find(".opened").removeClass("opened");
 				$("#menu").find("a.hide").removeClass("hide");
 				$("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
+				$("#menu").find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
 			}, 500);
 
 
