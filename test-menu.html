@@ -405,9 +405,10 @@ input:focus {
 				$(this).children(".submenu-ic-back").on('click', function() {
 
 				    var parent = $(this).parents().first(); 
-				    console.log(parent);
 			    	parent.children("ul").children(".menu-left__item").addClass("hide"); 
 					parent.children("i").first().removeClass("submenu-ic-back fa fa-angle-left");
+					parent.parents().children("a").removeClass("hide");
+					parent.parents().children("i").removeClass("hide");
 					parent.children("a").removeClass("hide"); 
 					parent.children("a").addClass("disableClick"); 
 					parent.children("i").removeClass("hide");
@@ -437,23 +438,6 @@ input:focus {
 					if (!($(this).attr('href') == undefined)) {
 						window.location.href = $(this).attr('href');
 					}
-
-					
-					
-
-					
-
-					// setTimeout(function(){
-					// 		$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-					// 		$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
-					// }, 300);
-
-					// setTimeout(function(){
-
-					// $("#menu").toggleClass("js-menu-left__content-fast-transition", false);
-					// 	$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
-					// 	$("#menu").addClass("js-menu-left__content--show-menu");
-					// }, 600);
 
 					return false;
 				});
