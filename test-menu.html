@@ -102,6 +102,10 @@ ul {
 	flex-grow: 1;
 	color: inherit;
 	text-decoration: none;
+	width: 225px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .menu-left__item.opened {
@@ -217,7 +221,7 @@ ul {
 }
 .mdl-menu__item__search__field {
     margin: 0 45px 0 15px;
-    margin-left: 55px;
+    margin-left: 45px;
     width: 225px;
 }
 
@@ -425,7 +429,7 @@ input:focus {
 				}).trigger("click");
 
 				$(this).children("a").on('click', function() {
-					
+
 					$("#menu").toggleClass("js-menu-left__content--hide-menu-right", false);
 
 					if (!($(this).attr('href') == undefined)) {
