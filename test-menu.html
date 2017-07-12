@@ -161,6 +161,10 @@ ul {
 	visibility: hidden;
 }
 
+.disableTransition {
+	transition: width 0s;
+}
+
 .disableClick{
     pointer-events: none;
 }
@@ -317,7 +321,8 @@ input:focus {
 								</li>
 							</ul>
 						</li>
-						<li class="menu-left__item"><a>Методы лечения</a>
+						<li class="menu-left__item">
+							<a href="https://ost-klinika.ru/metody-lecheniya/">Методы лечения</a>
 							<ul class="sub-menu">
 								<li class="menu-left__item hide"><a>Гирудотерапия</a></li>
 								<li class="menu-left__item hide"><a>Изготовление ортопед. стелек</a></li>
@@ -364,24 +369,12 @@ input:focus {
 
 		if (subItems.length > 0) { 
 
-
-
 			event.stopPropagation();
 
 
-			if ($(this).hasClass("opened")) {
+			if (!($(this).hasClass("opened"))) {
 
-				$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
-				
-
-				setTimeout(function(){
-						$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
-				}, 300);
-
-			} else {
-
-				$("#menu").toggleClass("js-menu-left__content--hide-menuu js-menu-left__content--show-menu");
+				$("#menu").toggleClass("js-menu-left__content--hide-menu js-menu-left__content--show-menu");
 				
 
 				setTimeout(function(){
@@ -392,33 +385,81 @@ input:focus {
 				
 
 			}
-
-
-
 	
 		setTimeout(function(){
 
 			$("#menu").toggleClass("js-menu-left__content-fast-transition", false);
 				$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
 				$("#menu").addClass("js-menu-left__content--show-menu");
-			}, 600);
+		}, 600);
 			
 
 			if ($(this).hasClass("opened")) {
 
-				$(this).children("ul").children(".menu-left__item").addClass("hide"); 
-				$(this).children("i").first().removeClass("submenu-ic-back fa fa-angle-left");
-				$(this).parents(".opened").first().children("a").removeClass("hide"); 
-				$(this).parents(".opened").first().children("i").removeClass("hide");
-				$(this).siblings().removeClass("hide");
-				$(this).removeClass("opened");
+				$(this).children(".submenu-ic-back").on('click', function() {
+
+				    var parent = $(this).parents().first(); 
+				    console.log(parent);
+			    	parent.children("ul").children(".menu-left__item").addClass("hide"); 
+					parent.children("i").first().removeClass("submenu-ic-back fa fa-angle-left");
+					parent.children("a").removeClass("hide"); 
+					parent.children("a").addClass("disableClick"); 
+					parent.children("i").removeClass("hide");
+					parent.siblings().removeClass("hide");
+					parent.removeClass("opened");
+
+					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
+					setTimeout(function(){
+							$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
+							$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
+					}, 300);
+
+					setTimeout(function(){
+
+					$("#menu").toggleClass("js-menu-left__content-fast-transition", false);
+						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
+						$("#menu").addClass("js-menu-left__content--show-menu");
+					}, 600);
+
+					return false;
+				}).trigger("click");
+
+				$(this).children("a").on('click', function() {
+					
+					$("#menu").toggleClass("js-menu-left__content--hide-menu-right", false);
+
+					if (!($(this).attr('href') == undefined)) {
+						window.location.href = $(this).attr('href');
+					}
+
+					
+					
+
+					
+
+					// setTimeout(function(){
+					// 		$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
+					// 		$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
+					// }, 300);
+
+					// setTimeout(function(){
+
+					// $("#menu").toggleClass("js-menu-left__content-fast-transition", false);
+					// 	$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
+					// 	$("#menu").addClass("js-menu-left__content--show-menu");
+					// }, 600);
+
+					return false;
+				});
+
 
 			} else {
 
 				$("#menu").addClass("js-menu-left__content--hide-menu");
 				$("#menu").removeClass("js-menu-left__content--show-menu");
 				
-				$(this).addClass("opened").removeClass("hide"); 
+				$(this).addClass("opened").removeClass("hide");
+				$(this).children("a").removeClass("disableClick"); 
 				$(this).children("i").first().addClass("submenu-ic-back fa fa-angle-left");
 				$(this).parents(".opened").children("a").addClass("hide");
 				$(this).parents(".opened").children("i").addClass("hide");
