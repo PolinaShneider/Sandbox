@@ -1,495 +1,700 @@
-<html><head>
-	<title></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta charset="utf-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style type="text/css">
+<html>
+	<head>
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<style type="text/css">
 
-html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-size: 14px;
-    line-height: 1.5em;
-    letter-spacing: .1px;
-}
+			html {
+			    font-family: -apple-system, BlinkMacSystemFont, 
+			    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", 
+			    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+			    font-size: 14px;
+			    line-height: 1.5em;
+			    letter-spacing: .1px;
+			}
 
-body {
-	margin: 0;
-}
+			body {
+				margin: 0;
+			}
 
-ul {
-	padding-left: 0;
-	margin: 0;
-}
+			ul {
+				padding-left: 0;
+				margin: 0;
+			}
 
-::-webkit-scrollbar { 
-    display: none; 
-}
+			::-webkit-scrollbar { 
+			    display: none; 
+			}
 
-.hide {
-	display: none !important;
-}
+			.hide {
+				display: none !important;
+			}
 
-.main-content {
-	display: flex;
-	height: 100%;
-}
+			.main-content {
+				display: flex;
+				height: 100%;
+			}
 
+			.menu-header {
+				width: 320px;
+				background-color: #FFFFFF;
+				position: relative;
+				border: 1px solid #d3d1d1;
+				overflow-x: hidden;
+			}
 
-.menu-left {
-	width: 320px;
-	background-color: #FFFFFF;
-	position: relative;
-	border: 1px solid #d3d1d1;
-	overflow-x: hidden;
-}
-.menu-left__header {
-	height: 60px;
-	background-color: #FFFFFF;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	position: absolute;
-    right: 0;
-    left: 0;
-    z-index: 100;
-    border-bottom: 1px solid #d3d1d1
-}
-.menu-left__hamburger {
-	color: #000;
-	font-size: 22px;
-	font-weight: 300;
-	padding: 8px 10px;
-	cursor: pointer;
-	margin-right: 30px;
-}
-.menu-left__hamburger:hover {
-	color: #aaacb0;
-}
-.menu-left__content {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    width: 100%;
-}
+			.menu-header__header {
+				height: 60px;
+				background-color: #FFFFFF;
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+				position: absolute;
+			    right: 0;
+			    left: 0;
+			    z-index: 100;
+			    border-bottom: 1px solid #d3d1d1
+			}
 
-.menu-left__item .menu-left__item:first-child {
-	border-top: 1px solid #d3d1d1;
-}
+			.menu-header__hamburger {
+				color: #000;
+				font-size: 22px;
+				font-weight: 300;
+				padding: 8px 10px;
+				cursor: pointer;
+				margin-right: 30px;
+			}
 
-.menu-left__item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-wrap: wrap;
-	min-height: 45px;
-	color: #000;
-	border-bottom: 1px solid #d3d1d1;
-	font-size: 16px;
-}
-.menu-left__item--search {
-	height: initial;
-}
+			.menu-header__hamburger:hover {
+				color: #aaacb0;
+			}
 
-.menu-left__item:last-child {
-	border-bottom: 0px solid transparent;
-}
+			.menu-header__content {
+			    position: absolute;
+			    top: 60px;
+			    left: 0;
+			    bottom: 0;
+			    z-index: 1;
+			    width: 100%;
+			}
 
-.menu-left__item > a {
-	display: flex;
-	align-items: center;
-	flex-grow: 1;
-	color: inherit;
-	text-decoration: none;
-	width: 225px;
-	height: 45px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
+			.menu-header__item .menu-header__item:first-child {
+				border-top: 1px solid #d3d1d1;
+			}
 
-.menu-left__item.opened {
-	border-bottom: 0px solid transparent;
-	padding-bottom: 0;
-}
+			.menu-header__item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				min-height: 45px;
+				color: #000;
+				border-bottom: 1px solid #d3d1d1;
+				font-size: 16px;
+			}
 
-.menu-left__item.opened > ul {
-	width: 100%;
-}
+			.menu-header__item--search {
+				height: initial;
+			}
 
+			.menu-header__item:last-child {
+				border-bottom: 0px solid transparent;
+			}
 
-.sub-menu {
-	overflow: scroll;
-}
+			.menu-header__item > a {
+				display: flex;
+				align-items: center;
+				flex-grow: 1;
+				color: inherit;
+				text-decoration: none;
+				width: 225px;
+				height: 45px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 
+			.menu-header__item.opened {
+				border-bottom: 0px solid transparent;
+				padding-bottom: 0;
+			}
 
-.menu-left__item.opened > .submenu-ic-fwd {
-	display: none;
-}
+			.menu-header__item.opened > ul {
+				width: 100%;
+			}
 
-.menu-left__item > i {
-	width: 45px;
-	height: 45px;
-}
-.submenu-ic-fwd, .submenu-ic-back {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 20px;
-	/*padding: 12px;*/
-	
-}
+			.sub-menu {
+				overflow: scroll;
+			}
 
-.menu-left__item:hover {
-	cursor: pointer;
-}
+			.menu-header__item.opened > .submenu-ic-fwd {
+				display: none;
+			}
 
-/*Behaviour styles*/
+			.menu-header__item > i {
+				width: 45px;
+				height: 45px;
+			}
 
+			.submenu-ic-fwd, .submenu-ic-back {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 20px;
+			}
 
-.js-menu-left__content--hide-menu {
-    transform: translate3d(-600px,0,0); 
-    transition: all 0.3s linear;
-}
-.js-menu-left__content--hide-menu-right {
-    transform: translate3d(600px,0,0); 
-    transition: all 0.3s;
-    
-}
-.js-menu-left__content--show-menu {
-    transform: translate3d(0,0,0);      
-    transition: all 0.3s linear;
-}  
-.js-menu-left__content-fast-transition {
-	transition: all 0s;
-	visibility: hidden;
-}
+			.menu-header__item:hover {
+				cursor: pointer;
+			}
 
-.disableTransition {
-	transition: width 0s;
-}
+			/*Behaviour styles*/
 
-.disableClick{
-    pointer-events: none;
-}
+			.js-menu-header__content--hide-menu {
+			    transform: translate3d(-600px,0,0); 
+			    transition: all 0.3s linear;
+			}
 
-@media all and (max-width: 800px){
-	.menu-left {
-		width: 100%;
-	}
-}
+			.js-menu-header__content--hide-menu-right {
+			    transform: translate3d(600px,0,0); 
+			    transition: all 0.3s;
+			    
+			}
+			.js-menu-header__content--show-menu {
+			    transform: translate3d(0,0,0);      
+			    transition: all 0.3s linear;
+			}  
 
-/*Transfer existing styles from site*/
+			.js-menu-header__content-fast-transition {
+				transition: all 0s;
+				visibility: hidden;
+			}
 
-.mdl-textfield__input {
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-    display: block;
-    font-size: 16px;
-    margin: 0;
-    padding: 4px 0;
-    width: 100%;
-    background: 0 0;
-    text-align: left;
-    color: inherit;
-}
-.mdl-textfield__label {
-    bottom: 0;
-    color: #000; /*Modified*/
-    font-size: 16px;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    position: absolute;
-    display: block;
-    top: 24px;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
-}
+			.js-menu-header--disable-link {
+			    pointer-events: none;
+			}
 
-.mdl-textfield {
-    position: relative;
-    font-size: 16px;
-    display: inline-block;
-    box-sizing: border-box;
-    width: 300px;
-    max-width: 100%;
-    margin: 0;
-    padding: 20px 0;
-}
-.mdl-menu__item__search__field {
-    margin: 0 45px 0 15px;
-    margin-left: 45px;
-    width: 225px;
-}
+			@media all and (max-width: 800px){
+				.menu-header {
+					width: 100%;
+				}
+			}
 
+			/*Transfer existing styles from site*/
 
+			.mdl-textfield__input {
+			    border: none;
+			    border-bottom: 1px solid rgba(0,0,0,.12);
+			    display: block;
+			    font-size: 16px;
+			    margin: 0;
+			    padding: 4px 0;
+			    width: 100%;
+			    background: 0 0;
+			    text-align: left;
+			    color: inherit;
+			}
 
-/*Added to search styles*/
+			.mdl-textfield__label {
+			    bottom: 0;
+			    color: #000; /*Modified*/
+			    font-size: 16px;
+			    left: 0;
+			    right: 0;
+			    pointer-events: none;
+			    position: absolute;
+			    display: block;
+			    top: 24px;
+			    width: 100%;
+			    overflow: hidden;
+			    white-space: nowrap;
+			    text-align: left;
+			}
 
-.search-ic {
-	position: absolute;
-    color: #a7a7a7;
-    font-size: 17px;
-    right: 40px;
-    top: 26px;
-    cursor: pointer;
-}	
+			.mdl-textfield {
+			    position: relative;
+			    font-size: 16px;
+			    display: inline-block;
+			    box-sizing: border-box;
+			    width: 300px;
+			    max-width: 100%;
+			    margin: 0;
+			    padding: 20px 0;
+			}
 
-form.search {
-	margin-bottom: 0;
-}
+			.mdl-menu__item__search__field {
+			    margin: 0 45px 0 15px;
+			    margin-left: 45px;
+			    width: 225px;
+			}
 
-input:focus {
-    outline: none;
-}	
+			/*Added to search styles*/
 
-</style>
+			/**
+			 * Font icons used here are Font Awesome
+			 */
 
-</head>
-<body cz-shortcut-listen="true">
-<div class="main-content">
-	<div class="menu-left" id="menu-body">
-			<div class="menu-left__header">
-				<div class="menu-left__hamburger" id="menu-button">
-					<i class="fa fa-bars"></i>
+			.search-ic {
+				position: absolute;
+			    color: #a7a7a7;
+			    font-size: 17px;
+			    right: 40px;
+			    top: 26px;
+			    cursor: pointer;
+			}	
+			form.search {
+				margin-bottom: 0;
+			}
+
+			input:focus {
+			    outline: none;
+			}	
+
+		</style>
+
+	</head>
+	<body cz-shortcut-listen="true">
+		<div class="main-content">
+			<div class="menu-header" id="menu-body">
+				<div class="menu-header__header">
+					<div class="menu-header__hamburger" id="menu-button">
+						<i class="fa fa-bars"></i>
+					</div>
+				</div>
+				<div class="menu-header__content js-menu-header__content--show-menu" id="menu">
+						<ul class="menu-header__content-block">
+							<li class="menu-header__item menu-header__item--search"">
+								<form role="search" method="get" id="searchform" class="search" action="https://ost-klinika.ru/">
+									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-menu__item__search__field is-upgraded" 	data-upgraded=",MaterialTextfield">
+										<input class="mdl-textfield__input" type="text" id="search" value="" name="s">
+										<label class="mdl-textfield__label" for="search">Поиск</label>					  
+									</div>
+									<i class="fa fa-search search-ic"></i>
+								</form>
+							</li>
+							<li class="menu-header__item">
+								<a href="http://ost-klinika.ru/">Главная</a>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/o-klinike-osteopatii/">О нас</a>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
+								<ul class="sub-menu">
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/">Нервной системы</a>
+										<ul class="sub-menu">
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-dtsp-v-sankt-peterburge/">ДЦП</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/ishias-simptomy-i-lechenie/">Ишиас</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/miozit-lechenie-simptomy/">Миозит</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-nevralgii/">Невралгия</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-tservikalgii/">Цервикалгия</a>
+											</li>
+										</ul>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/">Позвоночника</a>
+										<ul class="sub-menu">
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-shmorlya/">Грыжа Шморля</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-kompressionnogo-pereloma-pozvonochnika-v-klinike/">Компрессионный перелом</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbalgiya-lechenie-i-simptomy/">Люмбалгия</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbago-simptomy-prichiny-i-lechenie/">Люмбаго</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/nestabilnost-pozvonkov/">Нестабильность позвонков</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-osteohondroza/">Остеохондроз</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Поясничный радикулит</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-protruzii-diska/">Протрузия диска</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-radikulita/">Радикулит</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/shejnyj-radikulit/">Радикулит шейного отдела</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Радикулит поясничного отдела</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/reabilitatsiya-posle-pereloma-pozvonochnika/">Реабилитация после перелома</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-i-reabilitatsiya-posle-travmy-pozvonochnika/">Реабилитация после травмы</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-sindroma-pozvonochnoj-arterii/">Синдром позвоночной артерии</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-skolioza/">Сколиоз</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-pozvonkov-poyasnichnogo-otdela/">Смещение позвонков поясницы</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-shejnyh-pozvonkov/">Смещение шейных позвонков</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/spondiloartroz-kak-lechit/">Спондилоартроз</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a>
+											</li>
+										</ul>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/">Суставов</a>
+										<ul class="sub-menu">
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-ploskostopiya/">Плоскостопие</a>
+											</li>
+											<li class="menu-header__item">
+												<a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-halyus-valgusa-bez-operatsii/">Халюс Вальгус</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/">Симптомы</a>
+								<ul class="sub-menu">
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/boli-v-myshtsah-i-sustavah-prichiny-lechenie/">Боли в мышцах и суставах</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-boli-v-spine/">Боль в спине</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-boli-v-spine-pri-beremennosti/">Боль в спине при беременности</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-golovnoj-boli/">Головная боль</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-migreni/">Мигрень</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-narusheniya-osanki/">Нарушение осанки</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/narushenie-sna-lechenie-prichiny-vidy/">Нарушение сна</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/narushenie-rechi-u-detej-lechenie-v-sankt-peterburge/">Нарушение речи у детей</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-posledstvij-rodovyh-travm/">Последствия родовых травм</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-onemeniya-ruk-i-nog/">Онемение рук и ног</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/perenapryazhenie-myshts/">Перенапряжение мышц</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/prostrel-v-poyasnitse-prichiny-lechenie/">Прострел в пояснице</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/kak-lechit-prostrel-pozvonochnika/">Прострел позвоночника</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-krivoshei-u-novorozhdennyh/">Кривошея у новорожденных</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/shum-v-ushah/">Шум в ушах</a>
+									</li>
+								</ul>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/metody-lecheniya/">Методы лечения</a>
+								<ul class="sub-menu">
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/girudoterapiya-lechenie-piyavkami/">Гирудотерапия</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/izgotovlenie-individualnyh-stelek-podiatriya/">Изготовление ортопед. стелек</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechebnyj-massazh/">Лечебный массаж</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-manualnoj-terapiej-v-spb/">Мануальная терапия</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/medikamentoznoe-lechenie/">Медикаментозное лечение</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-nevrologiej/">Неврология</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-osteopatiej/">Остеопатия</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-refleksoterapiej/">Рефлексотерапия</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-kineziologiej/">Кинезиология</a>
+									</li>
+									<li class="menu-header__item">
+										<a href="https://ost-klinika.ru/metody-lecheniya/lechenie-fizioterapiej/">Физиотерапия</a>
+									</li>
+								</ul>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/tseny-na-uslugi-kliniki-osteopatii/">Цены</a>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/category/aktsii/">Акции</a>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/otzyvy/">Отзывы</a>
+							</li>
+							<li class="menu-header__item">
+								<a href="https://ost-klinika.ru/kontakty/">Контакты</a>
+							</li>
+						</ul>
 				</div>
 			</div>
-			<div class="menu-left__content js-menu-left__content--show-menu" id="menu">
-					<ul class="menu-left__content-block">
-						<li class="menu-left__item menu-left__item--search"">
-							<form role="search" method="get" id="searchform" class="search" action="https://ost-klinika.ru/">
-								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-menu__item__search__field is-upgraded" data-upgraded=",MaterialTextfield">
-									<input class="mdl-textfield__input" type="text" id="search" value="" name="s">
-									<label class="mdl-textfield__label" for="search">Поиск</label>					  
-								</div>
-								<i class="fa fa-search search-ic"></i>
-							</form>
-						</li>
-						<li class="menu-left__item"><a href="http://ost-klinika.ru/">Главная</a></li>
-						<li class="menu-left__item"><a href="https://ost-klinika.ru/o-klinike-osteopatii/">О нас</a></li>
-						<li class="menu-left__item">
-							<a href="https://ost-klinika.ru/zabolevaniya/">Заболевания</a>
-							
-							<ul class="sub-menu">
-								<li class="menu-left__item hide">
-								<a>Нервной системы</a>
-									<ul class="sub-menu">
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-vegeto-sosudistoj-distonii-vsd/">ВСД</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/giperaktivnost-u-detej/">Гиперактивность у детей</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-dtsp-v-sankt-peterburge/">ДЦП</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/ishias-simptomy-i-lechenie/">Ишиас</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/miozit-lechenie-simptomy/">Миозит</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-nevralgii/">Невралгия</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-tservikalgii/">Цервикалгия</a></li>
-									</ul>
-								</li>
-								<li class="menu-left__item hide"><a>Позвоночника</a>
-									<ul class="sub-menu">
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/vertebrobazilyarnaya-nedostatochnost/">ВБН</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-diska/">Грыжа диска</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-gryzhi-shmorlya/">Грыжа Шморля</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-nervnoj-sistemy/lechenie-zashhemleniya-nerva/">Защемление нерва</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-kompressionnogo-pereloma-pozvonochnika-v-klinike/">Компрессионный перелом</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbalgiya-lechenie-i-simptomy/">Люмбалгия</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lyumbago-simptomy-prichiny-i-lechenie/">Люмбаго</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/nestabilnost-pozvonkov/">Нестабильность позвонков</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-osteohondroza/">Остеохондроз</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Поясничный радикулит</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-protruzii-diska/">Протрузия диска</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-radikulita/">Радикулит</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/shejnyj-radikulit/">Радикулит шейного отдела</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/radikulit-poyasnichnyj-simptomy-i-lechenie/">Радикулит поясничного отдела</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/reabilitatsiya-posle-pereloma-pozvonochnika/">Реабилитация после перелома</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-i-reabilitatsiya-posle-travmy-pozvonochnika/">Реабилитация после травмы</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-sindroma-pozvonochnoj-arterii/">Синдром позвоночной артерии</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/lechenie-skolioza/">Сколиоз</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-pozvonkov-poyasnichnogo-otdela/">Смещение позвонков поясницы</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/kak-lechit-smeshhenie-shejnyh-pozvonkov/">Смещение шейных позвонков</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-pozvonochnika/spondiloartroz-kak-lechit/">Спондилоартроз</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/simptomy-boleznej-diagnostika-lechenie/lechenie-torakalgii/">Торокалгия</a></li>
-									</ul>
-								</li>
-								<li class="menu-left__item hide">
-									<a>Суставов</a>
-									
-									<ul class="sub-menu">
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-artroza/">Артроз</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-plechelopatochnogo-periartrita/">Периартрит</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-ploskostopiya/">Плоскостопие</a></li>
-										<li class="menu-left__item hide"><a href="https://ost-klinika.ru/zabolevaniya/lechenie-zabolevanij-sustavov/lechenie-halyus-valgusa-bez-operatsii/">Халюс Вальгус</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li class="menu-left__item">
-							<a href="https://ost-klinika.ru/metody-lecheniya/">Методы лечения</a>
-							<ul class="sub-menu">
-								<li class="menu-left__item hide"><a>Гирудотерапия</a></li>
-								<li class="menu-left__item hide"><a>Изготовление ортопед. стелек</a></li>
-								<li class="menu-left__item hide"><a>Лечебный массаж</a></li>
-								<li class="menu-left__item hide"><a>Мануальная терапия</a></li>
-								<li class="menu-left__item hide"><a>Медикаментозное лечение</a></li>
-								<li class="menu-left__item hide"><a>Неврология</a></li>
-								<li class="menu-left__item hide"><a>Остеопатия</a></li>
-								<li class="menu-left__item hide"><a>Рефлексотерапия</a></li>
-								<li class="menu-left__item hide"><a>Кинезиология</a></li>
-								<li class="menu-left__item hide"><a>Физиотерапия</a></li>
-							</ul>
-						</li>
-						<li class="menu-left__item"><a>Цены</a></li>
-						<li class="menu-left__item"><a>Акции</a></li>
-						<li class="menu-left__item"><a>Отзывы</a></li>
-						<li class="menu-left__item"><a>Контакты</a></li>
-					</ul>
-				
-			</div>
 		</div>
-		</div>
-	<script type="text/javascript">
+		<script type="text/javascript">
 
-	var menu = document.getElementById("menu");
-	var menuContent = $('.menu-left__content-block');
-	var children = $(".menu-left__item").find(".menu-left__item");
-	children.addClass("hide");
-
-
-	$(".menu-left__item").not(".menu-left__item--search").append('<i></i>');
-	$(".menu-left__item").not(".menu-left__item--search").prepend('<i></i>');
-
-	$(".menu-left__item").has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
-	
-
-
-	$(".menu-left__item").children("a").addClass("disableClick");
-
-	$('.menu-left__item').click(function( event ){
+		/**
+		 * Find all sub-menu items and hide them
+		*/
 		
-		var subItems = $(this).children("ul").children(".menu-left__item");
+		var children = $(".menu-header__item").find(".menu-header__item");
+		children.addClass("hide");
+
+		/**
+		 * Add two tags <i></i> before and after link in menu-item
+		 */
 		
+		$(".menu-header__item").not(".menu-header__item--search").append('<i></i>');
+		$(".menu-header__item").not(".menu-header__item--search").prepend('<i></i>');
 
-		if (subItems.length > 0) { 
+		/**
+		 * Make second <i></i> of menu item 'arrow forward'
+		 */
+		
+		$(".menu-header__item").has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
 
-			event.stopPropagation();
+		/**
+		 * Don't allow direct click on menu links, which don't have class opened and aren't final menu item
+		 */
+		
+		$(".menu-header__item").children("a").addClass("js-menu-header--disable-link");
 
+		/**
+		 * Function works on click of any header menu-item
+		*/
 
-			if (!($(this).hasClass("opened"))) {
-
-				$("#menu").toggleClass("js-menu-left__content--hide-menu js-menu-left__content--show-menu");
-				
-
-				setTimeout(function(){
-					$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
-				}, 300);
-
-				
-
-			}
-	
-		setTimeout(function(){
-
-			$("#menu").toggleClass("js-menu-left__content-fast-transition", false);
-				$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
-				$("#menu").addClass("js-menu-left__content--show-menu");
-		}, 600);
+		$('.menu-header__item').click(function( event ){
 			
+			var subItems = $(this).children("ul").children(".menu-header__item"); // subItems are children of clicked menu-item
 
-			if ($(this).hasClass("opened")) {
+			/**
+			 * Check if menu-item has subItems
+			*/
 
-				$(this).children(".submenu-ic-back").on('click', function() {
+			if (subItems.length > 0) { 
 
-				    var parent = $(this).parents().first(); 
-			    	parent.children("ul").children(".menu-left__item").addClass("hide"); 
-					parent.children("i").first().removeClass("submenu-ic-back fa fa-angle-left");
-					parent.parents().children("a").removeClass("hide");
-					parent.parents().children("i").removeClass("hide");
-					parent.children("a").removeClass("hide"); 
-					parent.children("a").addClass("disableClick"); 
-					parent.children("i").removeClass("hide");
-					parent.siblings().removeClass("hide");
-					parent.removeClass("opened");
+				event.stopPropagation();
 
-					$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--show-menu");
+				/**
+				 * If current menu-item isn't opened
+				 * Call animation to hide menu left
+				 */
+
+				if (!($(this).hasClass("opened"))) {
+
+					$("#menu").toggleClass("js-menu-header__content--hide-menu js-menu-header__content--show-menu");
+
 					setTimeout(function(){
-							$("#menu").toggleClass("js-menu-left__content-fast-transition", true);
-							$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu");
+						$("#menu").toggleClass("js-menu-header__content-fast-transition", true);
+						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
 					}, 300);
 
-					setTimeout(function(){
+				}
 
-					$("#menu").toggleClass("js-menu-left__content-fast-transition", false);
-						$("#menu").toggleClass("js-menu-left__content--hide-menu-right js-menu-left__content--hide-menu", false);
-						$("#menu").addClass("js-menu-left__content--show-menu");
-					}, 600);
-
-					return false;
-				}).trigger("click");
-
-				$(this).children("a").on('click', function() {
-
-					$("#menu").toggleClass("js-menu-left__content--hide-menu-right", false);
-
-					if (!($(this).attr('href') == undefined)) {
-						window.location.href = $(this).attr('href');
-					}
-
-					return false;
-				});
-
-			return false;
-
-
-			} else {
-
-				$("#menu").addClass("js-menu-left__content--hide-menu");
-				$("#menu").removeClass("js-menu-left__content--show-menu");
-				
-				$(this).addClass("opened").removeClass("hide");
-				$(this).children("a").removeClass("disableClick"); 
-				$(this).children("i").first().addClass("submenu-ic-back fa fa-angle-left");
-				$(this).parents(".opened").children("a").addClass("hide");
-				$(this).parents(".opened").children("i").addClass("hide");
-				$(this).siblings().addClass("hide");
-				$(this).children("ul").children(".menu-left__item").removeClass("hide"); 
-			}
-    		
-
-		} else if (subItems.length == 0) {
-			if (!($(this).children("a").attr('href') == undefined)) {
-				window.location.href = $(this).children("a").attr('href');
-			}
-			return false;
-		}
+				/**
+				 * After 600 ms show menu from the right
+				 */
 		
-	});
+				setTimeout(function(){
 
-	/**
-	 * Close menu button and reset styles
-	 */
+					$("#menu").toggleClass("js-menu-header__content-fast-transition", false);
+						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
+						$("#menu").addClass("js-menu-header__content--show-menu");
+				}, 600);
+				
+				/**
+				 * If current menu-item isn't opened, 
+				 * Add class 'opened'
+				 * Make it's link clickable
+				 * Hide all its previous parents except for nearest menu-item
+				 * Hide its siblings
+				 * Show its children
+				 * Add back arrow
+				 */
 
-	$('#menu-button').click(function(){
+				if (!($(this).hasClass("opened"))) {
+					
+					$(this).addClass("opened").removeClass("hide");
+					$(this).children("a").removeClass("js-menu-header--disable-link"); 
+					$(this).children("i").first().addClass("submenu-ic-back fa fa-angle-left");
+					$(this).parents(".opened").children("a").addClass("hide");
+					$(this).parents(".opened").children("i").addClass("hide");
+					$(this).siblings().addClass("hide");
+					$(this).children("ul").children(".menu-header__item").removeClass("hide"); 
 
-		$(".menu-left__content").slideToggle("fast");
-		  	setTimeout(function(){
-				children.addClass("hide");
-				$("#menu").find(".opened").removeClass("opened");
-				$("#menu").find("a.hide").removeClass("hide");
-				$("#menu").children("ul").children(".menu-left__item").removeClass("hide"); 
-				$("#menu").find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
+				}
+	    		
+			/**
+			 * If current menu-item has no subItems,
+			 * Just go to link href location
+			 */
+			
+			} else if (subItems.length == 0) {
+
+				if (!($(this).children("a").attr('href') == undefined)) {
+					window.location.href = $(this).children("a").attr('href');
+				}
+
+				return false;
+			}
+			
+		});
+
+		/**
+		 * Click on first <i></i> of menu-item
+		 */
+
+		$(".menu-header__item").children("i:first-child").click(function(event){
+
+			event.preventDefault();
+
+			/**
+			 * Check if it has dynamically added class,
+			 * Saying that it is 'arrow back' element
+			 *
+			 * Back button
+			 * 
+			 * Hide children of current menu-item
+			 * Remove class opened from current menu-item
+			 * Remove arrow back icon
+			 * Show siblings 
+			 * Show previous parent
+			 *
+			 * Execute menu animation:
+			 * Hide right
+			 * Show from the left
+			 */
+
+			if ($(this).hasClass("submenu-ic-back")) {
+
+		    	$(this).siblings("ul").children(".menu-header__item").addClass("hide"); 
+				$(this).removeClass("submenu-ic-back fa fa-angle-left");
+				$(this).parents().children("a").removeClass("hide");
+				$(this).parents().children("i").removeClass("hide");
+				$(this).siblings("a").removeClass("hide"); 
+				$(this).siblings("a").addClass("js-menu-header--disable-link"); 
+				$(this).siblings("i").removeClass("hide");
+				$(this).parents().first().siblings().removeClass("hide");
+				$(this).parents().first().removeClass("opened");
+
+				$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--show-menu");
+				setTimeout(function(){
+						$("#menu").toggleClass("js-menu-header__content-fast-transition", true);
+						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
+				}, 300);
+
+				setTimeout(function(){
+
+				$("#menu").toggleClass("js-menu-header__content-fast-transition", false);
+					$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
+					$("#menu").addClass("js-menu-header__content--show-menu");
+				}, 600);
+
+				return false;
+			}
+
+		});
+
+		/**
+		 * Close-menu button and reset styles
+		 *
+		 * Show and hide menu body
+		 * 
+		 * Hide subItems of all menu-items
+		 * Remove class opened from any item
+		 * Show all root menu-items
+		*/
+
+		$('#menu-button').click(function(){
+
+			$(".menu-header__content").slideToggle("fast");
+
+			  	setTimeout(function(){
+
+					children.addClass("hide");
+					$("#menu").find(".opened").removeClass("opened");
+					$("#menu").find("a.hide").removeClass("hide");
+					$("#menu").children("ul").children(".menu-header__item").removeClass("hide"); 
+					$("#menu").find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
+
 			}, 500);
 
 
-	});
+		});
 
+		</script>
 
-	</script>
-
-
-
-</body></html>
+	</body>
+</html>
