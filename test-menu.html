@@ -512,40 +512,33 @@
 		 * Find all sub-menu items and hide them
 		*/
 		
-		var children = menuItem.find(".menu-header__item");
+		var children = $(".menu-header__item").find(".menu-header__item");
 		children.addClass("hide");
 
 		/**
-		 * Menu header item
-		 */
-
-		var menuItem = $(".menu-header__item");
-
-		/**
 		 * Add two tags <i></i> before and after link in menu-item
-		 * Don't apply to search
 		 */
 		
-		menuItem.not(".menu-header__item--search").append('<i></i>');
-		menuItem.not(".menu-header__item--search").prepend('<i></i>');
+		$(".menu-header__item").not(".menu-header__item--search").append('<i></i>');
+		$(".menu-header__item").not(".menu-header__item--search").prepend('<i></i>');
 
 		/**
 		 * Make second <i></i> of menu item 'arrow forward'
 		 */
 		
-		menuItem.has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
+		$(".menu-header__item").has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
 
 		/**
 		 * Don't allow direct click on menu links, which don't have class opened and aren't final menu item
 		 */
 		
-		menuItem.children("a").addClass("js-menu-header--disable-link");
+		$(".menu-header__item").children("a").addClass("js-menu-header--disable-link");
 
 		/**
 		 * Function works on click of any header menu-item
 		*/
 
-		menuItem.click(function( event ){
+		$('.menu-header__item').click(function( event ){
 			
 			var subItems = $(this).children("ul").children(".menu-header__item"); // subItems are children of clicked menu-item
 
@@ -626,7 +619,7 @@
 		 * Click on first <i></i> of menu-item
 		 */
 
-		menuItem.children("i:first-child").click(function(event){
+		$(".menu-header__item").children("i:first-child").click(function(event){
 
 			event.preventDefault();
 
@@ -696,7 +689,6 @@
 					children.addClass("hide");
 					$("#menu").find(".opened").removeClass("opened");
 					$("#menu").find("a.hide").removeClass("hide");
-					$("#menu").find("i.hide").removeClass("hide");
 					$("#menu").children("ul").children(".menu-header__item").removeClass("hide"); 
 					$("#menu").find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
 
