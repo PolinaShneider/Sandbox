@@ -519,29 +519,47 @@
 		children.addClass("hide");
 
 		/**
+		 * Standart show-hide menu Animation Timeout
+		 */
+		
+		var MenuTimeout = 300;
+
+		/**
+		 * Menu header items
+		 */
+		
+		var menuItems = $(".menu-header__item");
+
+		/**
+		 * Menu body
+		*/
+		
+		var myMenu = $("#menu");
+
+		/**
 		 * Add two tags <i></i> before and after link in menu-item
 		 */
 		
-		$(".menu-header__item").not(".menu-header__item--search").append('<i></i>');
-		$(".menu-header__item").not(".menu-header__item--search").prepend('<i></i>');
+		menuItems.not(".menu-header__item--search").append('<i></i>');
+		menuItems.not(".menu-header__item--search").prepend('<i></i>');
 
 		/**
 		 * Make second <i></i> of menu item 'arrow forward'
 		 */
 		
-		$(".menu-header__item").has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
+		menuItems.has("ul").children("i:last-of-type").addClass("submenu-ic-fwd fa fa-angle-right"); 
 
 		/**
 		 * Don't allow direct click on menu links, which don't have class opened and aren't final menu item
 		 */
 		
-		$(".menu-header__item").children("a").addClass("js-menu-header--disable-link");
+		menuItems.children("a").addClass("js-menu-header--disable-link");
 
 		/**
 		 * Function works on click of any header menu-item
 		*/
 
-		$('.menu-header__item').click(function( event ){
+		menuItems.click(function( event ){
 			
 			var subItems = $(this).children("ul").children(".menu-header__item"); // subItems are children of clicked menu-item
 
@@ -560,25 +578,31 @@
 
 				if (!($(this).hasClass("opened"))) {
 
-					$("#menu").toggleClass("js-menu-header__content--hide-menu js-menu-header__content--show-menu");
-
+					myMenu.toggleClass("js-menu-header__content--hide-menu js-menu-header__content--show-menu");
+					
 					setTimeout(function(){
-						$("#menu").toggleClass("js-menu-header__content-fast-transition", true);
-						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
-					}, 300);
+						myMenu.toggleClass("js-menu-header__content-fast-transition", true);
+						myMenu.toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
+					}, MenuTimeout);
+
+					var that = $(this);
 
 				}
 
+				
 				/**
 				 * After 600 ms show menu from the right
 				 */
 		
 				setTimeout(function(){
+					openMenuItem(that);
+					myMenu.toggleClass("js-menu-header__content-fast-transition", false);
+						myMenu.toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
+						myMenu.addClass("js-menu-header__content--show-menu");
+				}, 2*MenuTimeout);
 
-					$("#menu").toggleClass("js-menu-header__content-fast-transition", false);
-						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
-						$("#menu").addClass("js-menu-header__content--show-menu");
-				}, 600);
+				
+
 				
 				/**
 				 * If current menu-item isn't opened, 
@@ -590,16 +614,13 @@
 				 * Add back arrow
 				 */
 
-				if (!($(this).hasClass("opened"))) {
-					
-					$(this).addClass("opened").removeClass("hide");
-					$(this).children("a").removeClass("js-menu-header--disable-link"); 
-					$(this).children("i").first().addClass("submenu-ic-back fa fa-angle-left");
-					$(this).parents(".opened").children("a").addClass("hide");
-					$(this).parents(".opened").children("i").addClass("hide");
-					$(this).siblings().addClass("hide");
-					$(this).children("ul").children(".menu-header__item").removeClass("hide"); 
-
+				function openMenuItem(item) {
+					item.addClass("opened").removeClass("hide");
+					item.children("a").removeClass("js-menu-header--disable-link"); 
+					item.children("i").first().addClass("submenu-ic-back fa fa-angle-left");
+					item.parents(".opened").children("a, i").addClass("hide");
+					item.siblings().addClass("hide");
+					item.children("ul").children(".menu-header__item").removeClass("hide"); 
 				}
 	    		
 			/**
@@ -622,7 +643,7 @@
 		 * Click on first <i></i> of menu-item
 		 */
 
-		$(".menu-header__item").children("i:first-child").click(function(event){
+		menuItems.children("i:first-child").click(function(event){
 
 			event.preventDefault();
 
@@ -647,26 +668,25 @@
 
 		    	$(this).siblings("ul").children(".menu-header__item").addClass("hide"); 
 				$(this).removeClass("submenu-ic-back fa fa-angle-left");
-				$(this).parents().children("a").removeClass("hide");
-				$(this).parents().children("i").removeClass("hide");
+				$(this).parents().children("a, i").removeClass("hide");
 				$(this).siblings("a").removeClass("hide"); 
 				$(this).siblings("a").addClass("js-menu-header--disable-link"); 
 				$(this).siblings("i").removeClass("hide");
-				$(this).parents().first().siblings().removeClass("hide");
-				$(this).parents().first().removeClass("opened");
+				$(this).parent().siblings().removeClass("hide");
+				$(this).parent().removeClass("opened");
 
-				$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--show-menu");
+				myMenu.toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--show-menu");
 				setTimeout(function(){
-						$("#menu").toggleClass("js-menu-header__content-fast-transition", true);
-						$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
-				}, 300);
+						myMenu.toggleClass("js-menu-header__content-fast-transition", true);
+						myMenu.toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu");
+				}, MenuTimeout);
 
 				setTimeout(function(){
 
-				$("#menu").toggleClass("js-menu-header__content-fast-transition", false);
-					$("#menu").toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
-					$("#menu").addClass("js-menu-header__content--show-menu");
-				}, 600);
+				myMenu.toggleClass("js-menu-header__content-fast-transition", false);
+					myMenu.toggleClass("js-menu-header__content--hide-menu-right js-menu-header__content--hide-menu", false);
+					myMenu.addClass("js-menu-header__content--show-menu");
+				}, 2*MenuTimeout);
 
 				return false;
 			}
@@ -682,6 +702,7 @@
 		 * Remove class opened from any item
 		 * Show all root menu-items
 		*/
+	
 
 		$('#menu-button').click(function(){
 
@@ -690,13 +711,12 @@
 			  	setTimeout(function(){
 
 					children.addClass("hide");
-					$("#menu").find(".opened").removeClass("opened");
-					$("#menu").find("a.hide").removeClass("hide");
-					$("#menu").find("i.hide").removeClass("hide");
-					$("#menu").children("ul").children(".menu-header__item").removeClass("hide"); 
-					$("#menu").find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
+					$(".opened", myMenu).removeClass("opened");
+					$("a.hide, i.hide", myMenu).removeClass("hide");
+					myMenu.children("ul").children(".menu-header__item").removeClass("hide"); 
+					myMenu.find(".submenu-ic-back").removeClass("submenu-ic-back fa fa-angle-left");
 
-			}, 500);
+			}, 2*MenuTimeout);
 
 
 		});
