@@ -16,6 +16,17 @@
       display: flex;
       justify-content: center;
     }
+    .btn {
+        display: inline-block;
+        padding: 10px;
+        background: #fdfdfd;
+        font-size: 18px;
+        border: 1px solid #e7e7e7;
+        box-shadow: 0 2px 3px 0 rgba(38, 45, 67, 0.02);
+        border-radius: 3px;
+        color: inherit;
+        cursor: pointer;
+    }
 
     .cat__container {
         height: 500px;
@@ -73,7 +84,7 @@
         positions = shuffle(positions);
         // randomCat = cats[Math.floor(Math.random()*cats.length)];
         for (var i =0; i < cats.length; i++) {
-            cats[i].style.alignSelf = "center";
+            // cats[i].style.alignSelf = "center";
             cats[i].style.order = positions[i];
         }
     }
@@ -81,7 +92,7 @@
     function alignSelf(){
 
         cats = document.querySelectorAll(".cat__item");
-        var align = ["flex-start", "flex-end"];
+        var align = ["flex-start", "flex-end", "center"];
         randomCat = cats[Math.floor(Math.random()*cats.length)];
         randomAlign = align[Math.floor(Math.random()*align.length)];
         randomCat.style.alignSelf = randomAlign;
@@ -95,14 +106,8 @@
   <div class="controls">
    <form class="controls-form">
    <div class="controls-block">
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position" onchange="changeOrder()" id="value_1" value="order">
-      <label for="value_1">order</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position" onchange="alignSelf()" id="value_2" value="align-self">
-      <label for="value_2">align-self</label>
-    </div>
+    <a class="btn" onclick="changeOrder()">order</a>
+    <a class="btn" onclick="alignSelf()">align-self</a>
     </div>
    </form>
   </div>
