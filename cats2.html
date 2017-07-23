@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    .controls {
+      width: 80%;
+      margin: auto;
+    }
+    .controls-block {
+      padding: 10px;
+    }
+    .controls-form {
+      display: flex;
+      justify-content: center;
+    }
+
+    .cat__container {
+        height: 500px;
+        width: 600px;
+        display: flex;
+        margin: auto;
+        border: 1px solid #8b8e99;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .cat__item {
+
+    }
+
+    @media only screen and (max-width: 700px) {
+        .cat__container {
+            max-width: 100%;
+        }
+        .controls-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+<script type="text/javascript">
+
+    function shuffle(array) {
+
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+
+        }
+
+          return array;
+    }
+
+    function changeOrder(){
+
+        cats = document.querySelectorAll(".cat__item");
+        var positions = [];
+
+        for (var i = 0; i < cats.length; i++) {
+            positions[i] = cats[i].style.order
+        }
+        positions = shuffle(positions);
+        // randomCat = cats[Math.floor(Math.random()*cats.length)];
+        for (var i =0; i < cats.length; i++) {
+            cats[i].style.alignSelf = "center";
+            cats[i].style.order = positions[i];
+        }
+    }
+
+    function alignSelf(){
+
+        cats = document.querySelectorAll(".cat__item");
+        var align = ["flex-start", "flex-end"];
+        randomCat = cats[Math.floor(Math.random()*cats.length)];
+        randomAlign = align[Math.floor(Math.random()*align.length)];
+        randomCat.style.alignSelf = randomAlign;
+
+    }
+</script>
+
+</head>
+<body>
+<div class="wrapper">
+  <div class="controls">
+   <form class="controls-form">
+   <div class="controls-block">
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position" onchange="changeOrder()" id="value_1" value="order">
+      <label for="value_1">order</label>
+    </div>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position" onchange="alignSelf()" id="value_2" value="align-self">
+      <label for="value_2">align-self</label>
+    </div>
+    </div>
+   </form>
+  </div>
+  <div class="cat__container">
+      <img class="cat__item" src="img/cat1.png" style="order: 1; align-self: center;">
+      <img class="cat__item" src="img/cat3.png" style="order: 2; align-self: center;">
+      <img class="cat__item" src="img/cat2.png" style="order: 3; align-self: center;">
+  </div>
+</body>
+</html>
