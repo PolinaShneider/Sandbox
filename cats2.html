@@ -38,7 +38,7 @@
         align-items: center;
     }
     .cat__item {
-
+        cursor: pointer;
     }
 
     @media only screen and (max-width: 700px) {
@@ -51,6 +51,9 @@
     }
   </style>
 <script type="text/javascript">
+    function click_position(item) {
+    alignSelf(item);
+  }
 
     function shuffle(array) {
 
@@ -89,13 +92,13 @@
         }
     }
 
-    function alignSelf(){
+    function alignSelf(obj){
 
-        cats = document.querySelectorAll(".cat__item");
+        // cats = document.querySelectorAll(".cat__item");
         var align = ["flex-start", "flex-end", "center"];
-        randomCat = cats[Math.floor(Math.random()*cats.length)];
+        // randomCat = cats[Math.floor(Math.random()*cats.length)];
         randomAlign = align[Math.floor(Math.random()*align.length)];
-        randomCat.style.alignSelf = randomAlign;
+        obj.style.alignSelf = randomAlign;
 
     }
 </script>
@@ -112,7 +115,7 @@
    </form>
   </div>
   <div class="cat__container">
-      <img class="cat__item" src="img/cat1.png" style="order: 1; align-self: center;">
+      <img class="cat__item" src="img/cat1.png" onclick="click_position(this)" style="order: 1; align-self: center;">
       <img class="cat__item" src="img/cat3.png" style="order: 2; align-self: center;">
       <img class="cat__item" src="img/cat2.png" style="order: 3; align-self: center;">
   </div>
