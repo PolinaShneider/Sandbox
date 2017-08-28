@@ -1,152 +1,161 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Input DEMO</title>
-	<style type="text/css">
-		.container {
-			width: 600px;
-			height: 400px;
-			overflow: hidden;
-			margin: 2em auto;
-			position: relative;
-			border-radius: 5px;
-		}
-		.wrapper {
-		    width: 9999px;
-		    height: 400px;
-			position: relative;
-			transition: right 350ms linear;
-			right: 0;
-		}
-		.slide {
-			width: 600px;
-			height: 400px;
-			float: left;
-			position: relative;
-			overflow: hidden;
-			opacity: 0.85;
-    		transition: none;
-		}
-		.ctrl-left, .ctrl-right {
-			position: absolute;
-			-webkit-appearance: none;
-			-moz-appearance:    none;
-			appearance:         none;
-			outline: none;
-			border: 0px solid transparent;
-			border-radius: 3px;
-			background: #D8D8D8;
-			color: #333333;
-			opacity: 0.5;
-			padding: 10px;
-			margin: 3px;
-			font-size: 20px;
-			cursor: pointer;
-		}
-		.ctrl-left {
-			bottom: 50%;
-			left: 0;
-		}
-		.ctrl-right {
-			bottom: 50%;
-			right: 0;
-		}
-		.fade-in {
-			opacity: 1;
-    		transition: 1s opacity;
-		}
-	</style>
+    <title>Input DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css">
+    <style type="text/css">
+        .container {
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            margin: 2em auto;
+            position: relative;
+            border-radius: 5px;
+        }
+        .wrapper {
+            width: 9999px;
+            height: 400px;
+            position: relative;
+            transition: right 350ms linear;
+            right: 0;
+        }
+        .slide {
+            width: 600px;
+            height: 400px;
+            float: left;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.85;
+            transition: none;
+        }
+        .ctrl-left, .ctrl-right {
+            position: absolute;
+            -webkit-appearance: none;
+            -moz-appearance:    none;
+            appearance:         none;
+            outline: none;
+            border: 0px solid transparent;
+            border-radius: 3px;
+            background: #D8D8D8;
+            color: #333333;
+            opacity: 0.5;
+            padding: 10px;
+            margin: 3px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .ctrl-left {
+            bottom: 50%;
+            left: 0;
+        }
+        .ctrl-right {
+            bottom: 50%;
+            right: 0;
+        }
+        .fade-in {
+            opacity: 1;
+            transition: 1s opacity;
+        }
+        @media (max-width: 425px) {
+            .container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<div class="wrapper">
-			<div class="slide fade-in"><img src="img/slide1.jpg"></div>
-			<div class="slide"><img src="img/slide2.jpg"></div>
-			<div class="slide"><img src="img/slide3.jpg"></div>
-			<div class="slide"><img src="img/slide4.jpg"></div>
-			<div class="slide"><img src="img/slide5.jpg"></div>
-			<div class="slide"><img src="img/slide6.jpg"></div>
-			<div class="slide"><img src="img/slide7.jpg"></div>
-			<div class="slide"><img src="img/slide8.jpg"></div>
-			<div class="slide"><img src="img/slide9.jpg"></div>
-			<div class="slide"><img src="img/slide10.jpg"></div>
-			<div class="slide"><img src="img/slide11.jpg"></div>
-			<div class="slide"><img src="img/slide12.jpg"></div>
-		</div>
-		<button class="ctrl-left"> < </button>
-		<button class="ctrl-right"> > </button>
-	</div>
+    <div class="container">
+        <div class="wrapper">
+            <div class="slide fade-in"><img src="img/slide1.jpg"></div>
+            <div class="slide"><img src="img/slide2.jpg"></div>
+            <div class="slide"><img src="img/slide3.jpg"></div>
+            <div class="slide"><img src="img/slide4.jpg"></div>
+            <div class="slide"><img src="img/slide5.jpg"></div>
+            <div class="slide"><img src="img/slide6.jpg"></div>
+            <div class="slide"><img src="img/slide7.jpg"></div>
+            <div class="slide"><img src="img/slide8.jpg"></div>
+            <div class="slide"><img src="img/slide9.jpg"></div>
+            <div class="slide"><img src="img/slide10.jpg"></div>
+            <div class="slide"><img src="img/slide11.jpg"></div>
+            <div class="slide"><img src="img/slide12.jpg"></div>
+        </div>
+        <button class="ctrl-left"> < </button>
+        <button class="ctrl-right"> > </button>
+    </div>
 <script type="text/javascript">
 
-	var slides = document.querySelectorAll(".slide")
-	var slidesCount = document.querySelectorAll(".slide").length;
-	var step = 600;
-	var wrapper = document.querySelector(".wrapper");
-	var currentSlide = document.querySelectorAll(".slide")[0];
+    var slides = document.querySelectorAll(".slide")
+    var slidesCount = document.querySelectorAll(".slide").length;
+    var  container = document.querySelector(".container");
+    var step = parseInt(window.getComputedStyle(container, null).getPropertyValue("width"));
+    var wrapper = document.querySelector(".wrapper");
+    var currentSlide = document.querySelectorAll(".slide")[0];
 
-	function round(value, step) {
+    function round(value, step) {
         step || (step = 1.0);
         var inv = 1.0 / step;
         return Math.round(value * inv) / inv;
     }
 
     function fade(currentSlide) {
-    	for (var i = 0; i < slides.length; i++) {
-    		slides[i].classList.toggle("fade-in", false);
-    	}
-    	currentSlide.classList.add("fade-in");
+        for (var i = 0; i < slides.length; i++) {
+            slides[i].classList.toggle("fade-in", false);
+        }
+        currentSlide.classList.add("fade-in");
     };
 
     function fadeAll() {
-    	for (var i = 0; i < slides.length; i++) {
-    		slides[i].classList.toggle("fade-in", true);
-    	}
+        for (var i = 0; i < slides.length; i++) {
+            slides[i].classList.toggle("fade-in", true);
+        }
     };
 
-	var slideRight = function(){
-		if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) <= (slidesCount - 2) * step) {
-			newPosRight = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  + step ;
-			wrapper.style.right = round(newPosRight, 600)+ "px" ;
-			index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step + 1;
-			currentSlide = document.querySelectorAll(".slide")[index];
-			/**
-			 * Document might not be ready
-			 * if clicking too fast
-			 *
-			 * Check
-			 */
-			if (currentSlide) {
-				fade(currentSlide);
-			} else {
-				fadeAll();
-			}
-		}
-	}
-	var slideLeft = function(){
-		if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) >= step) {
-			newPosLeft = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  - step ;
-			wrapper.style.right = round(newPosLeft, 600)+ "px" ;
-			index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step - 1;
-			currentSlide = document.querySelectorAll(".slide")[index];
-			/**
-			 * Document might not be ready
-			 * if clicking too fast
-			 *
-			 * Check
-			 */
-			if (currentSlide) {
-				fade(currentSlide);
-			} else {
-				fadeAll();
-			}
-		}
-	}
+    var slideRight = function(){
+        if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) <= (slidesCount - 2) * step) {
+            newPosRight = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  + step ;
+            wrapper.style.right = round(newPosRight, 600)+ "px" ;
+            index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step + 1;
+            currentSlide = document.querySelectorAll(".slide")[index];
+            /**
+             * Document might not be ready
+             * if clicking too fast
+             *
+             * Check
+             */
+            if (currentSlide) {
+                fade(currentSlide);
+            } else {
+                fadeAll();
+            }
+        }
+    }
+    var slideLeft = function(){
+        if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) >= step) {
+            newPosLeft = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  - step ;
+            wrapper.style.right = round(newPosLeft, 600)+ "px" ;
+            index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step - 1;
+            currentSlide = document.querySelectorAll(".slide")[index];
+            /**
+             * Document might not be ready
+             * if clicking too fast
+             *
+             * Check
+             */
+            if (currentSlide) {
+                fade(currentSlide);
+            } else {
+                fadeAll();
+            }
+        }
+    }
 
-	var ctrlLeft = document.querySelector(".ctrl-left");
-	ctrlLeft.addEventListener("click", slideLeft);
+    var ctrlLeft = document.querySelector(".ctrl-left");
+    ctrlLeft.addEventListener("click", slideLeft);
 
-	var ctrlRight = document.querySelector(".ctrl-right");
-	ctrlRight.addEventListener("click", slideRight);
+    var ctrlRight = document.querySelector(".ctrl-right");
+    ctrlRight.addEventListener("click", slideRight);
 
 </script>
 </body>
