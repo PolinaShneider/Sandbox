@@ -89,12 +89,16 @@
     </div>
 <script type="text/javascript">
 
-    var slides = document.querySelectorAll(".slide")
+    var slides = document.querySelectorAll(".slide");
     var slidesCount = document.querySelectorAll(".slide").length;
     var  container = document.querySelector(".container");
     var step = parseInt(window.getComputedStyle(container, null).getPropertyValue("width"));
     var wrapper = document.querySelector(".wrapper");
     var currentSlide = document.querySelectorAll(".slide")[0];
+
+    for (var i = 0; i < slides.length; i++) {
+        slides[i].style.width = step + "px";
+    }
 
     function round(value, step) {
         step || (step = 1.0);
