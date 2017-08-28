@@ -1,106 +1,242 @@
-<table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#e7ebf6">
-	<tbody>
-		<tr>
-			<td height="45"></td>
-		</tr>
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0"  width="90%" align="center" style="max-width: 600px;">
-					<tbody>
-						<tr>
-							<td width="30"></td>
-							<td>
-								<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#000000" style="font-size: 23px; font-weight: 800;"><b>Hawk.io</b></font>
-							</td>
-							<td width="30"></td>
-						</tr>
-						<tr>
-							<td height="3"></td>
-						</tr>
-						<tr>
-							<td width="30"></td>
-							<td>
-								<font color="#606989" face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" style="font-size:15px; font-weight: 400;">Fast and lightweight error tracking service</font>
-							</td>
-							<td width="30"></td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td height="23"></td>
-		</tr>
-		<tr>
-			<td>
-				<table width="90%;" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#ffffff" style="max-width: 600px; border: 1px solid #DDDEEF; border-radius: 3px;">
-					<tbody>
-					<tr>
-						<td height="29"></td>
-					</tr>
-					<tr>
-						<td style="padding-right: 30px; padding-left: 30px;">
-							<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#000000" style="font-size:15px;">Hello 😤 . We’ve got an JavaScript Error on school332.ru. Please, take a look.</font>
-						</td>
-					</tr>
-					<tr>
-						<td height="15"></td>
-					</tr>
-					<tr>
-						<td style="padding-right: 30px; padding-left: 30px;">
-							<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#000000" style="font-size:16px; line-height: 1.5em;">
-								<b>Uncaught SecurityError: Failed to read the 'contentDocument' property from 'HTMLIFrameElement': Blocked a frame with origin "https://spark.ru" from accessing a cross-origin frame.</b>
-							</font>
-						</td>
-					</tr>
-					<tr>
-						<td height="15"></td>
-					</tr>
-					<tr>
-						<td style="padding-right: 30px; padding-left: 30px;">
-							<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#717171" style="font-size:16px;"><a href="http://class-app-chat-details.local/build/bundle.js" style="color: #717171; text-decoration: none;">http://class-app-chat-details.local/build/bundle.js -> 140:10</a></font>
-						</td>
-					</tr>
-					<tr>
-						<td height="25"></td>
-					</tr>
-					<tr>
-						<td style="padding-right: 30px; padding-left: 30px;">
-						<a href="https://{{ hostName }}/garage/{{ domain }}/event/{{ event.groupHash }}" style="background-color: #00bd95; display: inline-block; text-decoration: none; color: #ffffff; padding: 10px 15px; border-radius: 3px;">
-							<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#ffffff" style="font-size:15px;line-height:18px;">
-								View traceback
-							</font>
-							</a>
-						</td>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style type="text/css">
+    .container {
+      width: 370px;
+      height: 420px;
+      background-image: url('http://s-media-cache-ak0.pinimg.com/736x/e5/73/5f/e5735fb5c423354445234386793b31de--beautiful-people-beautiful-women.jpg');
+      background-size: cover;
+      display: flex;
+      align-items: flex-end;
+      margin: auto;
+    }
+    .info-block {
+      background: #fff;
+      margin: 10px;
+      width: 370px;
+      min-height: 200px;
+      position: relative;
+      font-family: Lato;
+    }
+    .info-block__links {
+      padding: 0 15px;
+    }
+    .portrait {
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      padding: 0 15px;
+      padding-bottom: 15px;
+      margin-top: -35px !important;
+      margin-bottom: 0px !important; 
+    }
+    .img-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 50px;
+    }
+    .name {
+      color: #2b2b2b;
+      font-size: 26px;
+      padding: 0 15px;
+      font-weight: 300;
+      padding-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 50px;
+    }
+    .info-block__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+    .info-block__icon {
+      padding-right: 7px;
+      color: #a0a0a0 !important;
+    }
+    .info-block__button {
+      background: #000000;
+      color: #fff !important;
+      font-size: 15px;
+      line-height: 18px !important;
+      font-weight: 300;
+      padding: 12px 36px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      margin-right: 15px;
+    }
+    .statistics {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      height: 90px;
+    }
+    .statistics__item {
+      padding: 10px;
+    }
+    .statistics__number {
+      font-size: 26px;
+      font-weight: 300;
+      color: #000;
+    }
+    .statistics__title {
+      font-size: 12px;
+      color: #a0a0a0;
+    }
+    .controls {
+      width: 80%;
+      margin: auto;
+    }
+    .controls-block {
+      padding: 10px;
+    }
+    .controls-form {
+      display: flex; 
+      justify-content: center;
+    }
 
-					</tr>
-					<tr>
-						<td height="30"></td>
-					</tr>
-				</tbody>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td height="21"></td>
-		</tr>
-		<tr>
-			<td>
-				<table width="90%" align="center" style="max-width: 600px;">
-					<tbody>
-						<tr>
-							<td style="padding-right: 30px; padding-left: 32px;">
-								<font face="Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif" color="#7f87a2" style="font-size:15px;text-decoration:underline">
-									<a href="https://{{ hostName }}/garage/settings" style="color:#7f87a2;font-family: Lato, -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif">Notifications preferences</a>
-								</font>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td height="100"></td>
-		</tr>
-	</tbody>
-</table>
+    @media only screen and (max-width: 700px) {
+      .container {
+        max-width: 100%;
+      }
+      .controls-form {
+        flex-direction: column;
+      }
+      .info-block__button {
+        padding: 12px 20px;
+      }
+    }
+
+
+  </style>
+
+  <script type="text/javascript">
+  function click_position(obj, direction) { 
+    if (direction === 'vertical') {change_position_vert(obj.value);}
+    else {change_position_hor(obj.value);}
+  }
+ 
+  function change_position_vert(val) { 
+    statistics = document.querySelector(".statistics");
+    personAva = document.querySelector(".img-wrapper");
+    personName = document.querySelector(".name");
+    infoBlock = document.querySelector(".info-block__content");
+
+    statistics.style.alignItems=val;
+    personAva.style.alignItems=val;
+    personName.style.alignItems=val;
+    infoBlock.style.alignItems=val;
+
+  }
+  function change_position_hor(val) { 
+    statistics = document.querySelector(".statistics");
+    personAva = document.querySelector(".img-wrapper");
+    personName = document.querySelector(".name");
+    infoBlock = document.querySelector(".info-block__content");
+
+    statistics.style.justifyContent=val;
+    personAva.style.justifyContent=val;
+    personName.style.justifyContent=val;
+    infoBlock.style.justifyContent=val;
+  }
+</script>
+</head>
+<body>
+<div class="wrapper">
+  <div class="controls">
+   <form class="controls-form">
+   <div class="controls-block">
+  <label>align-items:</label><br>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this, 'vertical')" id="value_1" value="flex-start">
+      <label for="value_1">flex-start</label>
+    </div>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_2" value="center" checked="true">
+      <label for="value_2">center</label>
+    </div>  
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_3" value="flex-end">
+      <label for="value_3">flex-end</label>
+    </div>
+    </div>
+    <div class="controls-block">
+    <label>justify-content:</label><br>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_4" value="space-between">
+      <label for="value_4">space-between</label>
+    </div>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_5" value="center">
+      <label for="value_5">center</label>
+    </div>  
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_6" value="space-around" checked="true">
+      <label for="value_6">space-around</label>
+    </div>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_7" value="flex-start">
+      <label for="value_7">flex-start</label>
+    </div>
+    <div>
+      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_8" value="flex-end">
+      <label for="value_8">flex-end</label>
+    </div>
+    </div>
+   </form>
+  </div>
+  <div class="container">
+    <div class="info-block">
+      <div class="img-wrapper">
+        <img src="http://s-media-cache-ak0.pinimg.com/736x/0b/4e/a2/0b4ea21255c0cad4d3b19cfbd4061a9e--people-photography-inspiring-photography.jpg" class="portrait">
+      </div>
+      <div class="name">Neel Litoriya</div>
+      <div class="info-block__content">
+        <div class="info-block__links">
+          <div>
+            <i class="fa fa-info-circle"></i>
+              Photographer
+          </div>
+          <div>
+            <i class="fa fa-location-arrow"></i>
+              Indore, India
+          </div>
+        </div>
+        <a href="javascript: void(0);" class="info-block__button">+ Add</a>
+      </div>
+      <div class="statistics">
+        <div class="statistics__item">
+          <div class="statistics__title">
+            <i class="fa fa-eye"></i>
+              Views
+          </div>
+          <div class="statistics__number">624</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">
+            <i class="fa fa-user-circle-o"></i>
+              Followers
+          </div>
+          <div class="statistics__number">142</div>
+        </div>
+        <div class="statistics__item">
+          <div class="statistics__title">
+            <i class="fa fa-heart-o"></i>
+              Likes
+          </div>
+          <div class="statistics__number">104</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>
