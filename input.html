@@ -115,7 +115,7 @@
     var slideRight = function(){
         if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) <= (slidesCount - 2) * step) {
             newPosRight = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  + step ;
-            wrapper.style.right = round(newPosRight, 600)+ "px" ;
+            wrapper.style.right = round(newPosRight, step)+ "px" ;
             index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step + 1;
             currentSlide = document.querySelectorAll(".slide")[index];
             /**
@@ -134,7 +134,7 @@
     var slideLeft = function(){
         if (parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) >= step) {
             newPosLeft = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right"))  - step ;
-            wrapper.style.right = round(newPosLeft, 600)+ "px" ;
+            wrapper.style.right = round(newPosLeft, step)+ "px" ;
             index = parseInt(window.getComputedStyle(wrapper, null).getPropertyValue("right")) / step - 1;
             currentSlide = document.querySelectorAll(".slide")[index];
             /**
