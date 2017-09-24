@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	var numOfCubits = 3;
+	var numOfStates = Math.pow(2,numOfCubits);
+	var numOfSolutions = 1;
+	var numOfIterations = Math.floor(((Math.PI) / 4) * Math.sqrt(numOfStates / numOfSolutions));
+	// alert(numOfIterations)
+	var amplitudesArray = [];
+
+	function add(a, b) {
+	    return a + b;
+	}
+
+	for (var i = 0; i < numOfStates; i++) {
+		amplitudesArray[i] = 1/Math.sqrt(numOfStates);
+	}
+	var RandIndexesOfSolutions = function(){
+		var arr = []
+		while(arr.length < numOfSolutions){
+		    var randomnumber = Math.ceil(Math.random()* (numOfStates - 1))
+		    if(arr.indexOf(randomnumber) > -1) continue;
+		    arr[arr.length] = randomnumber;
+		}
+		return arr;
+	};
+
+	var GroverPerturbate = function(randIndexes) {
+		console.log(randIndexes);
+		console.log(randIndexes[0]);
+		console.log(randIndexes[randIndexes.length - 1]);
+		var EPS = 0.1 * amplitudesArray[0];
+		amplitudesArray[randIndexes[0]] = Math.sqrt(amplitudesArray[randIndexes[0]] * amplitudesArray[randIndexes[0]] - EPS * EPS);
+		amplitudesArray[randIndexes[randIndexes.length - 1]] = Math.sqrt(amplitudesArray[randIndexes[randIndexes.length - 1]] * amplitudesArray[randIndexes[randIndexes.length - 1]] + EPS * EPS);
+
+		console.log("Perturbated", amplitudesArray)
+
+	};
+
+	var GroverIteration = function(randIndexes) {
+
+		for (var i = 0; i < numOfSolutions; i++) {
+			amplitudesArray[randIndexes[i]] = -1 * amplitudesArray[randIndexes[i]];
+		}
+
+		var inverseMean = (2/numOfStates) * (amplitudesArray.reduce(add, 0));
+		// alert(inverseMean);
+
+		for (var i = 0; i < numOfStates; i++) {
+			amplitudesArray[i] = inverseMean - amplitudesArray[i];
+		}
+
+		console.log(amplitudesArray);
+
+	}
+
+	
+
+	function GroverRun() {
+		var randIndexes = RandIndexesOfSolutions();
+		var randIndexes2 = RandIndexesOfSolutions();
+		// randIndexes = [1];
+		GroverPerturbate(randIndexes2);
+		console.log("Indexes searched for are", randIndexes)
+		for (var i = 0; i < numOfIterations; i++) {
+			GroverIteration(randIndexes);
+			console.log("Iteration count", i);
+		}
+	}
+
+	GroverRun();
+
+	
+
+	
+
+
+</script>
+</body>
+</html>
