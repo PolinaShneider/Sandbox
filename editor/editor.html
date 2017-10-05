@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="canvas">
+			<div class="toolbar">
+				<div class="resize-ctrls">
+					<button class="resize-ctrl resize-ctrl--square" onclick="canvasResize('square')"></button>
+					<button class="resize-ctrl resize-ctrl--vertical" onclick="canvasResize('vertical')"></button>
+					<button class="resize-ctrl resize-ctrl--horizontal active" onclick="canvasResize('horizontal')"></button>
+				</div>
+				<div class="format-ctrls">
+					<button class="format-ctrl format-ctrl--headline js-format-ctrl--headline">Headline</button>
+					<button class="format-ctrl format-ctrl--text js-format-ctrl--text">Main text</button>
+					<button class="format-ctrl format-ctrl--img">Image</button>
+					<button class="format-ctrl format-ctrl--save"></button>
+				</div>
+			</div>
+			<div class="canvas__inner" contenteditable="true">
+				<div contenteditable="false" class="choose-clr-dlg js-choose-clr-dlg">
+					<div contenteditable="true" class="choose-clr-dlg__code">#FFFFFF</div>
+					<div class="choose-clr-dlg__preview"></div>
+				</div>
+			</div>
+			<svg class="canvas__svg" width="654px" height="510px" viewBox="0 0 654 510" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+			    <defs>
+			        <rect id="path-1" x="0" y="0" width="650" height="506" rx="2"></rect>
+			        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-2" y="-2" width="654" height="510">
+			            <rect x="-2" y="-2" width="654" height="510" fill="white"></rect>
+			            <use xlink:href="#path-1" fill="black"></use>
+			        </mask>
+			    </defs>
+			    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			        <g id="Desktop---Select-bg" transform="translate(-86.000000, -174.000000)">
+			            <g id="canvas---selected" transform="translate(88.000000, 176.000000)">
+			                <use stroke="#cbdbf0" mask="url(#mask-2)" stroke-width="4" stroke-dasharray="5" xlink:href="#path-1"></use>
+			                <rect id="canvas" fill="#FFFFFF" fill-rule="evenodd" x="5" y="5" width="640" height="496" rx="2"></rect>
+			            </g>
+			        </g>
+			    </g>
+			</svg>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+	var canvas__inner = document.querySelector(".canvas__inner");
+	var colorDlg__code = document.querySelector(".choose-clr-dlg__code");
+	var colorDlg = document.querySelector(".js-choose-clr-dlg");
+
+	canvas__inner.addEventListener("focus", function() {
+		this.parentNode.querySelector("svg").classList.add("focused");
+	})
+
+	canvas__inner.addEventListener("focusout", function(evt) {
+
+		this.parentNode.querySelector("svg").classList.remove("focused");
+
+	})
+
+	document.addEventListener("click", function(e) {
+
+		var condition = (colorDlg === (e.target) || colorDlg.contains(e.target));
+		var conditionInside = (canvas__inner === (e.target) || canvas__inner.contains(e.target));
+
+		if (!condition && !conditionInside) {
+			document.querySelector(".choose-clr-dlg").classList.remove("choose-clr-dlg--visible");
+		}
+
+	});
+
+	function showClrDlg(e) {
+
+		var canvasSvg = document.querySelector(".canvas__svg");
+
+		var condition = (colorDlg === (e.target) || colorDlg.contains(e.target));
+		var conditionFocused = (canvasSvg.classList.contains("focused"));
+
+		if (canvas__inner.contains(document.querySelector(".choose-clr-dlg--visible"))) {
+			if (condition) {
+				return false;
+			} else {
+				colorDlg.classList.toggle("choose-clr-dlg--visible");
+			}
+		}
+
+		if (condition) {
+			colorDlg.classList.remove("choose-clr-dlg--visible");
+
+		} else {
+			colorDlg.classList.toggle("choose-clr-dlg--visible");
+		}
+
+	}
+
+	canvas__inner.addEventListener("click", showClrDlg);
+
+	colorDlg__code.addEventListener("keypress", function(e) {
+		if (e.keyCode === 13 || e.which === 13) { 
+			e.preventDefault();
+			return false; 
+		}
+	})
+
+	colorDlg__code.addEventListener("keyup", function(e) {
+
+		function validTextColour(stringToTest) {
+		    if (stringToTest === "") { return false; }
+		    if (stringToTest === "inherit") { return false; }
+		    if (stringToTest === "transparent") { return false; }
+		    
+		    var image = document.createElement("img");
+		    image.style.color = "rgb(0, 0, 0)";
+		    image.style.color = stringToTest;
+		    if (image.style.color !== "rgb(0, 0, 0)") { return true; }
+		    image.style.color = "rgb(255, 255, 255)";
+		    image.style.color = stringToTest;
+		    return image.style.color !== "rgb(255, 255, 255)";
+		}
+		
+		var newBgColor = colorDlg__code.innerHTML;
+
+		if (validTextColour(newBgColor)) {
+			document.querySelector(".choose-clr-dlg__preview").style.backgroundColor = newBgColor;
+			document.querySelector(".canvas__svg").querySelector("#canvas").setAttribute("fill", newBgColor);
+		}
+		
+
+		
+	})
+
+
+
+	function canvasResize(mode) {
+
+		var canvas = document.querySelector(".canvas");
+		var canvasSvg = document.querySelector(".canvas__svg");
+		var initialWidth = '654px';
+		var initialHeight = '510px';
+		var resizeCtrls = document.querySelectorAll(".resize-ctrl");
+
+		if (mode === 'square') {
+			initialWidth = initialHeight;
+			canvas.style.width = initialHeight;
+			canvas.style.height = initialHeight;
+
+			for (var i = 0; i < resizeCtrls.length; i++) {
+				resizeCtrls[i].classList.remove("active");
+			}
+
+			document.querySelector(".resize-ctrl--square").classList.add("active");
+			canvasSvg.querySelector("rect").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("rect").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("width", parseInt(initialHeight) - 4);
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("height", parseInt(initialHeight) - 4);
+			canvasSvg.querySelector("mask").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.setAttribute("width", initialHeight);
+			canvasSvg.setAttribute("height", initialHeight);
+			canvasSvg.setAttribute("viewBox","0 0 " + parseInt(initialHeight) + " "+ parseInt(initialHeight));
+			canvasSvg.querySelector("#canvas").setAttribute("width", parseInt(initialHeight) - 14 );
+			canvasSvg.querySelector("#canvas").setAttribute("height", parseInt(initialHeight) - 14 );
+		}
+
+		if (mode === 'vertical') {
+			canvas.style.width = initialHeight;
+			canvas.style.height = initialWidth;
+
+			for (var i = 0; i < resizeCtrls.length; i++) {
+				resizeCtrls[i].classList.remove("active");
+			}
+			document.querySelector(".resize-ctrl--vertical").classList.add("active");
+
+			canvasSvg.querySelector("rect").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("rect").setAttribute("height", parseInt(initialWidth));
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("width", parseInt(initialHeight) - 4);
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("height", parseInt(initialWidth) - 4);
+			canvasSvg.querySelector("mask").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").setAttribute("height", parseInt(initialWidth));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("width", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("height", parseInt(initialWidth));
+			canvasSvg.setAttribute("width", initialHeight);
+			canvasSvg.setAttribute("height", initialWidth);
+			canvasSvg.setAttribute("viewBox","0 0 " + parseInt(initialHeight) + " "+ parseInt(initialWidth));
+			canvasSvg.querySelector("#canvas").setAttribute("width", parseInt(initialHeight) - 14 );
+			canvasSvg.querySelector("#canvas").setAttribute("height", parseInt(initialWidth) - 14 );
+		}
+
+		if (mode === 'horizontal') {
+			canvas.style.width = initialWidth;
+			canvas.style.height = initialHeight;
+
+
+			for (var i = 0; i < resizeCtrls.length; i++) {
+				resizeCtrls[i].classList.remove("active");
+			}
+			document.querySelector(".resize-ctrl--horizontal").classList.add("active");
+
+			canvasSvg.querySelector("rect").setAttribute("width", parseInt(initialWidth));
+			canvasSvg.querySelector("rect").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("width", parseInt(initialWidth) - 4);
+			canvasSvg.querySelector("defs").querySelector("rect").setAttribute("height", parseInt(initialHeight) - 4);
+			canvasSvg.querySelector("mask").setAttribute("width", parseInt(initialWidth));
+			canvasSvg.querySelector("mask").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("width", parseInt(initialWidth));
+			canvasSvg.querySelector("mask").querySelector("rect").setAttribute("height", parseInt(initialHeight));
+			canvasSvg.setAttribute("width", initialWidth);
+			canvasSvg.setAttribute("height", initialHeight);
+			canvasSvg.setAttribute("viewBox","0 0 " + parseInt(initialWidth) + " "+ parseInt(initialHeight));
+			canvasSvg.querySelector("#canvas").setAttribute("width", parseInt(initialWidth) - 14 );
+			canvasSvg.querySelector("#canvas").setAttribute("height", parseInt(initialHeight) - 14 );
+		}
+
+	}
+
+	var formatCtrls = document.querySelectorAll(".format-ctrl");
+	for (var j = 0; j < formatCtrls.length; j++) {
+		
+		formatCtrls[j].addEventListener("click", function(e) {
+			this.classList.toggle("active");
+
+			if (this.classList.contains("active")) {
+				canvas__inner.removeEventListener("click", showClrDlg);
+			} else {
+				canvas__inner.addEventListener("click", showClrDlg);
+			}
+			
+		})
+	}
+
+	var formatCtrlHeadline = document.querySelector(".js-format-ctrl--headline");
+	var h2Count = 0;
+	formatCtrlHeadline.addEventListener("click", function() {
+
+		canvas__inner.setAttribute("contenteditable", "false");
+
+		if (formatCtrlHeadline.classList.contains("active") && !h2Count) {
+			var h2 = document.createElement("h2");
+			h2Count++;
+			h2.classList.add("editor-headline");
+			h2.setAttribute("contenteditable", "true");
+			canvas__inner.appendChild(h2);
+		}
+
+		var editorHeadline = document.querySelector(".editor-headline");
+
+		var elemToolbar = document.createElement("div");
+
+		editorHeadline.addEventListener("click", function() {
+
+			if (this.textContent && !this.parentNode.querySelector(".editor-elem--toolbar")) {
+				elemToolbar.classList.add("editor-elem--toolbar");
+				elemToolbar.classList.add("editor-elem--toolbar--visible");
+
+				var elemToolbarText = document.createElement("div");
+				elemToolbarText.classList.add("editor-elem--toolbar-text");
+				elemToolbar.appendChild(elemToolbarText);
+
+				elemToolbarText.addEventListener("click", function() {
+					this.classList.toggle("active");
+				})
+
+
+				var elemToolbarInitial = document.createElement("div");
+				elemToolbarInitial.classList.add("editor-elem--toolbar-initial");
+				elemToolbarInitial.classList.add("active");
+				elemToolbarInitial.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarInitial);
+
+				elemToolbarInitial.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					editorHeadline.style.textAlign = "initial";
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "0";
+				})
+
+
+				var elemToolbarCenter = document.createElement("div");
+				elemToolbarCenter.classList.add("editor-elem--toolbar-center");
+				elemToolbarCenter.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarCenter);
+
+				elemToolbarCenter.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					editorHeadline.style.textAlign = "center";
+					elemToolbar.style.marginLeft = "auto";
+					elemToolbar.style.marginRight = "auto";
+				})
+
+
+				var elemToolbarRight = document.createElement("div");
+				elemToolbarRight.classList.add("editor-elem--toolbar-right");
+				elemToolbarRight.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarRight);
+
+				elemToolbarRight.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					editorHeadline.style.textAlign = "right";
+					elemToolbar.style.marginLeft = "auto";
+					elemToolbar.style.marginRight = "0";
+				})
+
+
+				var elemToolbarColor = document.createElement("div");
+				elemToolbarColor.classList.add("editor-elem--toolbar-color");
+				elemToolbar.appendChild(elemToolbarColor);
+
+				canvas__inner.insertBefore( elemToolbar, canvas__inner.firstChild )
+			}
+
+			editorHeadline.addEventListener("focus", function(e) {
+
+				if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar"))) {
+					document.querySelector(".editor-elem--toolbar").classList.add("editor-elem--toolbar--visible");
+				}
+				
+			});
+		});
+
+		function hideElemToolbar(evt) {
+
+			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+
+				document.querySelector(".editor-elem--toolbar").classList.remove("editor-elem--toolbar--visible");
+			}
+
+		}
+
+		document.body.addEventListener("click", function(e) {
+
+			var hideCondition = ((elemToolbar === e.target) || (elemToolbar.contains(e.target)) || (editorHeadline === e.target));
+			if (!hideCondition) {
+				hideElemToolbar();
+			}
+		})
+		
+		
+	});
+	
+</script>
+</html>
