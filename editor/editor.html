@@ -221,6 +221,125 @@
 
 	}
 
+	function addToolbar(obj) {
+
+		canvas__inner.setAttribute("contenteditable", "false");
+
+
+		// var elemToolbar = document.createElement("div");
+
+		obj.addEventListener("click", function() {
+
+			var elemsEdited = canvas__inner.querySelectorAll(".edited");
+
+			for (var i = 0; i < elemsEdited.length; i++) {
+				elemsEdited[i].classList.remove("edited");
+			}
+
+			obj.classList.add("edited");
+
+			function toolbarPosition() {
+				if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+
+					var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
+					if (document.querySelector(".edited").style.textAlign == "right") {
+						elemToolbar.style.marginLeft = "auto";
+						elemToolbar.style.marginRight = "0";
+					} else if (document.querySelector(".edited").style.textAlign == "center") {
+						elemToolbar.style.marginLeft = "auto";
+						elemToolbar.style.marginRight = "auto";
+					} else {
+						elemToolbar.style.marginRight = "auto";
+						elemToolbar.style.marginLeft = "0";
+					}
+				}
+			}
+			toolbarPosition();
+
+			if (this.textContent && !this.parentNode.querySelector(".editor-elem--toolbar")) {
+
+				var elemToolbar = document.createElement("div");
+				elemToolbar.classList.add("editor-elem--toolbar");
+				elemToolbar.classList.add("editor-elem--toolbar--visible");
+
+				var elemToolbarText = document.createElement("div");
+				elemToolbarText.classList.add("editor-elem--toolbar-text");
+				elemToolbar.appendChild(elemToolbarText);
+
+				elemToolbarText.addEventListener("click", function() {
+					this.classList.toggle("active");
+				})
+
+
+				var elemToolbarInitial = document.createElement("div");
+				elemToolbarInitial.classList.add("editor-elem--toolbar-initial");
+				elemToolbarInitial.classList.add("active");
+				elemToolbarInitial.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarInitial);
+
+				elemToolbarInitial.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					document.querySelector(".edited").style.textAlign = "initial";
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "0";
+				})
+
+
+				var elemToolbarCenter = document.createElement("div");
+				elemToolbarCenter.classList.add("editor-elem--toolbar-center");
+				elemToolbarCenter.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarCenter);
+
+				elemToolbarCenter.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					document.querySelector(".edited").style.textAlign = "center";
+					elemToolbar.style.marginLeft = "auto";
+					elemToolbar.style.marginRight = "auto";
+				})
+
+
+				var elemToolbarRight = document.createElement("div");
+				elemToolbarRight.classList.add("editor-elem--toolbar-right");
+				elemToolbarRight.classList.add("editor-elem--toolbar-txt");
+				elemToolbar.appendChild(elemToolbarRight);
+
+				elemToolbarRight.addEventListener("click", function() {
+					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
+					for (var i = 0; i < toolbarSettingsText.length; i++) {
+						toolbarSettingsText[i].classList.remove("active");
+					}
+					this.classList.toggle("active");
+					document.querySelector(".edited").style.textAlign = "right";
+					elemToolbar.style.marginLeft = "auto";
+					elemToolbar.style.marginRight = "0";
+				})
+
+				var elemToolbarColor = document.createElement("div");
+				elemToolbarColor.classList.add("editor-elem--toolbar-color");
+				elemToolbar.appendChild(elemToolbarColor);
+				canvas__inner.insertBefore( elemToolbar, canvas__inner.firstChild )
+			}
+
+			obj.addEventListener("focus", function(e) {
+
+				if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar"))) {
+					document.querySelector(".editor-elem--toolbar").classList.add("editor-elem--toolbar--visible");
+				}
+				
+			});
+
+		})
+	}
+
+
 	var formatCtrls = document.querySelectorAll(".format-ctrl");
 	for (var j = 0; j < formatCtrls.length; j++) {
 		
@@ -252,109 +371,72 @@
 
 		var editorHeadline = document.querySelector(".editor-headline");
 
-		var elemToolbar = document.createElement("div");
+		addToolbar(editorHeadline);
 
 		editorHeadline.addEventListener("click", function() {
-
-			if (this.textContent && !this.parentNode.querySelector(".editor-elem--toolbar")) {
-				elemToolbar.classList.add("editor-elem--toolbar");
-				elemToolbar.classList.add("editor-elem--toolbar--visible");
-
-				var elemToolbarText = document.createElement("div");
-				elemToolbarText.classList.add("editor-elem--toolbar-text");
-				elemToolbar.appendChild(elemToolbarText);
-
-				elemToolbarText.addEventListener("click", function() {
-					this.classList.toggle("active");
-				})
-
-
-				var elemToolbarInitial = document.createElement("div");
-				elemToolbarInitial.classList.add("editor-elem--toolbar-initial");
-				elemToolbarInitial.classList.add("active");
-				elemToolbarInitial.classList.add("editor-elem--toolbar-txt");
-				elemToolbar.appendChild(elemToolbarInitial);
-
-				elemToolbarInitial.addEventListener("click", function() {
-					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
-					for (var i = 0; i < toolbarSettingsText.length; i++) {
-						toolbarSettingsText[i].classList.remove("active");
-					}
-					this.classList.toggle("active");
-					editorHeadline.style.textAlign = "initial";
-					elemToolbar.style.marginRight = "auto";
-					elemToolbar.style.marginLeft = "0";
-				})
-
-
-				var elemToolbarCenter = document.createElement("div");
-				elemToolbarCenter.classList.add("editor-elem--toolbar-center");
-				elemToolbarCenter.classList.add("editor-elem--toolbar-txt");
-				elemToolbar.appendChild(elemToolbarCenter);
-
-				elemToolbarCenter.addEventListener("click", function() {
-					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
-					for (var i = 0; i < toolbarSettingsText.length; i++) {
-						toolbarSettingsText[i].classList.remove("active");
-					}
-					this.classList.toggle("active");
-					editorHeadline.style.textAlign = "center";
-					elemToolbar.style.marginLeft = "auto";
-					elemToolbar.style.marginRight = "auto";
-				})
-
-
-				var elemToolbarRight = document.createElement("div");
-				elemToolbarRight.classList.add("editor-elem--toolbar-right");
-				elemToolbarRight.classList.add("editor-elem--toolbar-txt");
-				elemToolbar.appendChild(elemToolbarRight);
-
-				elemToolbarRight.addEventListener("click", function() {
-					var toolbarSettingsText = document.querySelectorAll(".editor-elem--toolbar-txt");
-					for (var i = 0; i < toolbarSettingsText.length; i++) {
-						toolbarSettingsText[i].classList.remove("active");
-					}
-					this.classList.toggle("active");
-					editorHeadline.style.textAlign = "right";
-					elemToolbar.style.marginLeft = "auto";
-					elemToolbar.style.marginRight = "0";
-				})
-
-
-				var elemToolbarColor = document.createElement("div");
-				elemToolbarColor.classList.add("editor-elem--toolbar-color");
-				elemToolbar.appendChild(elemToolbarColor);
-
-				canvas__inner.insertBefore( elemToolbar, canvas__inner.firstChild )
+			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+				var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
+				elemToolbar.style.top = 0 + "px";
+				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
 			}
-
-			editorHeadline.addEventListener("focus", function(e) {
-
-				if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar"))) {
-					document.querySelector(".editor-elem--toolbar").classList.add("editor-elem--toolbar--visible");
-				}
-				
-			});
 		});
 
-		function hideElemToolbar(evt) {
+	});
 
-			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+	function hideElemToolbar(evt) {
 
-				document.querySelector(".editor-elem--toolbar").classList.remove("editor-elem--toolbar--visible");
-			}
+		if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
 
+			document.querySelector(".editor-elem--toolbar--visible").innerHTML = '';
+			canvas__inner.removeChild(document.querySelector(".editor-elem--toolbar--visible"));
 		}
 
-		document.body.addEventListener("click", function(e) {
+	}
 
-			var hideCondition = ((elemToolbar === e.target) || (elemToolbar.contains(e.target)) || (editorHeadline === e.target));
+	document.body.addEventListener("click", function(e) {
+
+		if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+
+			var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
+			var editorHeadline = document.querySelector(".editor-headline");
+			var editorText = document.querySelector(".editor-text");
+
+			var hideCondition = ((elemToolbar === e.target) || (elemToolbar.contains(e.target)) || (editorHeadline === e.target) || (editorText === e.target));
 			if (!hideCondition) {
 				hideElemToolbar();
 			}
-		})
+		}
+	})
 		
 		
+
+	var formatCtrlText = document.querySelector(".js-format-ctrl--text");
+	var textCount = 0;
+	formatCtrlText.addEventListener("click", function() {
+
+		canvas__inner.setAttribute("contenteditable", "false");
+
+		if (formatCtrlText.classList.contains("active") && !textCount) {
+			var text = document.createElement("p");
+			textCount++;
+			text.classList.add("editor-text");
+			text.setAttribute("contenteditable", "true");
+			canvas__inner.appendChild(text);
+		}
+
+		var editorText = document.querySelector(".editor-text");
+		var editorHeadline = document.querySelector(".editor-headline");
+
+		addToolbar(editorText);
+
+		editorText.addEventListener("click", function() {
+			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
+				var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
+				elemToolbar.style.top = editorHeadline.offsetTop + "px";
+				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
+			}
+		})	
+
 	});
 	
 </script>
