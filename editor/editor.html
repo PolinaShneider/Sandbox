@@ -17,9 +17,9 @@
 				</div>
 				<div class="format-ctrls">
 					<button class="format-ctrl format-ctrl--headline js-format-ctrl--headline">Headline</button>
-					<button class="format-ctrl format-ctrl--text js-format-ctrl--text">Main text</button>
-					<button class="format-ctrl format-ctrl--img">Image</button>
-					<button class="format-ctrl format-ctrl--save"></button>
+					<button class="format-ctrl format-ctrl--text js-format-ctrl--text" disabled="true">Main text</button>
+					<button class="format-ctrl format-ctrl--img" disabled="true">Image</button>
+					<button class="format-ctrl format-ctrl--save" disabled="true"></button>
 				</div>
 			</div>
 			<div class="canvas__inner" contenteditable="true">
@@ -360,14 +360,19 @@
 	formatCtrlHeadline.addEventListener("click", function() {
 
 		canvas__inner.setAttribute("contenteditable", "false");
+		var h2 = document.createElement("h2");
 
 		if (formatCtrlHeadline.classList.contains("active") && !h2Count) {
-			var h2 = document.createElement("h2");
+
 			h2Count++;
 			h2.classList.add("editor-headline");
 			h2.style.textAlign = "initial";
 			h2.setAttribute("contenteditable", "true");
 			canvas__inner.appendChild(h2);
+		}
+
+		if (!!h2Count) {
+			document.querySelector(".js-format-ctrl--text").removeAttribute("disabled");
 		}
 
 		var editorHeadline = document.querySelector(".editor-headline");
@@ -386,6 +391,17 @@
 				var txtAlignSelector = "editor-elem--toolbar-" + this.style.textAlign;
 				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
 				elemToolbar.querySelector("." + txtAlignSelector).classList.add("active");
+
+				if (this.style.textAlign == "initial") {
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "0px";
+				} else if (this.style.textAlign == "right") {
+					elemToolbar.style.marginRight = "0px";
+					elemToolbar.style.marginLeft = "auto";
+				} else {
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "auto";
+				}
 			}
 		});
 
@@ -451,6 +467,18 @@
 				var txtAlignSelector = "editor-elem--toolbar-" + this.style.textAlign;
 				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
 				elemToolbar.querySelector("." + txtAlignSelector).classList.add("active");
+
+				if (this.style.textAlign == "initial") {
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "0px";
+				} else if (this.style.textAlign == "right") {
+					elemToolbar.style.marginRight = "0px";
+					elemToolbar.style.marginLeft = "auto";
+				} else {
+					elemToolbar.style.marginRight = "auto";
+					elemToolbar.style.marginLeft = "auto";
+				}
+				
 			}
 		})	
 
