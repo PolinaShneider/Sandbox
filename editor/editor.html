@@ -365,6 +365,7 @@
 			var h2 = document.createElement("h2");
 			h2Count++;
 			h2.classList.add("editor-headline");
+			h2.style.textAlign = "initial";
 			h2.setAttribute("contenteditable", "true");
 			canvas__inner.appendChild(h2);
 		}
@@ -377,7 +378,14 @@
 			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
 				var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
 				elemToolbar.style.top = 0 + "px";
+
+				if (!! elemToolbar.querySelector(".active")) {
+					elemToolbar.querySelector(".active").classList.remove("active");
+				}
+
+				var txtAlignSelector = "editor-elem--toolbar-" + this.style.textAlign;
 				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
+				elemToolbar.querySelector("." + txtAlignSelector).classList.add("active");
 			}
 		});
 
@@ -420,6 +428,7 @@
 			var text = document.createElement("p");
 			textCount++;
 			text.classList.add("editor-text");
+			text.style.textAlign = "initial";
 			text.setAttribute("contenteditable", "true");
 			canvas__inner.appendChild(text);
 		}
@@ -433,7 +442,15 @@
 			if (canvas__inner.contains(document.querySelector(".editor-elem--toolbar--visible"))) {
 				var elemToolbar = document.querySelector(".editor-elem--toolbar--visible");
 				elemToolbar.style.top = editorHeadline.offsetTop + "px";
+
+				if (!! elemToolbar.querySelector(".active")) {
+					elemToolbar.querySelector(".active").classList.remove("active");
+				}
+				
 				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
+				var txtAlignSelector = "editor-elem--toolbar-" + this.style.textAlign;
+				elemToolbar.querySelector(".editor-elem--toolbar-color").style.background = window.getComputedStyle(this, null).getPropertyValue("color");
+				elemToolbar.querySelector("." + txtAlignSelector).classList.add("active");
 			}
 		})	
 
