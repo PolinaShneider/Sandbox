@@ -79,6 +79,8 @@
 
 		var canvasSvg = document.querySelector(".canvas__svg");
 
+		canvas__inner.setAttribute("contenteditable", "true");
+
 		var condition = (colorDlg === (e.target) || colorDlg.contains(e.target));
 		var conditionFocused = (canvasSvg.classList.contains("focused"));
 
@@ -130,8 +132,6 @@
 			document.querySelector(".choose-clr-dlg__preview").style.backgroundColor = newBgColor;
 			document.querySelector(".canvas__svg").querySelector("#canvas").setAttribute("fill", newBgColor);
 		}
-		
-
 		
 	})
 
@@ -352,8 +352,10 @@
 				canvas__inner.addEventListener("click", showClrDlg);
 			}
 			
-		})
+		});
 	}
+
+
 
 	var formatCtrlHeadline = document.querySelector(".js-format-ctrl--headline");
 	var h2Count = 0;
