@@ -570,7 +570,7 @@ template {
     }
     .capella {
         width: 100%;
-        height: 100%;
+        height: auto;
         position: initial;
         -webkit-transform: none;
                 transform: none;
@@ -583,6 +583,11 @@ template {
 
         .capella__button {
             padding: 0 20px;
+        }
+
+        .capella__contents {
+            position: initial;
+            margin-top: 80px;
         }
 }
 /*# sourceMappingURL=bundle.css.map*/
