@@ -597,5 +597,9 @@ template {
             padding: 0 10px;
             transform: none;
         }
+        
+            .capella__contents p {
+                margin: 0 auto;
+            }
 }
 /*# sourceMappingURL=bundle.css.map*/
