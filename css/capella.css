@@ -470,7 +470,7 @@ template {
 
 .capella-background {
     background-color:  #222233;
-    background-image: linear-gradient(to bottom, rgba(18,12,24,0.85) 0%,rgba(18,12,24,0.85) 100%), url(../public/app/img/Bg-overlay.png);
+    background-image: /*linear-gradient(to bottom, rgba(28,0,69,0.8) 50%,rgba(28,0,69,0.8) 100%),*/ url(../public/app/img/Bg-overlay.jpg);
     background-size: cover;
     text-align: center;
     position: fixed;
@@ -493,6 +493,8 @@ template {
             transform: translate(-50%,-50%);
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
+    line-height: 1.5em;
+    font-family: Helvetica;
     color: #b59bda;
 
 }
@@ -505,15 +507,13 @@ template {
                 transform: translate(-50%,-50%);
     }
 
+.capella__contents p {
+    max-width: 430px;
+}
+
 .capella__title {
-        margin-top: 10px;
-        margin-bottom: 100px;
-        font-size: 31px;
-        color: #fff;
-        letter-spacing: 5px;
-        -webkit-font-feature-settings: "c2sc";
-                font-feature-settings: "c2sc";
-        font-variant: small-caps;
+        margin-top: 16px;
+        margin-bottom: 86px;
     }
 
 .capella__button {
@@ -533,7 +533,8 @@ template {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
-  margin-right: 15px;
+  margin-right: 10px;
+  margin-left: -5px;
 }
 
 .capella__button:hover {
@@ -549,11 +550,13 @@ template {
         padding-bottom: 10px;
         text-align: center;
         outline: none;
+        font-family: Helvetica;
+        font-size: 16px;
         color: #fff
     }
 
 .capella__input::-webkit-input-placeholder {
-  color: #b59bda;
+    color: #b59bda;
 }
 
 /**
@@ -584,7 +587,7 @@ template {
         }
 
         .capella__button {
-            padding: 0 20px;
+            padding: 0px 15px 0 24px;
         }
 
         .capella__contents {
