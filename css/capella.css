@@ -567,6 +567,8 @@ template {
     */
     .capella-background {
         padding: 15px;
+        overflow-y:scroll;
+        overflow-x:hidden;
     }
     .capella {
         width: 100%;
@@ -588,6 +590,7 @@ template {
         .capella__contents {
             position: initial;
             margin-top: 80px;
+            margin-bottom: 80px;
             transform: none;
         }
 }
