@@ -542,7 +542,13 @@ template {
 .capella__button:hover {
   background: #6004c0;
 }
-
+.capella__logo {
+  width: 70px;
+  height: 70px;
+  display: inline-block;
+  background: #fff;
+  border-radius: 50%;
+}
 .capella__input {
         border-color: transparent;
         background: transparent;
