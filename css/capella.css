@@ -481,11 +481,13 @@ template {
 }
 
 .capella {
-    width: 1380px;
+    width: calc(100% - 40px);
     height: 700px;
     position: absolute;
     box-sizing: border-box;
-    border: 3px dashed #564C90;
+    background: url("../public/app/img/Dashed-border.svg") no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
     border-radius: 6px;
     top: 50%;
     left: 50%;
@@ -580,6 +582,8 @@ template {
         -webkit-transform: none;
                 transform: none;
         font-size: 17px;
+        border: 2px dashed #564C90;
+        background-image: none;
     }
 
         .capella__title {
