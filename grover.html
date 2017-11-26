@@ -48,7 +48,7 @@
 		}
 
 		var inverseMean = (2/numOfStates) * (amplitudesArray.reduce(add, 0));
-		// alert(inverseMean);
+		alert(inverseMean);
 
 		for (var i = 0; i < numOfStates; i++) {
 			amplitudesArray[i] = inverseMean - amplitudesArray[i];
@@ -62,9 +62,9 @@
 
 	function GroverRun() {
 		var randIndexes = RandIndexesOfSolutions();
-		var randIndexes2 = RandIndexesOfSolutions();
+		// var randIndexes2 = RandIndexesOfSolutions();
 		// randIndexes = [1];
-		GroverPerturbate(randIndexes2);
+		// GroverPerturbate(randIndexes2);
 		console.log("Indexes searched for are", randIndexes)
 		for (var i = 0; i < numOfIterations; i++) {
 			GroverIteration(randIndexes);

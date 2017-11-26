@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grover, searching for Minimum</title>
+    <style type="text/css">
+        body {
+            letter-spacing: 1.5px;
+            line-height: 1.5em;
+            margin: 15px;
+            word-break: break-all;
+            font-family: system-ui;
+        }
+        span {
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grover's Algorithm, searching for Minimum</h1>
+    <div id="valuesArray"></div>
+    <div id="amplitudesArray"></div>
+    <div id="numOfCubits"></div>
+    <div id="randomNum"></div>
+    <div id="valuesLessThan"></div>
+    <div id="amplitudesLessThan"></div>
+    <div id="marked_Amplitudes"></div>
+    <div id="inverseMean"></div>
+    <div id="newAmplitudes"></div>
+    <div id="iterationCount"></div>
+    <div id="minimum"></div>
+    <script type="text/javascript">
+        var valuesArray = [-22, 5, 3, 18, 30, 22, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+        // var valuesArray = [2, 10, -3, 18, -3, 22, 7, 9];
+        document.getElementById("valuesArray").innerHTML = valuesArray + "\<span\> — вектор значений\</span\>";
+        var amplitudesArray = [];
+
+        var N = valuesArray.length;
+        document.getElementById("numOfCubits").innerHTML = N + "\<span\> — длина вектора значений, N\</span\>";
+
+        var count = 1;
+        document.getElementById("iterationCount").innerHTML = count + "\<span\> — номер итерации\</span\>";
+
+        function add(a, b) {
+            return a + b;
+        }
+
+        for (var i=0; i < N; i++) {
+            amplitudesArray[i] = 1/Math.sqrt(N);
+        }
+
+        console.log(valuesArray, "Initial vector of values");
+        console.log(amplitudesArray, "Amplitudes' array");
+        document.getElementById("amplitudesArray").innerHTML = amplitudesArray + "\<span\> — вектор амплитуд\</span\>";
+
+        function randomElem(arr) {
+            return arr[Math.floor(Math.random()*arr.length)];
+        }
+        var randomNum = randomElem(valuesArray);
+        var randomNum = 7;
+        document.getElementById("randomNum").innerHTML = randomNum + "\<span\> — СЛУЧАЙНО выбранный индекс\</span\>";
+        console.log(randomNum, "Element's value, chosen randomly");
+
+        var valuesLessThan = valuesArray.filter(valuesArray => valuesArray < randomNum);
+        console.log(valuesLessThan, "Values, less than CHOSEN elem's value");
+        document.getElementById("valuesLessThan").innerHTML = valuesLessThan + "\<span\> — значения МЕНЬШЕ ВЫБРАННОГО\</span\>";
+
+        Array.prototype.getDuplicates = function () {
+            var duplicates = {};
+
+            for (var i = 0; i < this.length; i++) {
+                if(duplicates.hasOwnProperty(this[i])) {
+                    duplicates[this[i]].push(i);
+                } else if (this.lastIndexOf(this[i]) !== i) {
+                    duplicates[this[i]] = [i];
+                }
+            }
+
+            return duplicates;
+        };
+
+
+
+        var Duplicates = valuesArray.getDuplicates();
+
+        function restoreIndexes(obj, amplitudesLessThan) {
+            
+            for (var value in obj) {
+                var cnt = obj[value].length;
+            }
+
+            for (var i = 0; i < cnt; i++) {
+                
+            }
+
+        }
+
+        function matchAmplitudes(valuesLessThan, obj) {
+            
+            var arr = [];
+            for (var i = 0; i < valuesLessThan.length; i++) {
+                arr[i] = valuesArray.indexOf(valuesLessThan[i]);
+            }
+
+            for (var value in obj) {
+                var indexToReplace = valuesArray.indexOf(+ value);
+                for (j = 0; j < obj[value].length; j++) {
+                    arr[arr.indexOf(indexToReplace)] = obj[value][j];
+                }
+                arr.sort();
+            
+            }
+
+            return arr;
+        }
+
+        var amplitudesLessThan = matchAmplitudes(valuesLessThan, Duplicates);
+        console.log(amplitudesLessThan, "Corresponding amplitudes' indexes of elements, less than CHOSEN");
+        document.getElementById("amplitudesLessThan").innerHTML = amplitudesLessThan + "\<span\> — АМПЛИТУДЫ, соответствующие значениям МЕНЬШЕ ВЫБРАННОГО\</span\>";
+
+        function markAmplitudes(amplitudesLessThan, amplitudesArray) {
+            for (var i = 0; i < amplitudesLessThan.length; i++) {
+                amplitudesArray[amplitudesLessThan[i]] = amplitudesArray[amplitudesLessThan[i]] * -1;
+            }
+            return amplitudesArray;
+        }
+
+        var marked_Amplitudes = markAmplitudes(amplitudesLessThan, amplitudesArray);
+        console.log(marked_Amplitudes, "Array of marked amplitudes");
+        document.getElementById("marked_Amplitudes").innerHTML = marked_Amplitudes + "\<span\> — отмечаем данные амплитуды\</span\>";
+
+        var inverseMean = (2/N) * (marked_Amplitudes.reduce(add, 0));
+        console.log(inverseMean, "inverseMean");
+        function computeNewAmplitudes() {
+            for (var i = 0; i < N; i++) {
+                marked_Amplitudes[i] = inverseMean - marked_Amplitudes[i];
+            }
+            return marked_Amplitudes;
+        }
+        document.getElementById("inverseMean").innerHTML = inverseMean + "\<span\> — диффузия\</span\>";
+
+        
+        var newAmplitudes = computeNewAmplitudes();
+        console.log(newAmplitudes, "New amplitudes values");
+        document.getElementById("newAmplitudes").innerHTML = newAmplitudes + "\<span\> — новые значения амплитуд\</span\>";
+
+        console.log("==========================");
+        console.log("iteration ", count, " finished");
+        console.log("==========================");
+
+        
+
+        while (valuesLessThan.length >= 2) {
+
+            if ((valuesLessThan.length === 2) && (valuesLessThan[0] == valuesLessThan[valuesLessThan.length - 1])) {
+                console.log("Minimum is found! It is: ",valuesLessThan[0]);
+                document.getElementById("minimum").innerHTML = valuesLessThan[0] + "\<span\> — минимальный элемент\</span\>";
+                break;
+            }
+            count++;
+            console.log(valuesLessThan, "Elements now to choose from");
+            document.getElementById("valuesLessThan").innerHTML = valuesLessThan + "\<span\> — значения МЕНЬШЕ ВЫБРАННОГО\</span\>";
+
+            randomNum = randomElem(valuesLessThan);
+            console.log(randomNum, "Element's value, chosen randomly");
+
+            valuesLessThan = valuesLessThan.filter(valuesLessThan => valuesLessThan < randomNum);
+            console.log(valuesLessThan, "Values, less than CHOSEN elem's value");
+            document.getElementById("randomNum").innerHTML = randomNum + "\<span\> — СЛУЧАЙНО выбранный индекс\</span\>";
+
+            Duplicates = valuesLessThan.getDuplicates();
+
+            amplitudesLessThan = matchAmplitudes(valuesLessThan, Duplicates);
+            console.log(amplitudesLessThan, "Corresponding amplitudes' indexes of elements, less than CHOSEN");
+            if (amplitudesLessThan.length !== 0) {
+                document.getElementById("amplitudesLessThan").innerHTML = amplitudesLessThan + "\<span\> — АМПЛИТУДЫ, соответствующие значениям МЕНЬШЕ ВЫБРАННОГО\</span\>";
+            } else {
+                document.getElementById("amplitudesLessThan").innerHTML = "[ ]" + "\<span\> — АМПЛИТУДЫ, соответствующие значениям МЕНЬШЕ ВЫБРАННОГО\</span\>";
+            }
+
+            marked_Amplitudes = markAmplitudes(amplitudesLessThan, amplitudesArray);
+            console.log(marked_Amplitudes, "Array of marked amplitudes");
+            document.getElementById("marked_Amplitudes").innerHTML = marked_Amplitudes + "\<span\> — отмечаем данные амплитуды\</span\>";
+
+            inverseMean = (2/N) * (marked_Amplitudes.reduce(add, 0));
+            console.log(inverseMean, "inverseMean");
+            document.getElementById("inverseMean").innerHTML = inverseMean + "\<span\> — диффузия\</span\>";
+
+            newAmplitudes = computeNewAmplitudes();
+            console.log(newAmplitudes, "New amplitudes values");
+            document.getElementById("newAmplitudes").innerHTML = newAmplitudes + "\<span\> — новые значения амплитуд\</span\>";
+
+            console.log("==========================");
+            console.log("iteration ", count, " finished");
+            console.log("==========================");
+            document.getElementById("iterationCount").innerHTML = count + "\<span\> — номер итерации\</span\>";
+
+            if (valuesLessThan.length === 1) {
+                console.log("Minimum is found! It is: ",valuesLessThan[0]);
+                document.getElementById("minimum").innerHTML = valuesLessThan[0] + "\<span\> — минимальный элемент\</span\>";
+                break;
+            }
+
+        }
+
+
+    </script>
+</body>
+</html>

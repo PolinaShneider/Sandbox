@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
-    <div class="capella-background">
+    <div name="js-capella-bg" class="capella-background" data-large="/public/app/img/Bitmap.png">
         <div class="capella">
             <div class="capella__contents">
                 <div class="capella__logo"></div>
@@ -26,5 +26,43 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+window.onload = function() {
+  
+  var target = document.getElementsByName('js-capella-bg')[0];
+  var body = document.querySelector("body");
+  console.log('url(' + target.dataset.large +')');
+  
+  // // 1: load small image and show it
+  // var img = new Image();
+  // img.src = small.src;
+  // img.onload = function () {
+  //  small.classList.add('loaded');
+  // };
+  
+  // 2: load large image
+  loaded = false;
+  var imgLarge = new Image();
+  imgLarge.src = target.dataset.large; 
+  imgLarge.onload = function () {
+    loaded = true;
+    body.style.backgroundImage = 'url(' + target.dataset.large +')';
+    fallback(loaded);
+  };
+
+  var fallback = function(loaded) {setTimeout(function() {
+    // if when the time has passed image.onload had already occurred, 
+    // run success()
+    if (loaded) {
+      console.log('true')
+      target.style.background = 'transparent';
+    } else{
+      console.log('err');
+    }
+  }, 1500);
+
+}
+}
+    </script>
 </body>
 </html>
