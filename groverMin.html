@@ -31,7 +31,7 @@
     <div id="minimum"></div>
     <script type="text/javascript">
         var valuesArray = [-22, 5, 3, 18, 30, 22, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17];
-        // var valuesArray = [2, 10, -3, 18, -3, 22, 7, 9];
+        // var valuesArray = [2, 10, -3, 18, 4, 22, 7, 9];
         document.getElementById("valuesArray").innerHTML = valuesArray + "\<span\> — вектор значений\</span\>";
         var amplitudesArray = [];
 
@@ -61,7 +61,7 @@
         document.getElementById("randomNum").innerHTML = randomNum + "\<span\> — СЛУЧАЙНО выбранный индекс\</span\>";
         console.log(randomNum, "Element's value, chosen randomly");
 
-        var valuesLessThan = valuesArray.filter(valuesArray => valuesArray < randomNum);
+        var valuesLessThan = valuesArray.filter(valuesArray => valuesArray <= randomNum);
         console.log(valuesLessThan, "Values, less than CHOSEN elem's value");
         document.getElementById("valuesLessThan").innerHTML = valuesLessThan + "\<span\> — значения МЕНЬШЕ ВЫБРАННОГО\</span\>";
 
