@@ -477,9 +477,8 @@ template {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../public/app/img/capella-small.png);
-    background-repeat: no-repeat;
     background-size: cover;
+    background: url(../public/app/img/Bg-overlay.jpg);
     text-align: center;
 }
 
