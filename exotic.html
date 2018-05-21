@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exotic CSS properties</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
+	<style type="text/css">
+		@font-face {
+		  font-family: "Source Sans Pro";
+		  font-style: normal;
+		  font-weight: 400;
+		  src: url("https://mdn.mozillademos.org/files/15757/SourceSansPro-Regular.otf") format("opentype");
+		}
+
+		.ordinal {
+		  font-variant-numeric: ordinal;
+		  font-family: "Source Sans Pro";
+		}
+		.normal {
+			font-variant-numeric: normal;
+			font-family: "Source Sans Pro";
+		}
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin: 40px auto;
+			max-width: 700px;
+		}
+		.container__item {
+			font-size: 36px;
+			color: #495572;
+			background-color: #FBFBFB;
+			border: 2px dashed #DFE2EF;
+			padding: 40px;
+			width: 50px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="container__item normal">1st</div>
+		<div class="container__item normal">2nd</div>
+		<div class="container__item normal">3rd</div>
+	</div>
+	<div class="container">
+		<div class="container__item ordinal">1st</div>
+		<div class="container__item ordinal">2nd</div>
+		<div class="container__item ordinal">3rd</div>
+	</div>
+</body>
+</html>
