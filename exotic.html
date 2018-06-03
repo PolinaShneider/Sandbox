@@ -12,22 +12,15 @@
 		  src: url("https://mdn.mozillademos.org/files/15757/SourceSansPro-Regular.otf") format("opentype");
 		}
 
-		.ordinal {
-		  font-variant-numeric: ordinal;
-		  font-family: "Source Sans Pro";
-		}
-		.normal {
-			font-variant-numeric: normal;
-			font-family: "Source Sans Pro";
-		}
 		.container {
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
-			margin: 40px auto;
+			justify-content: center;
+			margin: 90px auto;
 			max-width: 700px;
 		}
 		.container__item {
+			position: relative;
 			font-size: 36px;
 			color: #495572;
 			background-color: #FBFBFB;
@@ -40,19 +33,206 @@
 			justify-content: center;
 			text-align: center;
 			border-radius: 4px;
+			margin: 0 20px;
+		}
+		.container__item--inline {
+			font-size: 14px;
+			color: #000;
+			height: initial;
+			padding: 10px;
+			width: auto;
+		}
+		.container__item::before {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 100%;
+			font-variant-numeric: normal;
+			font-size: 23px;
+			white-space: nowrap;
+			margin-top: 8px;
+			font-variant: all-small-caps;
+			letter-spacing: 0.5px;
+		}
+
+		.ordinal {
+		  font-variant-numeric: ordinal;
+		  font-family: "Source Sans Pro";
+		}
+
+		.ordinal::before {
+			content: "Ordinal";
+		}
+
+		.normal {
+			font-variant-numeric: normal;
+			font-family: "Source Sans Pro";
+		}
+		.oldstyle-nums {
+			font-variant-numeric: oldstyle-nums;
+			font-family: "Source Sans Pro";
+		}
+
+		.oldstyle-nums::before {
+			content: "oldstyle-nums";
+		}
+
+		.diagonal-fractions {
+			font-variant-numeric: diagonal-fractions;
+			font-family: "Source Sans Pro";
+		}
+
+		.diagonal-fractions::before {
+			content: "diagonal-fractions";
+		}
+
+		.caps {
+			text-transform: uppercase;
+		}
+
+		.small-caps {
+			font-variant: small-caps;
+		}
+
+		.line-clamp-item {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border: 1px solid #E8EEF1;
+			background: #fff;
+			padding: 8px;
+			max-width: 130px;
+			border-radius: 4px;
+			margin: 0 20px;
+		}
+
+		.line-clamp-item--without .line-clamp-item__description {
+			display: initial;
+			max-height: 4em;
+		}
+
+		.line-clamp-item::before {
+			content: "line-clamp";
+			display: block;
+			position: absolute;
+			top: 100%;
+			font-size: 12px;
+			font-family: "Source Sans Pro";
+			font-variant-numeric: normal;
+			white-space: normal;
+			text-align: center;
+			margin-top: 8px;
+			font-variant: all-small-caps;
+			letter-spacing: 0.5px;
+		}
+
+		.line-clamp-item--without::before {
+			content: "max-height and overflow: hidden";
+		}
+
+		.line-clamp-item__img {
+			height: 100px;
+			width: 100px;
+			background: url('/img/placeholder.png');
+			background-size: contain;
+			display: block;
+			margin-top: 12px;
+			border-radius: 3.5px;
+		}
+
+		.line-clamp-item__description {
+			overflow: hidden;
+		    text-overflow: ellipsis;
+		    display: -webkit-box;
+		    -webkit-line-clamp: 3;
+		    -webkit-box-orient: vertical;
+		    font-family: "Source Sans Pro";
+		    font-size: 10px;
+		    text-align: center;
+		}
+
+		.line-clamp-item__title {
+			font-family: "Source Sans Pro";
+			font-size: 14px;
+			margin-bottom: 0;
+		}
+
+		.line-clamp-item__btn {
+			display: inline-block;
+			padding: 5px 10px;
+			background: #6299E6;
+			color: #fff;
+			font-family: "Source Sans Pro";
+			font-size: 9px;
+			border-radius: 3.5px;
+			margin-bottom: 7px;
+		}
+		.background-cats-wrapper {
+			background-image: url('/img/cats-attachement.jpg');
+			background-attachment: scroll;
+		    height: 285px;
+		    width: 100%;
+		    max-width: 600px;
+		    margin: 32px auto;
+		    overflow-x: hidden;
+		    overflow-y: scroll;
+		    border: 0;
+		    margin: 20px;
+		    padding: 0;
+		}
+
+		.background-cats-wrapper--fixed {
+			background-attachment: fixed;
+			background-position-x: 6px;
+		}
+
+		.background-cats {
+			height: 736px;
+		    width: 100%;
+		    max-width: 600px;
+		    margin: 32px auto;
+		    overflow-x: hidden;
+		    overflow-y: scroll;
 		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="container__item normal">1st</div>
-		<div class="container__item normal">2nd</div>
-		<div class="container__item normal">3rd</div>
+		<div class="container__item ordinal">1st</div>
+		<div class="container__item diagonal-fractions">1/4</div>
+		<div class="container__item oldstyle-nums">1234</div>
 	</div>
 	<div class="container">
-		<div class="container__item ordinal">1st</div>
-		<div class="container__item ordinal">2nd</div>
-		<div class="container__item ordinal">3rd</div>
+		<p class="container__item container__item--inline caps">I am regular caps</p>
+		<p class="container__item container__item--inline small-caps">I'am small-caps!</p>
+	</div>
+	<div class="container">
+		<div class="line-clamp-item line-clamp-item--without">
+			<div class="line-clamp-item__img"></div>
+			<h3 class="line-clamp-item__title">Заголовок</h3>
+			<p class="line-clamp-item__description">
+				Допустим у нас есть текст произвольной длины, который должен выводиться внутри блока фиксированной высоты и ширины. Мы хотим, чтобы отображался такой фрагмент текста
+			</p>
+			<a class="line-clamp-item__btn">Показать больше</a>
+		</div>
+
+		<div class="line-clamp-item">
+			<div class="line-clamp-item__img"></div>
+			<h3 class="line-clamp-item__title">Заголовок</h3>
+			<p class="line-clamp-item__description">
+				Допустим у нас есть текст произвольной длины, который должен выводиться внутри блока фиксированной высоты и ширины. Мы хотим, чтобы отображался такой фрагмент текста
+			</p>
+			<a class="line-clamp-item__btn">Показать больше</a>
+		</div>
+	</div>
+	<div class="container" style="margin-bottom: 800px">
+		<div class="container__item background-cats-wrapper background-cats-wrapper--fixed">
+			<div class="background-cats"></div>
+		</div>
+		<div class="container__item background-cats-wrapper">
+			<div class="background-cats"></div>
+		</div>
 	</div>
 </body>
 </html>
