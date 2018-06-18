@@ -2,8 +2,83 @@
 <html>
 <head>
 	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 90px auto;
+			max-width: 700px;
+		}
+
+		.container__item {
+			position: relative;
+			font-size: 36px;
+			color: #495572;
+			border: 2px dashed #DFE2EF;
+			padding: 40px;
+			width: 50px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			border-radius: 4px;
+			margin: 0 20px;
+		}
+
+		.background-cats-wrapper {
+			background-image: url('https://capella.pics/f33b1461-0ebd-46d5-aa5d-9da2b9248857');
+			background-attachment: scroll;
+		    height: 285px;
+		    width: 100%;
+		    max-width: 600px;
+		    margin: 32px auto;
+		    overflow-x: hidden;
+		    overflow-y: scroll;
+		    border: 0;
+		    margin: 20px;
+		    padding: 0;
+		}
+
+		.background-cats-wrapper--fixed {
+			background-attachment: fixed;
+			background-position-x: 6px;
+		}
+
+		.background-cats {
+			height: 736px;
+		    width: 100%;
+		    max-width: 600px;
+		    margin: 32px auto;
+		    overflow-x: hidden;
+		    overflow-y: scroll;
+		}
+
+		.warning {
+			display: none;
+		}
+
+		@media (max-width: 980px) {
+			.warning {
+				display: block;
+			}
+			.container__item {
+				display: none;
+			}
+		}
+	</style>
 </head>
 <body>
-
+<div class="container">
+	<p class="warning">Not working on mobile</p>
+	<div class="container__item background-cats-wrapper background-cats-wrapper--fixed">
+		<div class="background-cats"></div>
+	</div>
+	<div class="container__item background-cats-wrapper">
+		<div class="background-cats"></div>
+	</div>
+</div>
 </body>
 </html>

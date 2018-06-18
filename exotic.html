@@ -3,6 +3,7 @@
 <head>
 	<title>Exotic CSS properties</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
 	<style type="text/css">
 		@font-face {
@@ -195,6 +196,66 @@
 		    overflow-x: hidden;
 		    overflow-y: scroll;
 		}
+
+		scroll-page {
+			align-items: center;
+		    display: flex;
+		    font-size: 35px;
+		    height: 100%;
+		    font-family: "Source Sans Pro";
+		    letter-spacing: 0.8px;
+		    justify-content: center;
+		}
+		scroll-container {
+			position: relative;
+		    border: 2px solid #000;
+		    border-radius: 3.5px;
+		    display: block;
+		    height: 200px;
+		    overflow-y: scroll;
+		    width: 200px;
+		    scroll-behavior: smooth;
+		}
+
+		#example-element::before {
+			content: 'scroll-behavior: auto;'
+			display: block;
+			position: absolute;
+			top: 100%;
+			font-variant-numeric: normal;
+			font-size: 23px;
+			white-space: nowrap;
+			margin-top: 8px;
+			font-variant: all-small-caps;
+			letter-spacing: 0.5px;
+		}
+
+		section {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+
+		scroll-button {
+			display: inline-block;
+			padding: 5px;
+		}
+
+		scroll-button:hover {
+			cursor: pointer;
+		}
+
+		p.nav {
+			font-family: "Source Sans Pro";
+		    letter-spacing: 0.8px;
+		    font-size: 16px;
+		}
+
+		p.nav > a {
+			color: #000;
+			text-decoration: none;
+			border-bottom: 1px solid #000;
+		}
 	</style>
 </head>
 <body>
@@ -226,7 +287,7 @@
 			<a class="line-clamp-item__btn">Показать больше</a>
 		</div>
 	</div>
-	<div class="container" style="margin-bottom: 800px">
+	<div class="container">
 		<div class="container__item background-cats-wrapper background-cats-wrapper--fixed">
 			<div class="background-cats"></div>
 		</div>
@@ -234,5 +295,36 @@
 			<div class="background-cats"></div>
 		</div>
 	</div>
+	<div class="container" style="flex-direction: column;">
+        <p class="nav">
+            Scroll to:
+            <a href="#HTML">HTML</a>
+            <a href="#CSS">CSS</a>
+            <a href="#JavaScript">JavaScript</a>
+        </p>
+        <scroll-container id="example-element">
+            <scroll-page id="HTML">HTML</scroll-page>
+            <scroll-page id="CSS">CSS</scroll-page>
+            <scroll-page id="JavaScript">JavaScript</scroll-page>
+        </scroll-container>
+        <div>
+        	<scroll-button id="button-smooth">smooth</scroll-button>
+        	<scroll-button id="button-auto">auto</scroll-button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    	var container = document.getElementById("example-element");
+    	var buttonSmooth = document.getElementById("button-smooth");
+    	var buttonAuto = document.getElementById("button-auto");
+
+    	buttonAuto.addEventListener("click", function(){
+    		container.style = "scroll-behavior: auto;"
+    	});
+
+    	buttonSmooth.addEventListener("click", function(){
+    		container.style = "scroll-behavior: smooth;"
+    	})
+    </script>
 </body>
 </html>
