@@ -241,6 +241,15 @@
 			padding: 5px;
 		}
 
+		scroll-anchor {
+			height: 80px;
+			width: 1px;
+			display: block;
+			position: absolute;
+			bottom: 100%;
+			background: transparent;
+		}
+
 		scroll-button:hover {
 			cursor: pointer;
 		}
@@ -302,11 +311,14 @@
             <a href="#CSS">CSS</a>
             <a href="#JavaScript">JavaScript</a>
         </p>
-        <scroll-container id="example-element">
-            <scroll-page id="HTML">HTML</scroll-page>
-            <scroll-page id="CSS">CSS</scroll-page>
-            <scroll-page id="JavaScript">JavaScript</scroll-page>
-        </scroll-container>
+		<scroll-container id="example-element" style="scroll-behavior: auto">
+			<scroll-anchor id="HTML"></scroll-anchor>
+			<scroll-page style="background:#e34f26;">HTML</scroll-page>
+			<scroll-anchor id="CSS"></scroll-anchor>
+			<scroll-page style="background:#006EB9;" id="CSS">CSS</scroll-page>
+			<scroll-anchor id="JavaScript"></scroll-anchor>
+			<scroll-page style="background:#f7df1e;" id="JavaScript">JavaScript</scroll-page>
+		</scroll-container>
         <div>
         	<scroll-button id="button-smooth">smooth</scroll-button>
         	<scroll-button id="button-auto">auto</scroll-button>

@@ -2,10 +2,11 @@
 <html>
 <head>
   <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <style type="text/css">
-    .container {
+    .container--girl {
       width: 370px;
       height: 420px;
       background-image: url('http://s-media-cache-ak0.pinimg.com/736x/e5/73/5f/e5735fb5c423354445234386793b31de--beautiful-people-beautiful-women.jpg');
@@ -14,6 +15,7 @@
       align-items: flex-end;
       margin: auto;
     }
+    bac
     .info-block {
       background: #fff;
       margin: 10px;
@@ -32,7 +34,7 @@
       padding: 0 15px;
       padding-bottom: 15px;
       margin-top: -35px !important;
-      margin-bottom: 0px !important; 
+      margin-bottom: 0px !important;
     }
     .img-wrapper {
       display: flex;
@@ -44,7 +46,7 @@
       color: #2b2b2b;
       font-size: 26px;
       padding: 0 15px;
-      font-weight: 300;
+      font-weight: 400;
       padding-bottom: 0;
       display: flex;
       align-items: center;
@@ -66,7 +68,7 @@
       color: #fff !important;
       font-size: 15px;
       line-height: 18px !important;
-      font-weight: 300;
+      font-weight: 400;
       padding: 12px 36px;
       border-radius: 8px;
       text-decoration: none !important;
@@ -84,7 +86,7 @@
     }
     .statistics__number {
       font-size: 26px;
-      font-weight: 300;
+      font-weight: 400;
       color: #000;
     }
     .statistics__title {
@@ -99,12 +101,12 @@
       padding: 10px;
     }
     .controls-form {
-      display: flex; 
+      display: flex;
       justify-content: center;
     }
 
     @media only screen and (max-width: 700px) {
-      .container {
+      .container--girl {
         max-width: 100%;
       }
       .controls-form {
@@ -114,17 +116,20 @@
         padding: 12px 20px;
       }
     }
-
+    .fa, .far, .fas {
+      font-family: "Font Awesome 5 Free" !important;
+      font-style: normal !important;
+    }
 
   </style>
 
   <script type="text/javascript">
-  function click_position(obj, direction) { 
+  function click_position(obj, direction) {
     if (direction === 'vertical') {change_position_vert(obj.value);}
     else {change_position_hor(obj.value);}
   }
- 
-  function change_position_vert(val) { 
+
+  function change_position_vert(val) {
     statistics = document.querySelector(".statistics");
     personAva = document.querySelector(".img-wrapper");
     personName = document.querySelector(".name");
@@ -136,7 +141,7 @@
     infoBlock.style.alignItems=val;
 
   }
-  function change_position_hor(val) { 
+  function change_position_hor(val) {
     statistics = document.querySelector(".statistics");
     personAva = document.querySelector(".img-wrapper");
     personName = document.querySelector(".name");
@@ -162,7 +167,7 @@
     <div>
       <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_2" value="center" checked="true">
       <label for="value_2">center</label>
-    </div>  
+    </div>
     <div>
       <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_3" value="flex-end">
       <label for="value_3">flex-end</label>
@@ -177,7 +182,7 @@
     <div>
       <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_5" value="center">
       <label for="value_5">center</label>
-    </div>  
+    </div>
     <div>
       <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_6" value="space-around" checked="true">
       <label for="value_6">space-around</label>
@@ -193,7 +198,7 @@
     </div>
    </form>
   </div>
-  <div class="container">
+  <div class="container--girl">
     <div class="info-block">
       <div class="img-wrapper">
         <img src="http://s-media-cache-ak0.pinimg.com/736x/0b/4e/a2/0b4ea21255c0cad4d3b19cfbd4061a9e--people-photography-inspiring-photography.jpg" class="portrait">
@@ -222,14 +227,14 @@
         </div>
         <div class="statistics__item">
           <div class="statistics__title">
-            <i class="fa fa-user-circle-o"></i>
+            <i class="far fa-user"></i>
               Followers
           </div>
           <div class="statistics__number">142</div>
         </div>
         <div class="statistics__item">
           <div class="statistics__title">
-            <i class="fa fa-heart-o"></i>
+            <i class="far fa-heart"></i>
               Likes
           </div>
           <div class="statistics__number">104</div>
