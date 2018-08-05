@@ -1,6 +1,0 @@
-[submodule "Twig"]
-	path = Twig
-	url = https://github.com/twigphp/Twig.git
-[submodule "codex"]
-	path = codex
-	url = https://github.com/codex-team/codex
