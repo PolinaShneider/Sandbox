@@ -7,36 +7,22 @@
 </head>
 <body>
 <div id="app" class="container">
-  <h1>
-    v-html directive
-    <small><a target="_blank" href="http://vuejs.org/api/directives.html#v-html">docs</a></small>
-  </h1>
-
-  <p>This directive updates a nodes <code>innerHTML</code>. This means that html <strong><em>will</em></strong> be rendered.</p>
-  <p>Using v-html with user-supplied data can be dangerous. It is suggested that you only use v-html when you are absolutely sure about the security of the data source, or pipe it through a custom filter that sanitizes untrusted HTML.</p>
-  <hr />
-  <h3>Example</h3>
-
   <div class="form-group">
+    <h3>HTML input field:</h3>
     <textarea placeholder="HTML here" class="form-control" v-model="html"></textarea><br>
+    <h3>CSS input field:</h3>
     <textarea placeholder="CSS here" class="form-control" v-model="css"></textarea>
   </div>
+  <h3>Styled result:</h3>
   <p v-html="html"></p>
-  <h3>Data</h3>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     new Vue({
         el: '#app',
         data: {
-            html: '<div class="element"> This is a message for <a href="#">John Doe</a>, please update your email address.</div>',
-            css: `.element a {
-                      padding: 2px 4px;
-                      font-size: 90%;
-                      color: #c7254e;
-                      background-color: #f9f2f4;
-                      border-radius: 4px;
-                  }`
+            html: '<div class="element"> Here is some <a href="#">awesome</a> text, enjoy it ❤️</div>',
+            css: `.element {font-size:16px} .element a {padding:2px 4px; font-size:90%; color:#c7254e; background-color:#f9f2f4; border-radius:4px}`
         },
         mounted () {
             styleTag = document.createElement('style');
