@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue.js constructor demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <div id="app" class="container">
+  <h1>Vue.js demo constructor</h1>
+  <h2 style="font-weight: 300;">Enter HTML and CSS data, see the result immediately</h2><br>
   <div class="form-group">
     <h3>HTML input field:</h3>
     <textarea placeholder="HTML here" class="form-control" v-model="html"></textarea><br>
@@ -22,7 +25,7 @@
         el: '#app',
         data: {
             html: '<div class="element"> Here is some <a href="#">awesome</a> text, enjoy it ❤️</div>',
-            css: `.element {font-size:16px} .element a {padding:2px 4px; font-size:90%; color:#c7254e; background-color:#f9f2f4; border-radius:4px}`
+            css: `.element {font-size: 16px} .element a {padding: 2px 4px; font-size: 90%; color: #c7254e; background-color: #f9f2f4; border-radius: 4px}`
         },
         mounted () {
             styleTag = document.createElement('style');
