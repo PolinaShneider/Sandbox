@@ -18,8 +18,8 @@
   <h3>Example</h3>
 
   <div class="form-group">
-    <textarea class="form-control" v-model="html"></textarea><br>
-    <textarea class="form-control" v-model="css"></textarea>
+    <textarea placeholder="HTML here" class="form-control" v-model="html"></textarea><br>
+    <textarea placeholder="CSS here" class="form-control" v-model="css"></textarea>
   </div>
   <p v-html="html"></p>
   <h3>Data</h3>
@@ -30,12 +30,16 @@
         el: '#app',
         data: {
             html: '<div class="element"> This is a message for <a href="#">John Doe</a>, please update your email address.</div>',
-            css: ''
+            css: `.element a {
+                      background: violet;
+                      color: white;
+                  }`
         },
         mounted () {
             styleTag = document.createElement('style');
             styleTag.type = "text/css";
             styleTag.appendChild(document.createTextNode(''));
+            styleTag.textContent = this.css;
             document.head.appendChild(styleTag);
         },
         watch: {
