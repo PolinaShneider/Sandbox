@@ -1,247 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-  <style type="text/css">
-    .container--girl {
-      width: 370px;
-      height: 420px;
-      background-image: url('http://s-media-cache-ak0.pinimg.com/736x/e5/73/5f/e5735fb5c423354445234386793b31de--beautiful-people-beautiful-women.jpg');
-      background-size: cover;
-      display: flex;
-      align-items: flex-end;
-      margin: auto;
-    }
-    bac
-    .info-block {
-      background: #fff;
-      margin: 10px;
-      width: 370px;
-      min-height: 200px;
-      position: relative;
-      font-family: Lato;
-    }
-    .info-block__links {
-      padding: 0 15px;
-    }
-    .portrait {
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      padding: 0 15px;
-      padding-bottom: 15px;
-      margin-top: -35px !important;
-      margin-bottom: 0px !important;
-    }
-    .img-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      height: 50px;
-    }
-    .name {
-      color: #2b2b2b;
-      font-size: 26px;
-      padding: 0 15px;
-      font-weight: 400;
-      padding-bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      height: 50px;
-    }
-    .info-block__content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    }
-    .info-block__icon {
-      padding-right: 7px;
-      color: #a0a0a0 !important;
-    }
-    .info-block__button {
-      background: #000000;
-      color: #fff !important;
-      font-size: 15px;
-      line-height: 18px !important;
-      font-weight: 400;
-      padding: 12px 36px;
-      border-radius: 8px;
-      text-decoration: none !important;
-      margin-right: 15px;
-    }
-    .statistics {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      text-align: center;
-      height: 90px;
-    }
-    .statistics__item {
-      padding: 10px;
-    }
-    .statistics__number {
-      font-size: 26px;
-      font-weight: 400;
-      color: #000;
-    }
-    .statistics__title {
-      font-size: 12px;
-      color: #a0a0a0;
-    }
-    .controls {
-      width: 80%;
-      margin: auto;
-    }
-    .controls-block {
-      padding: 10px;
-    }
-    .controls-form {
-      display: flex;
-      justify-content: center;
-    }
-
-    @media only screen and (max-width: 700px) {
-      .container--girl {
-        max-width: 100%;
-      }
-      .controls-form {
-        flex-direction: column;
-      }
-      .info-block__button {
-        padding: 12px 20px;
-      }
-    }
-    .fa, .far, .fas {
-      font-family: "Font Awesome 5 Free" !important;
-      font-style: normal !important;
-    }
-
-  </style>
-
-  <script type="text/javascript">
-  function click_position(obj, direction) {
-    if (direction === 'vertical') {change_position_vert(obj.value);}
-    else {change_position_hor(obj.value);}
-  }
-
-  function change_position_vert(val) {
-    statistics = document.querySelector(".statistics");
-    personAva = document.querySelector(".img-wrapper");
-    personName = document.querySelector(".name");
-    infoBlock = document.querySelector(".info-block__content");
-
-    statistics.style.alignItems=val;
-    personAva.style.alignItems=val;
-    personName.style.alignItems=val;
-    infoBlock.style.alignItems=val;
-
-  }
-  function change_position_hor(val) {
-    statistics = document.querySelector(".statistics");
-    personAva = document.querySelector(".img-wrapper");
-    personName = document.querySelector(".name");
-    infoBlock = document.querySelector(".info-block__content");
-
-    statistics.style.justifyContent=val;
-    personAva.style.justifyContent=val;
-    personName.style.justifyContent=val;
-    infoBlock.style.justifyContent=val;
-  }
-</script>
+  <meta charset="UTF-8">
+  <title>Vue.js constructor demo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-<div class="wrapper">
-  <div class="controls">
-   <form class="controls-form">
-   <div class="controls-block">
-  <label>align-items:</label><br>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this, 'vertical')" id="value_1" value="flex-start">
-      <label for="value_1">flex-start</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_2" value="center" checked="true">
-      <label for="value_2">center</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position" onchange="return click_position(this,'vertical')" id="value_3" value="flex-end">
-      <label for="value_3">flex-end</label>
-    </div>
-    </div>
-    <div class="controls-block">
-    <label>justify-content:</label><br>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_4" value="space-between">
-      <label for="value_4">space-between</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_5" value="center">
-      <label for="value_5">center</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_6" value="space-around" checked="true">
-      <label for="value_6">space-around</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_7" value="flex-start">
-      <label for="value_7">flex-start</label>
-    </div>
-    <div>
-      <input autocomplete="off" type="radio" name="radio_position_hor" onchange="return click_position(this,'horizontal')" id="value_8" value="flex-end">
-      <label for="value_8">flex-end</label>
-    </div>
-    </div>
-   </form>
+<div id="app" class="container">
+  <h1>
+    v-html directive
+    <small><a target="_blank" href="http://vuejs.org/api/directives.html#v-html">docs</a></small>
+  </h1>
+
+  <p>This directive updates a nodes <code>innerHTML</code>. This means that html <strong><em>will</em></strong> be rendered.</p>
+  <p>Using v-html with user-supplied data can be dangerous. It is suggested that you only use v-html when you are absolutely sure about the security of the data source, or pipe it through a custom filter that sanitizes untrusted HTML.</p>
+  <hr />
+  <h3>Example</h3>
+
+  <div class="form-group">
+    <textarea class="form-control" v-model="html"></textarea><br>
+    <textarea class="form-control" v-model="css"></textarea>
   </div>
-  <div class="container--girl">
-    <div class="info-block">
-      <div class="img-wrapper">
-        <img src="http://s-media-cache-ak0.pinimg.com/736x/0b/4e/a2/0b4ea21255c0cad4d3b19cfbd4061a9e--people-photography-inspiring-photography.jpg" class="portrait">
-      </div>
-      <div class="name">Neel Litoriya</div>
-      <div class="info-block__content">
-        <div class="info-block__links">
-          <div>
-            <i class="fa fa-info-circle"></i>
-              Photographer
-          </div>
-          <div>
-            <i class="fa fa-location-arrow"></i>
-              Indore, India
-          </div>
-        </div>
-        <a href="javascript: void(0);" class="info-block__button">+ Add</a>
-      </div>
-      <div class="statistics">
-        <div class="statistics__item">
-          <div class="statistics__title">
-            <i class="fa fa-eye"></i>
-              Views
-          </div>
-          <div class="statistics__number">624</div>
-        </div>
-        <div class="statistics__item">
-          <div class="statistics__title">
-            <i class="far fa-user"></i>
-              Followers
-          </div>
-          <div class="statistics__number">142</div>
-        </div>
-        <div class="statistics__item">
-          <div class="statistics__title">
-            <i class="far fa-heart"></i>
-              Likes
-          </div>
-          <div class="statistics__number">104</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
+  <p v-html="html"></p>
+  <h3>Data</h3>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            html: '<div class="element"> This is a message for <a href="#">John Doe</a>, please update your email address.</div>',
+            css: ''
+        },
+        mounted () {
+            styleTag = document.createElement('style');
+            styleTag.type = "text/css";
+            styleTag.appendChild(document.createTextNode(''));
+            document.head.appendChild(styleTag);
+        },
+        watch: {
+            css: function(css) {
+
+                styleTag.textContent = css;
+            }
+        }
+    });
+</script>
 </body>
 </html>
