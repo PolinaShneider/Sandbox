@@ -1,0 +1,221 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Исследование влияния параметров обучающей выборки на вероятность распознавания новых образов</title>
+</head>
+<body>
+<script>
+    const RADIUS = 10;
+
+    class Lab3 {
+        // rangeSize = размер выборки
+        // testSize = размер тестовой выборки
+        // shift = расстояние между центрами окружностей
+        constructor(rangeSize, testSize, shift) {
+            this.shift = shift;
+            this.learnSize = rangeSize - testSize;
+            this.testSize = testSize;
+
+            this.firstClassCoordinatesRI = {};
+            this.zeroClassCoordinatesRI = {};
+
+            this.R0 = 0;
+            this.R1 = 0;
+
+            this.learnArray = [];
+            this.testArray = [];
+
+            this.init();
+        }
+
+        init() {
+            // Обучающая выборка
+            this.createLearnRange();
+            this.referenceImageMethod();
+            let resultRILearn = this.decisiveFuncRefImages(this.learnArray);
+            console.log('Результат работы метода ЭО для обучающей выборки в', this.learnSize, 'экземпляров:', resultRILearn/this.learnSize);
+            let resultNNLearn = this.nearestNeighbourMethod(this.learnArray);
+            console.log('Результат работы метода БС для обучающей выборки в', this.learnSize, 'экземпляров:', resultNNLearn/this.learnSize);
+
+            // Тестовая выборка
+            this.createTestRange();
+            let resultRITest = this.decisiveFuncRefImages(this.testArray);
+            console.log('Результат работы метода ЭО для тестовой выборки в', this.testSize, 'экземпляров:', resultRITest/this.testSize);
+            let resultNNTest = this.nearestNeighbourMethod(this.testArray);
+            console.log('Результат работы метода БС для тестовой выборки в', this.testSize, 'экземпляров:', resultNNTest/this.testSize);
+        }
+
+        // Создаем тестовую выборку
+        createTestRange() {
+            for (let i = 0; i < this.testSize/2; i++) {
+
+                let PointX = this.getRandomArbitrary(-RADIUS, RADIUS);
+                let PointY = this.getRandomArbitrary(-Math.sqrt((Math.pow((RADIUS), 2) - Math.pow(PointX, 2))), Math.sqrt((Math.pow((RADIUS), 2) - Math.pow(PointX, 2))));
+
+                // reference — класс элемента
+                this.testArray.push({
+                    x: PointX,
+                    y: PointY,
+                    reference: 1
+                });
+            }
+
+            for (let j = this.testSize/2; j < this.testSize; j++) {
+                let PointX = this.getRandomArbitrary(-RADIUS + this.shift, RADIUS + this.shift);
+                let PointY = this.getRandomArbitrary(-Math.sqrt((Math.pow((RADIUS), 2) - Math.pow((PointX - this.shift), 2))), Math.sqrt(Math.abs(Math.pow((RADIUS), 2) - Math.pow(PointX - this.shift, 2))));
+
+                this.testArray.push({
+                    x: PointX,
+                    y: PointY,
+                    reference: 0
+                })
+            }
+        }
+
+        // Создаем обучающую выборку
+        createLearnRange() {
+            for (let i = 0; i < this.learnSize/2; i++) {
+
+                let PointX = this.getRandomArbitrary(-RADIUS, RADIUS);
+                let PointY = this.getRandomArbitrary(-Math.sqrt((Math.pow((RADIUS), 2) - Math.pow(PointX, 2))), Math.sqrt((Math.pow((RADIUS), 2) - Math.pow(PointX, 2))));
+
+                // reference — класс элемента
+                this.learnArray.push({
+                    x: PointX,
+                    y: PointY,
+                    reference: 1
+                });
+            }
+
+            for (let j = this.learnSize/2; j < this.learnSize; j++) {
+                let PointX = this.getRandomArbitrary(-RADIUS + this.shift, RADIUS + this.shift);
+                let PointY = this.getRandomArbitrary(-Math.sqrt((Math.pow((RADIUS), 2) - Math.pow((PointX - this.shift), 2))), Math.sqrt(Math.abs(Math.pow((RADIUS), 2) - Math.pow(PointX - this.shift, 2))));
+
+                this.learnArray.push({
+                    x: PointX,
+                    y: PointY,
+                    reference: 0
+                })
+            }
+        }
+
+        // Метод-helper: сгенерировать случайным образом число от min до max
+        getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Метод "эталонных образов"
+        referenceImageMethod() {
+            let zeroClassSumX = 0;
+            let firstClassSumX = 0;
+            let zeroClassSumY = 0;
+            let firstClassSumY = 0;
+
+            this.learnArray.forEach((item) => {
+
+                // Если экземпляр относится к первому классу
+                if (item.reference) {
+                    firstClassSumX += item.x;
+                    firstClassSumY += item.y;
+                } else {
+                    zeroClassSumX += item.x;
+                    zeroClassSumY += item.y;
+                }
+            });
+
+            let halfOfLearnRange = this.learnSize/2;
+
+            this.zeroClassCoordinatesRI = {
+                x: zeroClassSumX/halfOfLearnRange,
+                y: zeroClassSumY/halfOfLearnRange
+            };
+
+            this.firstClassCoordinatesRI = {
+                x: firstClassSumX/halfOfLearnRange,
+                y: firstClassSumY/halfOfLearnRange
+            };
+
+            let M0 = 0;
+            let M1 = 0;
+
+            this.learnArray.forEach((item) => {
+
+                if (item.reference) {
+                    M1 += Math.pow((this.firstClassCoordinatesRI.x - item.x), 2);
+                    M1 += Math.pow((this.zeroClassCoordinatesRI.y - item.y), 2);
+                } else {
+                    M0 += Math.pow((this.zeroClassCoordinatesRI.x - item.x), 2);
+                    M0 += Math.pow((this.zeroClassCoordinatesRI.y - item.y), 2);
+                }
+
+            });
+
+            // Характерный размер классов
+            this.R0 = Math.sqrt(M0/this.learnSize/2);
+            this.R1 = Math.sqrt(M1/this.learnSize/2);
+        }
+
+        // Метод "ближайшего соседа"
+        nearestNeighbourMethod(imagesArray) {
+
+            let correctnessCount = 0;
+
+
+            for (let i = 0; i < imagesArray.length; i++) {
+                let minDist = 1000;
+                let learnArrayIndex = -1;
+                let testArrayIndex = -1;
+
+                for (let j = 0; j < this.learnArray.length; j++) {
+
+                    let newDist = Math.sqrt(Math.pow((this.learnArray[j].x - imagesArray[i].x), 2) + (Math.pow((this.learnArray[j].y - imagesArray[i].y), 2)));
+
+                    if (newDist < minDist) {
+                        minDist = newDist;
+                        testArrayIndex = i;
+                        learnArrayIndex = j;
+                    }
+
+                }
+
+                if (imagesArray[testArrayIndex].reference === this.learnArray[learnArrayIndex].reference) {
+                    correctnessCount++;
+                }
+            }
+
+            return correctnessCount;
+        }
+
+        // Решающая функция для метода эталонных образов
+        decisiveFuncRefImages(imagesArray) {
+            let correctnessCnt = 0;
+
+            imagesArray.forEach((item) => {
+                // Сама решающая функция
+                let K = (Math.sqrt(Math.pow((this.zeroClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.zeroClassCoordinatesRI.y - item.y), 2))))/this.R0 - (Math.sqrt(Math.pow((this.firstClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.firstClassCoordinatesRI.y - item.y), 2))))/this.R1;
+
+                // Если значение решающей функции больше нуля, относим к первому классу
+                if (K > 0) {
+                    // Если у эталонного образа первый класс, значит, мы угадали
+                    if (item.reference === 1) {
+                        correctnessCnt++;
+                    }
+                }  else {
+                    // Иначе относим к нулевому классу
+                    if (item.reference === 0) {
+                        correctnessCnt++;
+                    }
+                }
+            });
+
+            return correctnessCnt;
+        }
+
+    }
+
+    // Размер выборки, размер тестовой выборки, расстояние между центрами окружностей
+    // Размер обучающей выборки = размер выборки - размер тестовой
+    new Lab3(600, 400, 10);
+</script>
+
+
+</body></html>
