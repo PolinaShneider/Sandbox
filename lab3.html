@@ -52,9 +52,9 @@
                 let PointY;
 
                 do {
-                    PointX = this.getRandomArbitrary(-RADIUS, RADIUS);
-                    PointY = this.getRandomArbitrary(-RADIUS, RADIUS);
-                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2) ) <= Math.pow(RADIUS, 2));
+                    PointX = this.getRandomArbitrary(-100, 100);
+                    PointY = this.getRandomArbitrary(-100, 100);
+                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2)) > Math.pow(RADIUS, 2));
 
 
                 // reference — класс элемента
@@ -70,10 +70,9 @@
                 let PointY;
 
                 do {
-                    PointX = this.getRandomArbitrary(-RADIUS + this.shift, RADIUS + this.shift);
-                    PointY = this.getRandomArbitrary(-RADIUS, RADIUS);
-                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2) ) <= Math.pow(RADIUS, 2));
-
+                    PointX = this.getRandomArbitrary(-100, 100);
+                    PointY = this.getRandomArbitrary(-100, 100);
+                } while (Math.pow((PointX - this.shift), 2) + Math.pow(PointY, 2) > Math.pow(RADIUS, 2));
 
                 this.testArray.push({
                     x: PointX,
@@ -91,9 +90,9 @@
                 let PointY;
 
                 do {
-                    PointX = this.getRandomArbitrary(-RADIUS, RADIUS);
-                    PointY = this.getRandomArbitrary(-RADIUS, RADIUS);
-                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2) ) <= Math.pow(RADIUS, 2));
+                    PointX = this.getRandomArbitrary(-100, 100);
+                    PointY = this.getRandomArbitrary(-100, 100);
+                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2) ) > Math.pow(RADIUS, 2));
 
                 // reference — класс элемента
                 this.learnArray.push({
@@ -109,9 +108,9 @@
                 let PointY;
 
                 do {
-                    PointX = this.getRandomArbitrary(-RADIUS + this.shift, RADIUS + this.shift);
-                    PointY = this.getRandomArbitrary(-RADIUS, RADIUS);
-                } while ((Math.pow(PointX, 2) + Math.pow(PointY, 2) ) <= Math.pow(RADIUS, 2));
+                    PointX = this.getRandomArbitrary(-100, 100);
+                    PointY = this.getRandomArbitrary(-100, 100);
+                } while (Math.pow((PointX - this.shift), 2) + Math.pow(PointY, 2) > Math.pow(RADIUS, 2));
 
                 this.learnArray.push({
                     x: PointX,
@@ -173,8 +172,8 @@
             });
 
             // Характерный размер классов
-            this.R0 = Math.sqrt(M0)/(this.learnSize/2);
-            this.R1 = Math.sqrt(M1)/(this.learnSize/2);
+            this.R0 = Math.sqrt(M0)/halfOfLearnRange;
+            this.R1 = Math.sqrt(M1)/halfOfLearnRange;
         }
 
         // Метод "ближайшего соседа"
@@ -218,7 +217,7 @@
 
             imagesArray.forEach((item) => {
                 // Сама решающая функция
-                let K = (Math.sqrt(Math.pow((this.zeroClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.zeroClassCoordinatesRI.y - item.y), 2))))/this.R0 - (Math.sqrt(Math.pow((this.firstClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.firstClassCoordinatesRI.y - item.y), 2))))/this.R1;
+                let K = ((Math.pow((this.zeroClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.zeroClassCoordinatesRI.y - item.y), 2))))/(this.R0) - ((Math.pow((this.firstClassCoordinatesRI.x - item.x), 2) + (Math.pow((this.firstClassCoordinatesRI.y - item.y), 2))))/(this.R1);
 
                 // Если значение решающей функции больше нуля, относим к первому классу
                 if (K > 0) {
@@ -241,7 +240,7 @@
 
     // Размер выборки, размер тестовой выборки, расстояние между центрами окружностей
     // Размер обучающей выборки = размер выборки - размер тестовой
-    new Lab3(500, 200, 5);
+    new Lab3(400, 200, 2);
 </script>
 
 
