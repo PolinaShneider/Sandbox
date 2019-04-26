@@ -1,0 +1,26 @@
+div {
+	width: 180px;
+	height: 180px;
+	position: relative;
+	border-radius: 9px;
+	overflow: hidden;
+}
+div::before {
+	content: '';
+	display: block;
+	background: #f8e34b;
+	position: absolute;
+	height: 50%;
+	width: 100%;
+	z-index: 2;
+	box-shadow: 0 1px 2px 0 hsla(178, 0%, 78%, 1);
+}
+
+div::after {
+	content: '';
+	display: block;
+	background: linear-gradient(90deg, #eeedef 50%, #0c0c0c 50%);
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}

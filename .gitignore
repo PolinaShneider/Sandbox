@@ -4,3 +4,4 @@ capella/.DS_Store
 *.xml
 *.iml
 node_modules
+.DS_Store
