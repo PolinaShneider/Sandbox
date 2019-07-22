@@ -56,3 +56,68 @@ console.assert(wordPattern("abba", "dog cat cat fish") === false, "wordPattern #
 console.assert(wordPattern("aaaa", "dog cat cat dog") === false, "wordPattern #3");
 console.assert(wordPattern("abba", "dog dog dog dog") === false, "wordPattern #4");
 
+/**
+ * Initialize your data structure here.
+ */
+var MyHashMap = function(state) {
+    this.state = state || {};
+};
+
+/**
+ * value will always be non-negative.
+ * @param {number} key
+ * @param {number} value
+ * @return {void}
+ */
+MyHashMap.prototype.put = function(key, value) {
+    this.state[key] = value;
+};
+
+/**
+ * Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+ * @param {number} key
+ * @return {number}
+ */
+MyHashMap.prototype.get = function(key) {
+    return this.state[key] === undefined ? -1 : this.state[key];
+};
+
+/**
+ * Removes the mapping of the specified value key if this map contains a mapping for the key
+ * @param {number} key
+ * @return {void}
+ */
+MyHashMap.prototype.remove = function(key) {
+    delete this.state[key];
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * var obj = new MyHashMap()
+ * obj.put(key,value)
+ * var param_2 = obj.get(key)
+ * obj.remove(key)
+ */
+
+var obj = new MyHashMap();
+obj.put(2,4);
+obj.get(2);
+obj.remove(2);
+obj.put(2,7);
+obj.put(3,9);
+obj.put(3,10);
+console.assert(
+    JSON.stringify(obj) === JSON.stringify({
+        state: { '2': 7 , '3': 10}
+    }),
+    "MyHashMap #1"
+);
+
+obj.remove(4);
+obj.remove(3);
+console.assert(
+    JSON.stringify(obj) === JSON.stringify({
+        state: { '2': 7 }
+    }),
+    "MyHashMap #2"
+);
