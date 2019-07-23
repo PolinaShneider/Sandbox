@@ -161,3 +161,60 @@ MyHashSet.prototype.contains = function(key) {
  * obj.remove(key)
  * var param_3 = obj.contains(key)
  */
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    return s.split(" ")
+        .map(
+            word => word.split("").reverse().join("")
+        ).join(" ")
+};
+
+console.assert(reverseWords("Let's take LeetCode contest") === "s'teL ekat edoCteeL tsetnoc", "reverseWords #1");
+
+/**
+ * @param {string[]} emails
+ * @return {number}
+ */
+var numUniqueEmails = function(emails) {
+    let candidates = [];
+    emails.forEach(email => {
+        let executed = /([^@]+)(.+)/.exec(email);
+        candidates.push(
+            executed[1].split("+")[0]
+                .replace(/\./g, "") + executed[2]
+        );
+    });
+
+    return new Set(candidates).size;
+};
+
+console.assert(
+    numUniqueEmails([
+        "test.email+alex@leetcode.com",
+        "test.e.mail+bob.cathy@leetcode.com",
+        "testemail+david@lee.tcode.com"
+    ]) === 2,
+    "numUniqueEmails #1"
+);
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function(nums1, nums2) {
+    let result = nums1.filter(num => {
+        return nums2.indexOf(num) !== -1;
+    });
+
+    return [...new Set(result)];
+};
+
+console.assert(
+    JSON.stringify(intersection([1,2,2,1], [2,2])) ===  JSON.stringify([2]),
+    "intersection #1"
+);
