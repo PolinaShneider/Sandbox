@@ -218,3 +218,36 @@ console.assert(
     JSON.stringify(intersection([1,2,2,1], [2,2])) ===  JSON.stringify([2]),
     "intersection #1"
 );
+
+/**
+ * @param {number} left
+ * @param {number} right
+ * @return {number[]}
+ */
+var selfDividingNumbers = function(left, right) {
+    let output = [];
+
+    for (let num = left; num <= right; num++) {
+        let result = num.toString().split("").every(fig => {
+            return +fig !== 0 && (num % +fig) === 0
+        });
+
+        if (result) {
+            output.push(num)
+        }
+    }
+
+    return output;
+};
+
+console.assert(JSON.stringify(
+    selfDividingNumbers(1,22)
+) === JSON.stringify(
+    [1,2,3,4,5,6,7,8,9,11,12,15,22]
+), "selfDividingNumbers #1");
+
+console.assert(JSON.stringify(
+    selfDividingNumbers(100,109)
+) === JSON.stringify(
+    []
+), "selfDividingNumbers #2");
