@@ -251,3 +251,36 @@ console.assert(JSON.stringify(
 ) === JSON.stringify(
     []
 ), "selfDividingNumbers #2");
+
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var reverseOnlyLetters = function(S) {
+    let ranges = {};
+    let result = "";
+    let purified = S.replace(/[\W\d_]/g, "").split("");
+
+    for (let i = 0; i < S.length; i++) {
+        if (/[\W\d_]/.test(S[i])) {
+            ranges[i] = S[i];
+        }
+    }
+
+    for (let i = 0; i < S.length; i++) {
+        if (ranges[i]) {
+            result += ranges[i];
+        } else {
+            result += purified.pop();
+        }
+    }
+
+
+    return  result;
+};
+
+console.assert(reverseOnlyLetters("a-bC-dEf-ghIj") === "j-Ih-gfE-dCba", "reverseOnlyLetters #1");
+console.assert(reverseOnlyLetters("ab-cd") === "dc-ba", "reverseOnlyLetters #2");
+console.assert(reverseOnlyLetters("Test1ng-Leet=code-Q!") === "Qedo1ct-eeLg=ntse-T!", "reverseOnlyLetters #3");
+console.assert(reverseOnlyLetters("-S2,_") === "-S2,_", "reverseOnlyLetters #4");
