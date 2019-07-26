@@ -299,3 +299,34 @@ console.assert(
     ) === JSON.stringify([0,1,9,16,100]),
     "sortedSquares #1"
 );
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let obj = {};
+
+    nums.forEach(num => {
+        if (obj[num]) {
+            obj[num] = ++obj[num];
+        } else {
+            obj[num] = 1
+        }
+    });
+
+    let max = null;
+    let index = null;
+
+    for (let key in obj) {
+        if (obj[key] > max) {
+            max = obj[key];
+            index = key;
+        }
+    }
+    
+    return +index;
+};
+
+console.assert(majorityElement([3,2,3]) === 3, "majorityElement #1");
+console.assert(majorityElement([2,2,1,1,1,2,2]) === 2, "majorityElement #2");
