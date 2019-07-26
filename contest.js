@@ -284,3 +284,18 @@ console.assert(reverseOnlyLetters("a-bC-dEf-ghIj") === "j-Ih-gfE-dCba", "reverse
 console.assert(reverseOnlyLetters("ab-cd") === "dc-ba", "reverseOnlyLetters #2");
 console.assert(reverseOnlyLetters("Test1ng-Leet=code-Q!") === "Qedo1ct-eeLg=ntse-T!", "reverseOnlyLetters #3");
 console.assert(reverseOnlyLetters("-S2,_") === "-S2,_", "reverseOnlyLetters #4");
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortedSquares = function(A) {
+    return A.map(num => num * num).sort((a, b) => a - b)
+};
+
+console.assert(
+    JSON.stringify(
+        sortedSquares([-4,-1,0,3,10])
+    ) === JSON.stringify([0,1,9,16,100]),
+    "sortedSquares #1"
+);
