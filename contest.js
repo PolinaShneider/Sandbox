@@ -324,9 +324,56 @@ var majorityElement = function(nums) {
             index = key;
         }
     }
-    
+
     return +index;
 };
 
 console.assert(majorityElement([3,2,3]) === 3, "majorityElement #1");
 console.assert(majorityElement([2,2,1,1,1,2,2]) === 2, "majorityElement #2");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var arrayPairSum = function(nums) {
+    let sum = 0;
+    const sorted = nums.sort((a,b) => a - b);
+    const length = sorted.length;
+
+    for (let i = 0; i < length; i+=2) {
+        sum += sorted[i];
+    }
+
+    return sum;
+};
+
+console.assert(arrayPairSum([1,4,3,2]) === 4, "arrayPairSum #1");
+console.assert(arrayPairSum([29,8,10,15]) === 23, "arrayPairSum #2");
+
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var repeatedNTimes = function(A) {
+    const limit = A.length / 2;
+    const length = A.length;
+    const obj = {};
+
+    for (let i = 0; i < length; i++) {
+        let elem = A[i];
+
+        if (obj[elem]) {
+            obj[elem] = ++obj[elem];
+
+            if (obj[elem] >= limit) {
+                return elem;
+            }
+        } else {
+            obj[elem] = 1;
+        }
+    }
+};
+
+console.assert(repeatedNTimes([1,2,3,3]) === 3, "repeatedNTimes #1");
+console.assert(repeatedNTimes([2,1,2,5,3,2]) === 2, "repeatedNTimes #2");
+console.assert(repeatedNTimes([5,1,5,2,5,3,5,4]) === 5, "repeatedNTimes #3");
