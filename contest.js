@@ -377,3 +377,55 @@ var repeatedNTimes = function(A) {
 console.assert(repeatedNTimes([1,2,3,3]) === 3, "repeatedNTimes #1");
 console.assert(repeatedNTimes([2,1,2,5,3,2]) === 2, "repeatedNTimes #2");
 console.assert(repeatedNTimes([5,1,5,2,5,3,5,4]) === 5, "repeatedNTimes #3");
+
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var uniqueMorseRepresentations = function(words) {
+    const morseAlphabet = {
+        a: ".-",
+        b: "-...",
+        c: "-.-.",
+        d: "-..",
+        e: ".",
+        f: "..-.",
+        g: "--.",
+        h: "....",
+        i: "..",
+        j: ".---",
+        k: "-.-",
+        l: ".-..",
+        m: "--",
+        n: "-.",
+        o: "---",
+        p: ".--.",
+        q: "--.-",
+        r: ".-.",
+        s: "...",
+        t: "-",
+        u: "..-",
+        v: "...-",
+        w: ".--",
+        x: "-..-",
+        y: "-.--",
+        z: "--.."
+    };
+
+    const encodedWords = new Set();
+
+    for (let j = 0; j < words.length; j++) {
+        const encodedWord = [];
+        const word = words[j];
+
+        for (let i = 0; i < word.length; i++) {
+            encodedWord.push(morseAlphabet[word[i]]);
+        }
+
+        encodedWords.add(encodedWord.join(""));
+    }
+
+    return encodedWords.size;
+};
+
+console.assert(uniqueMorseRepresentations(["gin", "zen", "gig", "msg"]) === 2, "uniqueMorseRepresentations #1");
