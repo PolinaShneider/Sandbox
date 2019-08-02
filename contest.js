@@ -429,3 +429,37 @@ var uniqueMorseRepresentations = function(words) {
 };
 
 console.assert(uniqueMorseRepresentations(["gin", "zen", "gig", "msg"]) === 2, "uniqueMorseRepresentations #1");
+
+/**
+ * @param {string} S
+ * @return {number[]}
+ */
+var diStringMatch = function(S) {
+    const N = S.length;
+    const arr = new Array(N - 1).fill(0).map((item, index) => ++index);
+    const result = [];
+
+    if (S[0] === "I") {
+        result.push(0);
+        arr.push(N);
+    } else {
+        result.push(N);
+        arr.unshift(0)
+    }
+
+    for (let i = 1; i <= S.length; i++) {
+        if (S[i] === "D") {
+            result.push(arr.pop())
+        } else {
+            result.push(arr.shift())
+        }
+    }
+
+
+    return result
+
+};
+
+console.assert(JSON.stringify(diStringMatch("IDID")) === JSON.stringify([0,4,1,3,2]), "diStringMatch #1");
+console.assert(JSON.stringify(diStringMatch("III")) === JSON.stringify([0,1,2,3]), "diStringMatch #2");
+console.assert(JSON.stringify(diStringMatch("DDI")) === JSON.stringify([3,2,0,1]), "diStringMatch #3");
