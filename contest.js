@@ -463,3 +463,24 @@ var diStringMatch = function(S) {
 console.assert(JSON.stringify(diStringMatch("IDID")) === JSON.stringify([0,4,1,3,2]), "diStringMatch #1");
 console.assert(JSON.stringify(diStringMatch("III")) === JSON.stringify([0,1,2,3]), "diStringMatch #2");
 console.assert(JSON.stringify(diStringMatch("DDI")) === JSON.stringify([3,2,0,1]), "diStringMatch #3");
+
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var peakIndexInMountainArray = function(A) {
+    let index = 0;
+    let max = A[index];
+
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] > max) {
+            index = i;
+            max = A[index];
+        }
+    }
+
+    return index;
+};
+
+console.assert(peakIndexInMountainArray([0,1,0]) === 1, "peakIndexInMountainArray #1");
+console.assert(peakIndexInMountainArray([0,2,1,0]) === 1, "peakIndexInMountainArray #2");
