@@ -484,3 +484,74 @@ var peakIndexInMountainArray = function(A) {
 
 console.assert(peakIndexInMountainArray([0,1,0]) === 1, "peakIndexInMountainArray #1");
 console.assert(peakIndexInMountainArray([0,2,1,0]) === 1, "peakIndexInMountainArray #2");
+
+/**
+ * @param {number[][]} A
+ * @return {number[][]}
+ */
+var flipAndInvertImage = function(A) {
+    return A.map((elem) => elem.reverse().map(item => +!item));
+};
+
+console.assert(JSON.stringify(
+    flipAndInvertImage([[1,1,0],[1,0,1],[0,0,0]])
+) === JSON.stringify([[1,0,0],[0,1,0],[1,1,1]]), "flipAndInvertImage #1");
+console.assert(JSON.stringify(
+    flipAndInvertImage([[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]])
+) === JSON.stringify([[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]), "flipAndInvertImage #2");
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParity = function(A) {
+    const N = A.length;
+    const result = new Array(N);
+    let evenIndex = 0;
+    let oddIndex = N - 1;
+
+    A.forEach(elem => {
+        if (elem % 2 === 0) {
+            result[evenIndex++] = elem;
+        } else {
+            result[oddIndex--] = elem;
+        }
+    });
+
+    return result;
+};
+
+console.assert(JSON.stringify(sortArrayByParity([3,1,2,4])) === JSON.stringify([ 2,4,1,3]), "sortArrayByParity #1");
+
+/**
+ * @param {string} moves
+ * @return {boolean}
+ */
+var judgeCircle = function(moves) {
+    const position = {
+        x: 0,
+        y: 0
+    };
+
+    for (let i = 0; i < moves.length; i++) {
+        switch (moves[i]) {
+            case "U":
+                position.y = ++position.y;
+                break;
+            case "D":
+                position.y = --position.y;
+                break;
+            case "R":
+                position.x = ++position.x;
+                break;
+            case "L":
+                position.x = --position.x;
+                break;
+        }
+    }
+
+    return position.x === 0 && position.y === 0;
+};
+
+console.assert(judgeCircle("UD") === true, "judgeCircle #1");
+console.assert(judgeCircle("LL") === false, "judgeCircle #2");
