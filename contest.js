@@ -555,3 +555,44 @@ var judgeCircle = function(moves) {
 
 console.assert(judgeCircle("UD") === true, "judgeCircle #1");
 console.assert(judgeCircle("LL") === false, "judgeCircle #2");
+
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var heightChecker = function(heights) {
+    let counter = 0;
+    const sorted = heights.concat().sort((a,b) => a - b);
+
+    for (let i = 0; i < heights.length; i++) {
+        if (heights[i] !== sorted[i]) counter++;
+    }
+
+    return counter;
+};
+
+console.assert(heightChecker([1,1,4,2,1,3]) === 3, "heightChecker #1");
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParityII = function(A) {
+    const result = [];
+    const evens = [];
+    const odds = [];
+
+    for (let i = 0; i < A.length; i++) {
+        (A[i] % 2 === 0) ? evens.push(A[i]) : odds.push(A[i]);
+    }
+
+    for (let i = 0; i < A.length; i++) {
+        (i % 2 === 0) ? result[i] = evens.pop() : result[i] = odds.pop();
+    }
+
+    return result;
+};
+
+console.assert(JSON.stringify(
+    sortArrayByParityII([4,2,5,7])
+) === JSON.stringify([2,7,4,5]), "sortArrayByParityII #1");
