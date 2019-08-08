@@ -2,7 +2,7 @@
  * @param {string} address
  * @return {string}
  */
-var defangIPaddr = function(address) {
+var defangIPaddr = function (address) {
     return address.replace(/\./g, "[.]");
 };
 
@@ -14,7 +14,7 @@ console.assert(defangIPaddr("255.100.50.0") === "255[.]100[.]50[.]0", "defangIPa
  * @param {string} S
  * @return {number}
  */
-var numJewelsInStones = function(J, S) {
+var numJewelsInStones = function (J, S) {
     let cnt = 0;
     S.split("").forEach(el => {
         if (J.indexOf(el) > -1) {
@@ -33,13 +33,13 @@ console.assert(numJewelsInStones("z", "ZZ") === 0, "numJewelsInStones #2");
  * @param {string} str
  * @return {boolean}
  */
-var wordPattern = function(pattern, str) {
+var wordPattern = function (pattern, str) {
     let keys = pattern.split("");
     let values = str.split(" ");
     let obj = {};
 
     if (new Set(keys).size !== new Set(values).size) {
-        return  false;
+        return false;
     }
 
     keys.forEach((elem, index) => {
@@ -59,7 +59,7 @@ console.assert(wordPattern("abba", "dog dog dog dog") === false, "wordPattern #4
 /**
  * Initialize your data structure here.
  */
-var MyHashMap = function(state) {
+var MyHashMap = function (state) {
     this.state = state || {};
 };
 
@@ -69,7 +69,7 @@ var MyHashMap = function(state) {
  * @param {number} value
  * @return {void}
  */
-MyHashMap.prototype.put = function(key, value) {
+MyHashMap.prototype.put = function (key, value) {
     this.state[key] = value;
 };
 
@@ -78,7 +78,7 @@ MyHashMap.prototype.put = function(key, value) {
  * @param {number} key
  * @return {number}
  */
-MyHashMap.prototype.get = function(key) {
+MyHashMap.prototype.get = function (key) {
     return this.state[key] === undefined ? -1 : this.state[key];
 };
 
@@ -87,7 +87,7 @@ MyHashMap.prototype.get = function(key) {
  * @param {number} key
  * @return {void}
  */
-MyHashMap.prototype.remove = function(key) {
+MyHashMap.prototype.remove = function (key) {
     delete this.state[key];
 };
 
@@ -100,15 +100,15 @@ MyHashMap.prototype.remove = function(key) {
  */
 
 var obj = new MyHashMap();
-obj.put(2,4);
+obj.put(2, 4);
 obj.get(2);
 obj.remove(2);
-obj.put(2,7);
-obj.put(3,9);
-obj.put(3,10);
+obj.put(2, 7);
+obj.put(3, 9);
+obj.put(3, 10);
 console.assert(
     JSON.stringify(obj) === JSON.stringify({
-        state: { '2': 7 , '3': 10}
+        state: {'2': 7, '3': 10}
     }),
     "MyHashMap #1"
 );
@@ -117,7 +117,7 @@ obj.remove(4);
 obj.remove(3);
 console.assert(
     JSON.stringify(obj) === JSON.stringify({
-        state: { '2': 7 }
+        state: {'2': 7}
     }),
     "MyHashMap #2"
 );
@@ -125,7 +125,7 @@ console.assert(
 /**
  * Initialize your data structure here.
  */
-var MyHashSet = function(state) {
+var MyHashSet = function (state) {
     this.state = state || {};
 };
 
@@ -133,7 +133,7 @@ var MyHashSet = function(state) {
  * @param {number} key
  * @return {void}
  */
-MyHashSet.prototype.add = function(key) {
+MyHashSet.prototype.add = function (key) {
     this.state[key] = key;
 };
 
@@ -141,7 +141,7 @@ MyHashSet.prototype.add = function(key) {
  * @param {number} key
  * @return {void}
  */
-MyHashSet.prototype.remove = function(key) {
+MyHashSet.prototype.remove = function (key) {
     delete this.state[key];
 };
 
@@ -150,7 +150,7 @@ MyHashSet.prototype.remove = function(key) {
  * @param {number} key
  * @return {boolean}
  */
-MyHashSet.prototype.contains = function(key) {
+MyHashSet.prototype.contains = function (key) {
     return this.state[key] !== undefined;
 };
 
@@ -166,7 +166,7 @@ MyHashSet.prototype.contains = function(key) {
  * @param {string} s
  * @return {string}
  */
-var reverseWords = function(s) {
+var reverseWords = function (s) {
     return s.split(" ")
         .map(
             word => word.split("").reverse().join("")
@@ -179,7 +179,7 @@ console.assert(reverseWords("Let's take LeetCode contest") === "s'teL ekat edoCt
  * @param {string[]} emails
  * @return {number}
  */
-var numUniqueEmails = function(emails) {
+var numUniqueEmails = function (emails) {
     let candidates = [];
     emails.forEach(email => {
         let executed = /([^@]+)(.+)/.exec(email);
@@ -206,7 +206,7 @@ console.assert(
  * @param {number[]} nums2
  * @return {number[]}
  */
-var intersection = function(nums1, nums2) {
+var intersection = function (nums1, nums2) {
     let result = nums1.filter(num => {
         return nums2.indexOf(num) !== -1;
     });
@@ -215,7 +215,7 @@ var intersection = function(nums1, nums2) {
 };
 
 console.assert(
-    JSON.stringify(intersection([1,2,2,1], [2,2])) ===  JSON.stringify([2]),
+    JSON.stringify(intersection([1, 2, 2, 1], [2, 2])) === JSON.stringify([2]),
     "intersection #1"
 );
 
@@ -224,7 +224,7 @@ console.assert(
  * @param {number} right
  * @return {number[]}
  */
-var selfDividingNumbers = function(left, right) {
+var selfDividingNumbers = function (left, right) {
     let output = [];
 
     for (let num = left; num <= right; num++) {
@@ -241,13 +241,13 @@ var selfDividingNumbers = function(left, right) {
 };
 
 console.assert(JSON.stringify(
-    selfDividingNumbers(1,22)
+    selfDividingNumbers(1, 22)
 ) === JSON.stringify(
-    [1,2,3,4,5,6,7,8,9,11,12,15,22]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]
 ), "selfDividingNumbers #1");
 
 console.assert(JSON.stringify(
-    selfDividingNumbers(100,109)
+    selfDividingNumbers(100, 109)
 ) === JSON.stringify(
     []
 ), "selfDividingNumbers #2");
@@ -257,7 +257,7 @@ console.assert(JSON.stringify(
  * @param {string} S
  * @return {string}
  */
-var reverseOnlyLetters = function(S) {
+var reverseOnlyLetters = function (S) {
     let ranges = {};
     let result = "";
     let purified = S.replace(/[\W\d_]/g, "").split("");
@@ -277,7 +277,7 @@ var reverseOnlyLetters = function(S) {
     }
 
 
-    return  result;
+    return result;
 };
 
 console.assert(reverseOnlyLetters("a-bC-dEf-ghIj") === "j-Ih-gfE-dCba", "reverseOnlyLetters #1");
@@ -289,14 +289,14 @@ console.assert(reverseOnlyLetters("-S2,_") === "-S2,_", "reverseOnlyLetters #4")
  * @param {number[]} A
  * @return {number[]}
  */
-var sortedSquares = function(A) {
+var sortedSquares = function (A) {
     return A.map(num => num * num).sort((a, b) => a - b)
 };
 
 console.assert(
     JSON.stringify(
-        sortedSquares([-4,-1,0,3,10])
-    ) === JSON.stringify([0,1,9,16,100]),
+        sortedSquares([-4, -1, 0, 3, 10])
+    ) === JSON.stringify([0, 1, 9, 16, 100]),
     "sortedSquares #1"
 );
 
@@ -304,7 +304,7 @@ console.assert(
  * @param {number[]} nums
  * @return {number}
  */
-var majorityElement = function(nums) {
+var majorityElement = function (nums) {
     let obj = {};
 
     nums.forEach(num => {
@@ -328,33 +328,33 @@ var majorityElement = function(nums) {
     return +index;
 };
 
-console.assert(majorityElement([3,2,3]) === 3, "majorityElement #1");
-console.assert(majorityElement([2,2,1,1,1,2,2]) === 2, "majorityElement #2");
+console.assert(majorityElement([3, 2, 3]) === 3, "majorityElement #1");
+console.assert(majorityElement([2, 2, 1, 1, 1, 2, 2]) === 2, "majorityElement #2");
 
 /**
  * @param {number[]} nums
  * @return {number}
  */
-var arrayPairSum = function(nums) {
+var arrayPairSum = function (nums) {
     let sum = 0;
-    const sorted = nums.sort((a,b) => a - b);
+    const sorted = nums.sort((a, b) => a - b);
     const length = sorted.length;
 
-    for (let i = 0; i < length; i+=2) {
+    for (let i = 0; i < length; i += 2) {
         sum += sorted[i];
     }
 
     return sum;
 };
 
-console.assert(arrayPairSum([1,4,3,2]) === 4, "arrayPairSum #1");
-console.assert(arrayPairSum([29,8,10,15]) === 23, "arrayPairSum #2");
+console.assert(arrayPairSum([1, 4, 3, 2]) === 4, "arrayPairSum #1");
+console.assert(arrayPairSum([29, 8, 10, 15]) === 23, "arrayPairSum #2");
 
 /**
  * @param {number[]} A
  * @return {number}
  */
-var repeatedNTimes = function(A) {
+var repeatedNTimes = function (A) {
     const limit = A.length / 2;
     const length = A.length;
     const obj = {};
@@ -374,15 +374,15 @@ var repeatedNTimes = function(A) {
     }
 };
 
-console.assert(repeatedNTimes([1,2,3,3]) === 3, "repeatedNTimes #1");
-console.assert(repeatedNTimes([2,1,2,5,3,2]) === 2, "repeatedNTimes #2");
-console.assert(repeatedNTimes([5,1,5,2,5,3,5,4]) === 5, "repeatedNTimes #3");
+console.assert(repeatedNTimes([1, 2, 3, 3]) === 3, "repeatedNTimes #1");
+console.assert(repeatedNTimes([2, 1, 2, 5, 3, 2]) === 2, "repeatedNTimes #2");
+console.assert(repeatedNTimes([5, 1, 5, 2, 5, 3, 5, 4]) === 5, "repeatedNTimes #3");
 
 /**
  * @param {string[]} words
  * @return {number}
  */
-var uniqueMorseRepresentations = function(words) {
+var uniqueMorseRepresentations = function (words) {
     const morseAlphabet = {
         a: ".-",
         b: "-...",
@@ -434,7 +434,7 @@ console.assert(uniqueMorseRepresentations(["gin", "zen", "gig", "msg"]) === 2, "
  * @param {string} S
  * @return {number[]}
  */
-var diStringMatch = function(S) {
+var diStringMatch = function (S) {
     const N = S.length;
     const arr = new Array(N - 1).fill(0).map((item, index) => ++index);
     const result = [];
@@ -460,15 +460,15 @@ var diStringMatch = function(S) {
 
 };
 
-console.assert(JSON.stringify(diStringMatch("IDID")) === JSON.stringify([0,4,1,3,2]), "diStringMatch #1");
-console.assert(JSON.stringify(diStringMatch("III")) === JSON.stringify([0,1,2,3]), "diStringMatch #2");
-console.assert(JSON.stringify(diStringMatch("DDI")) === JSON.stringify([3,2,0,1]), "diStringMatch #3");
+console.assert(JSON.stringify(diStringMatch("IDID")) === JSON.stringify([0, 4, 1, 3, 2]), "diStringMatch #1");
+console.assert(JSON.stringify(diStringMatch("III")) === JSON.stringify([0, 1, 2, 3]), "diStringMatch #2");
+console.assert(JSON.stringify(diStringMatch("DDI")) === JSON.stringify([3, 2, 0, 1]), "diStringMatch #3");
 
 /**
  * @param {number[]} A
  * @return {number}
  */
-var peakIndexInMountainArray = function(A) {
+var peakIndexInMountainArray = function (A) {
     let index = 0;
     let max = A[index];
 
@@ -482,29 +482,29 @@ var peakIndexInMountainArray = function(A) {
     return index;
 };
 
-console.assert(peakIndexInMountainArray([0,1,0]) === 1, "peakIndexInMountainArray #1");
-console.assert(peakIndexInMountainArray([0,2,1,0]) === 1, "peakIndexInMountainArray #2");
+console.assert(peakIndexInMountainArray([0, 1, 0]) === 1, "peakIndexInMountainArray #1");
+console.assert(peakIndexInMountainArray([0, 2, 1, 0]) === 1, "peakIndexInMountainArray #2");
 
 /**
  * @param {number[][]} A
  * @return {number[][]}
  */
-var flipAndInvertImage = function(A) {
+var flipAndInvertImage = function (A) {
     return A.map((elem) => elem.reverse().map(item => +!item));
 };
 
 console.assert(JSON.stringify(
-    flipAndInvertImage([[1,1,0],[1,0,1],[0,0,0]])
-) === JSON.stringify([[1,0,0],[0,1,0],[1,1,1]]), "flipAndInvertImage #1");
+    flipAndInvertImage([[1, 1, 0], [1, 0, 1], [0, 0, 0]])
+) === JSON.stringify([[1, 0, 0], [0, 1, 0], [1, 1, 1]]), "flipAndInvertImage #1");
 console.assert(JSON.stringify(
-    flipAndInvertImage([[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]])
-) === JSON.stringify([[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]), "flipAndInvertImage #2");
+    flipAndInvertImage([[1, 1, 0, 0], [1, 0, 0, 1], [0, 1, 1, 1], [1, 0, 1, 0]])
+) === JSON.stringify([[1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [1, 0, 1, 0]]), "flipAndInvertImage #2");
 
 /**
  * @param {number[]} A
  * @return {number[]}
  */
-var sortArrayByParity = function(A) {
+var sortArrayByParity = function (A) {
     const N = A.length;
     const result = new Array(N);
     let evenIndex = 0;
@@ -521,13 +521,13 @@ var sortArrayByParity = function(A) {
     return result;
 };
 
-console.assert(JSON.stringify(sortArrayByParity([3,1,2,4])) === JSON.stringify([ 2,4,1,3]), "sortArrayByParity #1");
+console.assert(JSON.stringify(sortArrayByParity([3, 1, 2, 4])) === JSON.stringify([2, 4, 1, 3]), "sortArrayByParity #1");
 
 /**
  * @param {string} moves
  * @return {boolean}
  */
-var judgeCircle = function(moves) {
+var judgeCircle = function (moves) {
     const position = {
         x: 0,
         y: 0
@@ -560,9 +560,9 @@ console.assert(judgeCircle("LL") === false, "judgeCircle #2");
  * @param {number[]} heights
  * @return {number}
  */
-var heightChecker = function(heights) {
+var heightChecker = function (heights) {
     let counter = 0;
-    const sorted = heights.concat().sort((a,b) => a - b);
+    const sorted = heights.concat().sort((a, b) => a - b);
 
     for (let i = 0; i < heights.length; i++) {
         if (heights[i] !== sorted[i]) counter++;
@@ -571,13 +571,13 @@ var heightChecker = function(heights) {
     return counter;
 };
 
-console.assert(heightChecker([1,1,4,2,1,3]) === 3, "heightChecker #1");
+console.assert(heightChecker([1, 1, 4, 2, 1, 3]) === 3, "heightChecker #1");
 
 /**
  * @param {number[]} A
  * @return {number[]}
  */
-var sortArrayByParityII = function(A) {
+var sortArrayByParityII = function (A) {
     const result = [];
     const evens = [];
     const odds = [];
@@ -594,8 +594,8 @@ var sortArrayByParityII = function(A) {
 };
 
 console.assert(JSON.stringify(
-    sortArrayByParityII([4,2,5,7])
-) === JSON.stringify([2,7,4,5]), "sortArrayByParityII #1");
+    sortArrayByParityII([4, 2, 5, 7])
+) === JSON.stringify([2, 7, 4, 5]), "sortArrayByParityII #1");
 
 /**
  * // Definition for a Node.
@@ -608,7 +608,7 @@ console.assert(JSON.stringify(
  * @param {Node} root
  * @return {number[]}
  */
-var postorder = function(root) {
+var postorder = function (root) {
     const stack = [];
     const used = [];
 
@@ -627,48 +627,40 @@ var postorder = function(root) {
 };
 
 const root = {
-    "$id":"1",
-    "children":[
+    "$id": "1",
+    "children": [
         {
-            "$id":"2",
-            "children":[
+            "$id": "2",
+            "children": [
                 {
-                    "$id":"5",
-                    "children":[
-
-                    ],
-                    "val":5
+                    "$id": "5",
+                    "children": [],
+                    "val": 5
                 },
                 {
-                    "$id":"6",
-                    "children":[
-
-                    ],
-                    "val":6
+                    "$id": "6",
+                    "children": [],
+                    "val": 6
                 }
             ],
-            "val":3
+            "val": 3
         },
         {
-            "$id":"3",
-            "children":[
-
-            ],
-            "val":2
+            "$id": "3",
+            "children": [],
+            "val": 2
         },
         {
-            "$id":"4",
-            "children":[
-
-            ],
-            "val":4
+            "$id": "4",
+            "children": [],
+            "val": 4
         }
     ],
-    "val":1
+    "val": 1
 };
 
 console.assert(
-    JSON.stringify(postorder(root)) === JSON.stringify([5,6,3,2,4,1]),
+    JSON.stringify(postorder(root)) === JSON.stringify([5, 6, 3, 2, 4, 1]),
     "postorder #1"
 );
 
@@ -676,3 +668,64 @@ console.assert(
     JSON.stringify(postorder(null)) === JSON.stringify([]),
     "postorder #2"
 );
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var searchBST = function (root, val) {
+    // Base Cases: root is null or key is present at root
+    if (root === null || root.val === val)
+        return root;
+
+    // val is greater than root's key
+    if (root.val > val)
+        return searchBST(root.left, val);
+
+    // val is less than root's key
+    return searchBST(root.right, val);
+};
+
+console.assert(JSON.stringify(searchBST({
+    val: 4,
+    left: {
+        val: 2,
+        left: {
+            val: 1,
+            right: null,
+            left: null
+        },
+        right: {
+            val: 3,
+            right: null,
+            left: null
+        }
+    },
+    right: {
+        val: 7,
+        right: null,
+        left: null
+    }
+}, 2)) === JSON.stringify({
+    val: 2,
+    left: {
+        val: 1,
+        right: null,
+        left: null
+    },
+    right: {
+        val: 3,
+        right: null,
+        left: null
+    }
+}), "searchBST #1");
+
+
