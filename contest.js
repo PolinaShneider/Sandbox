@@ -728,4 +728,18 @@ console.assert(JSON.stringify(searchBST({
     }
 }), "searchBST #1");
 
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var fib = function(N) {
+    if (N < 2) {
+        return N;
+    } else {
+        return fib(N - 1) + fib(N - 2);
+    }
+};
 
+console.assert(fib(2) === 1, "fib #1");
+console.assert(fib(3) === 2, "fib #2");
+console.assert(fib(4) === 3, "fib #3");
