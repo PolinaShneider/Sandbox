@@ -743,3 +743,49 @@ var fib = function(N) {
 console.assert(fib(2) === 1, "fib #1");
 console.assert(fib(3) === 2, "fib #2");
 console.assert(fib(4) === 3, "fib #3");
+
+/**
+ * @param {string[]} cpdomains
+ * @return {string[]}
+ */
+var subdomainVisits = function(cpdomains) {
+    const result = {};
+    cpdomains.forEach(domain => {
+        const match = domain.match(/(\d+)(?:\s)(\S+)/);
+        const counter = +match[1];
+        const domains = match[2].split(".");
+
+        for (let i = 0; i < domains.length; i++) {
+            const key = domains.filter((item, index) => index >= i).join(".");
+            if (result[key] !== undefined) {
+                result[key] += counter;
+            } else {
+                result[key] = counter;
+            }
+        }
+    });
+
+    const output = [];
+    for (let key in result) {
+        output.push(`${result[key]} ${key}`);
+    }
+
+    return output;
+};
+
+console.assert(
+    JSON.stringify(subdomainVisits(
+        ["9001 discuss.leetcode.com"]
+    )) === JSON.stringify(
+    ["9001 discuss.leetcode.com", "9001 leetcode.com", "9001 com"]
+    ), "subdomainVisits #1"
+);
+
+
+console.assert(
+    JSON.stringify(subdomainVisits(
+        ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+    )) === JSON.stringify(
+        ["900 google.mail.com","901 mail.com","951 com","50 yahoo.com","1 intel.mail.com","5 wiki.org","5 org"]
+    ), "subdomainVisits #2"
+);
