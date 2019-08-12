@@ -789,3 +789,48 @@ console.assert(
         ["900 google.mail.com","901 mail.com","951 com","50 yahoo.com","1 intel.mail.com","5 wiki.org","5 org"]
     ), "subdomainVisits #2"
 );
+
+/**
+ * @param {string[]} A
+ * @return {string[]}
+ */
+var commonChars = function(A) {
+    const N = A.length;
+    /** Prepare latin alphabet hashmap */
+    const obj = {};
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    letters.forEach(letter => {
+        obj[letter] = new Array(N).fill(0);
+    });
+
+    /** Iterate over words and fill hashmap */
+    A.forEach((word, index) => {
+        for (let j = 0; j < word.length; j++) {
+            obj[word[j]][index] = ++obj[word[j]][index];
+        }
+    });
+
+    /** Prepare output */
+    const result = [];
+    for (let key in obj) {
+        /** Find minimum letter occurrence */
+        const max = obj[key].sort((a,b) => a - b)[0];
+        for (let j = 0; j < max; j++) {
+            result.push(key);
+        }
+    }
+
+    return result;
+};
+
+console.assert(JSON.stringify(
+    commonChars(["bella","label","roller"])
+) === JSON.stringify(
+    ["e","l","l"]
+), "commonChars #1");
+
+console.assert(JSON.stringify(
+    commonChars(["cool","lock","cook"])
+) === JSON.stringify(
+    ["c", "o"]
+), "commonChars #2");
