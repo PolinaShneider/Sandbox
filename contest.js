@@ -834,3 +834,34 @@ console.assert(JSON.stringify(
 ) === JSON.stringify(
     ["c", "o"]
 ), "commonChars #2");
+
+/**
+ * @param {string} text
+ * @param {string} first
+ * @param {string} second
+ * @return {string[]}
+ */
+var findOcurrences = function(text, first, second) {
+    const match = text.match(new RegExp(`(?<=\\b${first} ${second}\\s)(\\S+)`, 'g'));
+    return match === null ? [] : match;
+};
+
+console.assert(
+    JSON.stringify(
+        findOcurrences("alice is a good girl she is a good student", "a", "good")
+    ) === JSON.stringify(["girl", "student"]), "findOcurrences #1"
+);
+console.assert(
+    JSON.stringify(
+        findOcurrences("we will we will rock you", "we", "will")
+    ) === JSON.stringify(["we", "rock"]), "findOcurrences #2"
+);
+console.assert(
+    JSON.stringify(
+        findOcurrences(
+            "obo jvezipre obo jnvavldde jvezipre jvezipre jnvavldde jvezipre jvezipre jvezipre y jnvavldde jnvavldde obo jnvavldde jnvavldde obo jnvavldde jnvavldde jvezipre",
+            "jnvavldde",
+            "y"
+        )
+    ) === JSON.stringify([]), "findOcurrences #3"
+);
