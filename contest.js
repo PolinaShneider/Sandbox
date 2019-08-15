@@ -732,7 +732,7 @@ console.assert(JSON.stringify(searchBST({
  * @param {number} N
  * @return {number}
  */
-var fib = function(N) {
+var fib = function (N) {
     if (N < 2) {
         return N;
     } else {
@@ -748,7 +748,7 @@ console.assert(fib(4) === 3, "fib #3");
  * @param {string[]} cpdomains
  * @return {string[]}
  */
-var subdomainVisits = function(cpdomains) {
+var subdomainVisits = function (cpdomains) {
     const result = {};
     cpdomains.forEach(domain => {
         const match = domain.match(/(\d+)(?:\s)(\S+)/);
@@ -786,7 +786,7 @@ console.assert(
     JSON.stringify(subdomainVisits(
         ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
     )) === JSON.stringify(
-        ["900 google.mail.com","901 mail.com","951 com","50 yahoo.com","1 intel.mail.com","5 wiki.org","5 org"]
+    ["900 google.mail.com", "901 mail.com", "951 com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org", "5 org"]
     ), "subdomainVisits #2"
 );
 
@@ -794,7 +794,7 @@ console.assert(
  * @param {string[]} A
  * @return {string[]}
  */
-var commonChars = function(A) {
+var commonChars = function (A) {
     const N = A.length;
     /** Prepare latin alphabet hashmap */
     const obj = {};
@@ -814,7 +814,7 @@ var commonChars = function(A) {
     const result = [];
     for (let key in obj) {
         /** Find minimum letter occurrence */
-        const max = obj[key].sort((a,b) => a - b)[0];
+        const max = obj[key].sort((a, b) => a - b)[0];
         for (let j = 0; j < max; j++) {
             result.push(key);
         }
@@ -824,13 +824,13 @@ var commonChars = function(A) {
 };
 
 console.assert(JSON.stringify(
-    commonChars(["bella","label","roller"])
+    commonChars(["bella", "label", "roller"])
 ) === JSON.stringify(
-    ["e","l","l"]
+    ["e", "l", "l"]
 ), "commonChars #1");
 
 console.assert(JSON.stringify(
-    commonChars(["cool","lock","cook"])
+    commonChars(["cool", "lock", "cook"])
 ) === JSON.stringify(
     ["c", "o"]
 ), "commonChars #2");
@@ -841,7 +841,7 @@ console.assert(JSON.stringify(
  * @param {string} second
  * @return {string[]}
  */
-var findOcurrences = function(text, first, second) {
+var findOcurrences = function (text, first, second) {
     const match = text.match(new RegExp(`(?<=\\b${first} ${second}\\s)(\\S+)`, 'g'));
     return match === null ? [] : match;
 };
@@ -864,4 +864,25 @@ console.assert(
             "y"
         )
     ) === JSON.stringify([]), "findOcurrences #3"
+);
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeDuplicates = function (S) {
+    let indexes = [];
+    for (let i = 0; i < S.length; i++) {
+        if (S[i] === S[i + 1]) {
+            indexes.push(i);
+            indexes.push(i + 1);
+            return removeDuplicates(S.replace(S.substr(indexes[0], indexes.length), ''));
+        }
+    }
+
+    return S;
+};
+
+console.assert(
+    removeDuplicates("abbaca") === "ca", "removeDuplicates #1"
 );
