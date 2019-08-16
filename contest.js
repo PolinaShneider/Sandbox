@@ -886,3 +886,36 @@ var removeDuplicates = function (S) {
 console.assert(
     removeDuplicates("abbaca") === "ca", "removeDuplicates #1"
 );
+
+/**
+ * @param {number[][]} A
+ * @return {number[][]}
+ */
+var transpose = function(A) {
+    const cols = A.length;
+    const rows = A[0].length;
+
+    const result = [];
+    for (let i = 0; i < rows; i++) {
+        result.push(
+            new Array(cols).fill(0)
+        )
+    }
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            result[i][j] = A[j][i];
+        }
+    }
+
+    return result;
+};
+
+console.assert(
+    JSON.stringify(transpose([[1,2,3],[4,5,6]])) === JSON.stringify([[1,4],[2,5],[3,6]]),
+    "transpose #1"
+);
+console.assert(
+    JSON.stringify(transpose([[1,2,3],[4,5,6],[7,8,9]])) === JSON.stringify([[1,4,7],[2,5,8],[3,6,9]]),
+    "transpose #2"
+);
