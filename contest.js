@@ -891,7 +891,7 @@ console.assert(
  * @param {number[][]} A
  * @return {number[][]}
  */
-var transpose = function(A) {
+var transpose = function (A) {
     const cols = A.length;
     const rows = A[0].length;
 
@@ -912,10 +912,55 @@ var transpose = function(A) {
 };
 
 console.assert(
-    JSON.stringify(transpose([[1,2,3],[4,5,6]])) === JSON.stringify([[1,4],[2,5],[3,6]]),
+    JSON.stringify(transpose([[1, 2, 3], [4, 5, 6]])) === JSON.stringify([[1, 4], [2, 5], [3, 6]]),
     "transpose #1"
 );
 console.assert(
-    JSON.stringify(transpose([[1,2,3],[4,5,6],[7,8,9]])) === JSON.stringify([[1,4,7],[2,5,8],[3,6,9]]),
+    JSON.stringify(transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]])) === JSON.stringify([[1, 4, 7], [2, 5, 8], [3, 6, 9]]),
     "transpose #2"
 );
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function (s) {
+    const dictionary = {
+        I: 1,
+        V: 5,
+        X: 10,
+        L: 50,
+        C: 100,
+        D: 500,
+        M: 1000
+    };
+
+    const exceptions = {
+        I: ['V', 'X'],
+        X: ['L', 'C'],
+        C: ['D', 'M']
+    };
+
+    let sum = 0;
+    let i = 0;
+
+    while (i < s.length) {
+        if (exceptions[s[i]] && s[i + 1] && exceptions[s[i]].indexOf(s[i + 1]) !== -1) {
+            sum += (dictionary[s[i + 1]] - dictionary[s[i]]);
+            i += 2;
+        } else {
+            sum += dictionary[s[i]];
+            i++;
+        }
+    }
+
+    return sum;
+};
+
+console.assert(romanToInt("III") === 3, "romanToInt #1");
+console.assert(romanToInt("IV") === 4, "romanToInt #2");
+console.assert(romanToInt("IX") === 9, "romanToInt #3");
+console.assert(romanToInt("LVIII") === 58, "romanToInt #4");
+console.assert(romanToInt("MCMXCIV") === 1994, "romanToInt #5");
+console.assert(romanToInt("I") === 1, "romanToInt #6");
+
