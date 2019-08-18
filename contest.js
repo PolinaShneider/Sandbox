@@ -964,3 +964,47 @@ console.assert(romanToInt("LVIII") === 58, "romanToInt #4");
 console.assert(romanToInt("MCMXCIV") === 1994, "romanToInt #5");
 console.assert(romanToInt("I") === 1, "romanToInt #6");
 
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+    let common = "";
+
+    if (!strs.length) {
+        return common;
+    }
+
+    for (let i = 0; i < strs[0].length; i++) {
+        const contains = strs.every(str => str[i] && str[i].indexOf(strs[0][i]) !== -1);
+
+        if (!contains) {
+            return common;
+        }
+
+        common += strs[0][i];
+    }
+
+    return common;
+};
+
+console.assert(longestCommonPrefix(["flower","flow","flight"]) === "fl", "longestCommonPrefix #1");
+console.assert(longestCommonPrefix(["dog","racecar","car"]) === "", "longestCommonPrefix #2");
+console.assert(longestCommonPrefix([]) === "", "longestCommonPrefix #3");
+
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    while (nums.indexOf(val) !== -1) {
+        nums.splice(nums.indexOf(val), 1);
+    }
+
+    return nums.length;
+};
+
+console.assert(removeElement([3,2,2,3], 3) === 2, "removeElement #1");
+console.assert(removeElement([0,1,2,2,3,0,4,2], 2) === 5, "removeElement #2");
+
