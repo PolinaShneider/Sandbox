@@ -1008,3 +1008,22 @@ var removeElement = function(nums, val) {
 console.assert(removeElement([3,2,2,3], 3) === 2, "removeElement #1");
 console.assert(removeElement([0,1,2,2,3,0,4,2], 2) === 5, "removeElement #2");
 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    const map = {};
+    for (let i = nums.length; i >= 0; i--) {
+        if (map[nums[i]]) {
+            nums.splice(i, 1);
+        } else {
+            map[nums[i]] = 1;
+        }
+    }
+
+    return nums.length;
+};
+
+console.assert(removeDuplicates([1,1,2]) === 2, "removeDuplicates #1");
+console.assert(removeDuplicates([0,0,1,1,1,2,2,3,3,4]) === 5, "removeDuplicates #2");
