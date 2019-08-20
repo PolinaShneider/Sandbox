@@ -1027,3 +1027,25 @@ var removeDuplicates = function(nums) {
 
 console.assert(removeDuplicates([1,1,2]) === 2, "removeDuplicates #1");
 console.assert(removeDuplicates([0,0,1,1,1,2,2,3,3,4]) === 5, "removeDuplicates #2");
+
+var searchInsert = function(nums, target) {
+    if (nums.indexOf(target) !== -1) {
+        return nums.indexOf(target);
+    } else {
+        if (!nums.length || target < nums[0]) return 0;
+        if (target > nums[nums.length - 1]) return nums.length;
+
+        for (let i = 0; i < nums.length; i++) {
+            if (nums[i+1] > target) {
+                return i + 1;
+            }
+        }
+    }
+};
+
+console.assert(searchInsert([1,3,5,6], 5) === 2, "searchInsert #1");
+console.assert(searchInsert([1,3,5,6], 2) === 1, "searchInsert #2");
+console.assert(searchInsert([1,3,5,6], 7) === 4, "searchInsert #3");
+console.assert(searchInsert([1,3,5,6], 0) === 0, "searchInsert #4");
+console.assert(searchInsert([1,3,5,5,5,5,7,7,7], 6) === 6, "searchInsert #5");
+console.assert(searchInsert([], 6) === 0, "searchInsert #6");
