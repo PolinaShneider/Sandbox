@@ -1049,3 +1049,17 @@ console.assert(searchInsert([1,3,5,6], 7) === 4, "searchInsert #3");
 console.assert(searchInsert([1,3,5,6], 0) === 0, "searchInsert #4");
 console.assert(searchInsert([1,3,5,5,5,5,7,7,7], 6) === 6, "searchInsert #5");
 console.assert(searchInsert([], 6) === 0, "searchInsert #6");
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    const match = new RegExp(needle).exec(haystack);
+    return match ? match.index : -1;
+};
+
+console.assert(strStr("hello","ll") === 2, "strStr #1");
+console.assert(strStr("aaaaa","ll") === -1, "strStr #2");
+console.assert(strStr("aaaaa","") === 0, "strStr #3");
