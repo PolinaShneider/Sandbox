@@ -988,8 +988,8 @@ var longestCommonPrefix = function (strs) {
     return common;
 };
 
-console.assert(longestCommonPrefix(["flower","flow","flight"]) === "fl", "longestCommonPrefix #1");
-console.assert(longestCommonPrefix(["dog","racecar","car"]) === "", "longestCommonPrefix #2");
+console.assert(longestCommonPrefix(["flower", "flow", "flight"]) === "fl", "longestCommonPrefix #1");
+console.assert(longestCommonPrefix(["dog", "racecar", "car"]) === "", "longestCommonPrefix #2");
 console.assert(longestCommonPrefix([]) === "", "longestCommonPrefix #3");
 
 /**
@@ -997,7 +997,7 @@ console.assert(longestCommonPrefix([]) === "", "longestCommonPrefix #3");
  * @param {number} val
  * @return {number}
  */
-var removeElement = function(nums, val) {
+var removeElement = function (nums, val) {
     while (nums.indexOf(val) !== -1) {
         nums.splice(nums.indexOf(val), 1);
     }
@@ -1005,14 +1005,14 @@ var removeElement = function(nums, val) {
     return nums.length;
 };
 
-console.assert(removeElement([3,2,2,3], 3) === 2, "removeElement #1");
-console.assert(removeElement([0,1,2,2,3,0,4,2], 2) === 5, "removeElement #2");
+console.assert(removeElement([3, 2, 2, 3], 3) === 2, "removeElement #1");
+console.assert(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2) === 5, "removeElement #2");
 
 /**
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     const map = {};
     for (let i = nums.length; i >= 0; i--) {
         if (map[nums[i]]) {
@@ -1025,10 +1025,10 @@ var removeDuplicates = function(nums) {
     return nums.length;
 };
 
-console.assert(removeDuplicates([1,1,2]) === 2, "removeDuplicates #1");
-console.assert(removeDuplicates([0,0,1,1,1,2,2,3,3,4]) === 5, "removeDuplicates #2");
+console.assert(removeDuplicates([1, 1, 2]) === 2, "removeDuplicates #1");
+console.assert(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]) === 5, "removeDuplicates #2");
 
-var searchInsert = function(nums, target) {
+var searchInsert = function (nums, target) {
     if (nums.indexOf(target) !== -1) {
         return nums.indexOf(target);
     } else {
@@ -1036,18 +1036,18 @@ var searchInsert = function(nums, target) {
         if (target > nums[nums.length - 1]) return nums.length;
 
         for (let i = 0; i < nums.length; i++) {
-            if (nums[i+1] > target) {
+            if (nums[i + 1] > target) {
                 return i + 1;
             }
         }
     }
 };
 
-console.assert(searchInsert([1,3,5,6], 5) === 2, "searchInsert #1");
-console.assert(searchInsert([1,3,5,6], 2) === 1, "searchInsert #2");
-console.assert(searchInsert([1,3,5,6], 7) === 4, "searchInsert #3");
-console.assert(searchInsert([1,3,5,6], 0) === 0, "searchInsert #4");
-console.assert(searchInsert([1,3,5,5,5,5,7,7,7], 6) === 6, "searchInsert #5");
+console.assert(searchInsert([1, 3, 5, 6], 5) === 2, "searchInsert #1");
+console.assert(searchInsert([1, 3, 5, 6], 2) === 1, "searchInsert #2");
+console.assert(searchInsert([1, 3, 5, 6], 7) === 4, "searchInsert #3");
+console.assert(searchInsert([1, 3, 5, 6], 0) === 0, "searchInsert #4");
+console.assert(searchInsert([1, 3, 5, 5, 5, 5, 7, 7, 7], 6) === 6, "searchInsert #5");
 console.assert(searchInsert([], 6) === 0, "searchInsert #6");
 
 /**
@@ -1055,11 +1055,32 @@ console.assert(searchInsert([], 6) === 0, "searchInsert #6");
  * @param {string} needle
  * @return {number}
  */
-var strStr = function(haystack, needle) {
+var strStr = function (haystack, needle) {
     const match = new RegExp(needle).exec(haystack);
     return match ? match.index : -1;
 };
 
-console.assert(strStr("hello","ll") === 2, "strStr #1");
-console.assert(strStr("aaaaa","ll") === -1, "strStr #2");
-console.assert(strStr("aaaaa","") === 0, "strStr #3");
+console.assert(strStr("hello", "ll") === 2, "strStr #1");
+console.assert(strStr("aaaaa", "ll") === -1, "strStr #2");
+console.assert(strStr("aaaaa", "") === 0, "strStr #3");
+
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+    if (n === 0) return 1;
+
+    const pow = Math.abs(n);
+
+    let result = (pow % 2 === 0) ?
+        myPow(x * x, pow / 2) :
+        myPow(x * x, (pow - 1) / 2) * x;
+
+    return (n < 0) ? +(1 / result).toFixed(10) : +result.toFixed(10);
+};
+
+console.assert(myPow(2.00000, 10) === 1024, "myPow #1");
+console.assert(myPow(2.10000, 3) === 9.26100, "myPow #2");
+console.assert(myPow(2.00000, -2) === 0.25000, "myPow #3");
