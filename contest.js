@@ -1085,3 +1085,49 @@ var myPow = function (x, n) {
 console.assert(myPow(2.00000, 10) === 1024, "myPow #1");
 console.assert(myPow(2.10000, 3) === 9.26100, "myPow #2");
 console.assert(myPow(2.00000, -2) === 0.25000, "myPow #3");
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var fizzBuzz = function (n) {
+    const result = [];
+    for (let i = 1; i <= n; i++) {
+        if (i % 5 === 0 && i % 3 === 0) {
+            result.push("FizzBuzz");
+        } else if (i % 5 === 0) {
+            result.push("Buzz");
+        } else if (i % 3 === 0) {
+            result.push("Fizz");
+        } else {
+            result.push(i.toString());
+        }
+    }
+
+    return result;
+};
+
+console.assert(JSON.stringify(fizzBuzz(1)) === JSON.stringify(["1"]), "fizzBuzz #1");
+console.assert(JSON.stringify(fizzBuzz(5)) === JSON.stringify(["1", "2", "Fizz", "4", "Buzz"]), "fizzBuzz #2");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+    let i = 0;
+    const map = {};
+    while (i < nums.length) {
+        if (map[nums[i]] === undefined) {
+            map[nums[i]] = true;
+        } else {
+            delete map[nums[i]];
+        }
+        i++;
+    }
+
+    return +Object.keys(map).pop();
+};
+
+console.assert(singleNumber([2, 2, 1]) === 1, "singleNumber #1");
+console.assert(singleNumber([4, 1, 2, 1, 2]) === 4, "singleNumber #2");
