@@ -1131,3 +1131,35 @@ var singleNumber = function (nums) {
 
 console.assert(singleNumber([2, 2, 1]) === 1, "singleNumber #1");
 console.assert(singleNumber([4, 1, 2, 1, 2]) === 4, "singleNumber #2");
+
+/**
+ * @param {number[]} arr
+ * @return {void} Do not return anything, modify arr in-place instead.
+ */
+var duplicateZeros = function(arr) {
+    const N = arr.length;
+
+    for (let i = N; i >= 0; i--) {
+        if (arr[i] === 0) {
+            arr.splice(i, 0, 0);
+        }
+    }
+
+    arr.length = N;
+
+    /** For assert tests */
+    return arr;
+};
+
+console.assert(
+    JSON.stringify(
+        duplicateZeros([1,0,2,3,0,4,5,0])
+    ) === JSON.stringify([1,0,0,2,3,0,0,4]),
+    "duplicateZeros #1"
+);
+console.assert(
+    JSON.stringify(
+        duplicateZeros([1,2,3])
+    ) === JSON.stringify([1,2,3]),
+    "duplicateZeros #2"
+);
