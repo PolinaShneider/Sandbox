@@ -1136,7 +1136,7 @@ console.assert(singleNumber([4, 1, 2, 1, 2]) === 4, "singleNumber #2");
  * @param {number[]} arr
  * @return {void} Do not return anything, modify arr in-place instead.
  */
-var duplicateZeros = function(arr) {
+var duplicateZeros = function (arr) {
     const N = arr.length;
 
     for (let i = N; i >= 0; i--) {
@@ -1153,13 +1153,60 @@ var duplicateZeros = function(arr) {
 
 console.assert(
     JSON.stringify(
-        duplicateZeros([1,0,2,3,0,4,5,0])
-    ) === JSON.stringify([1,0,0,2,3,0,0,4]),
+        duplicateZeros([1, 0, 2, 3, 0, 4, 5, 0])
+    ) === JSON.stringify([1, 0, 0, 2, 3, 0, 0, 4]),
     "duplicateZeros #1"
 );
 console.assert(
     JSON.stringify(
-        duplicateZeros([1,2,3])
-    ) === JSON.stringify([1,2,3]),
+        duplicateZeros([1, 2, 3])
+    ) === JSON.stringify([1, 2, 3]),
     "duplicateZeros #2"
 );
+
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var letterCasePermutation = function (S) {
+    return S.split('').reduce((previous, current) => {
+        /** If symbol not a letter */
+        if (!/[a-z]/i.test(current)) {
+            return previous.map(str => str + current);
+        }
+
+        const lower = current.toLowerCase();
+        const upper = current.toUpperCase();
+        const withLower = previous.slice().map(str => str + lower);
+        const withUpper = previous.slice().map(str => str + upper);
+
+        // debug(current, withLower, withUpper);
+
+        return withLower.concat(withUpper);
+    }, ['']);
+};
+
+/** letterCasePermutation debugger */
+function debug(current, withLower, withUpper) {
+    console.group('Iteration:');
+    console.log('current', current);
+    console.log('lower:', withLower);
+    console.log('upper:', withUpper);
+    console.log('combined:', withLower.concat(withUpper));
+    console.groupEnd();
+}
+
+console.assert(JSON.stringify(
+    letterCasePermutation("a1b2")) === JSON.stringify(
+    ["a1b2", "A1b2", "a1B2", "A1B2"]
+), "letterCasePermutation #1");
+
+console.assert(JSON.stringify(
+    letterCasePermutation("3z4")) === JSON.stringify(
+    ["3z4", "3Z4"]
+), "letterCasePermutation #2");
+
+console.assert(JSON.stringify(
+    letterCasePermutation("12345")) === JSON.stringify(
+    ["12345"]
+), "letterCasePermutation #3");
