@@ -1210,3 +1210,26 @@ console.assert(JSON.stringify(
     letterCasePermutation("12345")) === JSON.stringify(
     ["12345"]
 ), "letterCasePermutation #3");
+
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeight = function (stones) {
+    while (stones.length > 1) {
+        stones.sort((a, b) => a - b);
+        let first = stones.pop();
+        let second = stones.pop();
+
+        if (first > second) {
+            stones.push(first - second);
+        } else if (second > first) {
+            stones.push(second - first);
+        }
+    }
+
+    return stones.length ? stones.pop() : 0;
+};
+
+console.assert(lastStoneWeight([2, 7, 4, 1, 8, 1]) === 1, "lastStoneWeight #1");
+console.assert(lastStoneWeight([2, 2]) === 0, "lastStoneWeight #2");
