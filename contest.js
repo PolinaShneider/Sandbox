@@ -1233,3 +1233,55 @@ var lastStoneWeight = function (stones) {
 
 console.assert(lastStoneWeight([2, 7, 4, 1, 8, 1]) === 1, "lastStoneWeight #1");
 console.assert(lastStoneWeight([2, 2]) === 0, "lastStoneWeight #2");
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var toGoatLatin = function (S) {
+    const words = S.split(" ");
+
+    words.forEach((word, index) => {
+        if (/[aeiou]/.test(word.charAt(0))) {
+            word += "ma";
+        } else {
+            word = word.substr(1) + word.charAt(0) + "ma";
+        }
+
+        words[index] = word + "a".repeat(index + 1);
+    });
+
+    return words.join(" ");
+};
+
+console.assert(
+    toGoatLatin("I speak Goat Latin") === "Imaa peaksmaaa oatGmaaaa atinLmaaaaa",
+    "toGoatLatin #1"
+);
+console.assert(
+    toGoatLatin("The quick brown fox jumped over the lazy dog")
+    === "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa",
+    "toGoatLatin #2"
+);
+
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var isMonotonic = function (A) {
+    const increasing = A[0] < A[A.length - 1];
+    for (let i = 0; i < A.length - 1; i++) {
+        if ((increasing && A[i] > A[i + 1]) || (!increasing && A[i] < A[i + 1])) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+console.assert(isMonotonic([1, 2, 2, 3]) === true, "isMonotonic #1");
+console.assert(isMonotonic([6, 5, 4, 4]) === true, "isMonotonic #2");
+console.assert(isMonotonic([1, 3, 2]) === false, "isMonotonic #3");
+console.assert(isMonotonic([1, 2, 4, 5]) === true, "isMonotonic #4");
+console.assert(isMonotonic([1, 1, 1]) === true, "isMonotonic #5");
+console.assert(isMonotonic([1]) === true, "isMonotonic #6");
