@@ -1285,3 +1285,47 @@ console.assert(isMonotonic([1, 3, 2]) === false, "isMonotonic #3");
 console.assert(isMonotonic([1, 2, 4, 5]) === true, "isMonotonic #4");
 console.assert(isMonotonic([1, 1, 1]) === true, "isMonotonic #5");
 console.assert(isMonotonic([1]) === true, "isMonotonic #6");
+
+/**
+ * @param {string[]} words
+ * @param {string} order
+ * @return {boolean}
+ */
+var isAlienSorted = function (words, order) {
+    return words.concat()
+        .sort((a, b) => {
+            /**
+             * We want to sort words according to given alphabet,
+             * not changing letters order in separate words
+             *
+             * Then we concat sorted and original string and compare
+             */
+            for (let i = 0; i < a.length; i++) {
+                if (order.indexOf(a[i]) > order.indexOf(b[i])) {
+                    return true;
+                } else if (order.indexOf(a[i]) < order.indexOf(b[i])) {
+                    return false
+                }
+            }
+        }).join('') === words.join('');
+};
+
+console.assert(
+    isAlienSorted(["hello", "leetcode"], "hlabcdefgijkmnopqrstuvwxyz") === true,
+    "isAlienSorted #1"
+);
+console.assert(
+    isAlienSorted(["word", "world", "row"],
+        "worldabcefghijkmnpqstuvxyz") === false,
+    "isAlienSorted #2"
+);
+console.assert(
+    isAlienSorted(["apple", "app"], "abcdefghijklmnopqrstuvwxyz") === false,
+    "isAlienSorted #3"
+);
+console.assert(
+    isAlienSorted(
+        ["fxasxpc", "dfbdrifhp", "nwzgs", "cmwqriv", "ebulyfyve", "miracx", "sxckdwzv", "dtijzluhts", "wwbmnge", "qmjwymmyox"],
+        "zkgwaverfimqxbnctdplsjyohu") === false,
+    "isAlienSorted #4"
+);
