@@ -1329,3 +1329,43 @@ console.assert(
         "zkgwaverfimqxbnctdplsjyohu") === false,
     "isAlienSorted #4"
 );
+
+/**
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var findWords = function (words) {
+    const alphabet = [
+        'qwertyuiop',
+        'asdfghjkl',
+        'zxcvbnm'
+    ];
+
+    const result = [];
+
+    /** Iterate through array words */
+    words.forEach(word => {
+        /** Find out from which row the current word is */
+        for (let j = 0; j < alphabet.length; j++) {
+            const row = alphabet[j];
+            const fromThisRow = row.indexOf(word.charAt(0).toLowerCase()) !== -1;
+            if (fromThisRow) {
+                /** Iterate through word letters and check if all of them are in the row */
+                for (let i = 0; i < word.length; i++) {
+                    if (row.indexOf(word[i].toLowerCase()) === -1) {
+                        return
+                    }
+                }
+
+                result.push(word);
+            }
+        }
+    });
+
+    return result;
+};
+
+console.assert(
+    findWords(["Hello", "Alaska", "Dad", "Peace"]).join(' ') === "Alaska Dad",
+    "findWords #1"
+);
