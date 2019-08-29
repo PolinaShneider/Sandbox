@@ -1369,3 +1369,44 @@ console.assert(
     findWords(["Hello", "Alaska", "Dad", "Peace"]).join(' ') === "Alaska Dad",
     "findWords #1"
 );
+
+/**
+ * @param {string[]} words
+ * @param {string} chars
+ * @return {number}
+ */
+var countCharacters = function (words, chars) {
+    const dictionary = {};
+    let result = 0;
+
+    for (let i = 0; i < chars.length; i++) {
+        dictionary[chars[i]] = (dictionary[chars[i]]) ? ++dictionary[chars[i]] : 1;
+    }
+
+    words.forEach(word => {
+        const map = {};
+        for (let j = 0; j < word.length; j++) {
+            if (dictionary[word[j]] === void 0 || map[word[j]] + 1 > dictionary[word[j]]) return;
+
+            map[word[j]] = (map[word[j]]) ? ++map[word[j]] : 1;
+        }
+
+        result += word.length;
+    });
+
+    return result;
+};
+
+console.assert(
+    countCharacters(["cat", "bt", "hat", "tree"], "atach") === 6,
+    "countCharacters #1"
+);
+console.assert(
+    countCharacters(["hello", "world", "leetcode"], "welldonehoneyr") === 10,
+    "countCharacters #2"
+);
+console.assert(
+    countCharacters(["dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin","ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb","ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl","boygirdlggnh","xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx","nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop","hiefuovybkpgzygprmndrkyspoiyapdwkxebgsmodhzpx","juldqdzeskpffaoqcyyxiqqowsalqumddcufhouhrskozhlmobiwzxnhdkidr","lnnvsdcrvzfmrvurucrzlfyigcycffpiuoo","oxgaskztzroxuntiwlfyufddl","tfspedteabxatkaypitjfkhkkigdwdkctqbczcugripkgcyfezpuklfqfcsccboarbfbjfrkxp","qnagrpfzlyrouolqquytwnwnsqnmuzphne","eeilfdaookieawrrbvtnqfzcricvhpiv","sisvsjzyrbdsjcwwygdnxcjhzhsxhpceqz","yhouqhjevqxtecomahbwoptzlkyvjexhzcbccusbjjdgcfzlkoqwiwue","hwxxighzvceaplsycajkhynkhzkwkouszwaiuzqcleyflqrxgjsvlegvupzqijbornbfwpefhxekgpuvgiyeudhncv","cpwcjwgbcquirnsazumgjjcltitmeyfaudbnbqhflvecjsupjmgwfbjo","teyygdmmyadppuopvqdodaczob","qaeowuwqsqffvibrtxnjnzvzuuonrkwpysyxvkijemmpdmtnqxwekbpfzs","qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs"],
+        "usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp") === 0,
+    "countCharacters #3"
+);
