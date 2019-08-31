@@ -1489,3 +1489,45 @@ var islandPerimeter = function (grid) {
 };
 
 console.assert(islandPerimeter([[0, 1, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]) === 16, "islandPerimeter #1");
+
+/**
+ * @param {string[]} words
+ * @return {string}
+ */
+var longestWord = function (words) {
+    const map = new Map();
+    let longest = "";
+    words.sort();
+    for (let i = 0; i < words.length; i++) {
+        /** If word prefix exists in map */
+        if (words[i].length === 1 || map.get(words[i].slice(0, -1))) {
+            if (!longest) {
+                longest = words[i];
+            } else if (words[i].length > longest.length) {
+                /** We found new longest word */
+                longest = words[i];
+            }
+            /** Add prefix to map */
+            map.set(words[i], 1);
+        }
+    }
+
+    return longest;
+};
+
+console.assert(
+    longestWord(["a", "banana", "app", "appl", "ap", "apply", "apple"]) === "apple",
+    "longestWord #1"
+);
+console.assert(
+    longestWord(["w", "wo", "wor", "worl", "world"]) === "world",
+    "longestWord #2"
+);
+console.assert(
+    longestWord(["m", "mo", "moc", "moch", "mocha", "l", "la", "lat", "latt", "latte", "c", "ca", "cat"]) === "latte",
+    "longestWord #3"
+);
+console.assert(
+    longestWord(["m", "ma", "mat", "math", "s", "sc", "sci", "scie", "scien", "scienc", "science", "a", "ar", "art"]) === "science",
+    "longestWord #4"
+);
