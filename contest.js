@@ -1531,3 +1531,54 @@ console.assert(
     longestWord(["m", "ma", "mat", "math", "s", "sc", "sci", "scie", "scien", "scienc", "science", "a", "ar", "art"]) === "science",
     "longestWord #4"
 );
+
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {string[]}
+ */
+var uncommonFromSentences = function (A, B) {
+    return A.split(" ").concat(B.split(" "))
+        .filter((word, index, arr) => arr.indexOf(word) === arr.lastIndexOf(word));
+};
+
+console.assert(JSON.stringify(
+    uncommonFromSentences("this apple is sweet", "this apple is sour")
+) === JSON.stringify(["sweet", "sour"]), "uncommonFromSentences #1");
+console.assert(JSON.stringify(
+    uncommonFromSentences("apple apple", "banana")
+) === JSON.stringify(["banana"]), "uncommonFromSentences #2");
+
+const dictionary = new Array(26).fill(0).map((item, index) => String.fromCharCode(97 + index));
+/**
+ * Encodes a URL to a shortened URL.
+ *
+ * @param {string} longUrl
+ * @return {string}
+ */
+var encode = function (longUrl) {
+    const key = new Date().getHours();
+    return [...longUrl].map(letter => String.fromCharCode(
+        letter.charCodeAt(0) + key)
+    ).join('');
+};
+
+/**
+ * Decodes a shortened URL to its original URL.
+ *
+ * @param {string} shortUrl
+ * @return {string}
+ */
+var decode = function (shortUrl) {
+    const key = new Date().getHours();
+    return [...shortUrl].map(letter => String.fromCharCode(letter.charCodeAt(0) - key)).join('');
+};
+
+/**
+ * Your functions will be called as such:
+ * decode(encode(url));
+ */
+console.assert(
+    decode(encode("https://leetcode.com/problems/design-tinyurl"))
+    === "https://leetcode.com/problems/design-tinyurl", "decode #1"
+);
