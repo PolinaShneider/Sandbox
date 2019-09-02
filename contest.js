@@ -1582,3 +1582,46 @@ console.assert(
     decode(encode("https://leetcode.com/problems/design-tinyurl"))
     === "https://leetcode.com/problems/design-tinyurl", "decode #1"
 );
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersect = function (nums1, nums2) {
+    const union = new Set(nums1.concat(nums2));
+    const result = [];
+    for (let item of union) {
+        const common = Math.min(
+            countItemsInArray(nums1, item),
+            countItemsInArray(nums2, item)
+        );
+
+        result.push(...new Array(common).fill(item))
+    }
+
+    return result;
+
+    function countItemsInArray(arr, item) {
+        let counter = 0;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === item) {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
+};
+
+console.assert(
+    JSON.stringify(intersect([1, 2, 2, 1], [2, 2])
+    ) === JSON.stringify([2, 2]), "intersect #1"
+);
+
+console.assert(
+    JSON.stringify(intersect([4,9,5], [9,4,9,8,4])
+    ) === JSON.stringify([4,9]), "intersect #2"
+);
