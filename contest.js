@@ -1622,6 +1622,69 @@ console.assert(
 );
 
 console.assert(
-    JSON.stringify(intersect([4,9,5], [9,4,9,8,4])
-    ) === JSON.stringify([4,9]), "intersect #2"
+    JSON.stringify(intersect([4, 9, 5], [9, 4, 9, 8, 4])
+    ) === JSON.stringify([4, 9]), "intersect #2"
+);
+
+/**
+ * @param {string} S
+ * @param {number[]} indexes
+ * @param {string[]} sources
+ * @param {string[]} targets
+ * @return {string}
+ */
+/**
+ * @param {string} S
+ * @param {number[]} indexes
+ * @param {string[]} sources
+ * @param {string[]} targets
+ * @return {string}
+ */
+var findReplaceString = function(S, indexes, sources, targets) {
+    const result = S.split('');
+
+    indexes.forEach((sourceIndex, index) => {
+        const currentSource = sources[index];
+        const currentTarget = targets[index];
+
+        /** If we found source substring, we will substitute it */
+        if (S.slice(sourceIndex, sourceIndex + currentSource.length) === currentSource) {
+            /** Make a substitution, put a group of letters at array index */
+            result[sourceIndex] = currentTarget;
+
+            let elementsToReplace = currentSource.length - 1;
+            /** We put substitute at first occurrence index, need to remove the rest */
+            while (elementsToReplace > 0) {
+                sourceIndex++;
+                result[sourceIndex] = '';
+                elementsToReplace--;
+            }
+        }
+    });
+    return result.join('');
+};
+
+console.assert(
+    findReplaceString("abcd", [0, 2], ["a", "cd"], ["eee", "ffff"]) === "eeebffff",
+    "findReplaceString #1"
+);
+
+console.assert(
+    findReplaceString("abcd", [0, 2], ["ab", "ec"], ["eee", "ffff"]) === "eeecd",
+    "findReplaceString #2"
+);
+
+console.assert(
+    findReplaceString(
+        "vmokgggqzp", [3, 5, 1], ["kg", "ggq", "mo"], ["s", "so", "bfr"]
+    ) === "vbfrssozp",
+    "findReplaceString #3"
+);
+
+console.assert(
+    findReplaceString(
+        "wreorttvosuidhrxvmvo", [14, 12, 10, 5, 0, 18],
+        ["rxv", "dh", "ui", "ttv", "wreor", "vo"], ["frs", "c", "ql", "qpir", "gwbeve", "n"]
+    ) === "gwbeveqpirosqlcfrsmn",
+    "findReplaceString #4"
 );
