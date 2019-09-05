@@ -1640,7 +1640,7 @@ console.assert(
  * @param {string[]} targets
  * @return {string}
  */
-var findReplaceString = function(S, indexes, sources, targets) {
+var findReplaceString = function (S, indexes, sources, targets) {
     const result = S.split('');
 
     indexes.forEach((sourceIndex, index) => {
@@ -1687,4 +1687,27 @@ console.assert(
         ["rxv", "dh", "ui", "ttv", "wreor", "vo"], ["frs", "c", "ql", "qpir", "gwbeve", "n"]
     ) === "gwbeveqpirosqlcfrsmn",
     "findReplaceString #4"
+);
+
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+    let start = 0, end = numbers.length - 1;
+    while (start < end) {
+        if (numbers[start] + numbers[end] === target) {
+            return [start + 1, end + 1]
+        } else if (numbers[start] + numbers[end] < target) {
+            start++;
+        } else if (numbers[start] + numbers[end] > target) {
+            end--;
+        }
+    }
+};
+
+console.assert(
+    JSON.stringify(twoSum([2,7,11,15], 9)) === JSON.stringify([1,2]),
+    "twoSum #1"
 );
