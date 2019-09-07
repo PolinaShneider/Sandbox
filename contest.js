@@ -1743,3 +1743,25 @@ console.assert(
     JSON.stringify(relativeSortArray([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6]))
     === JSON.stringify([2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19]), "relativeSortArray #1"
 );
+
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var reverseStr = function (s, k) {
+    let result = [];
+    let counter = 0;
+
+    for (let i = 0; i < s.length; i += k) {
+        if (++counter % 2) {
+            result.push(s.substr(i, k).split('').reverse().join(''));
+        } else {
+            result.push(s.substr(i, k));
+        }
+    }
+
+    return result.join('');
+};
+
+console.assert(reverseStr("abcdefg", 2) === "bacdfeg", "reverseStr #1");
