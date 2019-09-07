@@ -1708,6 +1708,38 @@ var twoSum = function (numbers, target) {
 };
 
 console.assert(
-    JSON.stringify(twoSum([2,7,11,15], 9)) === JSON.stringify([1,2]),
+    JSON.stringify(twoSum([2, 7, 11, 15], 9)) === JSON.stringify([1, 2]),
     "twoSum #1"
+);
+
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+var relativeSortArray = function (arr1, arr2) {
+    const buffer = [];
+    const map = {};
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr2.indexOf(arr1[i]) !== -1) {
+            arr2.splice(arr2.lastIndexOf(arr1[i]), 0, arr1[i]);
+        } else {
+            buffer.push(arr1[i])
+        }
+    }
+
+    for (let i = arr2.length - 1; i >= 0; i--) {
+        if (map[arr2[i]] === undefined) {
+            map[arr2[i]] = true;
+            arr2.splice(i, 1);
+        }
+    }
+
+    return arr2.concat(buffer.sort((a, b) => a - b));
+};
+
+console.assert(
+    JSON.stringify(relativeSortArray([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6]))
+    === JSON.stringify([2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19]), "relativeSortArray #1"
 );
