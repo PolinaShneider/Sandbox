@@ -1765,3 +1765,29 @@ var reverseStr = function (s, k) {
 };
 
 console.assert(reverseStr("abcdefg", 2) === "bacdfeg", "reverseStr #1");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLengthOfLCIS = function (nums) {
+    if (!nums.length) {
+        return 0;
+    }
+
+    let longest = 0;
+    let current = 1;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i + 1] > nums[i]) {
+            current++;
+        } else {
+            longest = Math.max(current, longest);
+            current = 1;
+        }
+    }
+
+    return Math.max(current, longest);
+};
+
+console.assert(findLengthOfLCIS([1, 3, 5, 7]) === 4, "findLengthOfLCIS #1");
+console.assert(findLengthOfLCIS([1, 3, 5, 4, 7]) === 3, "findLengthOfLCIS #2");
