@@ -1791,3 +1791,37 @@ var findLengthOfLCIS = function (nums) {
 
 console.assert(findLengthOfLCIS([1, 3, 5, 7]) === 4, "findLengthOfLCIS #1");
 console.assert(findLengthOfLCIS([1, 3, 5, 4, 7]) === 3, "findLengthOfLCIS #2");
+
+/**
+ * @param {number} day
+ * @param {number} month
+ * @param {number} year
+ * @return {string}
+ */
+var dayOfTheWeek = function (day, month, year) {
+    const dictionary = {
+        '0': 'Sunday',
+        '1': 'Monday',
+        '2': 'Tuesday',
+        '3': 'Wednesday',
+        '4': 'Thursday',
+        '5': 'Friday',
+        '6': 'Saturday'
+    };
+
+    const date = new Date(
+        `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+    ).getUTCDay();
+
+    return dictionary[date]
+};
+
+console.assert(
+    dayOfTheWeek(29, 2, 2016) === "Monday",
+    "dayOfTheWeek #1"
+);
+console.assert(
+    dayOfTheWeek(18, 7, 1999) === "Sunday",
+    "dayOfTheWeek #3"
+);
+
