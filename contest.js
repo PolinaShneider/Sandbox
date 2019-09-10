@@ -1711,3 +1711,51 @@ console.assert(
     JSON.stringify(twoSum([2,7,11,15], 9)) === JSON.stringify([1,2]),
     "twoSum #1"
 );
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findDuplicate = function(nums) {
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            if (nums[i] === nums[j]) {
+                return nums[i];
+            }
+        }
+    }
+};
+
+console.assert(findDuplicate([1,3,4,2,2]) === 2, "findDuplicate #1");
+console.assert(findDuplicate([3,1,3,4,2]) === 3, "findDuplicate #2");
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
+ */
+var findTheDifference = function(s, t) {
+    const map_s = {};
+    const map_t = {};
+
+    fill_map(map_s, s);
+    fill_map(map_t, t);
+
+    for (let key in map_t) {
+        if (!map_s[key] || map_s[key] < map_t[key]) {
+            return key;
+        }
+    }
+
+    function fill_map(map, str) {
+        for (let i = 0; i < str.length; i++) {
+            if (map[str[i]]) {
+                map[str[i]] = ++map[str[i]];
+            } else {
+                map[str[i]] = 1;
+            }
+        }
+    }
+};
+
+console.assert(findTheDifference("abcd", "abcde") === "e", "findTheDifference #1");
