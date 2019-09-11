@@ -1716,7 +1716,7 @@ console.assert(
  * @param {number[]} nums
  * @return {number}
  */
-var findDuplicate = function(nums) {
+var findDuplicate = function (nums) {
     for (let i = 0; i < nums.length; i++) {
         for (let j = i + 1; j < nums.length; j++) {
             if (nums[i] === nums[j]) {
@@ -1726,15 +1726,15 @@ var findDuplicate = function(nums) {
     }
 };
 
-console.assert(findDuplicate([1,3,4,2,2]) === 2, "findDuplicate #1");
-console.assert(findDuplicate([3,1,3,4,2]) === 3, "findDuplicate #2");
+console.assert(findDuplicate([1, 3, 4, 2, 2]) === 2, "findDuplicate #1");
+console.assert(findDuplicate([3, 1, 3, 4, 2]) === 3, "findDuplicate #2");
 
 /**
  * @param {string} s
  * @param {string} t
  * @return {character}
  */
-var findTheDifference = function(s, t) {
+var findTheDifference = function (s, t) {
     const map_s = {};
     const map_t = {};
 
@@ -1870,5 +1870,35 @@ console.assert(
 console.assert(
     dayOfTheWeek(18, 7, 1999) === "Sunday",
     "dayOfTheWeek #3"
+);
+
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var convertToBase7 = function (num) {
+    let minus = num < 0;
+    num = Math.abs(num);
+
+    let result = "";
+    while (num > 6) {
+        result = `${num % 7}${result}`;
+        num = Math.floor(num / 7);
+    }
+
+    result = `${num}${result}`;
+
+
+    return minus ? "-" + result : result;
+};
+
+console.assert(
+    convertToBase7(100) === "202",
+    "convertToBase7 #1"
+);
+
+console.assert(
+    convertToBase7(-7) === "-10",
+    "convertToBase7 #2"
 );
 
