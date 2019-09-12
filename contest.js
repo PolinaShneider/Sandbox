@@ -1902,3 +1902,52 @@ console.assert(
     "convertToBase7 #2"
 );
 
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function (s) {
+    for (let i = 0; i < s.length; i++) {
+        if (s.indexOf(s[i]) === s.lastIndexOf(s[i])) {
+            return i;
+        }
+    }
+
+    return -1;
+
+};
+
+console.assert(
+    firstUniqChar("leetcode") === 0,
+    "firstUniqChar #1"
+);
+
+console.assert(
+    firstUniqChar("loveleetcode") === 2,
+    "firstUniqChar #2"
+);
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function (nums) {
+    let current = 0;
+    let max = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i]) {
+            current++;
+            max = Math.max(current, max);
+        } else {
+            current = 0;
+        }
+    }
+
+    return max;
+};
+
+console.assert(
+    findMaxConsecutiveOnes([1,1,0,1,1,1]) === 3,
+    "findMaxConsecutiveOnes #1"
+);
