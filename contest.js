@@ -1948,6 +1948,82 @@ var findMaxConsecutiveOnes = function (nums) {
 };
 
 console.assert(
-    findMaxConsecutiveOnes([1,1,0,1,1,1]) === 3,
+    findMaxConsecutiveOnes([1, 1, 0, 1, 1, 1]) === 3,
     "findMaxConsecutiveOnes #1"
+);
+
+var shortestCompletingWord = function (licensePlate, words) {
+    /**
+     * How many occurrences of specific letter are present in the word
+     */
+    function getLetterCount(letter, word) {
+        let counter = 0;
+
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] === letter) {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
+
+    /**
+     * Test that all letters from licensePlate dictionary are present in word
+     */
+    function testWord(word) {
+        for (let key in dictionary) {
+            if (word.indexOf(key) === -1 || dictionary[key] > getLetterCount(key, word)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    const dictionary = {};
+
+    /**
+     * Shortest word that satisfies condition
+     */
+    let candidate = "test".repeat(1000);
+
+    licensePlate = licensePlate.toLowerCase();
+
+    /**
+     * Fill dictionary with licensePlate letters
+     */
+    for (let i = 0; i < licensePlate.length; i++) {
+        if (!/[a-z]/i.test(licensePlate[i])) {
+            continue;
+        }
+
+        if (dictionary[licensePlate[i]]) {
+            dictionary[licensePlate[i]] = ++dictionary[licensePlate[i]];
+        } else {
+            dictionary[licensePlate[i]] = 1;
+        }
+    }
+
+    /**
+     * Test all words and find shortest one, satisfying condition
+     */
+    words.forEach(word => {
+        if (testWord(word)) {
+            candidate = word.length < candidate.length ? word : candidate;
+        }
+    });
+
+    return candidate;
+};
+
+console.assert(
+    shortestCompletingWord("1s3 PSt", ["step", "steps", "stripe", "stepple"]) === "steps",
+    "shortestCompletingWord #1"
+);
+
+console.assert(
+    shortestCompletingWord("1s3 456", ["looks", "pest", "stew", "show"]) === "pest",
+    "shortestCompletingWord #2"
 );
