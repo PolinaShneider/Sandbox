@@ -2027,3 +2027,45 @@ console.assert(
     shortestCompletingWord("1s3 456", ["looks", "pest", "stew", "show"]) === "pest",
     "shortestCompletingWord #2"
 );
+
+/**
+ * @param {string} paragraph
+ * @param {string[]} banned
+ * @return {string}
+ */
+var mostCommonWord = function (paragraph, banned) {
+    const words = paragraph.split(" ");
+    const dictionary = {};
+
+    words.forEach(word => {
+        let [key] = /\w+/.exec(word);
+        key = key.toLowerCase();
+
+        if (dictionary[key]) {
+            dictionary[key] = ++dictionary[key];
+        } else {
+            dictionary[key] = 1;
+        }
+    });
+
+    for (let ban of banned) {
+        delete dictionary[ban];
+    }
+
+    let max = "";
+    let maxCount = 0;
+
+    for (let word in dictionary) {
+        if (dictionary[word] > maxCount) {
+            maxCount = dictionary[word];
+            max = word;
+        }
+    }
+
+    return max;
+};
+
+console.assert(
+    mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", ["hit"]) === "ball",
+    "mostCommonWord #1"
+);
