@@ -2097,3 +2097,38 @@ var moveZeroes = function (nums) {
         }
     }
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function (nums, k) {
+    let max = -Infinity;
+
+    if (nums.length <= k) {
+        return avg(nums);
+    }
+
+    for (let i = 0; i < nums.length - (k - 1); i++) {
+        max = Math.max(
+            avg(nums.slice(i, i + k)),
+            max
+        )
+    }
+
+    return max;
+
+    function avg(arr) {
+        const total = arr.reduce((prev, curr) => {
+            return prev + curr
+        }, 0);
+
+        return total / arr.length;
+    }
+};
+
+console.assert(
+    findMaxAverage([1, 12, -5, -6, 50, 3], 4) === 12.75000,
+    "findMaxAverage #1"
+);
