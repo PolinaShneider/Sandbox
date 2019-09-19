@@ -2132,3 +2132,96 @@ console.assert(
     findMaxAverage([1, 12, -5, -6, 50, 3], 4) === 12.75000,
     "findMaxAverage #1"
 );
+
+/**
+ * @param {string} text
+ * @return {number}
+ */
+var maxNumberOfBalloons = function (text) {
+    let max = 0;
+    let work = true;
+    const dictionary = {'b': 1, 'a': 1, 'l': 2, 'o': 2, 'n': 1};
+    const map = {};
+    for (let i = 0; i < text.length; i++) {
+        if (dictionary[text[i]] === undefined) {
+            continue;
+        }
+        if (map[text[i]]) {
+            map[text[i]] = ++map[text[i]];
+        } else {
+            map[text[i]] = 1;
+        }
+    }
+
+    /** Check that map contains all dictionary characters */
+    if (sum(Object.values(map)) < sum(Object.values(dictionary))) {
+        return 0;
+    }
+
+    while (work) {
+        for (let key in map) {
+            map[key] = map[key] - dictionary[key];
+
+            if (map[key] < dictionary[key]) {
+                work = false;
+            }
+        }
+        max++;
+    }
+
+    function sum(arr) {
+        return arr.reduce((prev, curr) => {
+            return prev + curr
+        }, 0);
+    }
+
+    return max;
+};
+
+console.assert(
+    maxNumberOfBalloons("nlaebolko") === 1,
+    "maxNumberOfBalloons #1"
+);
+console.assert(
+    maxNumberOfBalloons("loonbalxballpoon") === 2,
+    "maxNumberOfBalloons #2"
+);
+console.assert(
+    maxNumberOfBalloons("leetcode") === 0,
+    "maxNumberOfBalloons #3"
+);
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function (s) {
+    const regex = /[aouie]/i;
+    const stack = [];
+    let result = "";
+
+    for (let i = 0; i < s.length; i++) {
+        if (regex.test(s[i])) {
+            stack.push(s[i]);
+        }
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if (regex.test(s[i])) {
+            result += stack.pop();
+        } else {
+            result += s[i];
+        }
+    }
+
+    return result;
+};
+
+console.assert(
+    reverseVowels("hello") === "holle",
+    "reverseVowels #1"
+);
+console.assert(
+    reverseVowels("leetcode") === "leotcede",
+    "reverseVowels #2"
+);
