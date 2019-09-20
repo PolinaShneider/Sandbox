@@ -2225,3 +2225,37 @@ console.assert(
     reverseVowels("leetcode") === "leotcede",
     "reverseVowels #2"
 );
+
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var rotatedDigits = function (N) {
+    const rotated = {'0': 0, '1': 1, '2': 5, '5': 2, '6': 9, '8': 8, '9': 6};
+    const arr = new Array(N).fill('').map((elem, index) => index + 1);
+
+    const result = arr.filter((item) => {
+        const rotated = rotate(item);
+        return rotated && item !== parseInt(rotated);
+    });
+
+    function rotate(num) {
+        let str = num.toString();
+        let result = "";
+        for (let i = 0; i < str.length; i++) {
+            if (rotated[str[i]] === undefined) {
+                return;
+            }
+            result += rotated[str[i]]
+        }
+
+        return result
+
+    }
+
+    return result.length
+};
+
+console.assert(
+    rotatedDigits(10) === 4, "rotatedDigits #1"
+);
