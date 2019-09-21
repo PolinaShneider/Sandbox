@@ -2259,3 +2259,32 @@ var rotatedDigits = function (N) {
 console.assert(
     rotatedDigits(10) === 4, "rotatedDigits #1"
 );
+
+var gcdOfStrings = function (str1, str2) {
+    if (str1 === str2) {
+        return str1;
+    }
+
+    const length = gcd(str1.length, str2.length);
+    const result = str1.substr(0, length);
+
+    return (result.repeat(str1.length / length) === str1
+        && result.repeat(str2.length / length) === str2) ? result : "";
+
+    function gcd(a, b) {
+        if (b === 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+};
+
+console.assert(
+    gcdOfStrings("ABCABC", "ABC") === "ABC", "gcdOfStrings #1"
+);
+console.assert(
+    gcdOfStrings("ABABAB", "ABAB") === "AB", "gcdOfStrings #2"
+);
+console.assert(
+    gcdOfStrings("LEET", "CODE") === "", "gcdOfStrings #3"
+);
