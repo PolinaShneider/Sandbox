@@ -2288,3 +2288,27 @@ console.assert(
 console.assert(
     gcdOfStrings("LEET", "CODE") === "", "gcdOfStrings #3"
 );
+
+/**
+ * @param {string} S
+ * @param {number} K
+ * @return {string}
+ */
+var licenseKeyFormatting = function (S, K) {
+    return S.replace(/-/g, '')
+        .toUpperCase()
+        .split('')
+        .reverse()
+        .reduceRight((prev, curr, index) => {
+            return (index > 0 && index % K === 0) ? prev + curr + "-" : prev + curr;
+        }, "");
+};
+
+console.assert(
+    licenseKeyFormatting("5F3Z-2e-9-w", 4) === "5F3Z-2E9W",
+    "licenseKeyFormatting #1"
+);
+console.assert(
+    licenseKeyFormatting("2-5g-3-J", 2) === "2-5G-3J",
+    "licenseKeyFormatting #2"
+);
