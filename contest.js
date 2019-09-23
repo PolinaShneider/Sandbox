@@ -2312,3 +2312,17 @@ console.assert(
     licenseKeyFormatting("2-5g-3-J", 2) === "2-5G-3J",
     "licenseKeyFormatting #2"
 );
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfTwo = function (n) {
+    if (n > 1) {
+        return isPowerOfTwo(n / 2);
+    } else return n === 1;
+};
+
+console.assert(isPowerOfTwo(1) === true, "isPowerOfTwo #1");
+console.assert(isPowerOfTwo(8) === true, "isPowerOfTwo #2");
+console.assert(isPowerOfTwo(15) === false, "isPowerOfTwo #3");
