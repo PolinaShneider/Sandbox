@@ -2326,3 +2326,16 @@ var isPowerOfTwo = function (n) {
 console.assert(isPowerOfTwo(1) === true, "isPowerOfTwo #1");
 console.assert(isPowerOfTwo(8) === true, "isPowerOfTwo #2");
 console.assert(isPowerOfTwo(15) === false, "isPowerOfTwo #3");
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfThree = function (n) {
+    if (n > 1) {
+        return isPowerOfThree(n / 3);
+    } else return n === 1;
+};
+
+console.assert(isPowerOfThree(9) === true, "isPowerOfThree #1");
+console.assert(isPowerOfThree(8) === false, "isPowerOfThree #2");
