@@ -2339,3 +2339,38 @@ var isPowerOfThree = function (n) {
 
 console.assert(isPowerOfThree(9) === true, "isPowerOfThree #1");
 console.assert(isPowerOfThree(8) === false, "isPowerOfThree #2");
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (nums, target) {
+    let high = nums.length - 1;
+    let low = 0;
+    let mid = Math.floor((high + low) / 2);
+
+    while (high >= low) {
+        if (nums[mid] === target) {
+            return mid;
+        }
+
+        if (nums[mid] > target) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+
+        mid = Math.floor((high + low) / 2);
+    }
+
+    return -1;
+};
+
+console.assert(
+    search([-1, 0, 3, 5, 9, 12], 99) === -1, "search #1"
+);
+console.assert(
+    search([-1, 0, 3, 5, 9, 12], 0) === 1, "search #2"
+);
+
