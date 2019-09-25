@@ -2374,3 +2374,21 @@ console.assert(
     search([-1, 0, 3, 5, 9, 12], 0) === 1, "search #2"
 );
 
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function (nums) {
+    return new Set(nums).size < nums.length;
+};
+
+console.assert(containsDuplicate([1, 2, 3, 1]) === true,
+    "containsDuplicate #1"
+);
+console.assert(containsDuplicate([1, 2, 3, 4]) === false,
+    "containsDuplicate #2"
+);
+console.assert(containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]) === true,
+    "containsDuplicate #3"
+);
+
