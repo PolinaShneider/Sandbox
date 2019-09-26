@@ -2392,3 +2392,50 @@ console.assert(containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]) === true,
     "containsDuplicate #3"
 );
 
+/**
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+var lemonadeChange = function (bills) {
+    const change = {5: 0, 10: 0, 20: 0};
+
+    for (let i = 0; i < bills.length; i++) {
+        let back = bills[i] - 5;
+
+        switch (back) {
+            case 15:
+                if (change[10] && change[5]) {
+                    change[10] -= 1;
+                    change[5] -= 1;
+                } else if (change[5] >= 3) {
+                    change[5] -= 3;
+                } else {
+                    return false;
+                }
+                break;
+            case 10:
+                if (change[10]) {
+                    change[10] -= 1;
+                } else if (change[5] >= 2) {
+                    change[5] -= 2;
+                } else {
+                    return false;
+                }
+                break;
+            case 5:
+                if (!change[5]) {
+                    return false;
+                }
+                change[5] -= 1;
+                break;
+        }
+        change[bills[i]] = ++change[bills[i]];
+    }
+
+    return true;
+};
+
+console.assert(lemonadeChange([5, 5, 5, 10, 20]) === true, "lemonadeChange #1");
+console.assert(lemonadeChange([5, 5, 10]) === true, "lemonadeChange #2");
+console.assert(lemonadeChange([10, 10]) === false, "lemonadeChange #3");
+console.assert(lemonadeChange([5, 5, 10, 10, 20]) === false, "lemonadeChange #4");
