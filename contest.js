@@ -2439,3 +2439,28 @@ console.assert(lemonadeChange([5, 5, 5, 10, 20]) === true, "lemonadeChange #1");
 console.assert(lemonadeChange([5, 5, 10]) === true, "lemonadeChange #2");
 console.assert(lemonadeChange([10, 10]) === false, "lemonadeChange #3");
 console.assert(lemonadeChange([5, 5, 10, 10, 20]) === false, "lemonadeChange #4");
+
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {boolean}
+ */
+var rotateString = function (A, B) {
+    let result = A;
+
+    for (let i = 0; i < A.length; i++) {
+        result = result.substring(1) + result[0];
+        if (result === B) {
+            return true;
+        }
+    }
+
+    return A === B;
+};
+
+console.assert(
+    rotateString("abcde", "cdeab") === true, "rotateString #1"
+);
+console.assert(
+    rotateString("abcde", "abced") === false, "rotateString #2"
+);
