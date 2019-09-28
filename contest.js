@@ -2464,3 +2464,21 @@ console.assert(
 console.assert(
     rotateString("abcde", "abced") === false, "rotateString #2"
 );
+
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var bitwiseComplement = function (N) {
+    let p = 1;
+    while (p < N) {
+        // 2^n - 1 = 111..
+        p = 2 * p + 1;
+    }
+    // XOR: 101 ^ 111 = 010
+    return p ^ N;
+};
+
+console.assert(bitwiseComplement(5) === 2, "bitwiseComplement #1");
+console.assert(bitwiseComplement(7) === 0, "bitwiseComplement #2");
+console.assert(bitwiseComplement(10) === 5, "bitwiseComplement #3");
