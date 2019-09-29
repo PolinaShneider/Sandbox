@@ -2464,3 +2464,26 @@ console.assert(
 console.assert(
     rotateString("abcde", "abced") === false, "rotateString #2"
 );
+
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var titleToNumber = function (s) {
+    let r = 0;
+    for (let i = 0; i < s.length; i++) {
+        r = r * 26 + (s[i].charCodeAt(0) - 65 + 1);
+    }
+    return r;
+};
+
+console.assert(
+    titleToNumber("AAA") === 703, "titleToNumber #1"
+);
+console.assert(
+    titleToNumber("AB") === 28, "titleToNumber #2"
+);
+console.assert(
+    titleToNumber("ZY") === 701, "titleToNumber #3"
+);
