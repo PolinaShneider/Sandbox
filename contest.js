@@ -2504,3 +2504,18 @@ var bitwiseComplement = function (N) {
 console.assert(bitwiseComplement(5) === 2, "bitwiseComplement #1");
 console.assert(bitwiseComplement(7) === 0, "bitwiseComplement #2");
 console.assert(bitwiseComplement(10) === 5, "bitwiseComplement #3");
+
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+var detectCapitalUse = function (word) {
+    const allUpperCase = word.toUpperCase() === word;
+    const allLowerCase = word.toLowerCase() === word;
+    const firstCapital = word[0].toUpperCase() + word.toLowerCase().substring(1) === word;
+
+    return allUpperCase || allLowerCase || firstCapital
+};
+
+console.assert(detectCapitalUse("USA") === true, "detectCapitalUse #1");
+console.assert(detectCapitalUse("FlaG") === false, "detectCapitalUse #2");
