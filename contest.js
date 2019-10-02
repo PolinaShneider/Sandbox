@@ -2519,3 +2519,23 @@ var detectCapitalUse = function (word) {
 
 console.assert(detectCapitalUse("USA") === true, "detectCapitalUse #1");
 console.assert(detectCapitalUse("FlaG") === false, "detectCapitalUse #2");
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+    const obj = strs.reduce((total, item) => {
+        const key = item.split("").sort().join("");
+        total[key] ? total[key].push(item) : total[key] = [item];
+        return total;
+    }, {});
+
+    return Object.values(obj)
+};
+
+console.assert(JSON.stringify(
+    groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+) === JSON.stringify(
+    [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+), "groupAnagrams #1");
