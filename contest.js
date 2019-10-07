@@ -2549,3 +2549,26 @@ var addDigits = function (num) {
 };
 
 console.assert(addDigits(11) === 2, "addDigits #1");
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function (x) {
+    return x.toString().split("").reverse().join("") === x.toString();
+};
+
+console.assert(isPalindrome(121) === true, "isPalindrome #1");
+console.assert(isPalindrome(-121) === false, "isPalindrome #2");
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var checkRecord = function (s) {
+    if (/(L)\1{2,}/.test(s)) return false;
+    return s.indexOf("A") === s.lastIndexOf("A");
+};
+
+console.assert(checkRecord("PPLLALLP") === true, "checkRecord #1");
+console.assert(checkRecord("PPALLL") === false, "checkRecord #2");
