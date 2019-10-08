@@ -2572,3 +2572,44 @@ var checkRecord = function (s) {
 
 console.assert(checkRecord("PPLLALLP") === true, "checkRecord #1");
 console.assert(checkRecord("PPALLL") === false, "checkRecord #2");
+
+/**
+ * @param {string} date
+ * @return {number}
+ */
+var dayOfYear = function (date) {
+    const dictionary = {
+        '0': 0,
+        '1': 31,
+        '2': 28.25,
+        '3': 31,
+        '4': 30,
+        '5': 31,
+        '6': 30,
+        '7': 31,
+        '8': 31,
+        '9': 30,
+        '10': 31,
+        '11': 30,
+        '12': 31
+    };
+    const [, year, month, day] = /(\d{4})-(\d{2})-(\d{2})/.exec(date);
+    const isLeapYear = +year % 4 === 0 && +year % 100 !== 0;
+    let total = 0;
+
+    for (let i = 0; i < parseInt(month, 10); i++) {
+        total += dictionary[i];
+    }
+
+    total = isLeapYear ? Math.ceil(total) : Math.floor(total);
+
+    total += parseInt(day, 10);
+
+    return total;
+};
+
+console.assert(dayOfYear("2019-01-09") === 9, "dayOfYear #1");
+console.assert(dayOfYear("2019-02-10") === 41, "dayOfYear #2");
+console.assert(dayOfYear("2003-03-01") === 60, "dayOfYear #3");
+console.assert(dayOfYear("2004-03-01") === 61, "dayOfYear #4");
+console.assert(dayOfYear("1900-03-25") === 84, "dayOfYear #5");
