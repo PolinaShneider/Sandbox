@@ -2613,3 +2613,32 @@ console.assert(dayOfYear("2019-02-10") === 41, "dayOfYear #2");
 console.assert(dayOfYear("2003-03-01") === 60, "dayOfYear #3");
 console.assert(dayOfYear("2004-03-01") === 61, "dayOfYear #4");
 console.assert(dayOfYear("1900-03-25") === 84, "dayOfYear #5");
+
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function (g, s) {
+    if (!s.length || !g.length) return 0;
+    g.sort((a, b) => a - b);
+    s.sort((a, b) => a - b);
+    let res = 0
+
+    while (s.length && g.length > 0) {
+        if (s[0] >= g[0]) {
+            res++;
+            g.splice(0, 1);
+        }
+        s.splice(0, 1);
+    }
+
+    return res
+};
+
+console.assert(
+    findContentChildren([1, 2, 3], [1, 1]) === 1, "findContentChildren #1"
+);
+console.assert(
+    findContentChildren([1, 2], [1, 2, 3]) === 2, "findContentChildren #2"
+);
