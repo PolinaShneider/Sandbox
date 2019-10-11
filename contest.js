@@ -2681,3 +2681,18 @@ var sortedArrayToBST = function (nums) {
 
     return root;
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function (n, obj = {}) {
+    if (n <= 1) return n;
+    if (n === 2) return 1;
+    if (obj[n]) return obj[n];
+    obj[n] = tribonacci(n - 1, obj) + tribonacci(n - 2, obj) + tribonacci(n - 3, obj);
+    return obj[n];
+};
+
+console.assert(tribonacci(4) === 4, "tribonacci #1");
+console.assert(tribonacci(25) === 1389537, "tribonacci #2");
