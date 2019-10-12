@@ -2696,3 +2696,49 @@ var tribonacci = function (n, obj = {}) {
 
 console.assert(tribonacci(4) === 4, "tribonacci #1");
 console.assert(tribonacci(25) === 1389537, "tribonacci #2");
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function (s) {
+    function getFactors(integer) {
+        let factors = [],
+            quotient = 0;
+
+        for (let i = 1; i <= integer; i++) {
+            quotient = integer / i;
+
+            if (quotient === Math.floor(quotient)) {
+                factors.push(i);
+            }
+        }
+        return factors;
+    }
+
+    const factors = getFactors(s.length);
+
+    for (let i = 1; i < factors.length; i++) {
+        let len = Math.floor(s.length / factors[i]);
+        let part = s.substr(0, len);
+
+        if (part.repeat(factors[i]) === s) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+console.assert(
+    repeatedSubstringPattern("aba") === false, "repeatedSubstringPattern #1"
+);
+console.assert(
+    repeatedSubstringPattern("abab") === true, "repeatedSubstringPattern #2"
+);
+console.assert(
+    repeatedSubstringPattern("abcabcabcabc") === true, "repeatedSubstringPattern #1"
+);
+console.assert(
+    repeatedSubstringPattern("bb") === true, "repeatedSubstringPattern #4"
+);
