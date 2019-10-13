@@ -2742,3 +2742,33 @@ console.assert(
 console.assert(
     repeatedSubstringPattern("bb") === true, "repeatedSubstringPattern #4"
 );
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+    let prev = null;
+    let curr = head;
+    while (curr != null) {
+        const tmp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = tmp;
+    }
+    return prev;
+};
+
+// prev: gradually changes
+// [1, 2, 3, 4, 5] -> [1]
+// [1] -> [2, 1]
+// [2, 1] -> [3, 2, 1]
+// [3, 2, 1] -> [4, 3, 2, 1]
+// [4, 3, 2, 1] -> [5, 4, 3, 2, 1]
