@@ -2772,3 +2772,47 @@ var reverseList = function (head) {
 // [2, 1] -> [3, 2, 1]
 // [3, 2, 1] -> [4, 3, 2, 1]
 // [4, 3, 2, 1] -> [5, 4, 3, 2, 1]
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var middleNode = function (head) {
+    let fast = head;
+    let slow = head;
+
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+
+    return slow;
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var middleNode2 = function (head) {
+    let arr = [head];
+
+    while (arr[arr.length - 1].next != null) {
+        arr.push(arr[arr.length - 1].next)
+    }
+
+    return arr[Math.floor(arr.length / 2)];
+};
