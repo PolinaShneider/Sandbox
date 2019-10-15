@@ -2816,3 +2816,23 @@ var middleNode2 = function (head) {
 
     return arr[Math.floor(arr.length / 2)];
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindrome = function (s) {
+    let map = {};
+    let count = 0;
+
+    for (let key of s) {
+        map[key] = (map[key] || 0) + 1;
+        if (map[key] % 2 === 0) {
+            count += 2
+        }
+    }
+
+    return s.length > count ? count + 1 : count;
+};
+
+console.assert(longestPalindrome("abccccdd") === 7, "longestPalindrome #1");

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<form id="form">
+    <input type="text" placeholder="Введите сообщение" name="message">
+    <input type="submit" value="Нажмите для отправки">
+</form>
+
+<iframe src="frame.html" id="iframe" style="display:block;height:60px"></iframe>
+
+<script>
+    iframe.contentWindow.postMessage("hello", '*');
+</script>
+
+</body>
+</html>
