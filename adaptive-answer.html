@@ -1,0 +1,163 @@
+<html>
+<head>
+    <title>Мой адаптивный сайт</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-family: system-ui;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .navigation {
+            background: lemonchiffon;
+        }
+        .navigation__ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0;
+        }
+        .navigation__item {
+            padding: 15px 0;
+            cursor: pointer;
+        }
+        .navigation__item:hover {
+            text-decoration: underline;
+            color: deeppink;
+        }
+        .portraits {
+            display: flex;
+            justify-content: center;
+            background: mistyrose;
+            padding: 20px 0;
+            border-top: 4px solid #391C4F;
+        }
+        .portraits__item {
+            margin: 0 50px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .portraits__item-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 25%;
+        }
+        .video {
+            background: darkorange;
+            padding: 20px;
+            text-align: center;
+        }
+        .video__title {
+            font-family: fantasy;
+        }
+        .video__contents {
+            display: flex;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+        .video__trailer {
+            flex-shrink: 0;
+        }
+        .video__text {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: justify;
+        }
+
+@media (max-width: 768px) {
+    .portraits {
+        flex-direction: column;
+    }
+
+    .video__contents {
+        flex-direction: column;
+    }
+
+    .video__text {
+        display: none;
+    }
+
+    .portraits__item {
+        margin: 0;
+        padding: 0 30px;
+    }
+
+    .portraits__item:nth-child(2n) {
+        background: mintcream;
+    }
+
+    .video__trailer {
+        max-width: 100%;
+    }
+
+    .video__text {
+        font-size: 23px;
+    }
+}
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navigation">
+        <ul class="navigation__ul">
+            <li class="navigation__item">Home</li>
+            <li class="navigation__item">About</li>
+            <li class="navigation__item">Contacts</li>
+            <li class="navigation__item">Gallery</li>
+            <li class="navigation__item">Blog</li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="portraits">
+        <div class="portraits__item">
+            <h2 class="portraits__item-title">Ариэль</h2>
+            <img class="portraits__item-image" src="https://genapilot.ru/wp-content/uploads/2018/11/the-little-mermaids-princess-ariel-3.jpg" alt="Ариэль">
+            <p>
+                Ариэль — главная героиня полнометражного мультфильма «Русалочка», снятого компанией Уолта Диснея в 1989 году, по мотивам сказки Ханса Кристиана Андерсена.
+            </p>
+        </div>
+        <div class="portraits__item">
+            <h2 class="portraits__item-title">Белоснежка</h2>
+            <img class="portraits__item-image" src="https://cs9.pikabu.ru/post_img/big/2016/12/03/9/1480777654190793890.jpg" alt="Белоснежка">
+            <p>
+                Белоснежка — вымышленный персонаж и главная героиня первого полнометражного мультфильма студии Уолта Диснея «Белоснежка и семь гномов»
+            </p>
+        </div>
+        <div class="portraits__item">
+            <h2 class="portraits__item-title">Харли Квинн</h2>
+            <img class="portraits__item-image" src="http://fantmir.ru/uploads/posts/2016-06/1465328895_katya-kosova_harli-kvinn_kospley_1.jpg" alt="Харли Квинн">
+            <p>
+                Харли Квинн — персонаж, суперзлодейка, позже антигерой вселенной DC Comics, первоначально появившаяся в мультсериале «Бэтмен» 1992 года, позже была адаптирована в комиксы.
+            </p>
+        </div>
+        <div class="portraits__item">
+            <h2 class="portraits__item-title">Рапунцель</h2>
+            <img class="portraits__item-image" src="http://i95.beon.ru/3/93/1979303/98/78664398/__real_life___rapunzel_by_jirkavinsed4hkoc9.jpeg" alt="Рапунцель">
+            <p>
+                Рапунцель — сказка о девушке с очень длинными волосами, которая была заточена в высокой башне.
+            </p>
+        </div>
+    </div>
+    <div class="video">
+        <h1 class="video__title">Joker | 2019 ‧ Drama/Thriller ‧ 2h 2m</h1>
+        <div class="video__contents">
+            <iframe class="video__trailer" width="560" height="315" src="https://www.youtube.com/embed/jGfiPs9zuhE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p class="video__text">
+                «Джо́кер» — американский психологический триллер режиссёра Тодда Филлипса по сценарию, написанному Филлипсом совместно со Скоттом Сильвером. Главную роль исполняет Хоакин Феникс. Сюжет фильма представляет собой версию истории происхождения суперзлодея Джокера, одного из ключевых антагонистов Бэтмена в комиксах компании DC Comics.
+
+                Премьера состоялась 31 августа 2019 года на 76-м Венецианском кинофестивале, где картина удостоилась главного приза — «Золотого льва». Фильм вышел 4 октября 2019 года, а в России — 3 октября.
+            </p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
