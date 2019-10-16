@@ -2836,3 +2836,36 @@ var longestPalindrome = function (s) {
 };
 
 console.assert(longestPalindrome("abccccdd") === 7, "longestPalindrome #1");
+
+/**
+ * @param {number} area
+ * @return {number[]}
+ */
+var constructRectangle = function (area) {
+    function factorize(num) {
+        const factors = [];
+
+        for (let i = 1; i <= num; i++) {
+            if (num / i === Math.floor(num / i)) {
+                factors.push(i);
+            }
+        }
+
+        return factors;
+
+    }
+
+    const factors = factorize(area);
+    const first = factors[Math.trunc(factors.length / 2)];
+
+    return area ? [first, area / first] : [0, 0]
+};
+
+console.assert(
+    JSON.stringify(constructRectangle(6)) === JSON.stringify([3, 2]),
+    "constructRectangle #1"
+);
+console.assert(
+    JSON.stringify(constructRectangle(1)) === JSON.stringify([1, 1]),
+    "constructRectangle #2"
+);
