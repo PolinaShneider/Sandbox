@@ -2869,3 +2869,19 @@ console.assert(
     JSON.stringify(constructRectangle(1)) === JSON.stringify([1, 1]),
     "constructRectangle #2"
 );
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function (x) {
+    const sign = x < 0;
+    const reverted = +Math.abs(x).toString().split('').reverse().join('');
+    if (Math.abs(reverted) >= Math.pow(2, 31) - 1) {
+        return 0;
+    }
+    return sign ? -reverted : reverted;
+};
+
+console.assert(reverse(-123) === -321, "reverse #1");
+console.assert(reverse(1534236469) === 0, "reverse #2");
