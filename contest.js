@@ -2885,3 +2885,24 @@ var reverse = function (x) {
 
 console.assert(reverse(-123) === -321, "reverse #1");
 console.assert(reverse(1534236469) === 0, "reverse #2");
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+    const set = new Set();
+
+    while (n > 1 && !set.has(n)) {
+        set.add(n);
+
+        n = n.toString().split('').reduce((total, item) => {
+            return total += Math.pow(+item, 2)
+        }, 0);
+    }
+
+    return n === 1;
+};
+
+console.assert(isHappy(19) === true, "isHappy #1");
+console.assert(isHappy(2) === false, "isHappy #2");
