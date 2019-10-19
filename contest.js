@@ -2906,3 +2906,65 @@ var isHappy = function (n) {
 
 console.assert(isHappy(19) === true, "isHappy #1");
 console.assert(isHappy(2) === false, "isHappy #2");
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDiffInBST = function (root) {
+    if (!root) return 0;
+
+    let prev = null;
+    let minDif = Infinity;
+
+    function dfs(node) {
+        if (node === null) {
+            return minDif
+        }
+
+        dfs(node.left);
+
+        if (prev !== null) {
+            minDif = Math.min(minDif, node.val - prev.val)
+        }
+
+        prev = node;
+
+        dfs(node.right);
+
+        return minDif;
+    }
+
+    return dfs(root)
+};
+
+const tree = {
+    val: 4,
+    left: {
+        val: 2,
+        left: {
+            val: 1,
+            left: null,
+            right: null
+        },
+        right: {
+            val: 3,
+            left: null,
+            right: null
+        }
+    },
+    right: {
+        val: 6,
+        left: null,
+        right: null
+    }
+};
+
+console.assert(minDiffInBST(tree) === 1, "minDiffInBST #1");
