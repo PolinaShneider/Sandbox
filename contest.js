@@ -2988,3 +2988,14 @@ var maxSubArray = function (nums) {
 };
 
 console.assert(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]) === 6, "maxSubArray #1");
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function (s) {
+    s = s.replace(/[\W_]+/g, "").toLowerCase();
+    return s.split('').reverse().join('') === s;
+};
+
+console.assert(isPalindrome("A man, a plan, a canal: Panama") === true, "isPalindrome #1");
