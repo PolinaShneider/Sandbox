@@ -2999,3 +2999,25 @@ var isPalindrome = function (s) {
 };
 
 console.assert(isPalindrome("A man, a plan, a canal: Panama") === true, "isPalindrome #1");
+
+var inBetween = function (a, b) {
+    return function (item) {
+        return item >= a && item <= b;
+    }
+};
+
+console.assert(
+    [1, 2, 3, 4, 5, 6, 7].filter(inBetween(3, 6)).join(",") === "3,4,5,6",
+    "inBetween #1"
+);
+
+var inArray = function (arr) {
+    return function (item) {
+        return arr.indexOf(item) !== -1;
+    }
+};
+
+console.assert(
+    [1, 2, 3, 4, 5, 6, 7].filter(inArray([1, 2, 10])).join(",") === "1,2",
+    "inBetween #1"
+);
