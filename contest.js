@@ -3021,3 +3021,16 @@ console.assert(
     [1, 2, 3, 4, 5, 6, 7].filter(inArray([1, 2, 10])).join(",") === "1,2",
     "inBetween #1"
 );
+
+function namespace(str) {
+    const arr = str.split('.');
+    let obj = {};
+    let prev = obj;
+    while (arr.length) {
+        let key = arr.shift();
+        prev[key] = {};
+        prev = prev[key];
+    }
+
+    return obj
+}
