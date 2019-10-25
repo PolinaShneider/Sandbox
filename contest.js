@@ -3034,3 +3034,35 @@ function namespace(str) {
 
     return obj
 }
+
+/**
+ * @param {number[][]} coordinates
+ * @return {boolean}
+ */
+var checkStraightLine = function (coordinates) {
+    let index = 0;
+    let start = coordinates[index];
+    const end = coordinates[coordinates.length - 1];
+    let line = (end[1] - start[1]) / (end[0] - start[0]);
+    let prev = line;
+
+    while (index < coordinates.length - 1) {
+        start = coordinates[index];
+        line = (end[1] - start[1]) / (end[0] - start[0]);
+        index++;
+
+        if (line !== prev) {
+            return false;
+        }
+    }
+    return true;
+};
+
+console.assert(
+    checkStraightLine([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7]]) === true,
+    "checkStraightLine #1"
+);
+console.assert(
+    checkStraightLine([[1, 1], [2, 2], [3, 4], [4, 5], [5, 6], [7, 7]]) === false,
+    "checkStraightLine #2"
+);
