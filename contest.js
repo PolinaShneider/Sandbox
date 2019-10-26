@@ -3084,9 +3084,7 @@ var largestPerimeter = function (A) {
     return 0;
 
     function triangleInequality(a, b, c) {
-        const [largest, middle, smallest] = [a, b, c].sort((a, b) => b - a);
-
-        return largest < middle + smallest;
+        return a < b + c;
     }
 };
 
