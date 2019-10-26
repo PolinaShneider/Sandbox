@@ -3092,3 +3092,26 @@ console.assert(largestPerimeter([2, 1, 2]) === 5, "largestPerimeter #1");
 console.assert(largestPerimeter([1, 2, 1]) === 0, "largestPerimeter #2");
 console.assert(largestPerimeter([3, 2, 3, 4]) === 10, "largestPerimeter #3");
 console.assert(largestPerimeter([3, 6, 2, 3]) === 8, "largestPerimeter #4");
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function(s, t) {
+    let index = 0;
+    for (let i = 0; i < s.length; i++) {
+        const found = t.indexOf(s[i], index);
+
+        if (found > -1) {
+            index = found + 1;
+        } else {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+console.assert(isSubsequence("acb", "ahbgdc") === false, "isSubsequence #1");
+console.assert(isSubsequence("abc", "ahbgdc") === true, "isSubsequence #2");
