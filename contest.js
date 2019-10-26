@@ -3098,7 +3098,7 @@ console.assert(largestPerimeter([3, 6, 2, 3]) === 8, "largestPerimeter #4");
  * @param {string} t
  * @return {boolean}
  */
-var isSubsequence = function(s, t) {
+var isSubsequence = function (s, t) {
     let index = 0;
     for (let i = 0; i < s.length; i++) {
         const found = t.indexOf(s[i], index);
