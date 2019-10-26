@@ -3066,3 +3066,31 @@ console.assert(
     checkStraightLine([[1, 1], [2, 2], [3, 4], [4, 5], [5, 6], [7, 7]]) === false,
     "checkStraightLine #2"
 );
+
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function (A) {
+    const sorted = [...A].sort((a, b) => b - a);
+    for (let i = 0; i < sorted.length - 2; i++) {
+        const result = triangleInequality(sorted[i], sorted[i + 1], sorted[i + 2]);
+
+        if (result) {
+            return sorted[i] + sorted[i + 1] + sorted[i + 2];
+        }
+    }
+
+    return 0;
+
+    function triangleInequality(a, b, c) {
+        const [largest, middle, smallest] = [a, b, c].sort((a, b) => b - a);
+
+        return largest < middle + smallest;
+    }
+};
+
+console.assert(largestPerimeter([2, 1, 2]) === 5, "largestPerimeter #1");
+console.assert(largestPerimeter([1, 2, 1]) === 0, "largestPerimeter #2");
+console.assert(largestPerimeter([3, 2, 3, 4]) === 10, "largestPerimeter #3");
+console.assert(largestPerimeter([3, 6, 2, 3]) === 8, "largestPerimeter #4");
