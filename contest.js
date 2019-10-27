@@ -3115,3 +3115,32 @@ var isSubsequence = function (s, t) {
 
 console.assert(isSubsequence("acb", "ahbgdc") === false, "isSubsequence #1");
 console.assert(isSubsequence("abc", "ahbgdc") === true, "isSubsequence #2");
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeOuterParentheses = function (S) {
+    let parenthesCount = 0;
+    let result = "";
+
+    for (const letter of S) {
+        if (letter === "(") {
+            if (parenthesCount) {
+                result += letter;
+            }
+            parenthesCount++;
+        } else {
+            parenthesCount--;
+            if (parenthesCount) {
+                result += letter;
+            }
+        }
+    }
+
+    return result;
+};
+
+console.assert(removeOuterParentheses("(()())(())") === "()()()", "removeOuterParentheses #1");
+console.assert(removeOuterParentheses("(()())(())(()(()))") === "()()()()(())", "removeOuterParentheses #2");
+console.assert(removeOuterParentheses("()()") === "", "removeOuterParentheses #3");
