@@ -3144,3 +3144,22 @@ var removeOuterParentheses = function (S) {
 console.assert(removeOuterParentheses("(()())(())") === "()()()", "removeOuterParentheses #1");
 console.assert(removeOuterParentheses("(()())(())(()(()))") === "()()()()(())", "removeOuterParentheses #2");
 console.assert(removeOuterParentheses("()()") === "", "removeOuterParentheses #3");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+    let sum = 0;
+
+    for (let i = 1; i <= nums.length; i++) {
+        sum += i;
+    }
+
+    let partialSum = nums.reduce((a, b) => a + b);
+
+    return sum - partialSum;
+};
+
+console.assert(missingNumber([3, 0, 1]) === 2, "missingNumber #1");
+console.assert(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]) === 8, "missingNumber #2");
