@@ -3177,3 +3177,15 @@ var maximumProduct = function (nums) {
 console.assert(maximumProduct([1, 2, 3, 4]) === 24, "maximumProduct #1");
 console.assert(maximumProduct([-1, -2, -3]) === -6, "maximumProduct #2");
 console.assert(maximumProduct([-4, -3, -2, -1, 60]) === 720, "maximumProduct #3");
+
+var numPairsDivisibleBy60 = time => {
+    const arr = new Array(60).fill(0);
+    return time.reduce((total, item) => {
+        total += arr[(60 - (item % 60)) % 60];
+        arr[item % 60] += 1;
+        return total
+    }, 0)
+};
+
+console.assert(numPairsDivisibleBy60([30, 20, 150, 100, 40]) === 3, "numPairsDivisibleBy60 #1");
+console.assert(numPairsDivisibleBy60([60, 60, 60]) === 3, "numPairsDivisibleBy60 #2");
