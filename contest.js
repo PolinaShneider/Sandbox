@@ -3178,6 +3178,11 @@ console.assert(maximumProduct([1, 2, 3, 4]) === 24, "maximumProduct #1");
 console.assert(maximumProduct([-1, -2, -3]) === -6, "maximumProduct #2");
 console.assert(maximumProduct([-4, -3, -2, -1, 60]) === 720, "maximumProduct #3");
 
+/**
+ * Explanation: https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/discuss/304465/O(n-%2B-k)-time-O(k)-space-solution-Buckets
+ * @param {number[]} time
+ * @return {number}
+ */
 var numPairsDivisibleBy60 = time => {
     const arr = new Array(60).fill(0);
     return time.reduce((total, item) => {
