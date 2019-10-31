@@ -3194,3 +3194,36 @@ var numPairsDivisibleBy60 = time => {
 
 console.assert(numPairsDivisibleBy60([30, 20, 150, 100, 40]) === 3, "numPairsDivisibleBy60 #1");
 console.assert(numPairsDivisibleBy60([60, 60, 60]) === 3, "numPairsDivisibleBy60 #2");
+
+/**
+ * @param {string} S
+ * @param {string} T
+ * @return {boolean}
+ */
+var backspaceCompare = function (S, T) {
+    let first = "";
+    let second = "";
+
+    for (let i = 0; i < S.length; i++) {
+        if (S[i] === "#") {
+            first = first.substr(0, first.length - 1);
+        } else {
+            first += S[i]
+        }
+    }
+
+    for (let i = 0; i < T.length; i++) {
+        if (T[i] === "#") {
+            second = second.substr(0, second.length - 1);
+        } else {
+            second += T[i]
+        }
+    }
+
+    return first === second;
+};
+
+console.assert(backspaceCompare("ab#c", "ad#c") === true, "backspaceCompare #1");
+console.assert(backspaceCompare("ab##", "ab##") === true, "backspaceCompare #2");
+console.assert(backspaceCompare("a##c", "#a#c") === true, "backspaceCompare #3");
+console.assert(backspaceCompare("a#c", "b") === false, "backspaceCompare #4");
