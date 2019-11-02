@@ -1,0 +1,24 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+.cats {
+    display: flex;
+}
+h1 {
+    text-align: center;
+}
+.cats__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.cats__item img {
+    border-radius: 4px 8px 8px 4px;
+    display: inline-block;
+    height: 200px;
+    width: auto;
+}
+.cats__item span {
+    margin-top: 10px;
+}
