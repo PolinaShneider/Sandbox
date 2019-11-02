@@ -3254,3 +3254,25 @@ var deleteDuplicates = function (head) {
     }
     return head
 };
+
+/**
+ * @param {number[]} arr
+ * @return {number[][]}
+ */
+var minimumAbsDifference = function (arr) {
+    arr.sort((a, b) => a - b);
+    let result = [];
+    let min = Math.abs(arr[0] - arr[1]);
+
+    for (let i = 1; i < arr.length; i++) {
+        let diff = Math.abs(arr[i - 1] - arr[i]);
+        if (diff === min) {
+            result.push([arr[i - 1], arr[i]])
+        } else if (diff < min) {
+            min = diff;
+            result = [[arr[i - 1], arr[i]]]
+        }
+    }
+
+    return result;
+};
