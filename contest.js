@@ -3276,3 +3276,28 @@ var minimumAbsDifference = function (arr) {
 
     return result;
 };
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var nextGreaterElement = function (nums1, nums2) {
+    const result = [];
+    for (let elem of nums1) {
+        result.push(getCorrespondingElem(elem));
+    }
+
+    return result;
+
+    function getCorrespondingElem(elem) {
+        const index = nums2.indexOf(elem);
+        const candidates = nums2.slice(index).filter(item => item > elem);
+
+        return candidates[0] || -1;
+    }
+};
+
+console.assert(nextGreaterElement([4, 1, 2], [1, 3, 4, 2]).join(",") === "-1,3,-1", "nextGreaterElement #1");
+console.assert(nextGreaterElement([2, 4], [1, 2, 3, 4]).join(",") === "3,-1", "nextGreaterElement #2");
+console.assert(nextGreaterElement([1, 3, 5, 2, 4], [6, 5, 4, 3, 2, 1, 7]).join(",") === "7,7,7,7,7", "nextGreaterElement #3");
