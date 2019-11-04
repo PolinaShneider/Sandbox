@@ -3301,3 +3301,20 @@ var nextGreaterElement = function (nums1, nums2) {
 console.assert(nextGreaterElement([4, 1, 2], [1, 3, 4, 2]).join(",") === "-1,3,-1", "nextGreaterElement #1");
 console.assert(nextGreaterElement([2, 4], [1, 2, 3, 4]).join(",") === "3,-1", "nextGreaterElement #2");
 console.assert(nextGreaterElement([1, 3, 5, 2, 4], [6, 5, 4, 3, 2, 1, 7]).join(",") === "7,7,7,7,7", "nextGreaterElement #3");
+
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var uniqueOccurrences = function (arr) {
+    const map = {};
+    for (let item of arr) {
+        map[item] = ++map[item] || 1;
+    }
+
+    return Object.values(map).length === new Set(Object.values(map)).size;
+};
+
+console.assert(uniqueOccurrences([1, 2, 2, 1, 1, 3]) === true, "uniqueOccurrences #1");
+console.assert(uniqueOccurrences([1, 2]) === false, "uniqueOccurrences #2");
+console.assert(uniqueOccurrences([-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]) === true, "uniqueOccurrences #3");
