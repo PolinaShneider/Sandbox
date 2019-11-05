@@ -3318,3 +3318,22 @@ var uniqueOccurrences = function (arr) {
 console.assert(uniqueOccurrences([1, 2, 2, 1, 1, 3]) === true, "uniqueOccurrences #1");
 console.assert(uniqueOccurrences([1, 2]) === false, "uniqueOccurrences #2");
 console.assert(uniqueOccurrences([-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]) === true, "uniqueOccurrences #3");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var dominantIndex = function (nums) {
+    const max = nums.reduce((total, item, index) => {
+        return (item > total.num) ? {num: item, index} : total;
+    }, {num: -Infinity, index: -1});
+
+    const except = nums.slice(0, max.index).concat(nums.slice(max.index + 1));
+    const satisfies = except.every(elem => elem <= max.num * 0.5);
+
+    return satisfies ? max.index : -1;
+};
+
+console.assert(dominantIndex([3, 6, 1, 0]) === 1, "dominantIndex #1");
+console.assert(dominantIndex([1, 2, 3, 4]) === -1, "dominantIndex #2");
+console.assert(dominantIndex([0, 0, 0, 1]) === 3, "dominantIndex #3");
