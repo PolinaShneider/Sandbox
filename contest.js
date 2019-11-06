@@ -3337,3 +3337,30 @@ var dominantIndex = function (nums) {
 console.assert(dominantIndex([3, 6, 1, 0]) === 1, "dominantIndex #1");
 console.assert(dominantIndex([1, 2, 3, 4]) === -1, "dominantIndex #2");
 console.assert(dominantIndex([0, 0, 0, 1]) === 3, "dominantIndex #3");
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isUgly = function (num) {
+    if (!num) {
+        return false;
+    }
+
+    const factors = [2, 3, 5];
+
+    for (let factor of factors) {
+
+        while (num / factor === Math.floor(num / factor)) {
+            num /= factor;
+        }
+
+    }
+
+    return num === 1;
+};
+
+console.assert(isUgly(-5) === false, "isUgly #1");
+console.assert(isUgly(12) === true, "isUgly #2");
+console.assert(isUgly(0) === false, "isUgly #3");
+console.assert(isUgly(1) === true, "isUgly #4");
