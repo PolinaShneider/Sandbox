@@ -3364,3 +3364,14 @@ console.assert(isUgly(-5) === false, "isUgly #1");
 console.assert(isUgly(12) === true, "isUgly #2");
 console.assert(isUgly(0) === false, "isUgly #3");
 console.assert(isUgly(1) === true, "isUgly #4");
+
+/**
+ * @param {number[]} candies
+ * @return {number}
+ */
+var distributeCandies = function (candies) {
+    return Math.min(new Set(candies).size, candies.length / 2);
+};
+
+console.assert(distributeCandies([1, 1, 2, 3, 3, 3]) === 3, "distributeCandies #1");
+console.assert(distributeCandies([1, 1, 2, 3]) === 2, "distributeCandies #2");
