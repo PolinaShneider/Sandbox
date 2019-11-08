@@ -3375,3 +3375,23 @@ var distributeCandies = function (candies) {
 
 console.assert(distributeCandies([1, 1, 2, 3, 3, 3]) === 3, "distributeCandies #1");
 console.assert(distributeCandies([1, 1, 2, 3]) === 2, "distributeCandies #2");
+
+/**
+ * @param {character[]} letters
+ * @param {character} target
+ * @return {character}
+ */
+var nextGreatestLetter = function (letters, target) {
+    for (let i = 0; i < letters.length; i++) {
+        if (letters[i] > target) {
+            return letters[i]
+        }
+    }
+
+    return letters[0];
+};
+
+console.assert(nextGreatestLetter(["c", "f", "j"], "c") === "f", "nextGreatestLetter #1");
+console.assert(nextGreatestLetter(["c", "f", "j"], "d") === "f", "nextGreatestLetter #2");
+console.assert(nextGreatestLetter(["c", "f", "j"], "j") === "c", "nextGreatestLetter #3");
+console.assert(nextGreatestLetter(["c", "f", "j"], "k") === "c", "nextGreatestLetter #4");
