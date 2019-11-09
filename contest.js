@@ -3395,3 +3395,33 @@ console.assert(nextGreatestLetter(["c", "f", "j"], "c") === "f", "nextGreatestLe
 console.assert(nextGreatestLetter(["c", "f", "j"], "d") === "f", "nextGreatestLetter #2");
 console.assert(nextGreatestLetter(["c", "f", "j"], "j") === "c", "nextGreatestLetter #3");
 console.assert(nextGreatestLetter(["c", "f", "j"], "k") === "c", "nextGreatestLetter #4");
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedStringSplit = function (s) {
+    let Rs = 0;
+    let Ls = 0;
+    let result = 0;
+    for (let symbol of s) {
+        if (symbol === 'L') {
+            Ls++;
+        } else {
+            Rs++;
+        }
+
+        if (Ls === Rs) {
+            result++;
+            Ls = Rs = 0;
+        }
+
+    }
+
+    return result;
+};
+
+console.assert(balancedStringSplit("RLRRLLRLRL") === 4, "balancedStringSplit #1");
+console.assert(balancedStringSplit("RLLLLRRRLR") === 3, "balancedStringSplit #2");
+console.assert(balancedStringSplit("LLLLRRRR") === 1, "balancedStringSplit #3");
+console.assert(balancedStringSplit("RLRRRLLRLL") === 2, "balancedStringSplit #4");
