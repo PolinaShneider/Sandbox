@@ -3455,3 +3455,31 @@ var distributeCandies = function (candies, num_people) {
 
 console.assert(distributeCandies(7, 4).join(" ") === "1 2 3 1", "distributeCandies #1");
 console.assert(distributeCandies(10, 3).join(" ") === "5 2 3", "distributeCandies #2");
+
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function (ransomNote, magazine) {
+    const magazine_map = magazine.split("").reduce((total, item) => {
+        total[item] = ++total[item] || 1;
+        return total;
+    }, {});
+
+    const ransomNote_map = ransomNote.split("").reduce((total, item) => {
+        total[item] = ++total[item] || 1;
+        return total;
+    }, {});
+
+    for (let key in ransomNote_map) {
+        if (!magazine_map.hasOwnProperty(key) || ransomNote_map[key] > magazine_map[key]) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+console.assert(canConstruct("aa", "aab") === true, "canConstruct #1");
+console.assert(canConstruct("a", "b") === false, "canConstruct #2");
