@@ -3425,3 +3425,33 @@ console.assert(balancedStringSplit("RLRRLLRLRL") === 4, "balancedStringSplit #1"
 console.assert(balancedStringSplit("RLLLLRRRLR") === 3, "balancedStringSplit #2");
 console.assert(balancedStringSplit("LLLLRRRR") === 1, "balancedStringSplit #3");
 console.assert(balancedStringSplit("RLRRRLLRLL") === 2, "balancedStringSplit #4");
+
+/**
+ * @param {number} candies
+ * @param {number} num_people
+ * @return {number[]}
+ */
+var distributeCandies = function (candies, num_people) {
+    const result = new Array(num_people).fill(0);
+    let index = 0;
+    let give_away = 1;
+
+    while (candies > 0) {
+        // if there's more candies than give_away
+        // distribute candies to the person
+        if (candies <= give_away) {
+            // else give to person remaining candies
+            give_away = candies;
+        }
+        result[index] += give_away;
+        candies -= give_away++;
+        // go to the next index if index isn't last index
+        // otherwise go to beginning
+        index = (index + 1) % num_people;
+    }
+
+    return result
+};
+
+console.assert(distributeCandies(7, 4).join(" ") === "1 2 3 1", "distributeCandies #1");
+console.assert(distributeCandies(10, 3).join(" ") === "5 2 3", "distributeCandies #2");
