@@ -3483,3 +3483,11 @@ var canConstruct = function (ransomNote, magazine) {
 
 console.assert(canConstruct("aa", "aab") === true, "canConstruct #1");
 console.assert(canConstruct("a", "b") === false, "canConstruct #2");
+
+var findComplement = function (num) {
+    const mask = '1'.repeat(num.toString(2).length);
+    return num ^ parseInt(mask, 2);
+};
+
+console.assert(findComplement(5) === 2, "findComplement #1");
+console.assert(findComplement(1) === 0, "findComplement #2");
