@@ -3491,3 +3491,29 @@ var findComplement = function (num) {
 
 console.assert(findComplement(5) === 2, "findComplement #1");
 console.assert(findComplement(1) === 0, "findComplement #2");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var thirdMax = function (nums) {
+    let arr = new Array(3).fill(-Infinity);
+    for (let i = 0; i < nums.length; i++) {
+        const n = nums[i];
+
+        if (!arr.includes(n)) {
+            if (n > arr[0]) {
+                arr = [n, arr[0], arr[1]];
+            } else if (n > arr[1]) {
+                arr = [arr[0], n, arr[1]];
+            } else if (n > arr[2]) {
+                arr[2] = n;
+            }
+        }
+    }
+    arr = arr.filter(n => n > -Infinity);
+    return arr.length === 3 ? arr.pop() : arr[0];
+};
+
+console.assert(thirdMax([1, 2]) === 2, "thirdMax #1");
+console.assert(thirdMax([2, 2, 3, 1]) === 1, "thirdMax #2");
