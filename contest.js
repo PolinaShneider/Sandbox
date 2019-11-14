@@ -3517,3 +3517,20 @@ var thirdMax = function (nums) {
 
 console.assert(thirdMax([1, 2]) === 2, "thirdMax #1");
 console.assert(thirdMax([2, 2, 3, 1]) === 1, "thirdMax #2");
+
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var convertToTitle = function (n) {
+    n = n - 1;
+    if (n >= 0 && n < 26) {
+        return String.fromCharCode(65 + n);
+    }
+    return convertToTitle(parseInt(n / 26)) + convertToTitle((n % 26) + 1);
+};
+
+console.assert(convertToTitle(52) === "AZ", "convertToTitle #1");
+console.assert(convertToTitle(26) === "Z", "convertToTitle #2");
+console.assert(convertToTitle(1) === "A", "convertToTitle #3");
+console.assert(convertToTitle(701) === "ZY", "convertToTitle #4");
