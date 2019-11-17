@@ -64,3 +64,23 @@ var frequencySort = function (s) {
 console.assert(frequencySort("tree") === "eetr", "frequencySort #1");
 console.assert(frequencySort("cccaaa") === "cccaaa", "frequencySort #2");
 console.assert(frequencySort("Aabb") === "bbAa", "frequencySort #3");
+
+/**
+ * @param {number[]} arr
+ * @return {number[][]}
+ */
+const permute = (arr, part = []) => {
+    let result = [];
+
+    if (arr.length === 0) {
+        result.push(part)
+    } else {
+        for (let i = 0; i < arr.length; i++) {
+            let current = arr.slice();
+            let next = current.splice(i, 1);
+            result = result.concat(permute(current, part.concat(next)))
+        }
+    }
+
+    return result;
+};
