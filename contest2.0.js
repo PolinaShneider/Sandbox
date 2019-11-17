@@ -42,3 +42,25 @@ var findDuplicates = function (nums) {
 };
 
 console.assert(findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]).join(",") === "2,3", "findDuplicates #1");
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var frequencySort = function (s) {
+    const map = {};
+
+    for (let symb of s) {
+        map[symb] = ++map[symb] || 1;
+    }
+
+    const sorted = Object.entries(map).sort(([, val1], [, val2]) => val2 - val1);
+
+    return sorted.reduce((total, [symb, num]) => {
+        return total += symb.repeat(num)
+    }, "")
+};
+
+console.assert(frequencySort("tree") === "eetr", "frequencySort #1");
+console.assert(frequencySort("cccaaa") === "cccaaa", "frequencySort #2");
+console.assert(frequencySort("Aabb") === "bbAa", "frequencySort #3");
