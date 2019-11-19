@@ -84,3 +84,29 @@ const permute = (arr, part = []) => {
 
     return result;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+    let stringList = [];
+    let maxLength = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        if (stringList.includes(s[i])) {
+            const charToRemove = stringList.indexOf(s[i]) + 1;
+            stringList = stringList.slice(charToRemove)
+        }
+        stringList.push(s[i]);
+        maxLength = Math.max(maxLength, stringList.length)
+    }
+
+    return maxLength
+};
+
+console.assert(lengthOfLongestSubstring("abcabcbb") === 3, "lengthOfLongestSubstring #1");
+console.assert(lengthOfLongestSubstring("bbbbb") === 1, "lengthOfLongestSubstring #2");
+console.assert(lengthOfLongestSubstring("pwwkew") === 3, "lengthOfLongestSubstring #3");
+console.assert(lengthOfLongestSubstring(" ") === 1, "lengthOfLongestSubstring #4");
+console.assert(lengthOfLongestSubstring("dvdf") === 3, "lengthOfLongestSubstring #5");
