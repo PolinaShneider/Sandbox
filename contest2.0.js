@@ -110,3 +110,18 @@ console.assert(lengthOfLongestSubstring("bbbbb") === 1, "lengthOfLongestSubstrin
 console.assert(lengthOfLongestSubstring("pwwkew") === 3, "lengthOfLongestSubstring #3");
 console.assert(lengthOfLongestSubstring(" ") === 1, "lengthOfLongestSubstring #4");
 console.assert(lengthOfLongestSubstring("dvdf") === 3, "lengthOfLongestSubstring #5");
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isPowerOfFour = function (num) {
+    while (num > 1) {
+        num /= 4;
+    }
+
+    return num === 1;
+};
+
+console.assert(isPowerOfFour(16) === true, "isPowerOfFour #1");
+console.assert(isPowerOfFour(1025) === false, "isPowerOfFour #2");
