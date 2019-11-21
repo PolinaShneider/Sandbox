@@ -125,3 +125,18 @@ var isPowerOfFour = function (num) {
 
 console.assert(isPowerOfFour(16) === true, "isPowerOfFour #1");
 console.assert(isPowerOfFour(1025) === false, "isPowerOfFour #2");
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function (nums) {
+    for (let num of nums) {
+        if (nums.indexOf(num) === nums.lastIndexOf(num)) {
+            return num;
+        }
+    }
+};
+
+console.assert(singleNumber([2, 2, 3, 2]) === 3, "singleNumber #1");
+console.assert(singleNumber([0, 1, 0, 1, 0, 1, 99]) === 99, "singleNumber #2");
