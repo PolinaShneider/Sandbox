@@ -140,3 +140,14 @@ var singleNumber = function (nums) {
 
 console.assert(singleNumber([2, 2, 3, 2]) === 3, "singleNumber #1");
 console.assert(singleNumber([0, 1, 0, 1, 0, 1, 99]) === 99, "singleNumber #2");
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var canWinNim = function (n) {
+    return (n % 4 !== 0);
+};
+
+console.assert(canWinNim(4) === false, "canWinNim #1");
+console.assert(canWinNim(5) === true, "canWinNim #2");
