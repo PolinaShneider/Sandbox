@@ -151,3 +151,33 @@ var canWinNim = function (n) {
 
 console.assert(canWinNim(4) === false, "canWinNim #1");
 console.assert(canWinNim(5) === true, "canWinNim #2");
+
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var toHex = function (num) {
+    const map = {
+        '0000': 0, '0001': 1, '0010': 2, '0011': 3, '0100': 4, '0101': 5,
+        '0110': 6, '0111': 7, '1000': 8, '1001': 9, '1010': 'a', '1011': 'b',
+        '1100': 'c', '1101': 'd', '1110': 'e', '1111': 'f'
+    };
+
+    let result = "";
+
+    if (num === 0) return "0";
+
+    num = (num < 0) ? (Math.pow(2, 32) + num) : num;
+
+    while (num) {
+        let mod = num % 16;
+        result = map[Number(mod).toString(2).padStart(4, 0)] + result;
+        num = Math.floor(num / 16);
+    }
+
+    return result;
+};
+
+console.assert(toHex(0) === "0", "toHex #1");
+console.assert(toHex(-1) === "ffffffff", "toHex #2");
+console.assert(toHex(26) === "1a", "toHex #3");
