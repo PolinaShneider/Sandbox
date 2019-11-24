@@ -181,3 +181,25 @@ var toHex = function (num) {
 console.assert(toHex(0) === "0", "toHex #1");
 console.assert(toHex(-1) === "ffffffff", "toHex #2");
 console.assert(toHex(26) === "1a", "toHex #3");
+
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number[]}
+ */
+var addToArrayForm = function (A, K) {
+    return (BigInt(A.join("")) + BigInt(K)).toString().split("").map(elem => +elem)
+};
+
+console.assert(
+    addToArrayForm([1, 2, 0, 0], 34).join("") === [1, 2, 3, 4].join(""),
+    "addToArrayForm #1"
+);
+console.assert(
+    addToArrayForm([9, 9, 9, 9, 9, 9, 9, 9, 9, 9], 1).join("") === [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].join(""),
+    "addToArrayForm #2"
+);
+console.assert(
+    addToArrayForm([2, 1, 5], 806).join("") === [1, 0, 2, 1].join(""),
+    "addToArrayForm #3"
+);
