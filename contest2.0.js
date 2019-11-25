@@ -232,3 +232,46 @@ var pivotIndex = function (nums) {
 console.assert(pivotIndex([1, 7, 3, 6, 5, 6]) === 3, "pivotIndex #1");
 console.assert(pivotIndex([2, 2]) === -1, "pivotIndex #2");
 console.assert(pivotIndex([-1, -1, -1, -1, -1, 0]) === 2, "pivotIndex #3");
+
+/**
+ * @param {string} name
+ * @param {string} typed
+ * @return {boolean}
+ */
+var isLongPressedName = function (name, typed) {
+    function toLetters(word) {
+        let prev = "";
+        const result = [];
+
+        for (let symb of word) {
+            if (prev.includes(symb)) {
+                prev += symb;
+            } else {
+                if (prev.length) {
+                    result.push(prev);
+                }
+                prev = symb;
+            }
+        }
+
+        result.push(prev);
+        return result;
+    }
+
+    const actual = toLetters(typed);
+    const expected = toLetters(name);
+
+    if (actual.length !== expected.length) {
+        return false;
+    }
+
+    for (let i = 0; i < actual.length; i++) {
+        if (actual[i].charAt(0) !== expected[i].charAt(0) || actual[i].length < expected[i].length) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+console.assert(isLongPressedName("kikcxmvzi", "kiikcxxmmvvzz") === false, "isLongPressedName #1");
