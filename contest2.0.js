@@ -203,3 +203,32 @@ console.assert(
     addToArrayForm([2, 1, 5], 806).join("") === [1, 0, 2, 1].join(""),
     "addToArrayForm #3"
 );
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var pivotIndex = function (nums) {
+    let sum = getSum(nums);
+    let part = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i];
+        if (part === (sum - part - num)) {
+            return i;
+        }
+        part += num;
+    }
+
+    return -1;
+
+    function getSum(arr) {
+        return arr.reduce((accum, value) => {
+            return accum + value
+        }, 0)
+    }
+};
+
+console.assert(pivotIndex([1, 7, 3, 6, 5, 6]) === 3, "pivotIndex #1");
+console.assert(pivotIndex([2, 2]) === -1, "pivotIndex #2");
+console.assert(pivotIndex([-1, -1, -1, -1, -1, 0]) === 2, "pivotIndex #3");
