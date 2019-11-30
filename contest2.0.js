@@ -352,3 +352,27 @@ var compress = function (chars) {
 console.assert(compress(["a", "a", "b", "b", "c", "c", "c"]) === 6, "compress #1");
 console.assert(compress(["a"]) === 1, "compress #2");
 console.assert(compress(["a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"]) === 4, "compress #3");
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var containsNearbyDuplicate = function (nums, k) {
+    const map = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] in map && i - map[nums[i]] <= k) {
+            return true;
+        }
+
+        map[nums[i]] = i;
+    }
+    return false;
+};
+
+console.assert(containsNearbyDuplicate([1, 2, 3, 1], 3) === true, "containsNearbyDuplicate #1");
+console.assert(containsNearbyDuplicate([1, 0, 1, 1], 1) === true, "containsNearbyDuplicate #2");
+console.assert(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2) === false, "containsNearbyDuplicate #3");
+console.assert(containsNearbyDuplicate([1, 1, 1], 0) === false, "containsNearbyDuplicate #4");
+console.assert(containsNearbyDuplicate([99, 99], 2) === true, "containsNearbyDuplicate #5");
