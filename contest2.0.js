@@ -376,3 +376,28 @@ console.assert(containsNearbyDuplicate([1, 0, 1, 1], 1) === true, "containsNearb
 console.assert(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2) === false, "containsNearbyDuplicate #3");
 console.assert(containsNearbyDuplicate([1, 1, 1], 0) === false, "containsNearbyDuplicate #4");
 console.assert(containsNearbyDuplicate([99, 99], 2) === true, "containsNearbyDuplicate #5");
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} bound
+ * @return {number[]}
+ */
+var powerfulIntegers = function (x, y, bound) {
+    const result = new Set();
+    const xPowMax = (x > 1) ? Math.round(Math.log(bound) / Math.log(x)) : 1;
+    const yPowMax = (y > 1) ? Math.round(Math.log(bound) / Math.log(y)) : 1;
+
+    for (let i = 0; i <= xPowMax; i++) {
+        for (let j = 0; j <= yPowMax; j++) {
+            const candidate = Math.pow(x, i) + Math.pow(y, j);
+            if (candidate <= bound) {
+                result.add(candidate)
+            }
+        }
+    }
+
+    return [...result];
+};
+
+console.assert(powerfulIntegers(2, 3, 10).join(",") === [2, 4, 10, 3, 5, 7, 9].join(","), "powerfulIntegers #1");
