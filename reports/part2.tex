@@ -1,0 +1,617 @@
+\subsection{Переполнение разряда Integer}
+Аналогичные задания были выполнены для индивидуального варианта исключения — переполнения разряда Integer. Из-за особенностей \cite{b2, b3} процессора компьютера, на котором выполнялась работа исключение EXCEPTION\_INT\_OVERFLOW не выбрасывалось во время выполнения программы, то есть INT\_MAX становился INT\_MIN без генерации исключения. По этой причине для ряда первых заданий исключение было вызвано искусственно при помощи \textbf{RaiseException}
+
+\subsubsection{Генерация и обработка исключений с помощью функций WinAPI}
+
+\begin{lstlisting}[caption=Генерация и обработка исключения]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+
+int main()
+{
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER) {
+        std::cout << "Int overflow exception";
+    }
+
+    std::getchar();
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/1_1.png}
+        \caption{Результат работы программы}
+        \label{pic:1_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/1_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:1_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Получение кода исключения}
+\begin{lstlisting}[caption=Получение кода исключения с помощью функции GetExceptionCode]
+#include "stdafx.h"
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code = -1;
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __except (code = GetExceptionCode(), ((code == EXCEPTION_INT_OVERFLOW) ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)) {
+        std::cout << "\nInt overflow inside except, exception code " << code;
+    }
+
+    code = -1;
+
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __except (code = GetExceptionCode(), EXCEPTION_EXECUTE_HANDLER) {
+        switch (code) {
+            case EXCEPTION_INT_OVERFLOW:
+                std::cout << "\nInt overflow inside filter, exception code " << code;
+                break;
+            default:
+                EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    std::getchar();
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/2_1.png}
+        \caption{Результат работы программы}
+        \label{pic:2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/2_2_1.png}
+        \caption{Информация об обработке исключения в Windbg. GetExceptionCode в выражении-фильтре}
+        \label{pic:2_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/2_2_2.png}
+        \caption{Информация об обработке исключения в Windbg. GetExceptionCode в блоке \_\_except}
+        \label{pic:2_2_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Функция-фильтр}
+\begin{lstlisting}[caption=Реализия функции-фильтра]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+
+LONG FilterFunc(DWORD dwExceptionCode) {
+    return ((dwExceptionCode == EXCEPTION_INT_OVERFLOW) ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH);
+}
+
+int main()
+{
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __except (FilterFunc(GetExceptionCode())) {
+        std::cout << "Int overflow, own filter function is used";
+    }
+
+    std::getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/3_1.png}
+        \caption{Результат работы программы}
+        \label{pic:3_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/3_2.png}
+        \caption{Информация об обработке исключения в Windbg. Протокол работы программы и стек вызовов}
+        \label{pic:3_2_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Ручная генерация исключения и информация об ошибке}
+
+\begin{lstlisting}[caption=Ручная генерация исключения и информация об ошибке]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    LPEXCEPTION_POINTERS info = nullptr;
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __except (info = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (info->ExceptionRecord->ExceptionCode == EXCEPTION_INT_OVERFLOW) {
+            std::cout << "Catch manually raised int overflow exception";
+            std::cout << "\nRaised Exception Information: " << info->ExceptionRecord->ExceptionInformation;
+            std::cout << "\nRaised Exception Code: " << info->ExceptionRecord->ExceptionCode;
+            std::getchar();
+            exit(1);
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/4_1.png}
+        \caption{Результат работы программы}
+        \label{pic:4_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/4_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:4_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Необработанное исключение}
+\begin{lstlisting}[caption=Необработанное исключение]
+#include "stdafx.h"
+#include "stdafx.h"
+#include <iostream>
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#include <exception>
+#include <winerror.h>
+
+int x = 0;
+
+LONG WINAPI UnhandledExceptionFilterFunc(_In_ struct _EXCEPTION_POINTERS* pExceptionPtrs) {
+    std::cout << "Caught int overflow\n";
+    x++;
+    return EXCEPTION_CONTINUE_EXECUTION;
+}
+
+int main()
+{
+    std::cout << "Set filter for unhandled exception\n";
+    SetUnhandledExceptionFilter(UnhandledExceptionFilterFunc);
+
+    std::cout << "Filter is set\n";
+    while (true) {
+        x++;
+
+        if (x == INT_MIN) {
+            RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/5_1.png}
+        \caption{Результат работы программы}
+        \label{pic:5_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/5_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:5_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Вложенные исключения}
+Программа реализует вложенный блок \_\_try/\_\_except для обработки исключения деления на ноль.
+
+\begin{lstlisting}[caption=Вложенные исключения]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        __try {
+            int x = 0;
+            while (true) {
+                x++;
+
+                if (x == INT_MIN) {
+                    RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+                }
+            }
+        }
+        __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+            if (code == EXCEPTION_INT_OVERFLOW) {
+                std::cout << "Catch int overflow exception in inner block \n";
+            }
+            else {
+                EXCEPTION_CONTINUE_SEARCH;
+            }
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_OVERFLOW) {
+            std::cout << "Catch int overflow exception in outer block";
+        }
+        else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    std::getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/6_1.png}
+        \caption{Результат работы программы}
+        \label{pic:6_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/6_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:6_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Оператор goto}
+\begin{lstlisting}[caption=Выход из блока с помозью оператора goto]
+#include "stdafx.h"
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+#include <iostream>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        int x = INT_MAX;
+        if (++x == INT_MIN) {
+            std::cout << "Now operator goto will take action\n";
+            goto finish;
+        }
+        else {
+            x++;
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_OVERFLOW) {
+            std::cout << "Caught int overflow exception\n";
+            exit(1);
+        }
+        else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    finish: std::cout << "Goto completed";
+    std::getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/7_1.png}
+        \caption{Результат работы программы}
+        \label{pic:7_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/7_2_1.png}
+        \caption{Информация об обработке исключения в Windbg до раскрутки стека}
+        \label{pic:7_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/7_2_2.png}
+        \caption{Информация об обработке исключения в Windbg после раскрутки стека}
+        \label{pic:7_2_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Оператор \_\_leave}
+\begin{lstlisting}[caption=Выход из блока с помозью оператора \_\_leave]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        int x = INT_MAX;
+        if (++x == INT_MIN) {
+            std::cout << "Now leave operation will take action";
+            __leave;
+        }
+        else {
+            x++;
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_OVERFLOW) {
+            std::cout << "Catch int overflow exception";
+            exit(1);
+        }
+        else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    std::getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/8_1.png}
+        \caption{Результат работы программы}
+        \label{pic:8_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/8_2_1.png}
+        \caption{Информация об обработке исключения в Windbg до выхода из блока}
+        \label{pic:8_2_2}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/8_2_2.png}
+        \caption{Информация об обработке исключения в Windbg после выхода из блока}
+        \label{pic:8_2_3}
+    \end{center}
+\end{figure}
+
+\subsubsection{Преобразование SEH в C++ исключение}
+\begin{lstlisting}[caption=Преобразование SEH в исключение С++]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <eh.h>
+
+void run() {
+    __try {
+        int x = 0;
+        while (true) {
+            x++;
+
+            if (x == INT_MIN) {
+                RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+            }
+        }
+    }
+    __finally {
+        std::cout << "In finally block\n";
+    }
+}
+
+class SE_EXCEPTION {
+    private:
+    unsigned int nSE;
+    public:
+    SE_EXCEPTION(unsigned int n) {
+        nSE = n;
+    }
+    unsigned int getSENum() {
+        return nSE;
+    }
+};
+
+void translator(unsigned int n, _EXCEPTION_POINTERS* pEx)
+{
+    std::cout << "Inside translator function\n";
+
+    throw SE_EXCEPTION(n);
+}
+
+int main(void)
+{
+    try {
+        _set_se_translator(translator);
+        run();
+    }
+    catch (SE_EXCEPTION e) {
+        std::cout << "Caught exception after translation";
+    }
+
+    std::getchar();
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/9_1.png}
+        \caption{Результат работы программы}
+        \label{pic:9_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/9_2_2.png}
+        \caption{Информация об обработке исключения в Windbg внутри функции translator}
+        \label{pic:9_2_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Ненормальное выполнение и финальный обработчик}
+\begin{lstlisting}[caption=Обработка исключений с использованием блока \_\_finally]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        __try {
+            int x = 0;
+            while (true) {
+                x++;
+
+                if (x == INT_MIN) {
+                    RaiseException(EXCEPTION_INT_OVERFLOW, 0, 0, 0);
+                }
+            }
+        }
+        __finally {
+            std::cout << "In finally block\n";
+            std::cout << (AbnormalTermination() ? "abnormal\n" : "normal\n");
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_OVERFLOW) {
+            std::cout << "Catch int overflow exception";
+            std::getchar();
+            exit(1);
+        }
+        else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/10_1.png}
+        \caption{Результат работы программы}
+        \label{pic:10_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/10_2_1.png}
+        \caption{Информация об обработке исключения в Windbg до блока \_\_finally}
+        \label{pic:10_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/10_2_2.png}
+        \caption{Информация об обработке исключения в Windbg внутри блока \_\_finally}
+        \label{pic:10_2_2}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/IntOverflow/10_2_3.png}
+        \caption{Информация об обработке исключения в Windbg после блока \_\_finally}
+        \label{pic:10_2_3}
+    \end{center}
+\end{figure}

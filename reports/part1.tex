@@ -1,0 +1,590 @@
+\subsection{Обработка деления на ноль}
+\subsubsection{Генерация и обработка исключений с помощью функций WinAPI}
+
+\begin{lstlisting}[caption=Генерация и обработка исключения]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+
+int main()
+{
+    __try {
+        int x, y = 0;
+        x = 5 / y;
+    } __except (EXCEPTION_EXECUTE_FAULT) {
+        std::cout << "Division by zero";
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/1_1.png}
+        \caption{Результат работы программы}
+        \label{pic:1_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/1_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:1_2}
+    \end{center}
+\end{figure}
+
+Из рисунка 5.2 видно, что исключение деления на ноль успешно обработано (first chance).
+
+\subsubsection{Получение кода исключения}
+Программа реализует отображение кода исключения двумя способами: в выражении фильтра и в блоке \_\_except обработчика прерывания.
+За получение кода исключения отвечает функция \textbf{GetExceptionCode()}
+
+В листинге №3 показана работа с данной функцией, которая используется в выражении-фильтре блока \textbf{\_\_except} и непосредственно в самом блоке \textbf{\_\_except}.
+\begin{lstlisting}[caption=Получение кода исключения с помощью функции GetExceptionCode]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code = -1;
+    __try {
+        int x, y = 0;
+        x = 5 / y;
+    }
+    __except (code = GetExceptionCode(), ((code == EXCEPTION_INT_DIVIDE_BY_ZERO) ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)) {
+        std::cout << "Division by zero inside except, exception code " << code;
+    }
+
+    code = -1;
+
+    __try {
+        int x, y = 0;
+        x = 5 / y;
+    }
+    __except (code = GetExceptionCode(), EXCEPTION_EXECUTE_HANDLER) {
+        switch (code) {
+            case EXCEPTION_INT_DIVIDE_BY_ZERO:
+                std::cout << "\nDivision by zero inside filter, exception code " << code;
+                break;
+            default:
+                EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    std::getchar();
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/2_1.png}
+        \caption{Результат работы программы}
+        \label{pic:2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/2_2_1.png}
+        \caption{Информация об обработке исключения в Windbg. GetExceptionCode в выражении-фильтре}
+        \label{pic:2_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/2_2_2.png}
+        \caption{Информация об обработке исключения в Windbg. GetExceptionCode в блоке \_\_except}
+        \label{pic:2_2_2}
+    \end{center}
+\end{figure}
+Получение кода исключения обоими способами было практически идентичным, за исключением обращений к разным регистрам памяти.
+
+\subsubsection{Функция-фильтр}
+Представлена функция-фильтр, которая возвращает \textbf{EXCEPTION\_EXECUTE\_HANDLER} в случае, если код зафиксированной ошибки в блоке \textbf{\_\_try}, возвращаемый функцией \textbf{GetExceptionCode}, соотвествует коду ошибки \textbf{EXCEPTION\_INT\_DIVIDE\_BY\_ZERO} иначе функция возвращает
+\textbf{EXCEPTION\_CONTINUE\_SEARCH}
+
+\begin{lstlisting}[caption=Реализия функции-фильтра]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+
+LONG FilterFunc(DWORD dwExceptionCode) {
+    return ((dwExceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO) ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH);
+}
+
+int main()
+{
+    __try {
+        int x, y = 0;
+        x = 5 / y;
+    }
+    __except (FilterFunc(GetExceptionCode())) {
+        std::cout << "Division by zero, own filter function is used";
+    }
+
+    std::getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/3_1.png}
+        \caption{Результат работы программы}
+        \label{pic:3_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/3_2_2.png}
+        \caption{Информация об обработке исключения в Windbg. Протокол работы программы и стек вызовов}
+        \label{pic:3_2_2}
+    \end{center}
+\end{figure}
+
+При обработке исключения (деление на ноль) происходит вызов специально созданной функции-фильтра \textbf{FilterFunc}, возвращающей в исходную функцию \textbf{main} код продолжения выполнения или код запуска обработчика.
+
+\subsubsection{Ручная генерация исключения и информация об ошибке}
+Чтобы получить более подробную информацию об ошибке можно использовать функцию \textbf{GetExceptionInformation}. Данная функция предоставляет следующую информацию об ошибке:
+\begin{enumerate}
+    \item Код зафиксированной ошибки;
+    \item Адрес возникновения исключения;
+    \item Виртуальный адрес недоступных данных об ошибке.
+\end{enumerate}
+Исключение можно возбудить не только в результате каких-то арифметических или логических операций, но и искусственным образом, вызвав функцию \textbf{RaiseException}.
+У данной функции есть четыре параметрами, первый из которых определяет тип возбуждаемого исключения.
+
+\begin{lstlisting}[caption=Ручная генерация исключения и информация об ошибке]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    LPEXCEPTION_POINTERS info = nullptr;
+    __try {
+        int x, y = 0;
+
+        if (y == 0) {
+            RaiseException(EXCEPTION_INT_DIVIDE_BY_ZERO, EXCEPTION_NONCONTINUABLE, 0, NULL);
+        }
+
+        x = 5 / y;
+    }
+    __except (info = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (info->ExceptionRecord->ExceptionCode == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+            std::cout << "Catch manually raised divide by zero exception";
+            std::cout << "\nRaised Exception Information: " << info->ExceptionRecord->ExceptionInformation;
+            std::cout << "\nRaised Exception Code: " << info->ExceptionRecord->ExceptionCode;
+            exit(1);
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/4_1.png}
+        \caption{Результат работы программы}
+        \label{pic:4_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/4_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:4_2}
+    \end{center}
+\end{figure}
+
+При генерации программного исключения команда \textbf{RaiseException()} вызывается на уровне ядра.
+После этого стандартный обработчик начинает обрабатывать исключение согласно полученному коду.
+Информация об исключении, полученная из функции \textbf{GetExceptionInformation} в действительности никакой информацией не владеет, а только возвращает указатель на структуру EXCEPTION\_POINTERS. В свою очередь, эта структура содержит два указателя: \textbf{ExceptionRecord} и \textbf{ContextRecord}.
+Важной особенностью функции \textbf{GetExceptionInformation} является то, что ее можно вызывать только в функции-фильтре исключений.
+Это обусловлено тем, что структуры CONTEXT, EXCEPTION\_RECORD и EXCEPTION\_POINTERS существуют лишь во время обработки фильтра исключения.
+
+\subsubsection{Необработанное исключение}
+Если ни один из установленных программистом обработчиков не подошла для обработки исключения (либо программист вообще не установил ни один обработчик), то вызывается функция \textbf{UnhandledExceptionFilter}, которая выполняет проверку, запущен ли процесс под отладчиком, и информирует процесс, если отладчик доступен. Также стандартную системную функцию-фильтр \textbf{UnhandledExceptionFilter} можно заменить пользовательской функцией-фильтром с помощью функции \textbf{SetUnhandledExceptionFilter}, которая в качестве агрумента принимает пользовательскую функцию-фильтр. Пользовательская функция-фильтр должна иметь прототип, аналогичный функции-фильтру
+\begin{lstlisting}[caption=Необработанное исключение]
+#include "stdafx.h"
+#include <iostream>
+#include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#include <exception>
+#include <winerror.h>
+
+int y = 0;
+
+LONG WINAPI UnhandledExceptionFilterFunc(_In_ struct _EXCEPTION_POINTERS* pExceptionPtrs) {
+    std::cout << "Caught division by zero\n";
+    y++;
+    return EXCEPTION_CONTINUE_EXECUTION;
+}
+
+int main()
+{
+    std::cout << "Set filter for unhandled exception\n";
+    SetUnhandledExceptionFilter(UnhandledExceptionFilterFunc);
+
+    std::cout << "Filter is set\n";
+    int x = 5 / y;
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/5_1.png}
+        \caption{Результат работы программы}
+        \label{pic:5_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/5_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:5_2}
+    \end{center}
+\end{figure}
+
+\subsubsection{Вложенные исключения}
+Программа реализует вложенный блок \_\_try/\_\_except для обработки исключения деления на ноль.
+
+\begin{lstlisting}[caption=Вложенные исключения]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        __try {
+            int x, y = 0;
+            x = 5 / y;
+        }
+        __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+            if (code == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+                std::cout << "Catch exception divide by zero in inner block \n";
+            }
+            else {
+                EXCEPTION_CONTINUE_SEARCH;
+            }
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+            std::cout << "Catch exception divide by zero in outer block";
+        }
+        else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/6_1.png}
+        \caption{Результат работы программы}
+        \label{pic:6_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/6_2.png}
+        \caption{Информация об обработке исключения в Windbg}
+        \label{pic:6_2}
+    \end{center}
+\end{figure}
+
+В данном примере исключение было обработано во вложенном блоке \_\_catch, так как ошибка произошла во вложенном \_\_try. Если бы исключение случилось за пределами вложенного блока \_\_try, ошибка была бы обработана на верхнем уровне.
+\subsubsection{Оператор goto}
+Программа реализует выход из блока \_\_try с помощью оператора \textbf{goto}
+
+\begin{lstlisting}[caption=Выход из блока с помозью оператора goto]
+#include "stdafx.h"
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+#include <iostream>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        int x = 5, y = 0;
+        if (y == 0) {
+            std::cout << "Now operator goto will take action\n";
+            goto finish;
+        } else {
+            x = x / y;
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+            std::cout << "Caught integer division by zero\n";
+            exit(1);
+        } else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    finish: std::cout << "Goto completed";
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/7_1.png}
+        \caption{Результат работы программы}
+        \label{pic:7_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/7_2_1.png}
+        \caption{Информация об обработке исключения в Windbg до раскрутки стека}
+        \label{pic:7_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/7_2_2.png}
+        \caption{Информация об обработке исключения в Windbg после раскрутки стека}
+        \label{pic:7_2_2}
+    \end{center}
+\end{figure}
+
+При вызове оператора \textbf{goto} происходит раскрутка стека, выражающаяся в очистке всех локальных переменных, которые определены в текущем блоке, и безусловный переход к определенной заранее метке. Использование \textbf{goto} может привести к утечкам памяти в процессе раскрутки стека, но в то же время он позволяет сделать переход сразу через несколько участков кода.
+
+\subsubsection{Оператор \_\_leave}
+Программа реализует выход из блока \textbf{\_\_try} с помощью оператора \textbf{\_\_leave}
+
+\begin{lstlisting}[caption=Выход из блока с помозью оператора \_\_leave]
+#include "stdafx.h"
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+#include <iostream>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        int x = 5, y = 0;
+        if (y == 0) {
+            std::cout << "Now operator goto will take action\n";
+            goto finish;
+        } else {
+            x = x / y;
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+            std::cout << "Caught integer division by zero\n";
+            exit(1);
+        } else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    finish: std::cout << "Goto completed";
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/8_1.png}
+        \caption{Результат работы программы}
+        \label{pic:8_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/8_2_2.png}
+        \caption{Информация об обработке исключения в Windbg до выхода из блока}
+        \label{pic:8_2_2}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/8_2_3.png}
+        \caption{Информация об обработке исключения в Windbg после выхода из блока}
+        \label{pic:8_2_3}
+    \end{center}
+\end{figure}
+
+При вызове оператора \textbf{\_\_leave} происходит завершение работы блока без раскрутки стека, которая выполняется на следующем шаге отладчика. Это главное отличие данного оператора от \textbf{goto}, так как очищение локальных переменных блока снижает производительность программы в целом. После перехода выполняется обработчик завершения.
+
+\subsubsection{Преобразование SEH в C++ исключение}
+Программа преобразует структурное исключение в исключение языка С с помощью функции \textbf{translator}
+\begin{lstlisting}[caption=Преобразование SEH в исключение С++]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <eh.h>
+
+void run() {
+    __try {
+        int x, y = 0;
+        x = 5 / y;
+    }
+    __finally {
+        std::cout << "In finally block\n";
+    }
+}
+
+class SE_EXCEPTION {
+    private:
+    unsigned int nSE;
+    public:
+    SE_EXCEPTION(unsigned int n) {
+        nSE = n;
+    }
+    unsigned int getSENum() {
+        return nSE;
+    }
+};
+
+void translator(unsigned int n, _EXCEPTION_POINTERS* pEx)
+{
+    std::cout << "Inside translator function\n";
+    throw SE_EXCEPTION(n);
+}
+
+int main(void)
+{
+    try {
+        _set_se_translator(translator);
+        run();
+    } catch (SE_EXCEPTION e) {
+        std::cout << "Caught exception after translation";
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/9_1.png}
+        \caption{Результат работы программы}
+        \label{pic:9_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/9_2_2.png}
+        \caption{Информация об обработке исключения в Windbg внутри функции translator}
+        \label{pic:9_2_2}
+    \end{center}
+\end{figure}
+В ходе работы программа был произведен вызов исключения в трансляторе, используя функцию \_set\_se\_translator. После этого происходит выполнение деления на ноль в отдельной функции, с заранее обработанным исключением языка C. Таким образом, получилось структурно обработать исключение с помощью средств языка С.
+
+\subsubsection{Ненормальное выполнение и финальный обработчик}
+Финальная обработка исключений используется для того, чтобы при любом исходе исполнения блока \_\_try освободить ресурсы (память, файлы, критические секции и т.п.), которые были захвачены внутри этого блока. Финальный код будет выполняться в любом случае. Во избежание ошибок необходимо проверять завершение блока \_\_try – нормальное или нет.
+\begin{lstlisting}[caption=Обработка исключений с использованием блока \_\_finally]
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h>
+#include <exception>
+#include <winerror.h>
+
+int main()
+{
+    DWORD code;
+    LPEXCEPTION_POINTERS information;
+
+    __try {
+        __try {
+            int x, y = 0;
+            x = 5 / y;
+        }
+        __finally {
+            std::cout << "In finally block\n";
+            std::cout << (AbnormalTermination() ? "abnormal\n" : "normal\n");
+        }
+    }
+    __except (code = GetExceptionCode(), information = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER) {
+        if (code == EXCEPTION_INT_DIVIDE_BY_ZERO) {
+            std::cout << "Catch division by zero exception";
+            std::getchar();
+            exit(1);
+        } else {
+            EXCEPTION_CONTINUE_SEARCH;
+        }
+    }
+
+    return 0;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/10_1.png}
+        \caption{Результат работы программы}
+        \label{pic:10_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/10_2_1.png}
+        \caption{Информация об обработке исключения в Windbg до блока \_\_finally}
+        \label{pic:10_2_1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/10_2_2.png}
+        \caption{Информация об обработке исключения в Windbg внутри блока \_\_finally}
+        \label{pic:10_2_2}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1\columnwidth]{fig/Lab1/ZeroDiv/10_2_3.png}
+        \caption{Информация об обработке исключения в Windbg после блока \_\_finally}
+        \label{pic:10_2_3}
+    \end{center}
+\end{figure}
+
+Проверка на нормальное или ненормальное выполнение программы осуществляется с использованием функции \textbf{AbnormalTermination}. Как видно на Рис. 5.25, блок завершился ненормально из-за исключения деления на ноль.

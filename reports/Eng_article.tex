@@ -1,0 +1,311 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+    \title{Experience of work processes management in non-commercial organization \\
+    }
+
+    \author{\IEEEauthorblockN{1\textsuperscript{st} Natalya Shurygina}
+    \IEEEauthorblockA{\textit{Institute of Computer Science and Technology} \\
+    \textit{Peter the Great St.Petersburg Polytechnic University}\\
+    St.Petersburg, 195251, Russia \\
+    beatrix.linkoln@gmail.com}
+    }
+
+    \maketitle
+
+    \begin{abstract}
+        This paper describes experience of using project management techniques for software development in a non-commercial organisation.
+    \end{abstract}
+
+    \begin{IEEEkeywords}
+        kanban, project management, risk management, software development
+    \end{IEEEkeywords}
+
+    \section{Introduction}\label{sec:introduction}
+    Having an outstanding project idea and sufficient funding is not enough to successfully launch a product and remain competitive in the long run.
+    Many cases are known when startup with proper funding and all the chances to succeed could not properly build work processes.
+    Their teams were unorganized, and team leaders proved to be ineffective.
+    It all ended with indecently extended terms, a completely spent budget, broken relations, and the goal, of course, was not achieved.
+
+    Undoubtedly startup owners want their business outcomes to be more predictable, that's why the area of project management has been actively investigated and developed a few past decades.
+    Paper \cite{b1} explains a relationship between project and project management system, and how should they co-exist.
+    While \cite{b2} gives an overview of major project management approaches: traditional, adaptive and extreme, and describes their key advantages and disadvantages.
+    Paper \cite{b3} makes a comparative analysis of hard and soft project management paradigms and describes to what consequences each approach can lead.
+    Work \cite{b4} emphasizes what qualities should a project leader own to perform effective team management.
+
+    Talking about management techniques for software development we are used to consider commercial organizations.
+    Very little think how to manage work of people who don't get paid.
+    In this paper will be described experience of managing team of student enthusiasts and their way to release products on the world market.
+    \section{Overview of existing management techniques}\label{sec:overview-of-existing-management-techniques}
+
+    \subsection{Work Breakdown Structure}\label{subsec:work-breakdown-structure}
+
+    Tasks of any projects preceding decomposition look overwhelming.
+    Developers can spend hours trying to figure out what needs to be done, which will inevitably lead to a loss of time and money.
+    Work Breakdown Structure (WBS) is a way to organize work into smaller, more manageable parts.
+    So, the key idea of this approach is task decomposition, or "Divide and Conquer"
+
+    \subsection{Gantt chart}\label{subsec:gantt-chart}
+    Gantt chart, sometimes known as waterfall model, is classical non-flexible project management approach.
+    Key idea of it is work processes visualisation.
+    There is not much concern about tasks dependencies or time variations for each task.
+
+    \subsection{PERT}\label{subsec:pert}
+    PERT is an acronym that stands for program evaluation and review technique.\cite{b5}
+    On the contrary, it gives much value to time estimates.
+    PERT considers risks and benefits if a task is completed later or earlier than expected.
+    Central part in PERT takes time estimates.
+    \begin{itemize}
+        \item Optimistic time estimate (O), which is the fastest an activity can be done.
+        \item Most likely time estimate (M) is the estimate that project managers will deliver to upper management if they're only required to submit one.
+        \item Pessimistic time estimate (P) is the maximum time required to complete an activity.
+    \end{itemize}
+
+    There's an equation to estimate the time the project will take, known as the expected time for completion, or E.
+    \begin{equation}
+        E=(O + 4M + P)/6\label{eq}
+    \end{equation}
+
+    The variance possible in the estimated completion time is represented by V.
+    \begin{equation}
+        V=[(P - O)/ 6]^2\label{eq}
+    \end{equation}
+
+    \subsection{Critical Path Method}\label{subsec:critical-path-method}
+    Critical Path Method (CPM) requires that you create a project model that includes a list of all tasks, the duration of each of these tasks, and dependencies of each of them, if they exist.
+    With this information, you can calculate the longest path from the planned tasks to their completion, including the earliest and latest time these tasks can start and finish without impacting the project schedule.
+    Now you know what tasks are critical to the project and which have float or can be delayed without lengthening the project timeline.
+    Key idea of approach is considering tasks dependencies.
+    Also it could be said that CPM is an algorithm used to assist in decision-making
+
+    \subsection{Kanban}\label{subsec:kanban}
+    Kanban is a flexible project management technique.
+    It puts the emphasis on continual delivery and releasing functioning version of project each sprint without placing too much of a burden on the team.
+
+    \section{How project management technique should be chosen}\label{sec:how-project-management-technique-should-be-chosen}
+    Regardless of the fact that each project is unique, and there is hardly a universal recipe for choosing a management methodology, there are some distinctive features that should be considered.
+
+    One of them is project timeline.
+    You must answer to yourself, how strict it is, and whether it can be extended, for example, in sake of quality.
+    If terms are not flexible at all, probably, one of classical management approaches is what you need.
+    The next factor to consider is development team and their work schedule: how large the team is, whether developers have flexible work hours or are they allowed to work remotely.
+    All the above can hamper teams interaction.
+    Some methodologies, for instance, extreme programming \cite{b6} do not tolerate such working conditions.
+
+    Last but not least things to consider are: cost of error, possible risks and whether project requirements can change or not.
+    After everything is taken to account, you will have a clear idea how to organize your team's work.
+
+    \section{Setting workflow in non-commercial organization}\label{sec:setting-workflow-in-non-commercial-organization}
+    There are a number of stories of both successful and unsuccessful management methodology application in commercial organizations.
+    In this part of work will be described how work processes can be set up in a non-commercial one.
+    \subsection{Club's history}\label{subsec:club's-history}
+    CodeX is a team based in ITMO University, unifying students and graduates interested in web-development, design and studying new technologies in practice.
+    It was founded in 2015.
+    The key values of the club are the study of new technologies in practice, the exchange of experience and the creation of software that meets high quality standards
+    Each member of the web-development team understands that he has to practice a lot — work hard every day for up to five hours without being paid.
+    He must also complete tasks on time and manage deadlines in order not to slow down the tasks of other participants.
+    In turn every team member gains priceless experience, possibility to try technologies and mentors support.
+    People can always ask for advice and get help from more experienced colleagues.
+
+    \subsection{How teamwork is organised}\label{subsec:how-teamwork-is-organised}
+    Due to the fact that club's tasks aren't people's main occupation, club members work remotely.
+    They spend in average 2--3 hours in the evenings.
+    Sometimes when they feel such need meet in person to discuss something they can meet in team's office or so-called HQ. \newline
+    At the moment CodeX doesn't use any tasks organizing manager like Trello or built-in GitHub projects boards — team has a list of actual tasks grouped by project.
+    This list is updated during the day when task status changes.
+    Also team has daily (Monday through Friday) product meetings in Discord where each team member tells what he has done during the previous day and whether he has faced some problems.
+    After every such meeting updated tasks list is sent to team's chat in Telegram messenger.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\columnwidth]{fig/workflow.png}
+        \caption{CodeX workflow}
+        \label{fig:workflow}
+    \end{figure}
+    \newline
+    To maintain high quality of code was introduced system of code review.
+    Each project has 2--4 code owners - people who regularly contribute to specific software and thus familiar with its source code.
+    When a developer opens a pull request he must ask review from code owners.
+    Only when at least two of them approved the new feature, it can be merged.
+
+    \subsection{Join the club procedure}\label{subsec:join-the-club-procedure}
+    Every year in September newcomers can join the club.
+    People are given test tasks for individual work.
+    Every newcomer is offered mentor help.
+    After some time, candidates working on the same test tasks are united into small groups, which is useful for developing teamwork skills.
+    By the end of November each group presents their project.
+    If the candidate proved to be hardworking, able to meet deadlines and easily interact with his group, he will be accepted into the club.
+
+    \subsection{Project management technique}\label{subsec:project-management-technique}
+    Due to the fact that the organization is non-profit, club tasks are not the main occupation for club members, strict external deadlines are rare, and the cost of errors is not very high, most of the value is given to flexibility.
+    CodeX strictly does not follow any of the existing project management technologies, however, the method used to organize teamwork resembles the Kanban technique.
+
+    \section{Projects experience}
+    \subsection{CodeX Media}
+    CodeX Media is a media platform primarily used as a template for school sites.
+    Unfortunately, the sites of most schools are extremely outdated and not convenient to use.
+    The visitor can spend a lot of time searching for the necessary information.
+    Also, these sites are often not optimized for mobile phones.
+    Not every school has the financial resources to order a new site and find a developer to support it.
+    That's why using the CodeX Media platform is a good solution.
+    Currently, St. Petersburg schools 332 and 181 are using it.\newline
+    I was involved in the work on this platform.
+    The project was not created from scratch - it already had many functions, most of which did not work properly.
+    In addition, the architecture of the platform was not easily scalable, and the implementation of new features was very challenging.
+    Probably, an inexperienced web developer has worked on this before.
+    It took many hours to fix the code errors.
+    When schools requested a new feature, it took weeks to implement and release it.
+    If CodeX Media was a commercial product, it was unlikely to succeed.\newline
+    According to GitHub repository statistics, see Fig.~\ref{fig:media}, this project had three main activity peaks.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\columnwidth]{fig/codex_media.png}
+        \caption{CodeX Media GitHub statistics}
+        \label{fig:media}
+    \end{figure}
+    \newline
+    The first one was when I started working on this project and did a lot of refactoring and bug fixing.
+    The second peak was the night before release.
+    The school's 332 production website should be launched the next day, and in the evening before a series of critical errors and unimplemented usability features were discovered.
+    The CodeX team leader spent the whole night eliminating them.\newline
+    Such a situation would not have happened if we had a clearer understanding of what should be done before the release.
+    Some conclusions that can be drawn from this situation are: there should be a checklist of critical functions that need to be implemented, and errors that need to be fixed, at least a couple of days before the release should be devoted to rigorous testing, and one developer working on a project is not enough.
+    This was one of the first experiences of the team's releases.
+    Later the work was organized better, and the products were released much more smoothly.\newline
+    The third peak of activity occurred when we were asked to support distinct projects with varying design and functionality on the CodeX Media platform.
+    The school website needed one functionality which would be irrelevant for organisation selling tickets for various events and vice versa.\newline
+    This time more people were involved in the development process, however the team encountered a number of difficulties, caused by the fact that tasks dependencies were not taken into account.
+    For instance, the front-end developer created one interface functionality and was faced with the fact that the internal logic was not ready yet.
+    In this case, borrowing some ideas from the CPM methodology might be beneficial.
+    Nevertheless, considering rather small team size and not too tight deadlines, this did not ruin the team work.
+    The solution was for each developer temporarily to become a full stack, like doing front-end and back-end part of task the same time.
+    Fortunately, the developers were skilled enough to perform both.
+    However, in some situations this can become a serious obstacle.
+    It is also worth mentioning that the initially dirty project architecture caused problems, and the developers struggled to separate the functionality of sibling projects on the platform.
+
+    \subsection{Hawk.so}\label{subsec:hawk.so}
+    This is a service designed to detect client errors.
+    Web development errors can be classified in different ways.
+    At least three categories can be distinguished.
+    The first is fatal errors that are unacceptable in production.
+    If you receive information that a fatal error has occurred, you should immediately eliminate their causes.
+    The second type is warnings.
+    They may not be so dangerous right now, however, with the proper statistics of warnings, you can take action in advance and, for example, adapt your code until the support of any library API stops.
+    The third type of error is clients error.
+    This means that the user might inserted incorrect data or acted somehow unusual, so the program couldn't process his actions correctly and threw an error.
+    Such statistics play a role of users feedback — developers can improve their products to make interaction with them more convenient, for example, give useful tips in case something goes wrong.\newline
+    Initially development of such a service began in form of coding marathon.
+    As practice shows, coding marathons the same as hackatons are good for creating prototypes.
+    Being inside rigid time limits it is hard to think of design or easily scalable product architecture.
+    Team met at 8:00 AM and left only at 11:00 PM.
+    By the end of the day developers were very excited — in less than 24 hours they could create product which solves the task — listens for errors in project, collects statistics and generates a report.
+    In fact, this was the first pick of activity in repository GitHub statistics, see Fig.~\ref{fig:hawk}.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\columnwidth]{fig/hawk_statistics.png}
+        \caption{Hawk project GitHub statistics}
+        \label{fig:hawk}
+    \end{figure}
+    \newline
+    As already mentioned, the marathon form of teamwork is a great opportunity to create a prototype, and the worst that developers can do is try to turn the prototype into a project for production.
+    By the way, there is a so-called project development methodology, in which a prototype is first created, which is demonstrated to the customer to make sure that he has the key characteristics that he wants to get.
+    In any case, the development and reconstruction of the prototype is much cheaper than the development of a project with complex architecture from scratch.
+    This strategy is used when requirements can change.
+    Also worth mentioning that the first rule of this strategy is — don't try to continue developing from prototype.
+    When the client has confirmed that the prototype represents exactly the functionality that he wants, start from scratch.
+    The prototype architecture usually does not scale at all, moreover, it is very likely that it will fail in high load mode.\newline
+    Unfortunately, our team made such a mistake and spent about six months coping with the poor scalability of the project and various errors.
+    The team leader understood that if he wants to achieve significant results, he should devote the entire project or several sprints to this project.
+    That's why in March-April 2018, the main parts of the team postponed tasks from other projects on which they worked, and switched to Hawk.
+    According to the diagram, activity peaks are not very sharp, because commits to the repository were quite regular and relatively numerous.\newline
+    Despite the fact that many tasks were completed and many functions were implemented, team members devoted a couple of hours in the evening to the project.
+    The team leader understood that the project needed additional acceleration to move to a new level - Hawk is still in beta.
+    That's why a summer 7-day coding marathon was planned.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\columnwidth]{fig/work_process.jpg}
+        \caption{Hawk marathon work process}
+        \label{fig:marathon}
+    \end{figure}
+    \newline
+    It was decided to move out of the city for a week to minimize influence of distracting factors and fully immerse into the project.
+    Coding tasks for every developer were prepared in advance.
+    Tasks were written on stickers and put in a prominent place Fig.~\ref{fig:board}.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\columnwidth]{fig/kanban_board.jpg}
+        \caption{Kanban board with tasks stickers}
+        \label{fig:board}
+    \end{figure}
+    \newline
+    By the end of each day the results were discussed, and new stickers were attached — thus it was possible to track progress and flexibly assign new tasks.
+    This approach proved to work, however, after five days of coding marathon most of the participants fell frustrated and some event left home.
+    The conclusion to be drawn is: it is vitally important to estimate human resources and not overload developers even in sake of project boost.
+    Hawk is still in beta, and being developed in parallel with other projects.
+    \subsection{Editor.js}\label{subsec:editor.js}
+    Editor.js \cite{b7} is a WYSIWYG web-editor that allows to create articles and add to to them images, quotes, files attachments, link previews to various internet resources and so on.
+    In some way it is similar to Google Doc or Dropbox Paper or notion.so.
+    What makes it special is its block structure.
+    Every paragraph of text, header, image or YouTube video embed is independent block, which can be moved up and down inside the editor, copied, pasted, deleted, modified and so on.
+    Perhaps, it is the only of the CodeX products which gained world recognition.\newline
+    It has about 10,000 stars on GitHub and became the product of the day and the 5th product of the month on Product Hunt in April 2019 \cite{b8}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\columnwidth]{fig/ph.png}
+        \caption{Editor.js is product of the day on Product Hunt}
+        \label{fig:producthunt}
+    \end{figure}
+    \newline
+    Product Hunt is a website where people passionate about web development from around the world can submit their software products.
+    It is also a good place to find an investor.
+    People with money are looking for promising projects and can offer them their patronage.
+    Thanks to the success of the Product Hunt Editor.js become popular on the Internet both in Russia and abroad, and perhaps this project can be considered successful.
+    However, the history of its development was not unambiguous.\newline
+    Editor.js was started as a prototype in far 2015, and since then its architecture several times was remastered completely.
+    This happened due to the lack of proper experience at that point, and the team came to a good scalable architecture by trial and error.
+    At some point it was decided to separate Editor's core logic and its plugins: image, header, list, YouTube embed and so on — while text block and bold, italics and underline ideologically refer to core.
+    Was developed API, allowing plugins or so-called Editor Tools interact with Editor's core in a clear elegant manner.
+    At some point, it was decided to transfer the editor to TypeScript as well.
+    Initially, the language of the product was pure JavaScript, which had a number of drawbacks due to the lack of strong typing.\newline
+    The product was developed iteratively and there was no need to overwork and perform a great deal of bug fixing the night before release.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\columnwidth]{fig/editorjs.png}
+        \caption{Editor.js GitHub statistics}
+        \label{fig:editorjs}
+    \end{figure}
+    \newline
+    Probably, it happened thanks to strict code review and sufficient testing.
+    Perhaps, the key role played usage of Editor.js in multiple CodeX products, like Media platform and service for documentation creation.
+    Also fork (copy of product further developed independently) is used in CMMT (DTF, vc.ru and TJournal).
+    Many on the Product Hunt were surprised and didn't believe that Editor.js was a non-commercial product.
+
+    \section{Conslusion}
+    This paper described the experience of applying various aspects of project management methods for software development in a non-profit organization.
+    To summarize, it is difficult to use any classic non-flexible management approach if people work on a non-commercial basis.
+    Thus, the use of the Kanban technique might be a good choice.
+    Some situations proved lack of CPM methodology ideas, which is concerning tasks dependencies.\newline
+    In conclusion, it should be emphasized that a discussion about management approach in a non-profit organization makes sense only if the team members have time resources.
+    One of the CodeX developers recently wrote: "I attended a conference that talked about revolutionary tips for organizing a team workflow.
+    However, I argue that they are useless if you have constant deadlines at work or university"
+
+    \begin{thebibliography}{00}
+        \bibitem{b1} A. Munns, B. Bjeirmi, ``The role of project management in achieving project success,'' University of Dundee, Department of Civil Engineering, Dundee, International Journal of Project Management, vol. 14, no. 2, pp. 81-87, 1996.
+        \bibitem{b2}  R. Wysocki, ``Effective Project Management — Traditional, Adaptive, Extreme,'' INFORMATION SYSTEMS CONTROL JOURNAL, vol. 5, 2007.
+        \bibitem{b3} J. Pollack, ``The changing paradigms of project management,'' International Journal of Project Management, no. 25, pp. 266-274.
+        \bibitem{b4} L. Crawford, ``Senior management perceptions of project management competence,'' International Journal of Project Management no. 23, 2005.
+        \bibitem{b5} 5 Project Management Techniques Every PM Should Know, accessed 25 November 2019, https://www.projectmanager.com/blog/project-management-techniques-for-every-pm
+        \bibitem{b6} Extreme Programming, Wikipedia, the free encyclopedia, accessed 25 november 2019, https://en.wikipedia.org/wiki/Extreme\_programming
+        \bibitem{b7} Editor.js website, accessed 25 november 2019, https://editorjs.io/
+        \bibitem{b8} Editor.js on Product Hunt, accessed 25 november 2019, https://www.producthunt.com/posts/editor-js
+    \end{thebibliography}
+\end{document}
