@@ -401,3 +401,115 @@ var powerfulIntegers = function (x, y, bound) {
 };
 
 console.assert(powerfulIntegers(2, 3, 10).join(",") === [2, 4, 10, 3, 5, 7, 9].join(","), "powerfulIntegers #1");
+
+/**
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+var findMinDifference = function (timePoints) {
+    /**
+     * Sort as strings, last is largest
+     */
+    timePoints.sort();
+    let prev = new Date('2017-03-29T' + timePoints[0]);
+    let min = prev - new Date('2017-03-28T' + timePoints[timePoints.length - 1]);
+    for (let i = 1; i < timePoints.length; i++) {
+        let curr = new Date('2017-03-29T' + timePoints[i]);
+        min = Math.min(min, curr - prev);
+        prev = curr;
+    }
+    return min / 60000;
+};
+
+var findMinDifference = function (timePoints) {
+    const nums = new Array(timePoints.length);
+    for (let i = 0; i < timePoints.length; i++) {
+        const data = timePoints[i].split(":");
+        nums[i] = data[0] * 60 + (+data[1]);
+    }
+
+    let min = Infinity;
+    nums.sort((a, b) => a - b);
+    for (let i = 1; i < timePoints.length; i++) {
+        min = Math.min(min, nums[i] - nums[i - 1]);
+    }
+
+    min = Math.min(min, 24 * 60 + nums[0] - nums[timePoints.length - 1]);
+
+    return min;
+};
+
+console.assert(findMinDifference(["15:00", "14:15"]) === 45, "findMinDifference #1");
+console.assert(findMinDifference(["23:59", "00:00"]) === 1, "findMinDifference #2");
+console.assert(findMinDifference(["05:31", "22:08", "00:35"]) === 147, "findMinDifference #3");
+
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function (num) {
+    const dictionary = {
+        '1000': 'M',
+        '900': 'CM',
+        '500': 'D',
+        '400': 'CD',
+        '100': 'C',
+        '90': 'XC',
+        '50': 'L',
+        '40': 'XL',
+        '10': 'X',
+        '9': 'IX',
+        '5': 'V',
+        '4': 'IV',
+        '1': 'I'
+    };
+
+    let result = "";
+
+    for (let elem of Object.keys(dictionary).sort((a, b) => b - a)) {
+        let count = Math.floor(num / elem);
+        if (num >= elem) {
+            num -= elem * count;
+            result += dictionary[elem].repeat(count);
+        }
+    }
+
+    return result;
+};
+
+console.assert(intToRoman(3) === "III", "intToRoman #1");
+console.assert(intToRoman(1994) === "MCMXCIV", "intToRoman #2");
+
+const flatten = function (obj) {
+    let arr = [];
+
+    for (let elem of obj) {
+        if (!Array.isArray(elem)) {
+            arr = arr.concat(elem);
+        } else {
+            arr = arr.concat(flatten(elem))
+        }
+    }
+
+    return arr;
+};
+
+const flattenStack = function (obj) {
+    const stack = [...obj];
+    const values = [];
+
+    while (stack.length) {
+        let current = stack.pop();
+
+        if (!Array.isArray(current)) {
+            values.push(current)
+        } else {
+            stack.push(...current)
+        }
+    }
+
+    return values.reverse();
+};
+
+const sample = [1, 'hello', [1, 2, 3, [15, 21, ['72m', 65]]], 'function', {name: 'Anya'}];
+console.assert(flattenStack(sample).join(",") === flatten(sample).join(","), "flatten");
