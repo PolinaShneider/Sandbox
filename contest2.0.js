@@ -513,3 +513,42 @@ const flattenStack = function (obj) {
 
 const sample = [1, 'hello', [1, 2, 3, [15, 21, ['72m', 65]]], 'function', {name: 'Anya'}];
 console.assert(flattenStack(sample).join(",") === flatten(sample).join(","), "flatten");
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+    return s.trim().replace(/\s{2,}/g, " ").split(" ").reverse().join(" ");
+};
+
+console.assert(reverseWords("a good   example") === "example good a", "reverseWords #1");
+console.assert(reverseWords("   a   b  c d   e  ") === "e d c b a", "reverseWords #2");
+
+/**
+ * @param {string} IP
+ * @return {string}
+ */
+var validIPAddress = function (IP) {
+    function isIPv4(addr) {
+        const data = addr.split(".");
+        return data.length === 4 && data.every(item => (/^[1-9]+$/.test(item) || item === "0") && +item >= 0 && +item <= 255);
+    }
+
+    function isIPv6(addr) {
+        const data = addr.split(":");
+        return data.length === 8 && data.every(item => item.length <= 4 && /^[abcdef0-9]+$/i.test(item));
+    }
+
+    if (isIPv4(IP)) {
+        return "IPv4"
+    } else if (isIPv6(IP)) {
+        return "IPv6";
+    } else {
+        return "Neither"
+    }
+};
+
+console.assert(validIPAddress("1e1.4.5.6") === "Neither", "validIPAddress #1");
+console.assert(validIPAddress("01.01.01.01") === "Neither", "validIPAddress #2");
+console.assert(validIPAddress("1e1.4.5.6") === "Neither", "validIPAddress #3");
