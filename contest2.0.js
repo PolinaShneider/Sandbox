@@ -552,3 +552,25 @@ var validIPAddress = function (IP) {
 console.assert(validIPAddress("1e1.4.5.6") === "Neither", "validIPAddress #1");
 console.assert(validIPAddress("01.01.01.01") === "Neither", "validIPAddress #2");
 console.assert(validIPAddress("1e1.4.5.6") === "Neither", "validIPAddress #3");
+
+/**
+ * @param {string[]} products
+ * @param {string} searchWord
+ * @return {string[][]}
+ */
+var suggestedProducts = function (products, searchWord) {
+    products.sort();
+    const result = [];
+    let str = "";
+
+    for (let letter of searchWord) {
+        str += letter;
+        result.push(
+            products.filter(
+                item => new RegExp(`^${str}`).test(item)
+            ).slice(0, 3)
+        );
+    }
+
+    return result;
+};
