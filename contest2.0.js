@@ -574,3 +574,22 @@ var suggestedProducts = function (products, searchWord) {
 
     return result;
 };
+/**
+ * @param {string} str
+ * @return {number}
+ */
+var myAtoi = function (str) {
+    const maxNumber = Math.pow(2, 31) - 1;
+    const minNumber = -Math.pow(2, 31);
+
+    const match = str.trim().match(/^(\+|\-)?\d+/g);
+
+    if (match) {
+        const number = Number(match[0]);
+        if (number > maxNumber) return maxNumber;
+        if (number < minNumber) return minNumber;
+        return number;
+    } else {
+        return 0
+    }
+};
