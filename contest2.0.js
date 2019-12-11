@@ -593,3 +593,57 @@ var myAtoi = function (str) {
         return 0
     }
 };
+
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
+var ladderLength = function (beginWord, endWord, wordList) {
+    /**
+     * Preprocess
+     * Create a dictinary like '*og': ['hog', 'log', 'dog']
+     */
+    const all_combo_dict = {};
+    for (let word of wordList) {
+        for (let i = 0; i < word.length; i++) {
+            const key = word.substring(0, i) + '*' + word.substring(i + 1);
+
+            if (key in all_combo_dict) {
+                all_combo_dict[key].push(word)
+            } else {
+                all_combo_dict[key] = [word]
+            }
+        }
+    }
+
+    const visited = {beginWord: true};
+    const queue = [{current_word: beginWord, level: 1}];
+
+    while (queue.length) {
+        const {current_word, level} = queue.shift();
+
+        for (let i = 0; i < beginWord.length; i++) {
+            const intermediate_word = current_word.substring(0, i) + "*" + current_word.substring(i + 1);
+
+            if (all_combo_dict[intermediate_word]) {
+                for (let word of all_combo_dict[intermediate_word]) {
+                    if (word === endWord) {
+                        return level + 1;
+                    }
+
+                    if (!(word in visited)) {
+                        visited[word] = true;
+                        queue.push({current_word: word, level: level + 1})
+                    }
+
+                }
+
+                delete all_combo_dict[intermediate_word];
+            }
+        }
+    }
+
+    return 0;
+};
