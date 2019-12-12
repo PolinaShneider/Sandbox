@@ -647,3 +647,31 @@ var ladderLength = function (beginWord, endWord, wordList) {
 
     return 0;
 };
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+function wordBreak(s, wordDict) {
+    const queue = [s];
+    const seen = new Set();
+    while (queue.length) {
+        s = queue.shift();
+        for (let word of wordDict) {
+            if (s.startsWith(word)) {
+                const new_s = s.substring(word.length);
+                if (new_s === '') {
+                    return true;
+                }
+
+                if (!seen.has(new_s)) {
+                    queue.push(new_s);
+                    seen.add(new_s);
+                }
+            }
+        }
+    }
+
+    return false;
+}
