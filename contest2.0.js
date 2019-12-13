@@ -675,3 +675,29 @@ function wordBreak(s, wordDict) {
 
     return false;
 }
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var subtractProductAndSum = function(n) {
+    return power(n.toString()) - add(n.toString());
+
+    function power(str) {
+        let res = 1;
+        for (let symb of str) {
+            res *= +symb;
+        }
+
+        return res;
+    }
+
+    function add(str) {
+        let res = 0;
+        for (let symb of str) {
+            res += +symb;
+        }
+
+        return res;
+    }
+};
