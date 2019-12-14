@@ -680,7 +680,7 @@ function wordBreak(s, wordDict) {
  * @param {number} n
  * @return {number}
  */
-var subtractProductAndSum = function(n) {
+var subtractProductAndSum = function (n) {
     return power(n.toString()) - add(n.toString());
 
     function power(str) {
@@ -700,4 +700,19 @@ var subtractProductAndSum = function(n) {
 
         return res;
     }
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function (nums) {
+    const map = {};
+    for (let i = nums.length - 1; i >= 0; i--) {
+        map[nums[i]] = ++map[nums[i]] || 1;
+        if (map[nums[i]] > 2) {
+            nums.splice(i, 1)
+        }
+    }
+    return nums.length
 };
