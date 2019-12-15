@@ -716,3 +716,61 @@ var removeDuplicates = function (nums) {
     }
     return nums.length
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var getDecimalValue = function (head) {
+    let res = "";
+    let tmp = head;
+    while (tmp != null) {
+        res += tmp.val;
+        tmp = tmp.next;
+    }
+
+    return parseInt(res, 2);
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var insertIntoBST = function (root, val) {
+    if (root === null) {
+        return null;
+    }
+
+    if (val > root.val) {
+        if (root.right == null) {
+            root.right = new TreeNode(val);
+        } else {
+            insertIntoBST(root.right, val)
+        }
+    }
+
+    if (val < root.val) {
+        if (root.left == null) {
+            root.left = new TreeNode(val);
+        } else {
+            insertIntoBST(root.left, val)
+        }
+    }
+
+    return root;
+};
