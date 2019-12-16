@@ -774,3 +774,20 @@ var insertIntoBST = function (root, val) {
 
     return root;
 };
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var findSpecialInteger = function (arr) {
+    const N = arr.length;
+    const map = {};
+
+    for (let num of arr) {
+        map[num] = ++map[num] || 1;
+
+        if (map[num] > 0.25 * N) {
+            return num;
+        }
+    }
+};
