@@ -791,3 +791,41 @@ var findSpecialInteger = function (arr) {
         }
     }
 };
+
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var largestTriangleArea = function(points) {
+    const triangleSides = [];
+    for (let i = 0; i < points.length; i++) {
+        for (let j = 1; j < points.length; j++) {
+            if (j < i) continue;
+
+            for (let k = 2; k < points.length; k++) {
+                if (k < j) continue;
+                triangleSides.push([
+                    getSide(points[i], points[j]),
+                    getSide(points[j], points[k]),
+                    getSide(points[k], points[i])
+                ]);
+            }
+        }
+    }
+
+    return triangleSides.reduce((area, sides) => {
+        const total = getArea(...sides);
+        return total > area ? total : area;
+    }, 0);
+
+    function getSide(pointA, pointB) {
+        return Math.sqrt(
+            Math.abs(pointA[0] - pointB[0]) ** 2 + Math.abs(pointA[1] - pointB[1]) ** 2
+        );
+    };
+
+    function getArea(a, b, c) {
+        const p = (a + b + c) / 2;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+};
