@@ -796,7 +796,7 @@ var findSpecialInteger = function (arr) {
  * @param {number[][]} points
  * @return {number}
  */
-var largestTriangleArea = function(points) {
+var largestTriangleArea = function (points) {
     const triangleSides = [];
     for (let i = 0; i < points.length; i++) {
         for (let j = 1; j < points.length; j++) {
@@ -822,10 +822,32 @@ var largestTriangleArea = function(points) {
         return Math.sqrt(
             Math.abs(pointA[0] - pointB[0]) ** 2 + Math.abs(pointA[1] - pointB[1]) ** 2
         );
-    };
+    }
 
     function getArea(a, b, c) {
         const p = (a + b + c) / 2;
         return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+};
+
+/**
+ * @param {string[]} dict
+ * @param {string} sentence
+ * @return {string}
+ */
+var replaceWords = function (dict, sentence) {
+    const rootset = new Set(dict);
+
+    return sentence.split(" ").map((item) => replace(item)).join(" ");
+
+    function replace(word) {
+        for (let i = 0; i < word.length; i++) {
+            const prefix = word.slice(0, i);
+            if (rootset.has(prefix)) {
+                return prefix;
+            }
+        }
+
+        return word;
     }
 };
