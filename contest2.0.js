@@ -859,7 +859,7 @@ var replaceWords = function (dict, sentence) {
  */
 var numSmallerByFrequency = function (queries, words) {
     function f(str) {
-        const modified = str.split('').reverse().sort().join('');
+        const modified = str.split('').sort().join('');
         let counter = 0;
 
         for (let i = 1; i < modified.length; i++) {
