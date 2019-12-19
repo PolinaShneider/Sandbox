@@ -851,3 +851,32 @@ var replaceWords = function (dict, sentence) {
         return word;
     }
 };
+
+/**
+ * @param {string[]} queries
+ * @param {string[]} words
+ * @return {number[]}
+ */
+var numSmallerByFrequency = function (queries, words) {
+    function f(str) {
+        const modified = str.split('').reverse().sort().join('');
+        let counter = 0;
+
+        for (let i = 1; i < modified.length; i++) {
+            if (modified[i] === modified[i - 1]) {
+                counter++;
+            } else {
+                break;
+            }
+        }
+
+        return counter;
+    }
+
+    const queriesF = queries.map(query => f(query));
+    const wordsF = words.map(words => f(words));
+
+    return queriesF.map(queryF => wordsF.reduce((count, wordF) => {
+        return (queryF < wordF) ? count + 1 : count
+    }, 0))
+};
