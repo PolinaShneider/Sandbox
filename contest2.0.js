@@ -886,7 +886,7 @@ var numSmallerByFrequency = function (queries, words) {
  * @return {boolean}
  */
 var canThreePartsEqualSum = function (A) {
-    const sum = A.reduce((total, item) => {
+    let sum = A.reduce((total, item) => {
         return total + item;
     }, 0);
 
@@ -898,16 +898,15 @@ var canThreePartsEqualSum = function (A) {
         while (thirdSum !== third) {
             thirdSum += A[i];
 
-            if (i === A.length) {
-                return false;
+            if (++i === A.length) {
+                break;
             }
+        };
 
-            i++;
-        }
-
+        sum -= thirdSum === third ? thirdSum : 0;
         thirdSum = 0;
     }
 
-    return true;
+    return sum === 0;
 
 };
