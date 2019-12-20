@@ -880,3 +880,34 @@ var numSmallerByFrequency = function (queries, words) {
         return (queryF < wordF) ? count + 1 : count
     }, 0))
 };
+
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var canThreePartsEqualSum = function (A) {
+    const sum = A.reduce((total, item) => {
+        return total + item;
+    }, 0);
+
+    const third = Math.floor(sum / 3);
+    let thirdSum = 0;
+    let i = 0;
+
+    while (i < A.length) {
+        while (thirdSum !== third) {
+            thirdSum += A[i];
+
+            if (i === A.length) {
+                return false;
+            }
+
+            i++;
+        }
+
+        thirdSum = 0;
+    }
+
+    return true;
+
+};
