@@ -910,3 +910,27 @@ var canThreePartsEqualSum = function (A) {
     return sum === 0;
 
 };
+
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var longestOnes = function (A, K) {
+    let j = ans = zeros = 0
+
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] === 0) {
+            zeros += 1
+        }
+        if (zeros > K) {
+            if (A[j] == 0) {
+                zeros -= 1
+            }
+            j += 1
+        }
+        ans = Math.max(ans, i - j + 1)
+    }
+
+    return ans
+};
