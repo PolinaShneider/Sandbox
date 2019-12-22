@@ -901,7 +901,8 @@ var canThreePartsEqualSum = function (A) {
             if (++i === A.length) {
                 break;
             }
-        };
+        }
+        ;
 
         sum -= thirdSum === third ? thirdSum : 0;
         thirdSum = 0;
@@ -917,14 +918,16 @@ var canThreePartsEqualSum = function (A) {
  * @return {number}
  */
 var longestOnes = function (A, K) {
-    let j = ans = zeros = 0
+    let ans;
+    let zeros;
+    let j = ans = zeros = 0;
 
     for (let i = 0; i < A.length; i++) {
         if (A[i] === 0) {
             zeros += 1
         }
         if (zeros > K) {
-            if (A[j] == 0) {
+            if (A[j] === 0) {
                 zeros -= 1
             }
             j += 1
@@ -933,4 +936,27 @@ var longestOnes = function (A, K) {
     }
 
     return ans
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    const map = {};
+    const result = [];
+
+    for (let elem of nums) {
+        map[elem] = ++map[elem] || 1;
+    }
+
+    const sorted = Object.entries(map).sort((a, b) => {
+        return b[1] - a[1];
+    });
+
+    for (let i = 0; i < k; i++) {
+        result.push(sorted[i][0])
+    }
+    return result;
 };
