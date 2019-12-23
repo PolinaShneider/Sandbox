@@ -960,3 +960,14 @@ var topKFrequent = function (nums, k) {
     }
     return result;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNumbers = function (nums) {
+    return nums.reduce((total, item) => {
+        const count = item.toString().length;
+        return (count % 2 === 0) ? ++total : total;
+    }, 0)
+};
