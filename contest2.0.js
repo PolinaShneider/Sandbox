@@ -990,3 +990,23 @@ var checkPossibility = function (nums) {
     }
     return true;
 };
+
+/**
+ * @param {number[]} T
+ * @return {number[]}
+ */
+var dailyTemperatures = function(T) {
+    return T.map((item, index) => getNextSmaller(item, index));
+
+    function getNextSmaller(item, index) {
+        let counter = 0;
+        for (let i = index + 1; i < T.length; i++) {
+            counter++;
+            if (T[i] > item) {
+                return counter;
+            }
+        }
+
+        return 0;
+    }
+};
