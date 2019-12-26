@@ -995,7 +995,7 @@ var checkPossibility = function (nums) {
  * @param {number[]} T
  * @return {number[]}
  */
-var dailyTemperatures = function(T) {
+var dailyTemperatures = function (T) {
     return T.map((item, index) => getNextSmaller(item, index));
 
     function getNextSmaller(item, index) {
@@ -1009,4 +1009,21 @@ var dailyTemperatures = function(T) {
 
         return 0;
     }
+};
+
+/**
+ * @param {string[]} words
+ * @param {number} k
+ * @return {string[]}
+ */
+var topKFrequent = function (words, k) {
+    const map = {};
+    for (let elem of words) {
+        map[elem] = ++map[elem] || 1;
+    }
+
+    return Object.entries(map).sort(([a, first], [b, second]) => {
+        const diff = second - first;
+        return diff ? diff : a.localeCompare(b)
+    }).slice(0, k).map(item => item[0]);
 };
