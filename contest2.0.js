@@ -1027,3 +1027,37 @@ var topKFrequent = function (words, k) {
         return diff ? diff : a.localeCompare(b)
     }).slice(0, k).map(item => item[0]);
 };
+
+/**
+ * @param {number[]} A
+ * @return {string}
+ */
+var largestTimeFromDigits = function (A) {
+    let ans = -1;
+    for (let i = 0; i < A.length; i++)
+        for (let j = 0; j < A.length; j++)
+            if (j !== i) {
+                for (let k = 0; k < A.length; k++) {
+                    if (k !== i && k !== j) {
+                        let l = 6 - i - j - k;
+
+                        let hours = 10 * A[i] + A[j];
+                        let mins = 10 * A[k] + A[l];
+                        if (hours < 24 && mins < 60) {
+                            ans = Math.max(ans, hours * 60 + mins);
+                        }
+                    }
+                }
+            }
+
+    return ans >= 0 ? `${
+        Math.floor(ans / 60).toString().padStart(2, '0')
+    }:${
+        (ans % 60).toString().padStart(2, '0')
+    }` : "";
+};
+
+console.log('first:', largestTimeFromDigits([1, 2, 3, 4]));
+console.log('second:', largestTimeFromDigits([5, 5, 5, 5]));
+console.log('third:', largestTimeFromDigits([2, 0, 6, 6]));
+console.log('fourth:', largestTimeFromDigits([0, 0, 0, 0]));
