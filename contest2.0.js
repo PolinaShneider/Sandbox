@@ -1057,7 +1057,3 @@ var largestTimeFromDigits = function (A) {
     }` : "";
 };
 
-console.log('first:', largestTimeFromDigits([1, 2, 3, 4]));
-console.log('second:', largestTimeFromDigits([5, 5, 5, 5]));
-console.log('third:', largestTimeFromDigits([2, 0, 6, 6]));
-console.log('fourth:', largestTimeFromDigits([0, 0, 0, 0]));
