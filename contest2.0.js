@@ -1081,3 +1081,19 @@ var buddyStrings = function (A, B) {
 
     return diff.length === 2 && A.charAt(diff[0]) === B.charAt(diff[1]) && A.charAt(diff[1]) === B.charAt(diff[0]);
 };
+
+/**
+ * @param {number[]} rec1
+ * @param {number[]} rec2
+ * @return {boolean}
+ */
+var isRectangleOverlap = function (rec1, rec2) {
+    const [x1, y1, x2, y2] = rec1;
+    const [_x1, _y1, _x2, _y2] = rec2;
+    return !(
+        x2 <= _x1 ||   // left
+        y2 <= _y1 ||   // bottom
+        x1 >= _x2 ||   // right
+        y1 >= _y2      // top
+    );
+};
