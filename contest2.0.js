@@ -1097,3 +1097,32 @@ var isRectangleOverlap = function (rec1, rec2) {
         y1 >= _y2      // top
     );
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var deepestLeavesSum = function (root) {
+    let values = [];
+
+    if (root.left == null && root.right == null) {
+        values.push(root.val)
+    }
+
+    if (root.left) {
+        values = values.concat(deepestLeavesSum(root.left));
+    }
+
+    if (root.right) {
+        values = values.concat(deepestLeavesSum(root.right));
+    }
+
+    return values;
+};
