@@ -1110,19 +1110,35 @@ var isRectangleOverlap = function (rec1, rec2) {
  * @return {number}
  */
 var deepestLeavesSum = function (root) {
-    let values = [];
-
-    if (root.left == null && root.right == null) {
-        values.push(root.val)
+    if (!root) {
+        return 0;
     }
 
-    if (root.left) {
-        values = values.concat(deepestLeavesSum(root.left));
+    let max_depth = -1;
+    let max_sum = 0;
+
+    let stack = [[root, 0]];
+
+    while (stack.length) {
+        let [node, depth] = stack.pop();
+
+        if (node.left == null && node.right == null) {
+            if (depth > max_depth) {
+                max_depth = depth;
+                max_sum = node.val
+            } else if (depth === max_depth) {
+                max_sum += node.val
+            }
+        }
+
+        if (node.right) {
+            stack.push([node.right, depth + 1])
+        }
+        
+        if (node.left) {
+            stack.push([node.left, depth + 1])
+        }
     }
 
-    if (root.right) {
-        values = values.concat(deepestLeavesSum(root.right));
-    }
-
-    return values;
+    return max_sum
 };
