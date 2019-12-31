@@ -1114,31 +1114,73 @@ var deepestLeavesSum = function (root) {
         return 0;
     }
 
-    let max_depth = -1;
-    let max_sum = 0;
+    let maxDepth = -1;
+    let sum = 0;
 
     let stack = [[root, 0]];
 
     while (stack.length) {
         let [node, depth] = stack.pop();
 
+        // Нет потомков
         if (node.left == null && node.right == null) {
-            if (depth > max_depth) {
-                max_depth = depth;
-                max_sum = node.val
-            } else if (depth === max_depth) {
-                max_sum += node.val
+            // Нашли более глубокий элемент
+            if (depth > maxDepth) {
+                maxDepth = depth;
+                sum = node.val
+            } else if (depth === maxDepth) {
+                // Иначе суммируем с предыдущим значением
+                sum += node.val
             }
         }
 
         if (node.right) {
             stack.push([node.right, depth + 1])
         }
-        
+
         if (node.left) {
             stack.push([node.left, depth + 1])
         }
     }
 
-    return max_sum
+    return sum
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+
+var constructMaximumBinaryTree = function (nums) {
+    //base cases
+    if (nums.length === 1) return new TreeNode(nums[0]);
+    if (nums.length === 0) return null;
+
+    //create a new TreeNode(center)
+    let centerIdx = nums.indexOf(Math.max(...nums));
+    let root = new TreeNode(nums[centerIdx]);
+
+    //set left node to center of left subtree
+    let leftSubtree = nums.slice(0, centerIdx);
+    root.left = constructMaximumBinaryTree(leftSubtree);
+
+    //set right node to center of right subtree
+    let rightSubtree = nums.slice(centerIdx + 1, nums.length);
+    root.right = constructMaximumBinaryTree(rightSubtree);
+
+    return root;
+};
+
+console.log(constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]));
