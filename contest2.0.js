@@ -1261,3 +1261,56 @@ var flatten = function(root) {
         prev = node;
     }
 };
+
+/**
+ * @param {number[][]} board
+ * @return {number}
+ */
+var slidingPuzzle = function (board) {
+    function toString(target) {
+        return target.toString().split(",").join("");
+    }
+    const target = "123450";
+
+    if (toString(board) === target) {
+        return 0;
+    }
+
+    // Соседи в матрице в зависимости от позиции '0'
+    const neighbours = [
+        [1, 3],
+        [0, 2, 4],
+        [1, 5],
+        [0, 4],
+        [1, 3, 5],
+        [2, 4]
+    ];
+    const queue = [
+        [toString(board), 0]
+    ];
+    const visited = new Set();
+
+    while (queue.length) {
+        const [current, level] = queue.shift();
+        const indexOfZero = current.indexOf("0");
+        visited.add(current);
+        for (let element of neighbours[indexOfZero]) {
+            const temp = current[element];
+            
+            let candidate = current.split("");
+            candidate[element] = "0";
+            candidate[indexOfZero] = temp;
+            candidate = candidate.join("");
+
+            if (candidate === target) {
+                return level + 1;
+            }
+
+            if (!visited.has(candidate)) {
+                queue.push([candidate, level + 1]);
+            }
+        }
+    }
+
+    return -1;
+};
