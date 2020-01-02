@@ -1222,3 +1222,42 @@ var levelOrder = function(root) {
     
     return Object.values(map);
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function(root) {
+    function binaryPreOrderTraversal(root) {
+        let values = [root.val];
+
+        if (root.left) {
+            values = values.concat(binaryPreOrderTraversal(root.left));
+        }
+        if (root.right) {
+            values = values.concat(binaryPreOrderTraversal(root.right));
+        }
+
+        return values;
+    }
+    
+    if (!root) {
+        return [];
+    }
+
+    const data = binaryPreOrderTraversal(root).slice(1);
+    let prev = root;
+    for (let elem of data) {
+        let node = new TreeNode(elem);
+        prev.left = null;
+        prev.right = node;
+        prev = node;
+    }
+};
