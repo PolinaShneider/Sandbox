@@ -1314,3 +1314,43 @@ var slidingPuzzle = function (board) {
 
     return -1;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function(head) {
+    function dump(node) {
+        const values = [];
+        while(node) {
+            values.push(node.val);
+            node = node.next;
+        }
+        
+        return values;
+    }
+    
+    const data = dump(head).sort((a, b) => a - b);
+    
+    if (!data.length) {
+        return head;
+    }
+    
+    
+    let root = new ListNode(data.shift());
+    let tmp = root;
+    for (let elem of data) {
+        const node = new ListNode(elem);
+        tmp.next = node;
+        tmp = node;
+    }
+    
+    return root;
+};
