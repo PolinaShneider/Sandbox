@@ -30,20 +30,26 @@ var insertionSortList = function (head) {
     }
     let sorted = head;
     head = head.next;
+    // «Отсортированным» считается только первый элемент списка
     sorted.next = null;
+    // Итерируем по всем элементам списка
     while (head) {
         let prev = null;
         let node = sorted;
+        // Итерируем по всем элементам отсортированного списка
         while (node && head.val > node.val) {
+            // Ищем в отсортированном списке место для нового элемента
             prev = node;
             node = node.next;
         }
         let insert = head;
         head = head.next;
         insert.next = node;
+        // Если нашли место для вставки в отсортированном списке, вставляем
         if (prev) {
             prev.next = insert;
         } else {
+            // Иначе просто добавляем элемент в конец отсортированного списка
             sorted = insert;
         }
     }
