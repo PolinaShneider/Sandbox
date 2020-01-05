@@ -1194,32 +1194,32 @@ var constructMaximumBinaryTree = function (nums) {
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function(root) {
+var levelOrder = function (root) {
     if (!root) {
         return [];
     }
-    
+
     const stack = [[root, 0]];
     const map = {};
-    
-    while(stack.length) {
+
+    while (stack.length) {
         let [node, level] = stack.pop();
-        
+
         if (map[level]) {
             map[level].push(node.val);
         } else {
             map[level] = [node.val];
         }
-        
+
         if (node.right) {
             stack.push([node.right, level + 1])
         }
-        
+
         if (node.left) {
             stack.push([node.left, level + 1])
         }
     }
-    
+
     return Object.values(map);
 };
 
@@ -1234,7 +1234,7 @@ var levelOrder = function(root) {
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var flatten = function(root) {
+var flatten = function (root) {
     function binaryPreOrderTraversal(root) {
         let values = [root.val];
 
@@ -1247,7 +1247,7 @@ var flatten = function(root) {
 
         return values;
     }
-    
+
     if (!root) {
         return [];
     }
@@ -1270,6 +1270,7 @@ var slidingPuzzle = function (board) {
     function toString(target) {
         return target.toString().split(",").join("");
     }
+
     const target = "123450";
 
     if (toString(board) === target) {
@@ -1296,7 +1297,7 @@ var slidingPuzzle = function (board) {
         visited.add(current);
         for (let element of neighbours[indexOfZero]) {
             const temp = current[element];
-            
+
             let candidate = current.split("");
             candidate[element] = "0";
             candidate[indexOfZero] = temp;
@@ -1326,24 +1327,24 @@ var slidingPuzzle = function (board) {
  * @param {ListNode} head
  * @return {ListNode}
  */
-var sortList = function(head) {
+var sortList = function (head) {
     function dump(node) {
         const values = [];
-        while(node) {
+        while (node) {
             values.push(node.val);
             node = node.next;
         }
-        
+
         return values;
     }
-    
+
     const data = dump(head).sort((a, b) => a - b);
-    
+
     if (!data.length) {
         return head;
     }
-    
-    
+
+
     let root = new ListNode(data.shift());
     let tmp = root;
     for (let elem of data) {
@@ -1351,6 +1352,40 @@ var sortList = function(head) {
         tmp.next = node;
         tmp = node;
     }
-    
+
     return root;
+};
+
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var maxProduct = function (words) {
+    const lengths = words.map(word => word.length);
+    let max = 0;
+
+    for (let i = 0; i < words.length; i++) {
+        for (let j = 0; j < words.length; j++) {
+            if (i == j) {
+                continue;
+            }
+
+            let current = words[i].length * words[j].length;
+            if (current > max && noCommonLetters(words[i], words[j])) {
+                max = current;
+            }
+        }
+    }
+
+    function noCommonLetters(first, second) {
+        for (let i = 0; i < first.length; i++) {
+            if (second.includes(first[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return max;
 };
