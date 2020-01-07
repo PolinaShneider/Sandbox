@@ -1,3 +1,37 @@
+const binaryTree = {
+    val: 30,
+    left: {
+        val: 36,
+        right: {
+            val: 35,
+            left: null,
+            right: {
+                val: 33,
+                left: null,
+                right: null
+            }
+        },
+        left: null
+    },
+    right: {
+        val: 21,
+        left: {
+            val: 26,
+            right: null,
+            left: null
+        },
+        right: {
+            val: 15,
+            right: {
+                val: 8,
+                right: null,
+                left: null
+            },
+            left: null
+        }
+    }
+};
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -160,4 +194,52 @@ var flatten = function (root) {
         prev.right = node;
         prev = node;
     }
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} key
+ * @return {TreeNode}
+ *
+ * Explanation: https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
+ */
+var deleteNode = function (root, key) {
+    if (!root) {
+        return null;
+    }
+    if (key < root.val) {
+        root.left = deleteNode(root.left, key)
+    } else if (key > root.val) {
+        root.right = deleteNode(root.right, key)
+    } else {
+        // Значение нашли
+        if (!root.left) {
+            // Нет левого потомка — возвращаем правого
+            return root.right;
+        }
+
+        if (!root.right) {
+            // Нет правого потомка — возвращаем левого
+            return root.left;
+        }
+
+        // Оба потомка присутствуют
+        let current = root.right;
+        // Берем правого и идем вниз по левого (ищем минимум)
+        while (current.left) {
+            current = current.left
+        }
+        // Наименьший элемент в правом дереве стал корнем
+        root.val = current.val;
+        // Удаляем элемент, ставший корнем
+        root.right = deleteNode(root.right, current.val);
+    }
+    return root;
 };
