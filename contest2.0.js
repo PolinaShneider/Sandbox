@@ -1254,3 +1254,27 @@ var lexicalOrder = function (n) {
         return result
     }
 };
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function (intervals) {
+    const merged = [];
+    intervals.sort(([first,], [second,]) => first - second);
+
+    for (let [start, end] of intervals) {
+        if (!merged.length || start > last(merged)) {
+            merged.push([start, end])
+        } else if (end > last(merged)) {
+            merged[merged.length - 1][1] = end;
+        }
+    }
+
+    function last(arr) {
+        return arr[arr.length - 1][1];
+    }
+
+    return merged
+};
+
