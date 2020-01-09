@@ -1278,3 +1278,32 @@ var merge = function (intervals) {
     return merged
 };
 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseParentheses = function (s) {
+    const stack = [];
+    for (let char of s) {
+        if (char !== ")") {
+            stack.push(char);
+            continue;
+        }
+        let c = stack.pop();
+        let queue = [];
+        while (c !== "(") {
+            queue.push(c);
+            c = stack.pop();
+        }
+        while (queue.length) {
+            stack.push(queue.shift());
+        }
+    }
+    return stack.join("");
+};
+
+console.log(reverseParentheses("((eqk((h))))"));
+// console.log(reverseParentheses("(u(love)i)"));
+// console.log(reverseParentheses("(ed(et(oc))el)"));
+// console.log(reverseParentheses("(abcd)"));
+// console.log(reverseParentheses("()"));
