@@ -1301,9 +1301,3 @@ var reverseParentheses = function (s) {
     }
     return stack.join("");
 };
-
-console.log(reverseParentheses("((eqk((h))))"));
-// console.log(reverseParentheses("(u(love)i)"));
-// console.log(reverseParentheses("(ed(et(oc))el)"));
-// console.log(reverseParentheses("(abcd)"));
-// console.log(reverseParentheses("()"));
