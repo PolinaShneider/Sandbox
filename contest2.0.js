@@ -1289,15 +1289,52 @@ var reverseParentheses = function (s) {
             stack.push(char);
             continue;
         }
-        let c = stack.pop();
+        let current = stack.pop();
         let queue = [];
-        while (c !== "(") {
-            queue.push(c);
-            c = stack.pop();
+        while (current !== "(") {
+            queue.push(current);
+            current = stack.pop();
         }
         while (queue.length) {
             stack.push(queue.shift());
         }
     }
     return stack.join("");
+};
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nextLargerNodes = function (head) {
+    let node = head;
+    let result = [];
+
+    while (node) {
+        let next = node;
+        let isFound = false;
+        while (next) {
+            if (next.val > node.val) {
+                isFound = true;
+                result.push(next.val);
+                break;
+            }
+            next = next.next;
+        }
+
+        if (!isFound) {
+            result.push(0);
+        }
+
+        node = node.next;
+    }
+
+    return result;
 };
