@@ -53,3 +53,16 @@ s' i a b c n
     res = a + b - 2 * c
 
 print $ seqA 2
+
+mergeLists :: [Integer] -> [Integer] -> [Integer]
+mergeLists lst1 lst2 = [ x | x <- lst1, x `elem` lst2]
+
+print $ mergeLists [0,1,2] [4,5]
+
+p1 = ((1,2), (3,4))
+p2 = ((3,4), (5,6))
+
+print $ (\(x, y) (x2, y2) -> x + y + x2 + y2) (fst p1) (fst p2)
+
+sum3squares = (\x y z -> x+y+z) `on3` (^2)
+on3 op f x y z = op (f x) (f y) (f z)
