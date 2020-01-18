@@ -66,3 +66,97 @@ print $ (\(x, y) (x2, y2) -> x + y + x2 + y2) (fst p1) (fst p2)
 
 sum3squares = (\x y z -> x+y+z) `on3` (^2)
 on3 op f x y z = op (f x) (f y) (f z)
+
+mergeLists :: [Integer] -> [Integer] -> [Integer]
+mergeLists lst1 lst2 = [ x | x <- lst1, x `elem` lst2]
+
+tokenize :: Integer -> [Integer]
+tokenize n = helper n []
+helper n accum
+ | n > 0 = helper (n `div` 10) accum ++ [n `mod` 10]
+ | otherwise = accum
+
+sameDigits :: [Integer] -> Integer -> [Integer]
+sameDigits arr value = [el | el <- arr, q <- tokenize el, q `elem` tokenize value]
+
+countEvenOdds :: [Integer] -> (Integer, Integer)
+countEvenOdds lst = (toInteger $ length $ filter even lst, toInteger $ length $ filter odd lst)
+
+p1 = ((1,2), (3,4))
+p2 = ((3,4), (5,6))
+
+doItYourself = f . g . h
+f = (max 42)
+g = (^3)
+h = (logBase 2)
+
+accumulate :: [Int] -> [Int]
+accumulate lst = helper' lst 0 0 []
+helper' :: [Int] -> Int -> Int -> [Int] -> [Int]
+helper' src index accum curr
+  | index < length src = helper' src (index + 1) (accum + src !! index) (curr ++ [accum])
+  | otherwise = curr
+
+revert :: Int -> Int
+revert n = helper'' n 0
+helper'' n res
+  | n > 0 = helper'' (n `div` 10) (res * 10 + n `mod` 10)
+  | otherwise = res
+
+
+
+factorize :: Int -> [Int]
+--factorize n = helper''' n [] 1
+--helper''' n acc index
+--  | index <= n && n `mod` index == 0 = helper''' n (acc ++ [index]) (index + 1)
+--  | index <= n && n `mod` index > 0 = helper''' n acc (index + 1)
+--  | otherwise = acc
+
+factorize n = [elem | elem <- [1..n], n `mod` elem == 0]
+
+mostFrequent :: [Int] -> Int
+mostFrequent arr = helper4 arr (head arr) 0
+helper4 arr max' index
+  | index < length arr = helper4 arr (decide arr (arr !! index) max') (index + 1)
+  | otherwise = max'
+
+getFrequency arr elem = length [x | x <- arr, x == elem]
+decide arr elem max' = if getFrequency arr elem > getFrequency arr max' then elem else max'
+
+replace :: [Int] -> Int -> Int -> [Int]
+replace arr m n = [if el == m then n else el | el <- arr]
+
+duplicateIndex :: [Int] -> Int
+duplicateIndex lst = helper5 lst 0 1
+helper5 lst prev curr
+  | curr >= length lst = -1
+  | lst !! prev == lst !! curr = prev
+  | otherwise = helper5 lst (prev + 1) (curr + 1)
+
+intervalSum :: Int -> Int -> Int
+intervalSum m n = sum [m .. n - 1]
+
+center :: [Int] -> [Int]
+center lst = [el - target lst | el <- lst]
+target arr
+  | null arr = 0
+  | odd (length arr) = arr !! (length arr `div` 2)
+  | otherwise = (arr !! (length arr `div` 2) + arr !! ((length arr `div` 2) - 1)) `div` 2
+
+avg :: Int -> Int -> Int -> Double
+avg x y z = fromInteger (toInteger x + toInteger y + toInteger z) / 3
+
+sortMerge :: [Int] -> [Int] -> [Int]
+sortMerge [] [] = []
+sortMerge xs [] = xs
+sortMerge [] xs = xs
+sortMerge (h:first) (c:second)
+  | h <= c = h:sortMerge first (c:second)
+  | h > c = c:sortMerge (h:first) second
+
+sumOdd lst = sum [elem | elem <- lst, odd elem]
+lastElem :: [Int] -> Int
+lastElem = foldl1 (flip const)
+
+partials = scanl1 (+)
+main = print $ foldr (\x (e, o) -> if even x then (e + 1, o) else (e, o + 1)) (0, 0) [1, 2, 3, 4, 5, 7, 9]
