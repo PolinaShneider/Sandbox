@@ -161,22 +161,42 @@ lastElem = foldl1 (flip const)
 partials = scanl1 (+)
 main = print $ foldr (\x (e, o) -> if even x then (e + 1, o) else (e, o + 1)) (0, 0) [1, 2, 3, 4, 5, 7, 9]
 
-countEvenOdd :: [Int] -> (Int, Int)
-countEvenOdd = foldr (\x (e, o) -> if even x then (e + 1, o) else (e, o + 1)) (0, 0)
-findMinMax :: [Int] -> (Int, Int)
-findMinMax = foldr (\x (ma, mi) -> (max ma x, min mi x)) (minBound, maxBound)
-
-factorial :: Int -> Int
-factorial n = foldr (*) 1 [1 .. n]
-
-sumEvenMultOdd :: [Int] -> (Int, Int)
-sumEvenMultOdd = foldr (\x (e, o) -> if even x then (e + x, o) else (e, o * x)) (0, 1)
-
-lastOdd :: [Int] -> Int
-lastOdd lst = last [elem | elem <- lst, odd elem]
-
---getElIndex :: [Int] -> Int
-getElIndex val lst = lookup val $ zip lst [0 .. ]
-
+fib 1 = 1
+fib 2 = 1
+fib n = fib (n - 1) + fib (n - 2)
 --ownLast = foldl1 $ flip const
-main = print $ getElIndex 6  [0,1,2,3,4,5,6]
+reverse' :: [Int] -> [Int]
+reverse' = foldl (flip(:)) []
+
+reverseStr :: String -> String
+reverseStr = foldl (flip (:)) []
+
+isPalyndrom :: String -> Bool
+isPalyndrom str = str == reverseStr str
+
+unique :: [Integer] -> [Integer]
+unique = foldl (\seen x -> if x `elem` seen then seen else seen ++ [x]) []
+
+sameDigits :: [Integer] -> Integer -> [Integer]
+sameDigits arr value = unique [el | el <- arr, q <- digs el, q `elem` digs value]
+
+digs :: Integral x => x -> [x]
+digs 0 = []
+digs x = digs (x `div` 10) ++ [x `mod` 10]
+
+data Change = Plus | Minus | Equals deriving Show
+data MagicNumber = MagicNumber Change Int deriving Show
+
+
+magic :: [Int] -> [MagicNumber]
+magic lst = magicHelper lst 0 1 []
+magicHelper lst prev curr acc
+  | curr >= length lst = acc
+  | current > previous = magicHelper lst (prev + 1) (curr + 1) (acc ++ [MagicNumber Minus (current - previous)])
+  | current == previous = magicHelper lst (prev + 1) (curr + 1) (acc ++ [MagicNumber Equals previous])
+  | otherwise =  magicHelper lst (prev + 1) (curr + 1) (acc ++ [MagicNumber Minus (current - previous)])
+  where
+    current = lst !! curr
+    previous = lst !! prev
+
+main = print $ magic [-1,-1,72,4,5,-6,-7,7]
