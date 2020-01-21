@@ -1382,3 +1382,25 @@ Solution.prototype.shuffle = function () {
  * var param_1 = obj.reset()
  * var param_2 = obj.shuffle()
  */
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var getNoZeroIntegers = function(n) {
+    if (!hasZero(n - 1)) {
+        return [1, n - 1]
+    } else {
+        let first = n - 1;
+        let second = 1;
+        while (hasZero(first) || hasZero(second)) {
+            first--;
+            second++;
+        }
+        
+        return [first, second];
+    }
+    function hasZero(num) {
+        return num.toString().includes('0')
+    }
+};
