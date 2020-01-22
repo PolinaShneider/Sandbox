@@ -73,5 +73,3 @@ const list = {
         }
     }
 }
-
-console.log(splitListToParts(list, 1))
