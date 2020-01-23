@@ -1404,3 +1404,19 @@ var getNoZeroIntegers = function(n) {
         return num.toString().includes('0')
     }
 };
+
+/**
+ * @param {number} c
+ * @return {boolean}
+ */
+var judgeSquareSum = function(c) {
+    for (let i = 0; i * i <= c; i++) {
+        let diff = c - i * i;
+        let sqrt = Math.sqrt(diff);
+        if (Math.floor(sqrt) === sqrt) {
+            return true;
+        }
+    }
+    
+    return false;
+};
