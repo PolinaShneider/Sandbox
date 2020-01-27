@@ -1437,3 +1437,34 @@ const validPalindrome = (s) => {
     }
     return true
 };
+
+/**
+ * @param {number[][]} mat
+ * @return {number[][]}
+ */
+var diagonalSort = function(mat) {
+    const map = {};
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat[i].length; j++) {
+            if (map[`${i - j}`]) {
+                map[`${i - j}`].push(mat[i][j])
+            } else {
+                map[`${i - j}`] = [mat[i][j]]
+            }
+        }
+    }
+    
+    for (let elem in map) {
+        map[elem] = map[elem].sort((a,b) => b - a)
+    }
+
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat[i].length; j++) {
+            if (map[`${i - j}`]) {
+                mat[i][j] = map[`${i - j}`].pop()
+            }
+        }
+    }
+    
+    return mat;
+};
