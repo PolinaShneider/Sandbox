@@ -1,4 +1,4 @@
-capella/.DS_Store
+capella/*
 *.xml
 *.iml
 node_modules
