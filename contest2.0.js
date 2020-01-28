@@ -1481,35 +1481,26 @@ var diagonalSort = function (mat) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-var largestValues = function (node) {
-    return levelOrder(node).map(item => Math.max(...item));
+var largestValues = function (root) {
+    return levelOrder(root).map(item => Math.max(...item));
 };
 
-var levelOrder = function (root) {
-    if (!root) {
-        return [];
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var printVertically = function(s) {
+    const words = s.split(" ");
+    const longest = Math.max(...words.map(word => word.length));
+    const result = [];
+
+    for (let j = 0; j < longest; j++) {
+        let str = "";
+        for (let i = 0; i < words.length; i++) {
+            str += words[i][j] || " "
+        };
+        result.push(str.trimRight())
     }
 
-    const stack = [[root, 0]];
-    const map = {};
-
-    while (stack.length) {
-        let [node, level] = stack.pop();
-
-        if (map[level]) {
-            map[level].push(node.val);
-        } else {
-            map[level] = [node.val];
-        }
-
-        if (node.right) {
-            stack.push([node.right, level + 1])
-        }
-
-        if (node.left) {
-            stack.push([node.left, level + 1])
-        }
-    }
-
-    return Object.values(map);
+    return result;
 };
