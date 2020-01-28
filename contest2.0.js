@@ -1387,7 +1387,7 @@ Solution.prototype.shuffle = function () {
  * @param {number} n
  * @return {number[]}
  */
-var getNoZeroIntegers = function(n) {
+var getNoZeroIntegers = function (n) {
     if (!hasZero(n - 1)) {
         return [1, n - 1]
     } else {
@@ -1397,9 +1397,10 @@ var getNoZeroIntegers = function(n) {
             first--;
             second++;
         }
-        
+
         return [first, second];
     }
+
     function hasZero(num) {
         return num.toString().includes('0')
     }
@@ -1409,7 +1410,7 @@ var getNoZeroIntegers = function(n) {
  * @param {number} c
  * @return {boolean}
  */
-var judgeSquareSum = function(c) {
+var judgeSquareSum = function (c) {
     for (let i = 0; i * i <= c; i++) {
         let diff = c - i * i;
         let sqrt = Math.sqrt(diff);
@@ -1417,7 +1418,7 @@ var judgeSquareSum = function(c) {
             return true;
         }
     }
-    
+
     return false;
 };
 
@@ -1428,7 +1429,7 @@ var judgeSquareSum = function(c) {
 const validPalindrome = (s) => {
     const cut = (s, i) => s.substr(0, i) + s.substr(i + 1);
     const isPalindrome = (s) => s === s.split('').reverse().join('');
-    
+
     for (let i = 0, stop = s.length / 2; i < stop; i++) {
         let j = s.length - i - 1
         if (s[i] !== s[j]) {
@@ -1442,7 +1443,7 @@ const validPalindrome = (s) => {
  * @param {number[][]} mat
  * @return {number[][]}
  */
-var diagonalSort = function(mat) {
+var diagonalSort = function (mat) {
     const map = {};
     for (let i = 0; i < mat.length; i++) {
         for (let j = 0; j < mat[i].length; j++) {
@@ -1453,9 +1454,9 @@ var diagonalSort = function(mat) {
             }
         }
     }
-    
+
     for (let elem in map) {
-        map[elem] = map[elem].sort((a,b) => b - a)
+        map[elem] = map[elem].sort((a, b) => b - a)
     }
 
     for (let i = 0; i < mat.length; i++) {
@@ -1465,6 +1466,50 @@ var diagonalSort = function(mat) {
             }
         }
     }
-    
+
     return mat;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function (node) {
+    return levelOrder(node).map(item => Math.max(...item));
+};
+
+var levelOrder = function (root) {
+    if (!root) {
+        return [];
+    }
+
+    const stack = [[root, 0]];
+    const map = {};
+
+    while (stack.length) {
+        let [node, level] = stack.pop();
+
+        if (map[level]) {
+            map[level].push(node.val);
+        } else {
+            map[level] = [node.val];
+        }
+
+        if (node.right) {
+            stack.push([node.right, level + 1])
+        }
+
+        if (node.left) {
+            stack.push([node.left, level + 1])
+        }
+    }
+
+    return Object.values(map);
 };
