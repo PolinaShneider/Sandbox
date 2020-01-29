@@ -243,3 +243,18 @@ var deleteNode = function (root, key) {
     }
     return root;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function (root) {
+    return levelOrder(root).map(item => Math.max(...item));
+};
