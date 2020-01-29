@@ -1471,21 +1471,6 @@ var diagonalSort = function (mat) {
 };
 
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-var largestValues = function (root) {
-    return levelOrder(root).map(item => Math.max(...item));
-};
-
-/**
  * @param {string} s
  * @return {string[]}
  */
