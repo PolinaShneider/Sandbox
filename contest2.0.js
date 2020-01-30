@@ -1474,7 +1474,7 @@ var diagonalSort = function (mat) {
  * @param {string} s
  * @return {string[]}
  */
-var printVertically = function(s) {
+var printVertically = function (s) {
     const words = s.split(" ");
     const longest = Math.max(...words.map(word => word.length));
     const result = [];
@@ -1483,9 +1483,20 @@ var printVertically = function(s) {
         let str = "";
         for (let i = 0; i < words.length; i++) {
             str += words[i][j] || " "
-        };
+        }
         result.push(str.trimRight())
     }
 
     return result;
+};
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function (matrix, k) {
+    const transform = [].concat(...matrix);
+    transform.sort((a, b) => a - b);
+    return transform[k - 1]
 };
