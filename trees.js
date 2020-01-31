@@ -258,3 +258,49 @@ var deleteNode = function (root, key) {
 var largestValues = function (root) {
     return levelOrder(root).map(item => Math.max(...item));
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var averageOfLevels = function (root) {
+    return levelOrder(root).map(item => sum(item) / item.length);
+
+    function levelOrder(tree) {
+        let stack = [{node: tree, level: 0}];
+        let map = {};
+
+        while (stack.length) {
+            let {node, level} = stack.pop();
+
+            if (node.left) {
+                stack.push({node: node.left, level: level + 1})
+            }
+
+            if (node.right) {
+                stack.push({node: node.right, level: level + 1})
+            }
+
+            if (map[level]) {
+                map[level].push(node.val)
+            } else {
+                map[level] = [node.val]
+            }
+        }
+
+        return Object.values(map)
+    }
+
+    function sum(arr) {
+        return arr.reduce((total, item) => {
+            return total + item;
+        }, 0)
+    }
+};
