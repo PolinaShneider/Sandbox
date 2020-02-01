@@ -304,3 +304,39 @@ var averageOfLevels = function (root) {
         }, 0)
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+    if (!root) {
+        return true;
+    }
+
+    let stack = [[root, -Infinity, Infinity]];
+    while (stack.length) {
+        let [node, lower, upper] = stack.pop();
+
+        if (!node) {
+            continue;
+        }
+
+        let val = node.val;
+        if (val <= lower || val >= upper) {
+            return false;
+        }
+
+        stack.push([node.right, val, upper]);
+        stack.push([node.left, lower, val])
+    }
+
+    return true;
+};
