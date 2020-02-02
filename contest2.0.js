@@ -1500,3 +1500,32 @@ var kthSmallest = function (matrix, k) {
     transform.sort((a, b) => a - b);
     return transform[k - 1]
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ * Explanation: https://leetcode.com/problems/integer-break/discuss/370573/4-different-solutions-with-thorough-explanations-in-C%2B%2B-100!
+ */
+var integerBreak = function (n) {
+    if (n === 2 || n === 3) return (n - 1);
+
+    let res = 1;
+    while (n > 4) {
+        n -= 3;
+        res *= 3;
+    }
+    return (n * res);
+
+    // 2 -> 1, 1
+    // 3 -> 1, 2
+    // 4 -> 2, 2
+    // 5 -> 3, 2
+    // 6 -> 3, 3
+    // 7 -> 3, 4
+    // 8 -> 3, 3, 2
+    // 9 -> 3, 3, 3
+    // 10 -> 3, 3, 4
+    // 11 -> 3, 3, 3, 2
+    // 12 -> 3, 3, 3, 3
+    // 13 -> 3, 3, 3, 4
+};
