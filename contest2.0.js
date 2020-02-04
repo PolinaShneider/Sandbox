@@ -1529,3 +1529,27 @@ var integerBreak = function (n) {
     // 12 -> 3, 3, 3, 3
     // 13 -> 3, 3, 3, 4
 };
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var checkPerfectNumber = function (num) {
+    return num > 0 ? sum(factorize(num)) === num : false;
+
+    function factorize(n) {
+        const result = [];
+        for (let i = 1; i < n; i++) {
+            if (n % i === 0) {
+                result.push(i);
+            }
+        }
+        return result;
+    }
+
+    function sum(elements) {
+        return elements.reduce((total, item) => {
+            return total + item;
+        }, 0)
+    }
+};
