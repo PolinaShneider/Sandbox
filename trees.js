@@ -315,6 +315,7 @@ var averageOfLevels = function (root) {
 /**
  * @param {TreeNode} root
  * @return {boolean}
+ * Task: https://leetcode.com/problems/balanced-binary-tree/
  */
 var isValidBST = function (root) {
     if (!root) {
@@ -339,4 +340,45 @@ var isValidBST = function (root) {
     }
 
     return true;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+    if (!root) {
+        return true;
+    } else {
+        let leftHeight = height(root.left);
+        let rightHeight = height(root.right);
+        let res = false;
+        if (leftHeight > rightHeight) {
+            res = leftHeight - rightHeight <= 1
+        } else {
+            res = rightHeight - leftHeight <= 1
+        }
+        return res && isBalanced(root.left) && isBalanced(root.right)
+    }
+
+    function height(root) {
+        if (!root) {
+            return 0;
+        } else {
+            let l = 1 + height(root.left);
+            let r = 1 + height(root.right);
+            if (r > l) {
+                return r;
+            } else {
+                return l;
+            }
+        }
+    }
 };

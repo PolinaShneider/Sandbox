@@ -192,17 +192,21 @@ console.log("in-order: left -> root -> right", binaryInOrderTraversal(binaryTree
 /**
  * https://js-algorithms.tutorialhorizon.com/2015/10/23/combinations-of-an-array/
  */
-function combination(arr) {
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
     const result = [];
-    for (let i = 1; i < Math.pow(2, arr.length); i++) {
+    for (let i = 0; i < Math.pow(2, nums.length); i++) {
         const temp = [];
-        for (let j = 0; j < arr.length; j++) {
+        for (let j = 0; j < nums.length; j++) {
             // & is bitwise AND
             if ((i & Math.pow(2, j))) {
-                temp.push(arr[j])
+                temp.push(nums[j])
             }
         }
         result.push(temp)
     }
     return result
-}
+};
