@@ -352,6 +352,7 @@ var isValidBST = function (root) {
 /**
  * @param {TreeNode} root
  * @return {boolean}
+ * Iterative explanation: https://leetcode.com/problems/binary-tree-inorder-traversal/solution/
  */
 var isBalanced = function (root) {
     if (!root) {
@@ -381,4 +382,34 @@ var isBalanced = function (root) {
             }
         }
     }
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    let stack = []
+    let values = [];
+    
+    let current = root;
+    
+    while(current || stack.length) {
+        while (current) {
+            stack.push(current);
+            current = current.left;
+        }
+        current = stack.pop();
+        values.push(current.val);
+        current = current.right;
+    }
+    
+    return values;
 };
