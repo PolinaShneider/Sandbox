@@ -413,3 +413,42 @@ var inorderTraversal = function(root) {
     
     return values;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function(root, k) {
+    function dump(tree) {
+        let values = [];
+        if (!root) {
+            return values;
+        }
+        let stack = [root];
+        while (stack.length) {
+            let current = stack.pop();
+            
+            values.push(current.val)
+            
+            if (current.left) {
+                stack.push(current.left)
+            }
+            
+            if (current.right) {
+                stack.push(current.right)
+            }
+        }
+        
+        return values
+    }
+    
+    return dump(root).sort((a, b) => a - b)[k - 1];
+};
