@@ -395,13 +395,13 @@ var isBalanced = function (root) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function(root) {
+var inorderTraversal = function (root) {
     let stack = []
     let values = [];
-    
+
     let current = root;
-    
-    while(current || stack.length) {
+
+    while (current || stack.length) {
         while (current) {
             stack.push(current);
             current = current.left;
@@ -410,7 +410,7 @@ var inorderTraversal = function(root) {
         values.push(current.val);
         current = current.right;
     }
-    
+
     return values;
 };
 
@@ -426,7 +426,7 @@ var inorderTraversal = function(root) {
  * @param {number} k
  * @return {number}
  */
-var kthSmallest = function(root, k) {
+var kthSmallest = function (root, k) {
     function dump(tree) {
         let values = [];
         if (!root) {
@@ -435,20 +435,100 @@ var kthSmallest = function(root, k) {
         let stack = [root];
         while (stack.length) {
             let current = stack.pop();
-            
+
             values.push(current.val)
-            
+
             if (current.left) {
                 stack.push(current.left)
             }
-            
+
             if (current.right) {
                 stack.push(current.right)
             }
         }
-        
+
         return values
     }
-    
+
     return dump(root).sort((a, b) => a - b)[k - 1];
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isUnivalTree = function (root) {
+    function traverse(tree) {
+        let values = [tree.val];
+
+        if (tree.left) {
+            values = values.concat(traverse(tree.left));
+        }
+
+        if (tree.right) {
+            values = values.concat(traverse(tree.right));
+        }
+
+        return values;
+    }
+
+    return new Set(traverse(root)).size === 1;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findSecondMinimumValue = function (root) {
+    function traverse(tree) {
+        if (!tree) {
+            return [];
+        }
+
+        let values = [tree.val];
+
+        if (tree.right) {
+            values = values.concat(traverse(tree.right))
+        }
+
+        if (tree.left) {
+            values = values.concat(traverse(tree.left))
+        }
+
+        return values;
+    }
+
+    const result = Array.from(new Set(traverse(root))).sort((a, b) => a - b);
+
+    return result[1] === undefined ? -1 : result[1];
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+    return JSON.stringify(p) === JSON.stringify(q);
 };
