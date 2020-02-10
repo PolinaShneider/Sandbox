@@ -1564,3 +1564,19 @@ var rotate = function(nums, k) {
         nums.unshift(nums.pop());
     }
 };
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var sumZero = function(n) {
+    const result = n % 2 == 1 ? [0] : [];
+    let k = n;
+   
+    while (result.length < n) {
+        result.push((-k + 1), k - 1);
+        k--
+    }
+    
+    return result;
+};
