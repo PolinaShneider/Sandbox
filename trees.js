@@ -532,3 +532,38 @@ var findSecondMinimumValue = function (root) {
 var isSameTree = function (p, q) {
     return JSON.stringify(p) === JSON.stringify(q);
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function (root) {
+    var result = root.val;
+    var resultHeight = 0;
+
+    function dfs(node, height) {
+        if (!node) {
+            return;
+        }
+        if (node.left) {
+            dfs(node.left, height + 1);
+        }
+        if (height > resultHeight) {
+            result = node.val;
+            resultHeight = height;
+        }
+        if (node.right) {
+            dfs(node.right, height + 1);
+        }
+    }
+
+    dfs(root, 1);
+    return result;
+};
