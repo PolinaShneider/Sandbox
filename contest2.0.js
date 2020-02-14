@@ -1559,7 +1559,7 @@ var checkPerfectNumber = function (num) {
  * @param {number} k
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var rotate = function(nums, k) {
+var rotate = function (nums, k) {
     for (let i = 0; i < k; i++) {
         nums.unshift(nums.pop());
     }
@@ -1569,15 +1569,15 @@ var rotate = function(nums, k) {
  * @param {number} n
  * @return {number[]}
  */
-var sumZero = function(n) {
+var sumZero = function (n) {
     const result = n % 2 == 1 ? [0] : [];
     let k = n;
-   
+
     while (result.length < n) {
         result.push((-k + 1), k - 1);
         k--
     }
-    
+
     return result;
 };
 
@@ -1586,18 +1586,18 @@ var sumZero = function(n) {
  * @param {number} num
  * @return {number}
  */
-var numberOfSteps  = function(num) {
+var numberOfSteps = function (num) {
     let steps = 0;
     while (num) {
         if (num % 2 == 0) {
             num /= 2
         } else {
-          num -= 1
+            num -= 1
         }
-        
+
         steps++;
     }
-    
+
     return steps;
 };
 
@@ -1605,17 +1605,17 @@ var numberOfSteps  = function(num) {
  * @param {number[]} arr
  * @return {number}
  */
-var minSetSize = function(arr) {
+var minSetSize = function (arr) {
     const map = {};
     for (let elem of arr) {
         map[elem] = ++map[elem] || 1;
     }
-    
+
     const counter = Object.entries(map).sort(([k1, v1], [k2, v2]) => v2 - v1);
     const N = arr.length / 2;
     let accum = 0;
     let toDelete = [];
-    
+
     for (let [num, count] of counter) {
         if (accum < N) {
             toDelete.push(num);
@@ -1624,6 +1624,22 @@ var minSetSize = function(arr) {
             break;
         }
     }
-    
+
     return toDelete.length;
 };
+
+var moveZeroesToEnd = function (arr) {
+    let zeros = 0;
+    const n = arr.length;
+    for (let i = 0; i < n; i++) {
+        if (arr[i] > 0) {
+            arr[zeros++] = arr[i]
+        }
+    }
+
+    while (zeros < n) {
+        arr[zeros++] = 0;
+    }
+
+    return arr;
+};∆
