@@ -11,7 +11,7 @@ You can find here:
 
 You have an apple. Your friend gives you one. How much will you have?
 
-— One apple
+— One apple <br>
 — Is your language JavaScript? 🤪
 
 ![I'm okay](https://i.imgur.com/YOmDuDV.jpg)
