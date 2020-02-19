@@ -9,4 +9,9 @@ You can find here:
 * demos for my articles on [codex.so](https://codex.so/)
 * various experiments that I want to keep for history 😂
 
+You have an apple. Your friend gives you one. How much will you have?
+
+— One apple
+— Is your language JavaScript? 🤪
+
 ![I'm okay](https://i.imgur.com/YOmDuDV.jpg)
