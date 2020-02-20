@@ -1661,3 +1661,61 @@ var countNegatives = function(grid) {
     
     return counter;
 };
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var numberOfSteps  = function(num) {
+    let steps = 0;
+    while (num) {
+        if (num % 2 == 0) {
+            num /= 2
+        } else {
+          num -= 1
+        }
+        
+        steps++;
+    }
+    
+    return steps;
+};
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {number}
+ */
+var minSteps = function(s, t) {
+    function toMap(str) {
+        const map = {};
+        for (const symb of str) {
+            map[symb] = ++map[symb] || 1;
+        }
+        
+        return map;
+    }
+
+    function sum(map) {
+        return Object.values(map).reduce((total, item) => {
+            return total + item;
+        }, 0);
+    }
+
+    const first = toMap(s);
+    const second = toMap(t);
+    
+    for (let key in first) {
+        if (key in second) {
+            if (first[key] >= second[key]) {
+                first[key] -= second[key];
+                delete second[key];
+            } else {
+                second[key] -= first[key];
+                delete first[key];
+            }
+        }
+    }
+    
+    return Math.max(sum(first), sum(second));
+};
