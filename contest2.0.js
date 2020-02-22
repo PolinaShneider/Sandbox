@@ -1725,3 +1725,41 @@ var minRemoveToMakeValid = function (s) {
     return inputArray.join('');
 };
 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var minRemoveToMakeValid = function (s) {
+    let counter = 0;
+    let temp1 = ""
+    for (let i = 0; i < s.length; i++) {
+        const symb = s[i];
+        if (symb == ')') {
+            if (counter <= 0) {
+                continue
+            };
+            counter--;
+        } else if (symb == '(') {
+            counter++
+        };
+        temp1 += symb;
+    }
+
+    let temp2 = "";
+    counter = 0;
+    for (let j = temp1.length - 1; j >= 0; j--) {
+        const symb = temp1[j];
+        if (symb == '(') {
+            if (counter <= 0) {
+                continue
+            };
+            counter--;
+        } else if (symb == ')') {
+            counter++;
+        }
+        temp2 = symb + temp2;
+    }
+
+    return temp2;
+};
+
