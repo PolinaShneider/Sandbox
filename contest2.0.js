@@ -1700,3 +1700,28 @@ var minSteps = function(s, t) {
     
     return Math.max(sum(first), sum(second));
 };
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var minRemoveToMakeValid = function (s) {
+    const inputArray = s.split('');
+    const stack = [];
+
+    inputArray.forEach((letter, index) => {
+        if (letter === '(') {
+            stack.push(index);
+        } else if (letter === ')') {
+            if (stack.length) {
+                stack.pop();
+            } else {
+                inputArray[index] = '';
+            }
+        }
+    });
+
+    stack.forEach(index => inputArray[index] = '');
+    return inputArray.join('');
+};
+
