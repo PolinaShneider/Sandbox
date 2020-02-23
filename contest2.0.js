@@ -1648,9 +1648,9 @@ var moveZeroesToEnd = function (arr) {
  * @param {number[][]} grid
  * @return {number}
  */
-var countNegatives = function(grid) {
+var countNegatives = function (grid) {
     let counter = 0;
-    
+
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if (grid[i][j] < 0) {
@@ -1658,7 +1658,7 @@ var countNegatives = function(grid) {
             }
         }
     }
-    
+
     return counter;
 };
 
@@ -1667,13 +1667,13 @@ var countNegatives = function(grid) {
  * @param {string} t
  * @return {number}
  */
-var minSteps = function(s, t) {
+var minSteps = function (s, t) {
     function toMap(str) {
         const map = {};
         for (const symb of str) {
             map[symb] = ++map[symb] || 1;
         }
-        
+
         return map;
     }
 
@@ -1685,7 +1685,7 @@ var minSteps = function(s, t) {
 
     const first = toMap(s);
     const second = toMap(t);
-    
+
     for (let key in first) {
         if (key in second) {
             if (first[key] >= second[key]) {
@@ -1697,7 +1697,7 @@ var minSteps = function(s, t) {
             }
         }
     }
-    
+
     return Math.max(sum(first), sum(second));
 };
 
@@ -1731,17 +1731,18 @@ var minRemoveToMakeValid = function (s) {
  */
 var minRemoveToMakeValid = function (s) {
     let counter = 0;
-    let temp1 = ""
+    let temp1 = "";
     for (let i = 0; i < s.length; i++) {
         const symb = s[i];
-        if (symb == ')') {
+        if (symb === ')') {
             if (counter <= 0) {
                 continue
-            };
+            }
             counter--;
-        } else if (symb == '(') {
+        } else if (symb === '(') {
             counter++
-        };
+        }
+
         temp1 += symb;
     }
 
@@ -1749,17 +1750,50 @@ var minRemoveToMakeValid = function (s) {
     counter = 0;
     for (let j = temp1.length - 1; j >= 0; j--) {
         const symb = temp1[j];
-        if (symb == '(') {
+        if (symb === '(') {
             if (counter <= 0) {
                 continue
-            };
+            }
             counter--;
-        } else if (symb == ')') {
+        } else if (symb === ')') {
             counter++;
         }
         temp2 = symb + temp2;
     }
 
     return temp2;
+};
+
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    if (!root) {
+        return [];
+    }
+    const stack = [[root, 0]];
+    const map = {};
+    while (stack.length) {
+        const [current, level] = stack.pop();
+        for (let elem of current.children) {
+            stack.push([elem, level + 1])
+        }
+
+        if (map[level]) {
+            map[level].unshift(current.val)
+        } else {
+            map[level] = [current.val];
+        }
+    }
+
+    return Object.values(map);
 };
 
