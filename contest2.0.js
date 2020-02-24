@@ -1797,3 +1797,23 @@ var levelOrder = function (root) {
     return Object.values(map);
 };
 
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    const result = [];
+    nums.reduce((left, item, i) => {
+        result[i] = left;
+        return left * item;
+    }, 1);
+    
+    console.log(result);
+    
+    nums.reduceRight((right, item, i) => {
+        result[i] *= right;
+        return right * item;
+    }, 1);
+    
+    return result;
+};
