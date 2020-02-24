@@ -1808,8 +1808,6 @@ var productExceptSelf = function(nums) {
         return left * item;
     }, 1);
     
-    console.log(result);
-    
     nums.reduceRight((right, item, i) => {
         result[i] *= right;
         return right * item;
