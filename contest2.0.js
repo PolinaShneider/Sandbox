@@ -1797,3 +1797,28 @@ var levelOrder = function (root) {
     return Object.values(map);
 };
 
+function aclean(arr) {
+    const sorted = arr.map(it => it.split('').sort().join('').toLowerCase());
+    const map = {};
+    for (let i = 0; i < sorted.length; i++) {
+        const elem = sorted[i];
+        if (map[elem]) {
+            map[elem].push(i);
+        } else {
+            map[elem] = [i]
+        }
+    }
+    const ignore = Object.values(map).reduce((total, item) => {
+        total.push(item.slice(1));
+        return total;
+    }, []).flat();
+    const result = [];
+    for (let j = 0; j < arr.length; j++) {
+        if (ignore.includes(j)) {
+            continue;
+        }
+        result.push(arr[j])
+    }
+    return result;
+}
+
