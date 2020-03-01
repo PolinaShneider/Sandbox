@@ -1846,6 +1846,26 @@ var productExceptSelf = function (nums) {
  * @param {number} k
  * @return {number}
  */
-var findKthLargest = function(nums, k) {
+var findKthLargest = function (nums, k) {
     return nums.sort((a, b) => b - a)[k - 1]
+};
+
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var longestStrChain = function (words) {
+    const memory = {};
+    words.sort((a, b) => a.length - b.length);
+
+    for (const word of words) {
+        let longest = 0;
+        for (let i = 0; i < word.length; i++) {
+            const pre = word.slice(0, i) + word.slice(i + 1);
+            longest = Math.max(longest, (memory[pre] || 0) + 1);
+        }
+        memory[word] = longest
+    }
+
+    return Math.max(...Object.values(memory));
 };
