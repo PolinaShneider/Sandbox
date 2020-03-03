@@ -1869,3 +1869,22 @@ var longestStrChain = function (words) {
 
     return Math.max(...Object.values(memory));
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var nextGreaterElements = function(nums) {
+    const result = new Array(nums.length);
+    for (let i = 0; i < nums.length; i++) {
+        result[i] = -1;
+        for (let j = 1; j < nums.length; j++) {
+            if (nums[(i + j) % nums.length] > nums[i]) {
+                result[i] = nums[(i + j) % nums.length];
+                break;
+            }
+        }
+    }
+    
+    return result;
+};
