@@ -1888,3 +1888,23 @@ var nextGreaterElements = function(nums) {
     
     return result;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function(nums) {
+    const map = {};
+    for (const num of nums) {
+        map[num] = ++map[num] || 1;
+    }
+    
+    let counter = 0;
+    for (const elem of [0,1,2]) {
+        for (let i = 0; i < map[elem]; i++) {
+            nums[counter++] = elem;
+        }
+    }
+    
+    return nums;
+};
