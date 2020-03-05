@@ -1874,7 +1874,7 @@ var longestStrChain = function (words) {
  * @param {number[]} nums
  * @return {number[]}
  */
-var nextGreaterElements = function(nums) {
+var nextGreaterElements = function (nums) {
     const result = new Array(nums.length);
     for (let i = 0; i < nums.length; i++) {
         result[i] = -1;
@@ -1885,7 +1885,7 @@ var nextGreaterElements = function(nums) {
             }
         }
     }
-    
+
     return result;
 };
 
@@ -1893,18 +1893,80 @@ var nextGreaterElements = function(nums) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var sortColors = function(nums) {
+var sortColors = function (nums) {
     const map = {};
     for (const num of nums) {
         map[num] = ++map[num] || 1;
     }
-    
+
     let counter = 0;
-    for (const elem of [0,1,2]) {
+    for (const elem of [0, 1, 2]) {
         for (let i = 0; i < map[elem]; i++) {
             nums[counter++] = elem;
         }
     }
-    
+
     return nums;
+};
+
+/**
+ * @param {string} equation
+ * @return {string}
+ */
+var solveEquation = function (equation) {
+    let sign = '+';
+
+    function accumulate(accum, key, val, sign) {
+        if (sign === '+')
+            accum[key] += parseInt(val);
+        else
+            accum[key] -= parseInt(val);
+    }
+
+    function parse(str, acc) {
+        while (str) {
+            for (let regex of [/^\+/, /^-/, /^(\d+)?x/, /^\d+/]) {
+                const res = regex.exec(str);
+                if (res !== null) {
+                    switch (res[0]) {
+                        case '+':
+                        case '-':
+                            sign = res[0];
+                            break;
+                        default:
+                            if (res[0].includes('x')) {
+                                if (res[0].length > 1) {
+                                    const [, num] = /^(\d+)x/.exec(res[0]);
+                                    accumulate(acc, 'x', num, sign);
+                                } else {
+                                    accumulate(acc, 'x', 1, sign);
+                                }
+                                break;
+                            } else {
+                                accumulate(acc, 'num', res[0], sign)
+                            }
+                    }
+                    str = str.substr(res[0].length);
+                    break;
+                }
+            }
+        }
+    }
+
+    let [left, right] = equation.split("=");
+    let leftVal = {x: 0, num: 0};
+    let rightVal = {x: 0, num: 0};
+    parse(left, leftVal);
+    sign = '+';
+    parse(right, rightVal);
+
+    const result = {x: leftVal.x - rightVal.x, num: rightVal.num - leftVal.num};
+
+    if (result.x === 0 && result.num !== 0) {
+        return "No solution";
+    } else if (result.x === 0 && result.num === 0) {
+        return "Infinite solutions";
+    }
+
+    return `x=${result.num/result.x}`
 };
