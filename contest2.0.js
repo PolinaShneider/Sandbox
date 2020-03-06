@@ -1968,5 +1968,24 @@ var solveEquation = function (equation) {
         return "Infinite solutions";
     }
 
-    return `x=${result.num/result.x}`
+    return `x=${result.num / result.x}`
+};
+
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+        const tmp = new Array(i + 1);
+        tmp[0] = 1;
+        tmp[i] = 1;
+        for (let j = 1; j < i; j++) {
+            tmp[j] = rows[i - 1][j - 1] + rows[i - 1][j]
+        }
+        rows.push(tmp);
+    }
+
+    return rows;
 };
