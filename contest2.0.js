@@ -2045,3 +2045,32 @@ var smallerNumbersThanCurrent = function (nums) {
 
     return result;
 };
+
+/**
+ * @param {string[]} words
+ * @param {string} pattern
+ * @return {string[]}
+ */
+var findAndReplacePattern = function (words, pattern) {
+    function encode(str) {
+        const result = [];
+        const map = {};
+        const source = str.split('');
+        let cnt = 0;
+        for (let symb of source) {
+            if (map[symb]) {
+                cnt++;
+            }
+            map[symb] = symb;
+            if (source.indexOf(symb) === source.lastIndexOf(symb)) {
+                result.push(`u${cnt}`);
+            } else {
+                result.push(`n${cnt}`);
+            }
+        }
+        return result.join('');
+    }
+
+    const referrer = encode(pattern);
+    return words.filter(word => encode(word) === referrer);
+};
