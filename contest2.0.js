@@ -2026,3 +2026,22 @@ var countSubstrings = function (s) {
         }
     }
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var smallerNumbersThanCurrent = function (nums) {
+    const result = [];
+    for (let i = 0; i < nums.length; i++) {
+        let cnt = 0;
+        for (let j = 0; j < nums.length; j++) {
+            if (nums[j] < nums[i]) {
+                cnt++;
+            }
+        }
+        result.push(cnt);
+    }
+
+    return result;
+};
