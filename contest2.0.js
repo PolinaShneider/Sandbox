@@ -2087,19 +2087,27 @@ var findAndReplacePattern = function (words, pattern) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
     const resultList = new ListNode(0);
     let nextNode = resultList;
     let num = 0;
-    
+
     while (l1 || l2) {
         num += ((l1) ? l1.val : 0) + ((l2) ? l2.val : 0);
         nextNode.val = (num % 10);
         num = Math.floor(num / 10);
         l1 = (l1) ? l1.next : l1;
         l2 = (l2) ? l2.next : l2;
-        nextNode.next = ((l1 || l2) || num > 0) ? new ListNode(num) : null; 
+        nextNode.next = ((l1 || l2) || num > 0) ? new ListNode(num) : null;
         nextNode = nextNode.next;
-    } 
+    }
     return resultList;
+};
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var freqAlphabets = function (s) {
+    return s.match(/\d{2}(?=#)|\d/g).map(x => String.fromCharCode(+x + 96)).join('');
 };
