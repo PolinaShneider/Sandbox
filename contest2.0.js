@@ -2111,3 +2111,22 @@ var addTwoNumbers = function (l1, l2) {
 var freqAlphabets = function (s) {
     return s.match(/\d{2}(?=#)|\d/g).map(x => String.fromCharCode(+x + 96)).join('');
 };
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var maximum69Number  = function(num) {
+    let max = -Infinity;
+    num = num.toString();
+    
+    for (let i = 0; i < num.length; i++) {
+        max = Math.max(
+            parseInt(
+                num.substring(0, i) + '9' + num.substring(i + 1)
+            ), max
+        );
+    }
+    
+    return max;
+};
