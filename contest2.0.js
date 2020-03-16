@@ -2119,7 +2119,7 @@ var freqAlphabets = function (s) {
 var maximum69Number  = function(num) {
     let max = -Infinity;
     num = num.toString();
-    
+
     for (let i = 0; i < num.length; i++) {
         max = Math.max(
             parseInt(
@@ -2127,6 +2127,22 @@ var maximum69Number  = function(num) {
             ), max
         );
     }
-    
+
     return max;
+};
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var luckyNumbers = function (matrix) {
+    return matrix
+        .map(row => row.filter((cell, index) => {
+            const isMinInRow = Math.min(...row) === cell;
+            const col = matrix.map(el => el[index]);
+            const isMaxInCol = Math.max(...col) === cell;
+
+            return isMinInRow && isMaxInCol;
+        })[0])
+        .filter(e => e);
 };
