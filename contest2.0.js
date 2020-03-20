@@ -2116,7 +2116,7 @@ var freqAlphabets = function (s) {
  * @param {number} num
  * @return {number}
  */
-var maximum69Number  = function(num) {
+var maximum69Number = function (num) {
     let max = -Infinity;
     num = num.toString();
 
@@ -2145,4 +2145,53 @@ var luckyNumbers = function (matrix) {
             return isMinInRow && isMaxInCol;
         })[0])
         .filter(e => e);
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxLevelSum = function (root) {
+    function levelOrder(node) {
+        const stack = [{node, level: 1}];
+        const map = {};
+
+        while (stack.length) {
+            const {node, level} = stack.pop();
+
+            if (map[level]) {
+                map[level] += node.val;
+            } else {
+                map[level] = node.val;
+            }
+
+            if (node.left) {
+                stack.push({node: node.left, level: level + 1})
+            }
+
+            if (node.right) {
+                stack.push({node: node.right, level: level + 1})
+            }
+        }
+
+        return Object.entries(map);
+    }
+
+    const data = levelOrder(root).reverse();
+    let [max, index] = [-Infinity, -1];
+
+    for (let [level, value] of data) {
+        if (value > max) {
+            [max, index] = [value, level];
+        }
+    }
+
+    return +index;
 };
