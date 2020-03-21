@@ -2195,3 +2195,21 @@ var maxLevelSum = function (root) {
 
     return +index;
 };
+
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var removeCoveredIntervals = function (intervals) {
+    intervals.sort(([first,], [second,]) => first - second);
+    const output = [intervals[0]];
+
+    for (const interval of intervals) {
+        const [, end] = interval;
+        if (output[output.length - 1][1] < end) {
+            output.push(interval);
+        }
+    }
+
+    return output.length;
+};
