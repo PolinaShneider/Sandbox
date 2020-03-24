@@ -12,9 +12,33 @@
   </style>
 </head>
 <body>
+  <div style="max-height: 50px; background: yellow; display: inline-block; border: 1px solid red">
+    <div>
+      Много контента <br>
+      Много контента <br>
+      Много контента <br>
+      Много контента
+    </div>
+  </div>
   <div style="border: 1px solid red; display: inline-block">
     <span class="title">Очень длинный заголовок, но не слишком</span>
     <span>Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</span>
   </div>
+  <script>
+      function User(name) {
+          this.name = name;
+      }
+
+      User.prototype.getName = function() {
+          return this.name;
+      };
+
+      // Допишите код здесь, чтобы программа вывела на консоль ожидаемый результат
+
+      const me = new User('Rex');
+
+      console.log(me.getName()); // Rex
+
+  </script>
 </body>
 </html>
