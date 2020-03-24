@@ -2213,3 +2213,24 @@ var removeCoveredIntervals = function (intervals) {
 
     return output.length;
 };
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    const opening = {'[': ']', '{': '}', '(': ')'};
+    const stack = [];
+
+    for (let i = 0; i < s.length; i++) {
+        const c = s[i];
+
+        if (c in opening) {
+            stack.push(opening[c])
+        } else if (c !== stack.pop()) {
+            return false
+        };
+    }
+
+    return stack.length === 0;
+};
