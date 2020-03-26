@@ -1,0 +1,37 @@
+[User|firstName: string; secondName: string]
+
+[Candidate|worksInCompany: boolean; experience: Experience; application: Application|applyForPosition(position
+experience);respondToOffer(decision)]
+[Candidate]^[User]
+[Candidate]<>1-0..n>[Application]
+
+[HR|checkCandidateFitsRequirements(position
+candidateExperience); contactInterviewer(position
+candidateInfo);inviteToInterview(candidate
+interviewDetails);makeOffer(candidate
+position);rejectCandidate(candidate
+position);changePositionStatus(position
+status)]
+[HR]^[User]
+[HR]-.->[Application]
+
+[Interviewer|upcomingInterviews: Interviews; conductInterview(candidate
+position);giveFeedback(candidate
+position
+status);]
+[Interviewer]^[User]
+[Interviewer]<>1-0..n>[Interview]
+
+[Position|isOpened: boolean; requirements: Experience; team: Team]
+
+[Team|openPositions: Positions; techLead: Interviewer|addOpenPosition(position);]
+[Team]<>1-0..n>[Position]
+[Team]<>1-1>[Interviewer]
+
+[Application|candidate: Candidate; position: Position; isRotation: boolean; status: Status]
+[Position]<>1-1>[Application]
+
+[Feedback|candidate: Candidate; position: Position; isAccepted: boolean]
+
+[Interview|status: InterviewStatus; time: Date;]
+[Interview]++->[Feedback]
