@@ -2218,7 +2218,7 @@ var removeCoveredIntervals = function (intervals) {
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function(s) {
+var isValid = function (s) {
     const opening = {'[': ']', '{': '}', '(': ')'};
     const stack = [];
 
@@ -2229,7 +2229,7 @@ var isValid = function(s) {
             stack.push(opening[c])
         } else if (c !== stack.pop()) {
             return false
-        };
+        }
     }
 
     return stack.length === 0;
