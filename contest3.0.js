@@ -45,3 +45,43 @@ var findTarget = function (root, k) {
 
     return false;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function (root) {
+    const map = {};
+    const stack = [[root, 0]];
+
+    if (!root) {
+        return []
+    }
+
+    while (stack.length) {
+        const [elem, level] = stack.pop();
+
+        if (elem.right) {
+            stack.push([elem.right, level + 1])
+        }
+
+        if (elem.left) {
+            stack.push([elem.left, level + 1])
+        }
+
+        if (map[level]) {
+            map[level].push(elem.val)
+        } else {
+            map[level] = [elem.val]
+        }
+    }
+
+    return Object.values(map).reverse();
+};
