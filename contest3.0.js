@@ -85,3 +85,20 @@ var levelOrderBottom = function (root) {
 
     return Object.values(map).reverse();
 };
+
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ *
+ * Good explanation: https://www.youtube.com/watch?v=qq64FrA2UXQ
+ */
+var getSum = function (a, b) {
+    let carry;
+    while (b) {
+        carry = a & b;
+        a ^= b;
+        b = carry << 1;
+    }
+    return a;
+};
