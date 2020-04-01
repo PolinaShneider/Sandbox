@@ -102,3 +102,29 @@ var getSum = function (a, b) {
     }
     return a;
 };
+
+/**
+ * @param {string[]} list1
+ * @param {string[]} list2
+ * @return {string[]}
+ */
+var findRestaurant = function (list1, list2) {
+    const accum = {};
+
+    for (let i = 0; i < list1.length; i++) {
+        for (let j = 0; j < list2.length; j++) {
+            if (list1[i] === list2[j]) {
+                const sum = i + j;
+
+                if (accum[sum]) {
+                    accum[sum].push(list1[i])
+                } else {
+                    accum[sum] = [list1[i]];
+                }
+            }
+        }
+    }
+
+    const min = Math.min(Number(...Object.keys(accum)));
+    return accum[min];
+};
