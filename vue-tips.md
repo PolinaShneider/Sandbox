@@ -7,5 +7,5 @@
 
 - Fixed footer inside fixed sidebar: https://medium.com/@andrejsabrickis/a-fullscreen-modal-with-fixed-header-footer-and-a-scrollable-content-1656845c8171
 
-- Scoped slots: https://blog.logrocket.com/how-to-pass-html-content-through-components-with-vue-slots/
+- Scoped slots: https://blog.logrocket.com/how-to-pass-html-content-through-components-with-vue-slots/ <br>
 Key idea: Vue slot can also access the data object in the child component from the parent component
