@@ -177,3 +177,44 @@ MyQueue.prototype.empty = function () {
  * var param_3 = obj.peek()
  * var param_4 = obj.empty()
  */
+
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function (k, nums) {
+    this.nums = nums.sort((a, b) => a - b);
+    this.k = k;
+};
+
+/**
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function (val) {
+    const insert = () => {
+        let l = 0;
+        let r = this.nums.length - 1;
+
+        while (l <= r) {
+            const mid = Math.floor((l + r) / 2);
+            if (this.nums[mid] === val) {
+                return mid
+            }
+            if (this.nums[mid] < val) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return l;
+    };
+    this.nums.splice(insert(), 0, val);
+    return this.nums[this.nums.length - this.k]
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
