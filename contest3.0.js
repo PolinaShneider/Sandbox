@@ -218,3 +218,30 @@ KthLargest.prototype.add = function (val) {
  * var obj = new KthLargest(k, nums)
  * var param_1 = obj.add(val)
  */
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var countElements = function (arr) {
+    const map = {};
+    for (let elem of arr) {
+        if (elem in map) {
+            map[elem] = ++map[elem];
+        } else {
+            map[elem] = 1;
+        }
+    }
+
+    let cnt = 0;
+    let prev;
+    for (let key in map) {
+        if (prev && +key - prev.value === 1) {
+            cnt += prev.count;
+        }
+
+        prev = {value: +key, count: map[key]};
+    }
+
+    return cnt;
+};
