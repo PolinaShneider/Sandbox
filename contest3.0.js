@@ -245,3 +245,47 @@ var countElements = function (arr) {
 
     return cnt;
 };
+
+/**
+ * @param {string} expression
+ * @return {string}
+ */
+var fractionAddition = function (expression) {
+    if (!expression.startsWith("-")) {
+        expression = `+${expression}`;
+    }
+    const parsed = expression.match(/([+-])?(\d+)\/(\d+)/g);
+
+    for (let i = 0; i < parsed.length; i++) {
+        const [, sign, top, bottom] = /([+-])?(\d+)\/(\d+)/.exec(parsed[i]);
+        parsed[i] = {sign, top, bottom};
+    }
+
+    let sum = 0;
+    let common = parsed.reduce((total, {bottom}) => {
+        return total * bottom;
+    }, 1);
+
+    for (let elem of parsed) {
+        elem.top *= common / elem.bottom;
+        sum += (elem.sign === "+") ? elem.top : (-elem.top);
+    }
+
+    function reduce(first, second) {
+        let result = 1;
+
+        for (let i = 0; i <= Math.abs(Math.max(first, second)); i++) {
+            if (first % i === 0 && second % i === 0) {
+                result = i;
+            }
+        }
+
+        return result;
+    }
+
+    let reducer = reduce(sum, common);
+    sum /= reducer;
+    common /= reducer;
+
+    return (Math.floor(sum / common) === sum / common) ? `${sum}/1` : `${sum}/${common}`;
+};
