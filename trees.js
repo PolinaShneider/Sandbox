@@ -595,3 +595,35 @@ var findTilt = function (root) {
     dfs(root, tilt);
     return tilt.val;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function (root) {
+    let diameter = 0;
+
+    dfs(root);
+
+    return diameter;
+
+    function dfs(node, level) {
+        if (!node) return 0;
+
+        const left = dfs(node.left);
+        const right = dfs(node.right);
+
+        // update diameter at every node
+        diameter = Math.max(diameter, left + right);
+
+        // update the largest number of edge so far
+        return 1 + Math.max(left, right);
+    }
+};
