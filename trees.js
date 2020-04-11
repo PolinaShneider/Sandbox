@@ -614,7 +614,7 @@ var diameterOfBinaryTree = function (root) {
 
     return diameter;
 
-    function dfs(node, level) {
+    function dfs(node) {
         if (!node) return 0;
 
         const left = dfs(node.left);
