@@ -387,3 +387,28 @@ var addStrings = function (num1, num2) {
 
     return (carryOver) ? '1' + result : result;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxLength = function (nums) {
+    const map = {
+        '0': -1
+    };
+
+    let ones = 0;
+    let max = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        ones += nums[i] ? 1 : -1;
+
+        if (map[ones] != null) {
+            max = Math.max(max, i - map[ones]);
+        } else {
+            map[ones] = i;
+        }
+    }
+
+    return max;
+};
