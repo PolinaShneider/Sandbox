@@ -412,3 +412,19 @@ var findMaxLength = function (nums) {
 
     return max;
 };
+
+/**
+ * @param {string} s
+ * @param {number[][]} shift
+ * @return {string}
+ */
+var stringShift = function (s, shift) {
+    for (let [direction, amount] of shift) {
+        if (direction) {
+            s = s.slice(-amount) + s.slice(0, -amount)
+        } else {
+            s = s.slice(amount) + s.slice(0, amount)
+        }
+    }
+    return s;
+};
