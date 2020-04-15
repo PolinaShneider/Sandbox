@@ -428,3 +428,27 @@ var stringShift = function (s, shift) {
     }
     return s;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    const indexes = new Array(nums.length).fill(0).map((item, index) => index);
+    const result = [];
+    
+    for (let index of indexes) {
+        let product = 1;
+        
+        for (let i = 0; i < nums.length; i++) {
+            if (i !== index) {
+                product *= nums[i];
+            }
+        }
+        
+        result.push(product);
+        product = 1;
+    }
+    
+    return result;
+};
