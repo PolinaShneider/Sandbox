@@ -452,3 +452,26 @@ var productExceptSelf = function(nums) {
     
     return result;
 };
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var checkValidString = function(s) {
+    // smallest and largest possible num of '(' after current character
+    let lo = 0, hi = 0;
+    for (let c of s) {
+        
+       lo += c == '(' ? 1 : -1;
+       hi += c != ')' ? 1 : -1;
+        
+       // In case of '())' you already lost
+       if (hi < 0) {
+           break
+       };
+        
+       lo = Math.max(lo, 0);
+    }
+    
+    return lo == 0;
+};
