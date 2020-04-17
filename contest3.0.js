@@ -433,23 +433,23 @@ var stringShift = function (s, shift) {
  * @param {number[]} nums
  * @return {number[]}
  */
-var productExceptSelf = function(nums) {
+var productExceptSelf = function (nums) {
     const indexes = new Array(nums.length).fill(0).map((item, index) => index);
     const result = [];
-    
+
     for (let index of indexes) {
         let product = 1;
-        
+
         for (let i = 0; i < nums.length; i++) {
             if (i !== index) {
                 product *= nums[i];
             }
         }
-        
+
         result.push(product);
         product = 1;
     }
-    
+
     return result;
 };
 
@@ -457,21 +457,64 @@ var productExceptSelf = function(nums) {
  * @param {string} s
  * @return {boolean}
  */
-var checkValidString = function(s) {
+var checkValidString = function (s) {
     // smallest and largest possible num of '(' after current character
     let lo = 0, hi = 0;
     for (let c of s) {
-        
-       lo += c == '(' ? 1 : -1;
-       hi += c != ')' ? 1 : -1;
-        
-       // In case of '())' you already lost
-       if (hi < 0) {
-           break
-       };
-        
-       lo = Math.max(lo, 0);
+
+        lo += c === '(' ? 1 : -1;
+        hi += c !== ')' ? 1 : -1;
+
+        // In case of '())' you already lost
+        if (hi < 0) {
+            break
+        }
+
+        lo = Math.max(lo, 0);
     }
-    
-    return lo == 0;
+
+    return lo === 0;
+};
+
+/**
+ * @param {grid[][]} grid
+ * @return {number}
+ */
+var numIslands = function (grid) {
+    let count = 0;
+
+    function depthSearch(x, y) {
+        if (grid[x][y] === '1') {
+            grid[x][y] = '0';
+        } else {
+            return;
+        }
+
+        if (x < grid.length - 1) {
+            depthSearch(x + 1, y);
+        }
+
+        if (y < grid[x].length - 1) {
+            depthSearch(x, y + 1);
+        }
+
+        if (x > 0 && x < grid.length) {
+            depthSearch(x - 1, y);
+        }
+
+        if (y > 0 && y < grid[x].length) {
+            depthSearch(x, y - 1);
+        }
+    }
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if (grid[i][j] === '1') {
+                count++;
+                depthSearch(i, j);
+            }
+        }
+    }
+
+    return count;
 };
