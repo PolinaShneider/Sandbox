@@ -518,3 +518,38 @@ var numIslands = function (grid) {
 
     return count;
 };
+
+console.assert(numIslands([
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
+]) === 1, "numIslands #1");
+
+var minPathSum = function (grid) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+
+
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            // at start, do nothing
+            if (row === 0 && col === 0) {
+                continue;
+            }
+
+            if (row !== 0 && col !== 0) {
+                // in the middle
+                grid[row][col] += Math.min(grid[row - 1][col], grid[row][col - 1]);
+            } else if (row === 0) {
+                // up agains the ceiling
+                grid[row][col] += grid[row][col - 1];
+            } else if (col === 0) {
+                // up agains the left wall
+                grid[row][col] += grid[row - 1][col];
+            }
+        }
+    }
+
+    return grid[rows - 1][cols - 1]
+};
