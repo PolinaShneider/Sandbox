@@ -647,3 +647,48 @@ const insert = (root, val) => {
 
     return root;
 };
+
+/**
+ * // This is the BinaryMatrix's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * function BinaryMatrix() {
+ *     @param {integer} x, y
+ *     @return {integer}
+ *     this.get = function(x, y) {
+ *         ...
+ *     };
+ *
+ *     @return {[integer, integer]}
+ *     this.dimensions = function() {
+ *         ...
+ *     };
+ * };
+ */
+
+/**
+ * @param {BinaryMatrix} binaryMatrix
+ * @return {number}
+ */
+var leftMostColumnWithOne = function (binaryMatrix) {
+    const [rows, cols] = binaryMatrix.dimensions();
+
+    let result = -1;
+
+    if (!rows || !cols) {
+        return result;
+    }
+
+    let r = 0;
+    let c = cols - 1;
+
+    while (r < rows && c >= 0) {
+        if (binaryMatrix.get(r, c) === 1) {
+            result = c;
+            c--;
+        } else {
+            r++;
+        }
+    }
+
+    return result;
+};
