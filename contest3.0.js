@@ -719,13 +719,63 @@ var subarraySum = function (nums, k) {
  * @param {number} n
  * @return {number}
  */
-var rangeBitwiseAnd = function(m, n) {
-  let trailingZero = 0;
-  while(m != n) {
-    m >>= 1;
-    n >>= 1;
-    trailingZero++;
-  }
-  
-  return m << trailingZero;
+var rangeBitwiseAnd = function (m, n) {
+    let trailingZero = 0;
+    while (m !== n) {
+        m >>= 1;
+        n >>= 1;
+        trailingZero++;
+    }
+
+    return m << trailingZero;
 };
+
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function (capacity) {
+    this.capacity = capacity;
+    this.cache = new Map();
+};
+
+/**
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function (key) {
+    if (!this.cache.has(key)) {
+        return -1;
+    }
+
+    // if key exists, delete and re-add key to move it to the back
+    const val = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, val);
+    return val;
+};
+
+
+/**
+ * @param {number} key
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function (key, value) {
+    // if key already in cache, delete and re-add to move it to the back
+    if (this.cache.has(key)) {
+        this.cache.delete(key);
+    } else if (this.cache.size >= this.capacity) {
+        // if cache is max size, and key not already in cache, the remove the first item in the Map
+        const oldestKey = this.cache.keys().next().value;
+        this.cache.delete(oldestKey);
+    }
+
+    this.cache.set(key, value);
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */

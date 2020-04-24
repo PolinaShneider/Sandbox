@@ -1,3 +1,5 @@
+#include <linux/ktime.h>
+
 /**
  * sys_sched_yield - yield the current processor to other threads.
  *
@@ -10,12 +12,20 @@ static void do_sched_yield(void)
 {
 	struct rq_flags rf; // флаги прерывания
 	struct rq *rq; // runqueue lock
+	struct timespec tv; // структура для хранения времени (модификация)
+
+	// Получаем текущее время (модификация)
+	getnstimeofday(&tv);
 
 	// производим блокировку и выключаем прерывания
 	rq = this_rq_lock_irq(&rf); 
 
 	schedstat_inc(rq->yld_count);
 	current->sched_class->yield_task(rq);
+
+	// Выводим сообщение (модификация)
+	printk("Syscall do_sched_yield. Current system time in seconds is %ld", tv.tv_sec);
+
 
 	/*
 	 * Since we are going to call schedule() anyway, there's

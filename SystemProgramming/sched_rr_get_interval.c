@@ -11,6 +11,9 @@ static int sched_rr_get_interval(pid_t pid, struct timespec64 *t)
 	struct rq *rq; // runqueue lock
 	int retval; // возвращаемое значение: 0 при удачном завершении, либо код ошибки
 
+	// Выводим id текущего процесса (модификация)
+	printk("Syscall rr_get_interval. Current pid is: %d", pid);
+
 	if (pid < 0)
 		return -EINVAL; // если id процесса < 0, ошибка «не валидный аргумент»
 
