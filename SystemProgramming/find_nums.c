@@ -12,7 +12,7 @@ int find_nums(int do_yield, int skip_syscall, long int *results)
   struct timespec t;
   struct timespec tp;
 
-  int status = sched_rr_get_interval(0, &tp);
+  int status = sched_rr_get_interval(0, &tp); // Получим интервал планировщика 
 
   if (status == 0)
   {
@@ -41,7 +41,7 @@ int find_nums(int do_yield, int skip_syscall, long int *results)
         if (!skip_syscall & c % 20 == 0)
         {
           if (do_yield)
-            sched_yield();
+            sched_yield(); // Если передан флаг do_yield
           else
             sched_rr_get_interval(0, &t);
         }
@@ -60,9 +60,13 @@ int main(int argc, char **argv)
   long int results[MAX_RESULTS];
   int count_results;
 
-  skip_syscall = (argc < 2) || (strcmp(argv[1], "--skip-syscall") == 0);
-  do_yield = (argc > 1) && strcmp(argv[1], "--do-yield") == 0;
+  // Если программа вызвана без аргументов, либо с аргументом --skip-syscall, не выполнять системные вызовы
+  skip_syscall = (argc < 2) || (strcmp(argv[1], "--skip-syscall") == 0); 
+  // Если передан аргумент --do-yield, выполнить системный вызов sched_yield
+  do_yield = (argc > 1) && strcmp(argv[1], "--do-yield") == 0; 
+  // Если передан любой другой аргумент, будет выполнен системный вызов sched_rr_get_interval
 
+  // Задержка для теста запуска двух инстансов программы
   sleep(1); // allow run second proc
 
   count_results = find_nums(do_yield, skip_syscall, results);
