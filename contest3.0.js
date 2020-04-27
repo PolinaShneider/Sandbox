@@ -818,3 +818,33 @@ var longestCommonSubsequence = function (text1, text2) {
     }
     return max;
 };
+
+/**
+ * @param {character[][]} matrix
+ * @return {number}
+ */
+var maximalSquare = function (matrix) {
+    if (!matrix.length) {
+        return 0;
+    }
+
+    let solution = Math.max(...matrix[0]);
+    
+    const cache = [...matrix];
+    const height = matrix.length;
+    const width = matrix[0].length;
+
+    for (let i = 0; i < matrix.length; i++) {
+        solution = Math.max(solution, matrix[i][0])
+    }
+
+    for (let row = 1; row < height; row++) {
+        for (let col = 1; col < width; col++) {
+            if (matrix[row][col] === "1") {
+                cache[row][col] = (Math.min(cache[row - 1][col], (cache[row][col - 1]), cache[row - 1][col - 1]) + 1);
+                solution = Math.max(solution, cache[row][col]);
+            }
+        }
+    }
+    return solution * solution
+};
