@@ -829,7 +829,7 @@ var maximalSquare = function (matrix) {
     }
 
     let solution = Math.max(...matrix[0]);
-    
+
     const cache = [...matrix];
     const height = matrix.length;
     const width = matrix[0].length;
@@ -848,3 +848,50 @@ var maximalSquare = function (matrix) {
     }
     return solution * solution
 };
+
+/**
+ * @param {number[]} nums
+ */
+var FirstUnique = function (nums) {
+    this.map = new Map();
+    this.counter = {};
+
+    for (const num of nums) {
+        this.map.set(+num, this.map.get(num) + 1 || 1);
+        this.counter[num] = true;
+    }
+
+    for (const key of this.map.keys()) {
+        if (this.map.get(key) > 1) {
+            this.map.delete(key)
+        }
+    }
+};
+
+/**
+ * @return {number}
+ */
+FirstUnique.prototype.showFirstUnique = function () {
+    const result = this.map.keys().next().value;
+    return (result === void 0) ? -1 : result;
+};
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+FirstUnique.prototype.add = function (value) {
+    if (this.counter[value]) {
+        this.map.delete(value);
+    } else {
+        this.map.set(value, value);
+        this.counter[value] = 1;
+    }
+};
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * var obj = new FirstUnique(nums)
+ * var param_1 = obj.showFirstUnique()
+ * obj.add(value)
+ */
