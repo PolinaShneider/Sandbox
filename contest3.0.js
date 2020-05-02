@@ -969,3 +969,36 @@ var solution = function (isBadVersion) {
         return low;
     };
 };
+
+/**
+ * @param {number[]} nums
+ */
+var NumArray = function (nums) {
+    this.partials = (function() {
+        if (!nums.length) {
+            return {};
+        }
+        const map = {
+            0: nums[0]
+        };
+        for (let i = 1; i < nums.length; i++) {
+            map[i] = map[i - 1] + nums[i];
+        }
+        return map;
+    })(nums);
+};
+
+/**
+ * @param {number} i
+ * @param {number} j
+ * @return {number}
+ */
+NumArray.prototype.sumRange = function (i, j) {
+    return i > 0 ? this.partials[j] - this.partials[i - 1] : this.partials[j];
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * var obj = new NumArray(nums)
+ * var param_1 = obj.sumRange(i,j)
+ */
