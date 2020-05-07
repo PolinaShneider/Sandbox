@@ -657,3 +657,59 @@ var isValidSequence = function (root, arr) {
 
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+var isCousins = function (root, x, y) {
+    function levelOrder(node) {
+        const map = {};
+        const stack = [{node: node, level: 0, parent: null}];
+        while (stack.length) {
+            const {node, level, parent} = stack.pop();
+
+            if (map[level]) {
+                map[level].push({value: node.val, parent})
+            } else {
+                map[level] = [{value: node.val, parent}]
+            }
+
+            if (node.left) {
+                stack.push({node: node.left, level: level + 1, parent: node.val})
+            }
+
+            if (node.right) {
+                stack.push({node: node.right, level: level + 1, parent: node.val})
+            }
+        }
+
+        return Object.entries(map);
+    }
+
+    const data = levelOrder(root);
+    const candidates = [];
+
+    for (const elem of data) {
+        const [level, children] = elem;
+
+        for (const child of children) {
+            if (child.value === x || child.value === y) {
+                candidates.push({level, child})
+            }
+        }
+    }
+
+    return candidates.length === 2 && candidates[0].level === candidates[1].level &&
+        candidates[0].child.parent !== candidates[1].child.parent;
+};
