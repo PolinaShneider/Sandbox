@@ -1078,3 +1078,15 @@ var merge = function (nums1, m, nums2, n) {
     nums1.splice(m, nums1.length - m, ...nums2);
     nums1.sort((a, b) => a - b);
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var trailingZeroes = function (n) {
+    let numZeroes = 0;
+    for (let i = 5; i <= n; i *= 5) {
+        numZeroes += Math.floor(n / i);
+    }
+    return numZeroes;
+};
