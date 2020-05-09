@@ -1090,3 +1090,12 @@ var trailingZeroes = function (n) {
     }
     return numZeroes;
 };
+
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isPerfectSquare = function (num) {
+    const square = num ** 0.5;
+    return Math.floor(square) === square;
+};
