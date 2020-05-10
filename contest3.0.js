@@ -1099,3 +1099,37 @@ var isPerfectSquare = function (num) {
     const square = num ** 0.5;
     return Math.floor(square) === square;
 };
+
+/**
+ * @param {number} N
+ * @param {number[][]} trust
+ * @return {number}
+ */
+var findJudge = function (N, trust) {
+    const map = {};
+
+    for (const elem of trust) {
+        const [first, second] = elem;
+        if (map[first]) {
+            map[first].push(second.toString())
+        } else {
+            map[first] = [second.toString()];
+        }
+    }
+
+    let candidate = -1;
+    const keys = Object.keys(map);
+    for (let i = 1; i <= N; i++) {
+        if (!keys.includes(i.toString())) {
+            candidate = i.toString();
+        }
+    }
+
+    for (const key in map) {
+        if (!map[key].includes(candidate)) {
+            return -1;
+        }
+    }
+
+    return candidate;
+};

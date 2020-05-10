@@ -60,6 +60,7 @@ class Interviewer extends User {
 class Interview {
     public status: InterviewStatus;
     public time: Date;
+    public feedback: Feedback | null;
 
     constructor(candidate: Candidate, interviewer: Interviewer, time: Date) {
         this.status = 'upcoming';
