@@ -1133,3 +1133,37 @@ var findJudge = function (N, trust) {
 
     return candidate;
 };
+
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} newColor
+ * @return {number[][]}
+ */
+var floodFill = function(image, sr, sc, newColor) {
+    const dfs = (image, row, col, newColor, origColor) => {
+        if(
+            row >= 0
+            && row < image.length
+            && col >= 0
+            && col < image[0].length
+            && image[row][col] === origColor
+        ) {
+
+            image[row][col] = newColor;
+
+            dfs(image, row - 1, col, newColor, origColor);  // up
+            dfs(image, row + 1, col, newColor, origColor);  // down
+            dfs(image, row, col - 1, newColor, origColor);  // left
+            dfs(image, row, col + 1, newColor, origColor);  // right
+        }
+    };
+    
+    const origColor = image[sr][sc];
+    if (newColor !== origColor) {
+        dfs(image, sr, sc, newColor, origColor);
+    }
+    
+    return image;
+};
