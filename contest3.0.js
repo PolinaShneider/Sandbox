@@ -1141,9 +1141,9 @@ var findJudge = function (N, trust) {
  * @param {number} newColor
  * @return {number[][]}
  */
-var floodFill = function(image, sr, sc, newColor) {
+var floodFill = function (image, sr, sc, newColor) {
     const dfs = (image, row, col, newColor, origColor) => {
-        if(
+        if (
             row >= 0
             && row < image.length
             && col >= 0
@@ -1159,11 +1159,35 @@ var floodFill = function(image, sr, sc, newColor) {
             dfs(image, row, col + 1, newColor, origColor);  // right
         }
     };
-    
+
     const origColor = image[sr][sc];
     if (newColor !== origColor) {
         dfs(image, sr, sc, newColor, origColor);
     }
-    
+
     return image;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNonDuplicate = function (nums) {
+    let prev = nums[0];
+    let cnt = 1;
+
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] === prev) {
+            cnt++
+        } else {
+            if (cnt < 2) {
+                return nums[i - 1];
+            }
+            cnt = 1;
+        }
+
+        prev = nums[i];
+    }
+
+    return nums[nums.length - 1];
 };
