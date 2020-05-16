@@ -5,6 +5,7 @@
 
 #define MAX_RESULTS 15
 
+// По флагам определяем, какой системный вызов тестировать
 int find_nums(int do_yield, int skip_syscall, long int *results)
 {
   long int a, b, c;

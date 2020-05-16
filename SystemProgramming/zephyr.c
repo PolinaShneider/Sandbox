@@ -1,73 +1,60 @@
-include <kernel.h>
-#include <drivers/timer/system_timer.h>
-#include <sys/printk.h>
-#include <power/reboot.h>
-
-extern void sys_arch_reboot(int type);
-extern void sys_clock_disable(void);
-
-void sys_reboot(int type)
+k_tid_t z_vrfy_k_thread_create(struct k_thread *new_thread,
+	k_thread_stack_t *stack,
+	size_t stack_size, k_thread_entry_t entry,
+	void *p1, void *p2, void *p3,
+	int prio, u32_t options, k_timeout_t delay)
 {
-	(void)irq_lock();
-#ifdef CONFIG_SYS_CLOCK_EXISTS
-	sys_clock_disable();
-#endif
+	size_t total_size, stack_obj_size;
+	struct z_object *stack_object;
 
-	sys_arch_reboot(type);
+	/* The thread and stack objects *must* be in an uninitialized state */
+	Z_OOPS(Z_SYSCALL_OBJ_NEVER_INIT(new_thread, K_OBJ_THREAD));
+	stack_object = z_object_find(stack);
+	Z_OOPS(Z_SYSCALL_VERIFY_MSG(z_obj_validation_check(stack_object, stack,
+		K_OBJ_THREAD_STACK_ELEMENT,
+		_OBJ_INIT_FALSE) == 0,
+		"bad stack object"));
 
-	/* should never get here */
-	printk("Failed to reboot: spinning endlessly...\n");
-	for (;;) {
-		k_cpu_idle();
-	}
-}
+	/* Verify that the stack size passed in is OK by computing the total
+	 * size and comparing it with the size value in the object metadata
+	 */
+	Z_OOPS(Z_SYSCALL_VERIFY_MSG(!size_add_overflow(K_THREAD_STACK_RESERVED,
+		stack_size, &total_size),
+		"stack size overflow (%zu+%zu)",
+		stack_size,
+		K_THREAD_STACK_RESERVED));
 
-Листинг А.13: Исходный код функции выключения операционной системы реального времени Zephyr OS
-#if CONFIG_DEVICE_POWER_MANAGEMENT
-static int sys_pm_init(struct device *dev)
-{
-	ARG_UNUSED(dev);
-
-	sys_pm_create_device_list();
-	return 0;
-}
-
-SYS_INIT(sys_pm_init, APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);
-#endif /* CONFIG_DEVICE_POWER_MANAGEMENT */
-
-static struct pm_debug_info pm_dbg_info[SYS_POWER_STATE_MAX];
-static u32_t timer_start, timer_end;
-
-static inline void sys_pm_debug_start_timer(void)
-{
-	timer_start = k_cycle_get_32();
-}
-
-static inline void sys_pm_debug_stop_timer(void)
-{
-	timer_end = k_cycle_get_32();
-}
-
-static void sys_pm_log_debug_info(enum power_states state)
-{
-	u32_t res = timer_end - timer_start;
-
-	pm_dbg_info[state].count++;
-	pm_dbg_info[state].last_res = res;
-	pm_dbg_info[state].total_res += res;
-}
-
-void sys_pm_dump_debug_info(void)
-{
-	for (int i = 0; i < SYS_POWER_STATE_MAX; i++) {
-		LOG_DBG("PM:state = %d, count = %d last_res = %d, "
-			"total_res = %d\n", i, pm_dbg_info[i].count,
-			pm_dbg_info[i].last_res, pm_dbg_info[i].total_res);
-	}
-}
+	/* Testing less-than-or-equal since additional room may have been
+	 * allocated for alignment constraints
+	 */
+#ifdef CONFIG_GEN_PRIV_STACKS
+	stack_obj_size = stack_object->data.stack_data->size;
 #else
-static inline void sys_pm_debug_start_timer(void) { }
-static inline void sys_pm_debug_stop_timer(void) { }
-static void sys_pm_log_debug_info(enum power_states state) { }
-void sys_pm_dump_debug_info(void) { }
+	stack_obj_size = stack_object->data.stack_size;
 #endif
+	Z_OOPS(Z_SYSCALL_VERIFY_MSG(total_size <= stack_obj_size,
+		"stack size %zu is too big, max is %zu",
+		total_size, stack_obj_size));
+
+	/* User threads may only create other user threads and they can't
+	 * be marked as essential
+	 */
+	Z_OOPS(Z_SYSCALL_VERIFY(options & K_USER));
+	Z_OOPS(Z_SYSCALL_VERIFY(!(options & K_ESSENTIAL)));
+
+	/* Check validity of prio argument; must be the same or worse priority
+	 * than the caller
+	 */
+	Z_OOPS(Z_SYSCALL_VERIFY(_is_valid_prio(prio, NULL)));
+	Z_OOPS(Z_SYSCALL_VERIFY(z_is_prio_lower_or_equal(prio,
+		_current->base.prio)));
+
+	z_setup_new_thread(new_thread, stack, stack_size,
+		entry, p1, p2, p3, prio, options, NULL);
+
+	if (!K_TIMEOUT_EQ(delay, K_FOREVER)) {
+		schedule_new_thread(new_thread, delay);
+	}
+
+	return new_thread;
+}
