@@ -1317,3 +1317,44 @@ var oddEvenList = function (head) {
     odd.next = evenTop;
     return head;
 };
+
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+var findAnagrams = function (s, p) {
+    const l = p.length;
+
+    //Create map for target string => 'p';
+    let map = new Map();
+    for (const c of p) {
+        if (!map.has(c)) map.set(c, 1);
+        else map.set(c, map.get(c) + 1)
+    }
+
+    //Move the right edge of the 'door' until length equals to l;
+    for (let i = 0; i < l; i++) {
+        if (map.has(s[i])) map.set(s[i], map.get(s[i]) - 1);
+    }
+
+    //Check first 'door';
+    if (isMatch(map)) res.push(0);
+
+    //Move the 'door' to right side step by step and check;
+    for (let i = l; i < s.length; i++) {
+        if (map.has(s[i])) map.set(s[i], map.get(s[i]) - 1);
+        if (map.has(s[i - l])) map.set(s[i - l], map.get(s[i - l]) + 1);
+        if (isMatch(map)) res.push(i - l + 1);
+    }
+
+    //Validation check;
+    function isMatch(map) {
+        for (const [k, v] of map) {
+            if (v !== 0) return false;
+        }
+        return true;
+    }
+
+    return res;
+};
