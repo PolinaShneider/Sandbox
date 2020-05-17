@@ -1325,6 +1325,7 @@ var oddEvenList = function (head) {
  */
 var findAnagrams = function (s, p) {
     const l = p.length;
+    const res = [];
 
     //Create map for target string => 'p';
     let map = new Map();
