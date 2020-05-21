@@ -1365,42 +1365,42 @@ var findAnagrams = function (s, p) {
  * @param {string} s2
  * @return {boolean}
  */
-var checkInclusion = function(s1, s2) {
+var checkInclusion = function (s1, s2) {
     let start = 0;
     let charsLeft = s1.length;
-    
+
     //Create dictionary from s1
     let dic = {};
     for (let i = 0; i < s1.length; i++) {
         dic[s1[i]] = (dic[s1[i]] || 0) + 1;
     }
-    
-    
+
+
     //Iterate s2
     for (let i = 0; i < s2.length; i++) {
-        
+
         //Decrease char in dictionary and check for completion
         if (--dic[s2[i]] >= 0 && --charsLeft === 0) return true;
-        
+
         //check if window is broken
         while (start <= i && (isNaN(dic[s2[i]]) || dic[s2[i]] < 0)) {
             if (++dic[s2[start++]] > 0) charsLeft++;
         }
-        
+
     }
-    
+
     return false;
 };
 
-var StockSpanner = function() {
+var StockSpanner = function () {
     this.values = [];
 };
 
-/** 
+/**
  * @param {number} price
  * @return {number}
  */
-StockSpanner.prototype.next = function(price) {
+StockSpanner.prototype.next = function (price) {
     let count = 1;
     while (this.values.length > 0 && this.values[this.values.length - 1][0] <= price) {
         count += this.values.pop()[1];
@@ -1409,7 +1409,7 @@ StockSpanner.prototype.next = function(price) {
     return count;
 };
 
-/** 
+/**
  * Your StockSpanner object will be instantiated and called as such:
  * var obj = new StockSpanner()
  * var param_1 = obj.next(price)
@@ -1421,14 +1421,32 @@ StockSpanner.prototype.next = function(price) {
  * @param {number} queryTime
  * @return {number}
  */
-var busyStudent = function(startTime, endTime, queryTime) {
+var busyStudent = function (startTime, endTime, queryTime) {
     let cnt = 0;
-    
+
     for (let i = 0; i < startTime.length; i++) {
         if (startTime[i] <= queryTime && endTime[i] >= queryTime) {
             cnt++;
         }
     }
-    
+
     return cnt;
+};
+
+/**
+ * @param {number[][]} matrix
+ * @return {number}
+ */
+var countSquares = function (matrix) {
+    let count = 0;
+    for (let i = 0; i < matrix.length; ++i) {
+        for (let j = 0; j < matrix[0].length; ++j) {
+            if (matrix[i][j] === 0) continue;
+            if (i > 0 && j > 0) {
+                matrix[i][j] += Math.min(matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]);
+            }
+            count += matrix[i][j];
+        }
+    }
+    return count;
 };
