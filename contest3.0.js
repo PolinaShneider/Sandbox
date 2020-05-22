@@ -1450,3 +1450,15 @@ var countSquares = function (matrix) {
     }
     return count;
 };
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var replaceElements = function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+        const max = Math.max(...arr.slice(i + 1));
+        arr[i] = Number.isFinite(-max) ? max : -1
+    }
+
+    return arr;
+};
