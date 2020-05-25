@@ -1500,3 +1500,21 @@ var sortString = function (s) {
     }
     return result
 };
+
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number}
+ */
+var maxUncrossedLines = function (A, B) {
+    let dp = new Array(A.length + 1);
+    dp[0] = new Array(B.length + 1);
+    for (let i = 0; i < A.length; i++) {
+        dp[i + 1] = new Array(B.length + 1);
+        for (let j = 0; j < B.length; j++) {
+            if (A[i] === B[j]) dp[i + 1][j + 1] = (dp[i][j] || 0) + 1;
+            else dp[i + 1][j + 1] = Math.max(dp[i][j + 1] || 0, dp[i + 1][j] || 0);
+        }
+    }
+    return dp[A.length][B.length];
+};
