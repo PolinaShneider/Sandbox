@@ -1520,6 +1520,40 @@ var maxUncrossedLines = function (A, B) {
 };
 
 /**
+ * @param {number} N
+ * @param {number[][]} dislikes
+ * @return {boolean}
+ */
+var possibleBipartition = function (N, dislikes) {
+    const map = new Uint16Array(N + 1).fill(2047);
+    let counter = 0;
+    const len = dislikes.length;
+    for (let i = 0; i < len; i++) {
+        const A = map[dislikes[i][0]], B = map[dislikes[i][1]];
+        const AP = A + (A % 2 ? -1 : 1), BP = B + (B % 2 ? -1 : 1);
+        if (A === 2047) {
+            if (B === 2047) {
+                map[dislikes[i][0]] = counter++;
+                map[dislikes[i][1]] = counter++;
+            } else {
+                map[dislikes[i][0]] = BP;
+            }
+        } else if (B === 2047) {
+            map[dislikes[i][1]] = AP;
+        } else {
+            if (A === B) return false;
+            if (A === BP) continue;
+            for (let j = 1; j <= N; j++) {
+                map[j] === B ? map[j] = AP :
+                    map[j] === BP ? map[j] = A :
+                        null;
+            }
+        }
+    }
+    return true;
+};
+
+/**
  * Definition for singly-linked list.
  * function ListNode(val) {
  *     this.val = val;
@@ -1531,9 +1565,9 @@ var maxUncrossedLines = function (A, B) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var mergeTwoLists = function(l1, l2) {
-    if(!l1 || !l2) return l1 || l2
-    if(l1.val < l2.val){
+var mergeTwoLists = function (l1, l2) {
+    if (!l1 || !l2) return l1 || l2
+    if (l1.val < l2.val) {
         l1.next = mergeTwoLists(l1.next, l2)
         return l1
     } else {
