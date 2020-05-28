@@ -1575,3 +1575,11 @@ var mergeTwoLists = function (l1, l2) {
         return l2
     }
 };
+
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var countBits = function(num) {
+    return Array(num+1).fill().map((_, i) => i == 0 ? 0 : i.toString(2).match(/1/g).length);
+};
