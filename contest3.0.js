@@ -1619,5 +1619,18 @@ var mergeTwoLists = function (l1, l2) {
  * @return {number[]}
  */
 var countBits = function (num) {
-    return Array(num + 1).fill().map((_, i) => i == 0 ? 0 : i.toString(2).match(/1/g).length);
+    return Array(num + 1).fill(0).map((_, i) => i === 0 ? 0 : i.toString(2).match(/1/g).length);
+};
+
+/**
+ * @param {number[][]} points
+ * @param {number} K
+ * @return {number[][]}
+ */
+var kClosest = function(points, K) {
+    const distance = ([x, y]) => {
+        return Math.pow((x ** 2 + y ** 2), 0.5);
+    };
+
+    return points.sort((first, second) => distance(first) - distance(second)).slice(0, K);
 };
