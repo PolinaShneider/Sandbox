@@ -1627,10 +1627,43 @@ var countBits = function (num) {
  * @param {number} K
  * @return {number[][]}
  */
-var kClosest = function(points, K) {
+var kClosest = function (points, K) {
     const distance = ([x, y]) => {
         return Math.pow((x ** 2 + y ** 2), 0.5);
     };
 
     return points.sort((first, second) => distance(first) - distance(second)).slice(0, K);
+};
+
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var minDistance = function (word1, word2) {
+    var M = [];
+    var cols = word1.length;
+    var rows = word2.length;
+    for (var y = rows; y >= 0; y--) {
+        M[y] = [];
+        for (var x = cols; x >= 0; x--) {
+            if (x === cols && y === rows) { // bottom right corner
+                M[y][x] = 0;
+            } else if (x === cols) {       // right edge
+                M[y][x] = M[y + 1][x] + 1;
+            } else if (y === rows) {       // bottom edge
+                M[y][x] = M[y][x + 1] + 1;
+            } else {
+                var A = M[y + 1][x];     // down
+                var B = M[y][x + 1];     // right
+                var C = M[y + 1][x + 1]; // down and right
+                if (word1[x] === word2[y]) {
+                    M[y][x] = Math.min(A + 1, B + 1, C);
+                } else {
+                    M[y][x] = Math.min(A + 1, B + 1, C + 1);
+                }
+            }
+        }
+    }
+    return M[0][0];
 };
