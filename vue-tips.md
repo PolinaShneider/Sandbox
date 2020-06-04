@@ -9,3 +9,5 @@
 
 - Scoped slots: https://blog.logrocket.com/how-to-pass-html-content-through-components-with-vue-slots/ <br>
 Key idea: Vue slot can also access the data object in the child component from the parent component
+
+- overflow-x: scroll; overflow-y: visible; https://medium.com/@justicart/overflow-x-scroll-overflow-y-visible-c1a98238e002
