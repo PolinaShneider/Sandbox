@@ -1700,25 +1700,55 @@ var invertTree = function (root) {
  * @param {number[][]} costs
  * @return {number}
  */
-var twoCitySchedCost = function(costs) {
+var twoCitySchedCost = function (costs) {
     const groupA = [], groupB = [];
-    const mid = costs.length /2;
-    
-    for(let item of costs) {
+    const mid = costs.length / 2;
+
+    for (let item of costs) {
         const [a, b] = item;
-        if(a <= b) groupA.push(item);
+        if (a <= b) groupA.push(item);
         else groupB.push(item);
     }
-    
-    if(groupA.length > mid) {
+
+    if (groupA.length > mid) {
         groupA.sort((a, b) => Math.abs(b[0] - b[1]) - Math.abs(a[0] - a[1]));
-        while(groupA.length > mid) groupB.push(groupA.pop());
-    } else if(groupB.length > mid) {
+        while (groupA.length > mid) groupB.push(groupA.pop());
+    } else if (groupB.length > mid) {
         groupB.sort((a, b) => Math.abs(b[0] - b[1]) - Math.abs(a[0] - a[1]))
-        while(groupB.length > mid) groupA.push(groupB.pop());
+        while (groupB.length > mid) groupA.push(groupB.pop());
     }
-    
-    let total = groupA.reduce((acc, cur) => acc + cur[0] ,0);
+
+    let total = groupA.reduce((acc, cur) => acc + cur[0], 0);
     total += groupB.reduce((acc, cur) => acc + cur[1], 0);
     return total;
 };
+
+/**
+ * @param {number[]} w
+ */
+var Solution = function (w) {
+    this.weights = new Map();
+    this.sum = 0;
+    for (let i = 0; i < w.length; i++) {
+        this.sum += w[i];
+        this.weights.set(this.sum, i);
+    }
+};
+
+/**
+ * @return {number}
+ */
+Solution.prototype.pickIndex = function () {
+    let index = Math.floor(Math.random() * this.sum);
+    for (let key of this.weights.keys()) {
+        if (index < key) {
+            return this.weights.get(key)
+        }
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * var obj = new Solution(w)
+ * var param_1 = obj.pickIndex()
+ */
