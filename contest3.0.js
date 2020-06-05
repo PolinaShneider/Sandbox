@@ -1695,3 +1695,30 @@ var invertTree = function (root) {
     invert(root);
     return root;
 };
+
+/**
+ * @param {number[][]} costs
+ * @return {number}
+ */
+var twoCitySchedCost = function(costs) {
+    const groupA = [], groupB = [];
+    const mid = costs.length /2;
+    
+    for(let item of costs) {
+        const [a, b] = item;
+        if(a <= b) groupA.push(item);
+        else groupB.push(item);
+    }
+    
+    if(groupA.length > mid) {
+        groupA.sort((a, b) => Math.abs(b[0] - b[1]) - Math.abs(a[0] - a[1]));
+        while(groupA.length > mid) groupB.push(groupA.pop());
+    } else if(groupB.length > mid) {
+        groupB.sort((a, b) => Math.abs(b[0] - b[1]) - Math.abs(a[0] - a[1]))
+        while(groupB.length > mid) groupA.push(groupB.pop());
+    }
+    
+    let total = groupA.reduce((acc, cur) => acc + cur[0] ,0);
+    total += groupB.reduce((acc, cur) => acc + cur[1], 0);
+    return total;
+};
