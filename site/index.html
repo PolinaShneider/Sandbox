@@ -1,158 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Сайт о кошках</title>
+	<title>Сайт про кошек</title>
 	<style type="text/css">
-		.container {
-			width: 1000px;
-			margin: 0 auto;
-		}
-
 		body {
 			margin: 0;
 			font-family: system-ui;
+			line-height: 1.25;
 		}
 
-		.header {
-			background: #FEEBEF;
-		}
-
-		.header ul {
-			list-style: none;
-			padding: 20px 0;
-			margin: 0;
-			display: flex;
-		}
-
-		.header ul li {
-			margin-right: 15px;
-		}
-
-		.header ul li a {
-			text-decoration: none;
-			color: black;
-		}
-
-		.main {
-			background: #F4F4F4;
-			padding: 50px 0;
-		}
-
-		.welcome {
-			margin-bottom: 50px;
-		}
-
-		.welcome img {
-			width: 100%;
-		}
-
-		.welcome h1, .news h1 {
-			margin: 0;
-			padding-bottom: 15px;
-		}
-
-		.news-block {
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
 			border: 1px solid rgba(0,0,0,.25);
-			display: flex;
-			border-radius: 2.5px;
 		}
 
-		.news-block-item {
-			display: flex;
-			flex-direction: column;
-			padding: 10px 15px;
-		}
-
-		.news-block-item p {
-			text-align: justify;
-			margin-top: 0;
-		}
-
-		.news-block-item h2 {
-			margin: 10px 0;
-		}
-
-		.news-block-item img {
-			height: 200px;
-			object-fit: cover;
-			border-radius: 2.5px;
-		}
-
-		.footer {
+		header {
 			background: #64BBCA;
+			padding: 0 20px;
 		}
 
-		.footer img {
-			height: 100px;
+		header a {
+			display: inline-block;
+			padding: 15px 0;
 		}
 
-		.footer .container {
+		main {
+			padding: 0 20px;
+		}
+
+		footer {
+			background: #64BBCA;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			padding: 0 20px;
 		}
 
+		footer img {
+			height: 70px;
+		}
+
+		.content {
+			display: flex;
+		}
+
+		.content img {
+			max-width: 100%;
+		}
 	</style>
 </head>
 <body>
-	<header class="header">
-		<div class="container">
-			<ul>
-				<li>
-					<a href="">
-						Факты
-					</a>
-				</li>
-				<li>
-					<a href="">
-						Забавные видео
-					</a>
-				</li>
-				<li>
-					<a href="">
-						Картинки
-					</a>
-				</li>
-			</ul>
-		</div>
+<div class="container">
+	<header>
+		<a href="https://www.popmech.ru/science/47486-20-faktov-o-koshkakh-kotorye-vy-mogli-ne-znat/">
+			Факты
+		</a>
 	</header>
-	<div class="main">
-		<div class="container">
-			<div class="welcome">
-				<h1>
-					Добро пожаловать!
-				</h1>
-				<img src="images/welcome-img.jpg">
+	<main>
+		<h1>Новости кошачьего королевства</h1>
+		<div class="content">
+			<div>
+				<img src="images/cat.jpg">
+				<p>
+					У кошек отличное обоняние. Согласно исследованию, проведенному в 2010 году Университетом Нового Южного Уэльса (Австралия), дикие кошки чувствовали запах «парфюма» с мышиным запахом даже спустя шесть дней после того, как в месте их обитания был помещен образец с этим «ароматом». <br>Кошки неважно различают вкус еды. Согласно исследованию 2006 года, они — одни из немногих млекопитающих, которые не имеют вкусовых рецепторов для сладкого.
+				</p>
 			</div>
-			<div class="news">
-				<h1>
-					Новости кошачьего королевства
-				</h1>
-				<div class="news-block">
-					<div class="news-block-item">
-						<img src="images/cats-1.jpg">
-						<h2>У вас дома живет инопланетянка</h2>
-						<p>Не так много в природе животных, о которых вроде известно все, они миллионы лет рядом с человеком,  но все равно остаются загадкой. Это — кошки.</p>
-					</div>
-					<div class="news-block-item">
-						<img src="images/cats-2.jpg">
-						<h2>У вас дома живет инопланетянка</h2>
-						<p>Не так много в природе животных, о которых вроде известно все, они миллионы лет рядом с человеком, - но все равно остаются загадкой. Это - кошки.</p>
-					</div>
-					<div class="news-block-item">
-						<img src="images/cats-3.jpg">
-						<h2>У вас дома живет инопланетянка</h2>
-						<p>Не так много в природе животных, о которых вроде известно все, они миллионы лет рядом с человеком, - но все равно остаются загадкой. Это - кошки.</p>
-					</div>
-				</div>
+			<div>
+				<img src="images/cat.jpg">
+				<p>
+					У кошек отличное обоняние. Согласно исследованию, проведенному в 2010 году Университетом Нового Южного Уэльса (Австралия), дикие кошки чувствовали запах «парфюма» с мышиным запахом даже спустя шесть дней после того, как в месте их обитания был помещен образец с этим «ароматом». <br>Кошки неважно различают вкус еды. Согласно исследованию 2006 года, они — одни из немногих млекопитающих, которые не имеют вкусовых рецепторов для сладкого.
+				</p>
 			</div>
 		</div>
-	</div>
-	<footer class="footer">
-		<div class="container">
-			<img src="images/logo.png">
-			<div>All rights reserved ©</div>
+	</main>
+	<footer>
+		<img src="images/logo.png">
+		<div>
+			All rights reserved ©
 		</div>
 	</footer>
+</div>
 </body>
 </html>
