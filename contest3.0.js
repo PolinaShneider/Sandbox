@@ -1845,3 +1845,23 @@ RandomizedSet.prototype.getRandom = function () {
  * var param_2 = obj.remove(val)
  * var param_3 = obj.getRandom()
  */
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var largestDivisibleSubset = function (nums) {
+    if (!nums.length) return [];
+    nums.sort((a, b) => a - b);
+    const dp = Array.from({length: nums.length}, (_, i) => [nums[i]]);
+
+    for (let i = nums.length - 1; i >= 0; i--) {
+        for (let j = i + 1; j < nums.length; j++) {
+            if (dp[i].length <= dp[j].length && dp[j][0] % nums[i] === 0) {
+                dp[i] = [nums[i], ...dp[j]];
+            }
+        }
+    }
+
+    return dp.reduce((a, x) => a.length > x.length ? a : x)
+};
