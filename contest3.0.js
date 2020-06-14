@@ -1865,3 +1865,39 @@ var largestDivisibleSubset = function (nums) {
 
     return dp.reduce((a, x) => a.length > x.length ? a : x)
 };
+
+/**
+ * @param {number} n
+ * @param {number[][]} flights
+ * @param {number} src
+ * @param {number} dst
+ * @param {number} K
+ * @return {number}
+ */
+var findCheapestPrice = function (n, flights, src, dst, K) {
+    const flightHash = {};
+    for (let flight of flights) {
+        let [from, to, price] = flight;
+        if (flightHash[from] == null) flightHash[from] = {};
+        flightHash[from][to] = price;
+    }
+    let minPrice = {src: [0]};
+    let pq = [[0, 0, src]];
+
+    while (pq.length) {
+        let [price, stop, from] = pq.shift();
+        if (stop > K + 1 || (minPrice[from] && price > minPrice[from][stop])) continue;
+        if (from == dst) return price;
+        let to = flightHash[from];
+        for (let t in to) {
+            if (minPrice[t] == null) minPrice[t] = [];
+            let costToNext = price + to[t];
+            if (costToNext > minPrice[t][stop + 1]) continue;
+            minPrice[t][stop + 1] = costToNext;
+            pq.push([costToNext, stop + 1, t]);
+        }
+        pq.sort((a, b) => a[0] - b[0]);
+    }
+
+    return -1;
+};
