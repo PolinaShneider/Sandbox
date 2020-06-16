@@ -1887,7 +1887,7 @@ var findCheapestPrice = function (n, flights, src, dst, K) {
     while (pq.length) {
         let [price, stop, from] = pq.shift();
         if (stop > K + 1 || (minPrice[from] && price > minPrice[from][stop])) continue;
-        if (from == dst) return price;
+        if (from === dst) return price;
         let to = flightHash[from];
         for (let t in to) {
             if (minPrice[t] == null) minPrice[t] = [];
@@ -1900,4 +1900,22 @@ var findCheapestPrice = function (n, flights, src, dst, K) {
     }
 
     return -1;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var runningSum = function (nums) {
+    return nums.reduce((total, item, index) => {
+        const prev = total[index - 1];
+
+        if (prev !== undefined) {
+            total.push(item + prev);
+        } else {
+            total.push(item);
+        }
+
+        return total;
+    }, []);
 };
