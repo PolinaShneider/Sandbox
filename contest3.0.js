@@ -1919,3 +1919,43 @@ var runningSum = function (nums) {
         return total;
     }, []);
 };
+
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solve = function (board) {
+    if (!board.length) return;
+
+    function callDFS(r, c) {
+        if (r >= board.length || r < 0 || c >= board[0].length || c < 0 || board[r][c] !== 'O') return;
+        board[r][c] = 'V';
+        // up
+        callDFS(r - 1, c);
+        // down
+        callDFS(r + 1, c);
+        // right
+        callDFS(r, c - 1);
+        // left
+        callDFS(r, c + 1);
+    }
+
+    // top and bottom border
+    for (let c = 0; c < board[0].length; c++) {
+        if (board[0][c] === 'O') callDFS(0, c);
+        if (board[board.length - 1][c] === 'O') callDFS(board.length - 1, c);
+    }
+
+    // left and right border
+    for (let r = 0; r < board.length; r++) {
+        if (board[r][0] === 'O') callDFS(r, 0);
+        if (board[r][board[0].length - 1] === 'O') callDFS(r, board[0].length - 1);
+    }
+
+    for (let r = 0; r < board.length; r++) {
+        for (let c = 0; c < board[0].length; c++) {
+            if (board[r][c] === 'O') board[r][c] = 'X';
+            else if (board[r][c] === 'V') board[r][c] = 'O';
+        }
+    }
+};
