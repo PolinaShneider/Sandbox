@@ -2107,3 +2107,15 @@ var countNodes = function (root) {
     }
     return countNodes(root.left) + countNodes(root.right) + 1;
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numTrees = function (n) {
+    return factorial(2 * n) / (factorial(n + 1) * factorial(n));
+};
+
+function factorial(num) {
+    return (num <= 0) ? 1 : num * factorial(num - 1);
+}
