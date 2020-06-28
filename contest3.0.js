@@ -2155,3 +2155,33 @@ var numSquares = function (n) {
 
     return dp[n]
 };
+
+/**
+ * @param {string[][]} tickets
+ * @return {string[]}
+ */
+var findItinerary = function (tickets) {
+    const map = {};
+    const res = [];
+    for (let i = 0; i < tickets.length; i++) {
+        const dep = tickets[i][0];
+        const des = tickets[i][1];
+        if (map[dep]) {
+            map[dep].push(des);
+        } else {
+            map[dep] = [des];
+        }
+    }
+    for (let loc in map) {
+        map[loc].sort();
+    }
+    var dfs = function (node) {
+        const des = map[node];
+        while (des && des.length > 0) {
+            dfs(des.shift());
+        }
+        res.push(node);
+    };
+    dfs('JFK');
+    return res.reverse();
+};
