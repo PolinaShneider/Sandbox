@@ -2185,3 +2185,24 @@ var findItinerary = function (tickets) {
     dfs('JFK');
     return res.reverse();
 };
+
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function (m, n) {
+    // C(m + n - 2)(n - 1)
+    const total = m + n - 2;
+    const k = n - 1;
+    if (k === 0) {
+        return 1;
+    }
+    let top = 1;
+    let bottom = 1;
+    for (let i = 0; i < k; i++) {
+        top *= total - i;
+        bottom *= i + 1;
+    }
+    return top / bottom;
+};
