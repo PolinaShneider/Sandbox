@@ -2258,3 +2258,27 @@ function findWords(board, words) {
     }
     return res;
 }
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var arrangeCoins = function (n) {
+    let cnt = 0;
+    let m = 0;
+
+    while (n >= 0) {
+        cnt++;
+        m += 1;
+        n -= m;
+    }
+
+    return cnt - 1;
+};
+
+console.log(arrangeCoins(0));
+console.log(arrangeCoins(1));
+console.log(arrangeCoins(3));
+console.log(arrangeCoins(5));
+console.log(arrangeCoins(6));
+console.log(arrangeCoins(8));
