@@ -2276,9 +2276,11 @@ var arrangeCoins = function (n) {
     return cnt - 1;
 };
 
-console.log(arrangeCoins(0));
-console.log(arrangeCoins(1));
-console.log(arrangeCoins(3));
-console.log(arrangeCoins(5));
-console.log(arrangeCoins(6));
-console.log(arrangeCoins(8));
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+    return [nums.indexOf(target), nums.lastIndexOf(target)];
+};
