@@ -2281,6 +2281,29 @@ var arrangeCoins = function (n) {
  * @param {number} target
  * @return {number[]}
  */
-var searchRange = function(nums, target) {
+var searchRange = function (nums, target) {
     return [nums.indexOf(target), nums.lastIndexOf(target)];
+};
+
+/**
+ * @param {number[]} cells
+ * @param {number} N
+ * @return {number[]}
+ */
+var prisonAfterNDays = function (cells, N) {
+    N = (N % 14) ? N % 14 : 14;
+
+    for (let i = 0; i < N; i++) {
+        const copy = [...cells];
+
+        for (let j = 0; j < copy.length; j++) {
+            cells[j] = equals(copy, j) ? 1 : 0;
+        }
+    }
+
+    function equals(data, index) {
+        return data[index - 1] === data[index + 1] && data[index - 1] !== undefined;
+    }
+
+    return cells;
 };
