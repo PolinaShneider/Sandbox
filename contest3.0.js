@@ -2307,3 +2307,30 @@ var prisonAfterNDays = function (cells, N) {
 
     return cells;
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function (n) {
+    let p2 = 0;
+    let p3 = 0;
+    let p5 = 0;
+
+    const k = [];
+    k[0] = 1;
+
+    for (let i = 1; i < n; i++) {
+        k[i] = Math.min(k[p2] * 2, Math.min(k[p3] * 3, k[p5] * 5));
+        if (k[i] === k[p2] * 2) {
+            p2++;
+        }
+        if (k[i] === k[p3] * 3) {
+            p3++;
+        }
+        if (k[i] === k[p5] * 5) {
+            p5++;
+        }
+    }
+    return k[n - 1];
+};
