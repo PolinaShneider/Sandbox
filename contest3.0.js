@@ -2366,4 +2366,29 @@ var plusOne = function (digits) {
     return digits;
 };
 
-console.log(plusOne([9, 9]));
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function (root) {
+    // collect all left leaves
+    let leaves = [];
+    if (root) dfs(root, leaves);
+    // sum the leaves
+    return leaves.reduce((sum, val) => sum + val, 0);
+};
+
+function dfs(node, leaves) {
+    if (node.left) dfs(node.left, leaves);
+    if (node.right) dfs(node.right, leaves);
+    // it's a left leave if it doesn't have child nodes
+    if (node.left && !node.left.left && !node.left.right) leaves.push(node.left.val);
+}
