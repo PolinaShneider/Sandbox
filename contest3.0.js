@@ -2471,3 +2471,12 @@ var flatten = function (head) {
     traverse(head);
     return head;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+    const arr = s.trim().split(' ');
+    return arr[arr.length - 1].length || 0;
+};
