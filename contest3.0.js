@@ -2515,3 +2515,16 @@ const findMinDistance = (house, heaters) => {
     if (left === 0) return heaters[0] - house;
     if (left === heaters.length) return house - heaters[heaters.length - 1];
 };
+
+/**
+ * @param {number} hour
+ * @param {number} minutes
+ * @return {number}
+ */
+var angleClock = function (hour, minutes) {
+    const hourAngle = (hour + (minutes / 60)) * 30;
+    const minuteAngle = minutes * 6;
+    const diff = Math.abs(minuteAngle - hourAngle);
+
+    return diff > 180 ? 360 - diff : diff;
+};
