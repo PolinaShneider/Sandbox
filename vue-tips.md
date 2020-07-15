@@ -11,3 +11,5 @@
 Key idea: Vue slot can also access the data object in the child component from the parent component
 
 - overflow-x: scroll; overflow-y: visible; https://medium.com/@justicart/overflow-x-scroll-overflow-y-visible-c1a98238e002
+
+- "Advanced JavaScript" screencast: https://www.youtube.com/watch?v=DwYPG6vreJg
