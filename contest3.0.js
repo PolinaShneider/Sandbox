@@ -2561,3 +2561,30 @@ var validMountainArray = function (A) {
 
     return direction === 0;
 };
+
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+    return (n === 1) ? x : (x * myPow(x, n - 1));
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var numIdenticalPairs = function (nums) {
+    let cnt = 0;
+
+    for (let i = nums.length; i >= 0; i--) {
+        for (let j = i - 1; j >= 0; j--) {
+            if (nums[i] === nums[j]) {
+                cnt++;
+            }
+        }
+    }
+
+    return cnt;
+};
