@@ -2637,20 +2637,24 @@ var addBinary = function (a, b) {
     return (BigInt('0b' + a) + BigInt('0b' + b)).toString(2);
 };
 
-var removeElements = function(head, val) {
-    while(head && head.val === val) {
-        head = head.next;
-    };
-    let cur = head;
-    let prev = null;
-    while(cur) {
-        if (cur.val === val) {
-            prev.next = cur.next;
-            cur = cur.next;
-            continue;
-        };
-        prev = cur;
-        cur = cur.next;
-    };
-    return head;
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var minTimeToVisitAllPoints = function (points) {
+    let count = 0;
+    let i = 0;
+
+    while (i < points.length - 1) {
+        // destructure point1, point2
+        const [x1, y1] = points[i];
+        const [x2, y2] = points[i + 1];
+
+        // find the distance; then return the maximum distance between the two
+        count += Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
+
+        i++;
+    }
+
+    return count;
 };
