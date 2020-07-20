@@ -2636,3 +2636,21 @@ var findOrder = function (numCourses, prerequisites) {
 var addBinary = function (a, b) {
     return (BigInt('0b' + a) + BigInt('0b' + b)).toString(2);
 };
+
+var removeElements = function(head, val) {
+    while(head && head.val === val) {
+        head = head.next;
+    };
+    let cur = head;
+    let prev = null;
+    while(cur) {
+        if (cur.val === val) {
+            prev.next = cur.next;
+            cur = cur.next;
+            continue;
+        };
+        prev = cur;
+        cur = cur.next;
+    };
+    return head;
+};
