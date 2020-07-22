@@ -713,3 +713,21 @@ var isCousins = function (root, x, y) {
     return candidates.length === 2 && candidates[0].level === candidates[1].level &&
         candidates[0].child.parent !== candidates[1].child.parent;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var zigzagLevelOrder = function (root) {
+    return levelOrder(root).map((item, index) => {
+        return index % 2 ? item.reverse() : item;
+    })
+};
