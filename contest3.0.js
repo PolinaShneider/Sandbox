@@ -2695,3 +2695,20 @@ var exist = function (board, word) {
 
     return result;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var singleNumber = function (nums) {
+    const result = nums.reduce((acc, num) => {
+        if (typeof acc[num] === 'undefined') {
+            acc[num] = true
+        } else if (acc[num]) {
+            acc[num] = false
+        }
+        return acc
+    }, {})
+
+    return Object.keys(result).filter((num) => result[num])
+}
