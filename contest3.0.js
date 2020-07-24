@@ -2696,19 +2696,33 @@ var exist = function (board, word) {
     return result;
 };
 
-/**
- * @param {number[]} nums
- * @return {number[]}
- */
-var singleNumber = function (nums) {
-    const result = nums.reduce((acc, num) => {
-        if (typeof acc[num] === 'undefined') {
-            acc[num] = true
-        } else if (acc[num]) {
-            acc[num] = false
-        }
-        return acc
-    }, {})
-
-    return Object.keys(result).filter((num) => result[num])
+var maxDepth = function (root) {
+    if (!root) return 0;
+    let max = 0;
+    for (let child of root.children) {
+        max = Math.max(max, maxDepth(child));
+    }
+    return max + 1;
 }
+
+/**
+ * @param {number[][]} graph
+ * @return {number[][]}
+ */
+var allPathsSourceTarget = function (graph) {
+    const N = graph.length, result = [];
+
+    function callDFS(node, arr) {
+        if (node === N - 1) {
+            result.push([...arr, node]);
+            return;
+        }
+
+        for (let next of graph[node]) {
+            callDFS(next, [...arr, node]);
+        }
+    }
+
+    callDFS(0, []);
+    return result;
+};

@@ -731,3 +731,46 @@ var zigzagLevelOrder = function (root) {
         return index % 2 ? item.reverse() : item;
     })
 };
+
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+    var levelOrder = function (root) {
+        if (!root) {
+            return [];
+        }
+
+        const stack = [[root, 0]];
+        const map = {};
+
+        while (stack.length) {
+            let [node, level] = stack.pop();
+
+            if (map[level]) {
+                map[level].push(node.val);
+            } else {
+                map[level] = [node.val];
+            }
+
+            if (node.children) {
+                node.children.forEach((child) => {
+                    stack.push([child, level + 1])
+                })
+            }
+        }
+
+        return Object.values(map);
+    };
+
+    return levelOrder(root).length;
+};
