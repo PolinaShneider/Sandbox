@@ -2786,3 +2786,30 @@ var findMin2 = function (nums) {
     }
     return nums[start]
 };
+
+function task(m) {
+    for (let i = 0; i <= 1000; i++) {
+        if (i % m === 0 && helper2(i) === m) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function helper(num) {
+    return num.toString().split('').map(it => Number(it)).reduce((total, item) => {
+        return total + item;
+    }, 0)
+}
+
+function helper2(num) {
+    let sum = 0;
+    while (num > 0) {
+        sum += (num % 10);
+        num = Math.floor(num / 10);
+    }
+
+    return sum;
+}
+
+console.log(task(1000));
