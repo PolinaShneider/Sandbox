@@ -2812,4 +2812,29 @@ function helper2(num) {
     return sum;
 }
 
-console.log(task(1000));
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} inorder
+ * @param {number[]} postorder
+ * @return {TreeNode}
+ */
+var buildTree = function (inorder, postorder) {
+    function callDFS(arr) {
+        if (!arr.length) return null;
+        const val = postorder.pop();
+        const index = arr.indexOf(val);
+        const node = new TreeNode(val);
+        node.right = callDFS(arr.slice(index + 1));
+        node.left = callDFS(arr.slice(0, index));
+        return node;
+    }
+
+    return callDFS(inorder);
+};
