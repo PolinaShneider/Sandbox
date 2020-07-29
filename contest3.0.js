@@ -2866,3 +2866,21 @@ var leastInterval = function (tasks, n) {
 
     return idleSlots > 0 ? idleSlots + tasks.length : tasks.length;
 };
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    if (prices.length <= 1) {
+        return 0;
+    }
+    const calProfit = (prev, price) => {
+        const hold = Math.max(prev.hold, prev.rest - price);
+        const sold = prev.hold + price;
+        const rest = Math.max(prev.rest, prev.sold);
+        return {hold, sold, rest};
+    };
+    const profits = prices.reduce(calProfit, {hold: -Infinity, sold: 0, rest: 0});
+    return Math.max(profits.sold, profits.rest);
+};
