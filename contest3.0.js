@@ -2884,3 +2884,33 @@ var maxProfit = function (prices) {
     const profits = prices.reduce(calProfit, {hold: -Infinity, sold: 0, rest: 0});
     return Math.max(profits.sold, profits.rest);
 };
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {string[]}
+ */
+var wordBreak = function (s, wordDict) {
+    const data = [];
+    const result = [];
+
+    function dfs(start) {
+        if (start === s.length) {
+            data.push([...result].join(" "));
+            return;
+        }
+
+        for (let j = 0; j < wordDict.length; j++) {
+            const wordIndex = s.indexOf(wordDict[j], start);
+
+            if (wordIndex === start) {
+                result.push(wordDict[j]);
+                dfs(wordIndex + wordDict[j].length);
+                result.pop();
+            }
+        }
+    }
+
+    dfs(0);
+    return data;
+};
