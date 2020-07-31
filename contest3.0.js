@@ -2914,3 +2914,38 @@ var wordBreak = function (s, wordDict) {
     dfs(0);
     return data;
 };
+
+var wordBreakMemo = function (s, wordDict) {
+
+    const dictSet = new Set(wordDict);
+    const memo = {};
+
+    function dfs(start) {
+
+        if (start > s.length - 1) {
+            return [[]];
+        }
+
+        if (memo[start] !== undefined) {
+            return memo[start];
+        }
+
+        const out = [];
+
+        for (let i = start; i < s.length; i++) {
+            const substr = s.substring(start, i + 1);
+            if (dictSet.has(substr)) {
+                let next = dfs(i + 1);
+                for (let n of next) {
+                    out.push([substr, ...n]);
+                }
+            }
+        }
+        return memo[start] = out;
+
+    }
+
+    const res = dfs(0)
+
+    return res.filter(a => a.join('') === s).map(a => a.join(' '));
+};
