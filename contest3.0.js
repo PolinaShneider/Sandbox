@@ -2945,7 +2945,24 @@ var wordBreakMemo = function (s, wordDict) {
 
     }
 
-    const res = dfs(0)
+    const res = dfs(0);
 
     return res.filter(a => a.join('') === s).map(a => a.join(' '));
+};
+
+const memo = new Map();
+for (let n = 0; n < 4; n++) {
+    memo.set(n, n);
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+    if (memo.has(n)) {
+        return memo.get(n);
+    }
+    memo.set(n, climbStairs(n - 2) + climbStairs(n - 1));
+    return memo.get(n);
 };
