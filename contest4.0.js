@@ -34,3 +34,32 @@ Logger.prototype.shouldPrintMessage = function (timestamp, message) {
 var removeVowels = function (S) {
     return S.replace(/[aeiou]/g, "");
 };
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function (s) {
+    const copy = s.replace(/[^a-z0-9]/gi, "").toLowerCase();
+    return copy.split("").reverse().join("") === copy;
+};
+
+/**
+ * @param {string} S
+ * @param {number} K
+ * @return {string}
+ */
+var licenseKeyFormatting = function (S, K) {
+    const string = S.replace(/-/g, '').toUpperCase().split('').reverse();
+
+    let result = "";
+    while (string.length) {
+        result += string.splice(0, K).join('') + '-';
+    }
+
+    if (result.endsWith('-')) {
+        result = result.slice(0, -1);
+    }
+
+    return result.split('').reverse().join('');
+};
