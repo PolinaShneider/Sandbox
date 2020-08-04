@@ -63,3 +63,40 @@ var licenseKeyFormatting = function (S, K) {
 
     return result.split('').reverse().join('');
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    const arr = [];
+
+    if (s.length === 1) {
+        return s.length;
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        outer: for (let a = i + 1; a < s.length; a++) {
+            let result = {};
+
+            for (let b = i; b <= a; b++) {
+                if (s[b] in result) {
+                    arr.push(Object.keys(result).join(''));
+                    break outer;
+                } else {
+                    result[s[b]] = true;
+                }
+            }
+
+            arr.push(Object.keys(result).join(''));
+        }
+    }
+
+    if (!arr.length) {
+        return 0;
+    }
+
+    return Math.max(...arr.map(it => it.length));
+};
+
+console.log(lengthOfLongestSubstring(" "));
