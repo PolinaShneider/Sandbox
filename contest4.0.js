@@ -99,4 +99,26 @@ var lengthOfLongestSubstring = function(s) {
     return Math.max(...arr.map(it => it.length));
 };
 
-console.log(lengthOfLongestSubstring(" "));
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring2 = function(s) {
+    const arr = new Array(s.length).fill(0);
+    const map = {};
+
+    if (s.length < 2) {
+        return s.length;
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] in map) {
+            arr[i] = (i - arr[i - 1] <= map[s[i]]) ? i - map[s[i]] : arr[i - 1] + 1;
+        } else {
+            arr[i] = (arr[i - 1] + 1) || 1;
+        }
+        map[s[i]] = i;
+    }
+
+    return Math.max(...arr);
+};
