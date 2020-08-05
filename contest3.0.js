@@ -2966,3 +2966,47 @@ var climbStairs = function (n) {
     memo.set(n, climbStairs(n - 2) + climbStairs(n - 1));
     return memo.get(n);
 };
+
+/**
+ * Initialize your data structure here.
+ */
+var WordDictionary = function () {
+    this.root = {};
+};
+
+/**
+ * Adds a word into the data structure.
+ * @param {string} word
+ * @return {void}
+ */
+WordDictionary.prototype.addWord = function (word) {
+    const node = this.root[word.length] = this.root[word.length] || [];
+    node.push(word)
+};
+
+/**
+ * Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+ * @param {string} word
+ * @return {boolean}
+ */
+WordDictionary.prototype.search = function (word) {
+    let wordArr = this.root[word.length] || false;
+
+    if (!wordArr) {
+        return false
+    }
+
+    // Go over all added workds that have n characters
+    // Filter out words where every letter doesn't match with search or "."
+    // Returns an array with all the matching words
+    return wordArr.filter(currentWord => {
+        return currentWord.split("").every((letter, idx) => (letter === word[idx] || word[idx] === "."))
+    }).length > 0
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * var obj = new WordDictionary()
+ * obj.addWord(word)
+ * var param_2 = obj.search(word)
+ */
