@@ -3010,3 +3010,36 @@ WordDictionary.prototype.search = function (word) {
  * obj.addWord(word)
  * var param_2 = obj.search(word)
  */
+
+/**
+ * @param {number[]} nums
+ * @param {number} lower
+ * @param {number} upper
+ * @return {string[]}
+ */
+var findMissingRanges = function (nums, lower, upper) {
+    const result = [];
+    const first = nums[0];
+    const last = nums[nums.length - 1];
+
+    if (lower < first) {
+        result.push(`${lower}->${first - 1}`);
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+        const prev = nums[i - 1];
+        const curr = nums[i];
+
+        if (curr - prev > 2) {
+            result.push(`${prev + 1}->${curr - 1}`)
+        } else if (curr - prev > 1) {
+            result.push(`${prev + 1}`)
+        }
+    }
+
+    if (upper > last) {
+        result.push(`${last + 1}->${upper}`);
+    }
+
+    return result;
+};
