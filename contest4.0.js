@@ -68,7 +68,7 @@ var licenseKeyFormatting = function (S, K) {
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstring = function (s) {
     const arr = [];
 
     if (s.length === 1) {
@@ -103,7 +103,7 @@ var lengthOfLongestSubstring = function(s) {
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring2 = function(s) {
+var lengthOfLongestSubstring2 = function (s) {
     const arr = new Array(s.length).fill(0);
     const map = {};
 
@@ -121,4 +121,44 @@ var lengthOfLongestSubstring2 = function(s) {
     }
 
     return Math.max(...arr);
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} lower
+ * @param {number} upper
+ * @return {string[]}
+ */
+var findMissingRanges = function (nums, lower, upper) {
+    function compare(first, second) {
+        return (first !== second) ? `${first}->${second}` : `${first}`;
+    }
+
+    const result = [];
+
+    if (!nums.length) {
+        return [compare(lower, upper)];
+    }
+
+    const first = nums[0];
+    const last = nums[nums.length - 1];
+
+    if (lower < first) {
+        result.push(compare(lower, first - 1));
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+        const prev = nums[i - 1];
+        const curr = nums[i];
+
+        if (prev !== undefined && curr - prev > 1) {
+            result.push(compare(prev + 1, curr - 1));
+        }
+    }
+
+    if (upper > last) {
+        result.push(compare(last + 1, upper));
+    }
+
+    return result;
 };
