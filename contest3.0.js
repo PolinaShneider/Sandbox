@@ -3010,3 +3010,42 @@ WordDictionary.prototype.search = function (word) {
  * obj.addWord(word)
  * var param_2 = obj.search(word)
  */
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var verticalTraversal = function (root) {
+    const map = {};
+    const dfs = (node, x = 0, y = 0) => {
+        if (!node) return;
+        if (map[x] === undefined) {
+            map[x] = {}
+        }
+        if (map[x][y] === undefined) {
+            map[x][y] = []
+        }
+        map[x][y].push(node.val);
+        dfs(node.left, x - 1, y + 1);
+        dfs(node.right, x + 1, y + 1);
+    };
+    dfs(root);
+    const result = [];
+    const x = Object.keys(map).sort((a, b) => a - b);
+    for (const i of x) {
+        const column = [];
+        const y = Object.keys(map[i]).sort((a, b) => a - b);
+        for (const j of y) {
+            column.push(...map[i][j].sort((a, b) => a - b))
+        }
+        result.push(column)
+    }
+    return result
+};
