@@ -162,3 +162,86 @@ var findMissingRanges = function (nums, lower, upper) {
 
     return result;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {number}
+ */
+var closestValue = function (root, target) {
+    function traverse(tree) {
+        let values = [];
+
+        values.push(tree.val);
+
+        if (tree.left) {
+            values = values.concat(traverse(tree.left));
+        }
+
+        if (tree.right) {
+            values = values.concat(traverse(tree.right));
+        }
+
+        return values;
+    }
+
+    let [elem, diff] = [Infinity, Infinity];
+
+    traverse(root).forEach((item) => {
+        if (Math.abs(item - target) < diff) {
+            [elem, diff] = [item, Math.abs(item - target)];
+        }
+    });
+
+    return elem;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {number}
+ */
+
+/*
+ * time: O(H), height of tree
+ * space: O(1), iterating the binary search tree;
+ * Explanation: https://leetcode.com/problems/closest-binary-search-tree-value/discuss/593833/Binary-Search-O(H)-O(1)-Javascript
+ */
+var closestValue2 = function(root, target) {
+    if (!root.left && !root.right) return root.val;
+
+    let closest = Math.abs(root.val - target);
+    let closestVal = root.val;
+    let go = true;
+
+    while (go) {
+        if (Math.abs(root.val - target) < closest) {
+            closest = Math.abs(root.val - target);
+            closestVal = root.val;
+        }
+        let path = target < root.val ? 'left' : 'right';
+        if (root[path]) {
+            root = root[path];
+        }
+        else {
+            go = false
+        }
+    }
+
+    return closestVal;
+};
