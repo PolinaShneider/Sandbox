@@ -222,7 +222,7 @@ var closestValue = function (root, target) {
  * space: O(1), iterating the binary search tree;
  * Explanation: https://leetcode.com/problems/closest-binary-search-tree-value/discuss/593833/Binary-Search-O(H)-O(1)-Javascript
  */
-var closestValue2 = function(root, target) {
+var closestValue2 = function (root, target) {
     if (!root.left && !root.right) return root.val;
 
     let closest = Math.abs(root.val - target);
@@ -237,11 +237,40 @@ var closestValue2 = function(root, target) {
         let path = target < root.val ? 'left' : 'right';
         if (root[path]) {
             root = root[path];
-        }
-        else {
+        } else {
             go = false
         }
     }
 
     return closestVal;
 };
+
+function findMax(arr, k, min, max) {
+    if (min >= max) return -1;
+
+    let mid = Math.floor((min + max) / 2);
+    const pivot = arr[mid];
+
+    if (pivot > k) {
+        // in left;
+        return findMax(arr, k, min, mid - 1);
+    } else if (pivot < k) {
+        // in right
+        return findMax(arr, k, mid + 1, max);
+    } else {
+        //max index of k
+
+        while (arr[mid + 1] === k) mid++;
+        return mid;
+    }
+}
+
+function findFreq(arr, k) {
+    let maxIndex = findMax(arr, k, 0, arr.length);
+    let count = 0;
+
+    while (arr[maxIndex--] === k) count++;
+    return count;
+}
+
+console.log(findFreq([4, 4, 8, 8, 8, 15, 16, 23, 23, 42], 8));
