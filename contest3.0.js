@@ -3080,3 +3080,49 @@ const pathSumOnlyStart = (root, sum) => {
         pathSumOnlyStart(root.right, sum - root.val)
     );
 };
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var orangesRotting = function (grid) {
+    return rotting(grid);
+};
+
+function rotting(grid, prevRemainsCounter = 0, minutes = 0) {
+    let remainsCounter = 0;
+    const nextGrid = JSON.parse(JSON.stringify(grid));
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if (grid[i][j] === 2) {
+                if (i > 0) {
+                    nextGrid[i - 1][j] = grid[i - 1][j] !== 0 ? 2 : 0;
+                }
+                if (i < grid.length - 1) {
+                    nextGrid[i + 1][j] = grid[i + 1][j] !== 0 ? 2 : 0;
+                }
+                if (j > 0) {
+                    nextGrid[i][j - 1] = grid[i][j - 1] !== 0 ? 2 : 0;
+                }
+                if (j < grid[i].length - 1) {
+                    nextGrid[i][j + 1] = grid[i][j + 1] !== 0 ? 2 : 0;
+                }
+            }
+            if (grid[i][j] === 1) {
+                remainsCounter++;
+            }
+        }
+    }
+    const someCanNotReach = remainsCounter === prevRemainsCounter;
+    if (someCanNotReach) {
+        if (remainsCounter === 0) {
+            return 0;
+        }
+        return -1;
+    }
+    const keepContinue = remainsCounter > 0;
+    if (keepContinue) {
+        return rotting(nextGrid, remainsCounter, minutes + 1);
+    }
+    return minutes;
+}
