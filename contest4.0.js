@@ -273,4 +273,33 @@ function findFreq(arr, k) {
     return count;
 }
 
-console.log(findFreq([4, 4, 8, 8, 8, 15, 16, 23, 23, 42], 8));
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function (s, t) {
+    const map = new Map();
+
+    for (const key of s) {
+        const val = map.get(key);
+
+        if (val === void 0) {
+            map.set(key, 1)
+        } else {
+            map.set(key, val + 1);
+        }
+    }
+
+    for (const key of t) {
+        const val = map.get(key);
+
+        if (val === 1) {
+            map.delete(key);
+        } else if (val > 1) {
+            map.set(key, val - 1);
+        }
+    }
+
+    return s.length === t.length && map.size === 0;
+};
