@@ -316,3 +316,34 @@ var hIndex = function (citations) {
     }
     return i;
 };
+
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getRow = function (rowIndex) {
+    const result = [[1], [1, 1]];
+
+    if (rowIndex < 2) {
+        return result[rowIndex];
+    }
+
+    for (let i = 2; i < rowIndex + 1; i++) {
+        const prev = result[i - 1];
+        const arr = [];
+        for (let j = 0; j <= i; j++) {
+            if (j === 0 || j === i) {
+                arr.push(1);
+            } else {
+                arr.push(
+                    prev[j] + prev[j - 1]
+                )
+            }
+        }
+
+        result.push([...arr]);
+        arr.length = 0;
+    }
+
+    return result[rowIndex];
+};
