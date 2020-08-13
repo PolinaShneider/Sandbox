@@ -347,3 +347,54 @@ var getRow = function (rowIndex) {
 
     return result[rowIndex];
 };
+
+/**
+ * @param {string} characters
+ * @param {number} combinationLength
+ */
+var CombinationIterator = function (characters, combinationLength) {
+    var subsets = function (nums) {
+        const result = [];
+        for (let i = 0; i < Math.pow(2, nums.length); i++) {
+            const temp = [];
+            for (let j = 0; j < nums.length; j++) {
+                // & is bitwise AND
+                if ((i & Math.pow(2, j))) {
+                    temp.push(nums[j])
+                }
+            }
+            result.push(temp)
+        }
+        return result
+    };
+
+    this.data = subsets(
+        characters.split('')
+    ).map(
+        it => it.join('')
+    ).sort().filter(
+        it => it.length === combinationLength
+    );
+    this.index = 0;
+};
+
+/**
+ * @return {string}
+ */
+CombinationIterator.prototype.next = function () {
+    return this.data[this.index++];
+};
+
+/**
+ * @return {boolean}
+ */
+CombinationIterator.prototype.hasNext = function () {
+    return this.index + 1 < this.data.length;
+};
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * var obj = new CombinationIterator(characters, combinationLength)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
+ */
