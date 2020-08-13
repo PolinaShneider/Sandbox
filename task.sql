@@ -12,3 +12,9 @@ select * from `cinema` WHERE MOD(id, 2) = 1 AND description NOT LIKE 'boring' OR
 select class from (
     select class, count(distinct student) as num from courses group by class
 ) as temp_table where num >= 5;
+
+# Write your MySQL query statement below
+SELECT MAX(num)as num FROM (
+    SELECT num, COUNT(num) as cnt FROM `my_numbers` GROUP BY num
+) as T WHERE cnt = 1;
+
