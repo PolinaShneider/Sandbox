@@ -398,3 +398,36 @@ CombinationIterator.prototype.hasNext = function () {
  * var param_1 = obj.next()
  * var param_2 = obj.hasNext()
  */
+
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function (intervals) {
+    intervals.sort(([, first], [, second]) => first - second);
+    let count = 0, prev = 0;
+    for (let i = 1; i < intervals.length; i++) {
+        if (intervals[i][0] < intervals[prev][1]) {
+            ++count;
+        } else {
+            prev = i;
+        }
+    }
+    return count;
+};
+
+console.assert(eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]) === 1, '1, result:', eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]));
+console.assert(eraseOverlapIntervals([[1, 2], [1, 2], [1, 2]]) === 2, '2');
+console.assert(eraseOverlapIntervals([[1, 2], [2, 3]]) === 0, '3');
+console.log(eraseOverlapIntervals([[1, 100], [11, 22], [1, 11], [2, 12]]));
+
+// 1----------------100
+// 1---11
+// 2-------12
+//     11--12
+
+
+// 1--2
+//    2--3
+//       3--4
+// 1-----3
