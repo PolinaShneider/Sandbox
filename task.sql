@@ -14,8 +14,8 @@ select class from (
 ) as temp_table where num >= 5;
 
 # Write your MySQL query statement below
-SELECT MAX(num)as num FROM (
-    SELECT num, COUNT(num) as cnt FROM `my_numbers` GROUP BY num
+select max(num)as num from (
+    select num, count(num) as cnt from `my_numbers` group by num
 ) as T WHERE cnt = 1;
 
 # Write your MySQL query statement below
@@ -26,17 +26,46 @@ from cinema a join cinema b
 order by a.seat_id;
 
 # Write your MySQL query statement below
-SELECT name FROM `customer` WHERE referee_id IS NULL OR referee_id <> 2;
+select name from `customer` WHERE referee_id IS NULL OR referee_id <> 2;
 
 # Write your MySQL query statement below
-DELETE t1 FROM `Person` t1
+delete t1 FROM `Person` t1
 INNER JOIN `Person` t2
 WHERE
     t1.Id > t2.Id AND
     t1.Email = t2.Email;
 
 # Write your MySQL query statement below
-DELETE t1 FROM Person t1, Person t2
+delete t1 FROM Person t1, Person t2
 WHERE
     t1.Id > t2.Id AND
     t1.Email = t2.Email;
+
+# Write your MySQL query statement below
+select
+    a.Name as 'Employee'
+from
+    Employee as a,
+    Employee as b
+where
+    a.ManagerId = b.Id
+        and a.Salary > b.Salary
+;
+
+# Write your MySQL query statement below
+select
+     a.NAME as Employee
+from Employee as a join Employee as b
+     on a.ManagerId = b.Id
+     and a.Salary > b.Salary
+;
+
+# Write your MySQL query statement below
+select
+    weather.id as 'Id'
+from
+    weather
+        join
+    weather w on DATEDIFF(weather.RecordDate, w.RecordDate) = 1
+        and weather.Temperature > w.Temperature
+;

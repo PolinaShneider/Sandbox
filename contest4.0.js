@@ -419,7 +419,6 @@ var eraseOverlapIntervals = function (intervals) {
 console.assert(eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]) === 1, '1, result:', eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]));
 console.assert(eraseOverlapIntervals([[1, 2], [1, 2], [1, 2]]) === 2, '2');
 console.assert(eraseOverlapIntervals([[1, 2], [2, 3]]) === 0, '3');
-console.log(eraseOverlapIntervals([[1, 100], [11, 22], [1, 11], [2, 12]]));
 
 // 1----------------100
 // 1---11
@@ -431,3 +430,27 @@ console.log(eraseOverlapIntervals([[1, 100], [11, 22], [1, 11], [2, 12]]));
 //    2--3
 //       3--4
 // 1-----3
+
+/**
+ * @param {string} s
+ * @return {number[]}
+ */
+var findPermutation = function (s) {
+    const counts = s.replace(/DI/g, 'D|I').replace(/ID/g, 'I|D').split('|').map(part => part.length);
+    let maxSoFar = s[0] === 'D' ? counts[0] + 1 : 1;
+    const res = [maxSoFar];
+    for (let i = 0; i < counts.length; i++) {
+        if (s[0] === 'D' && i % 2 === 0 || s[0] === 'I' && i % 2 === 1) {
+            for (let j = maxSoFar - 1, stop = maxSoFar - counts[i]; j >= stop; j--) {
+                res.push(j);
+            }
+        } else {
+            for (let stop = ++maxSoFar + counts[i] - 1; maxSoFar < stop; maxSoFar++) {
+                res.push(maxSoFar);
+            }
+            maxSoFar += counts[i + 1] || 0;
+            res.push(maxSoFar);
+        }
+    }
+    return res;
+};
