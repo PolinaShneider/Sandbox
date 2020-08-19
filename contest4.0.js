@@ -503,3 +503,41 @@ var numsSameConsecDiff = function (N, K) {
     }
     return res
 };
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var toGoatLatin = function (S) {
+    // vowels, consonants
+    // if vowel -> word + ma
+    // else -> ordw + ma
+    // result + a * (index + 1)
+
+    const vowelRegex = /[aeuoi]/i;
+
+
+    function letterToBack(str) {
+        return str.slice(1) + str[0];
+    }
+
+    function repeat(count) {
+        let res = "";
+        for (let i = 0; i < count + 1; i++) {
+            res += 'a';
+        }
+
+        return res;
+    }
+
+    const arr = S.split(" ");
+    return arr.reduce((total, item, index) => {
+        let copy = item;
+        if (!vowelRegex.test(copy[0])) {
+            copy = letterToBack(copy)
+        }
+        copy += "ma" + repeat(index);
+        total.push(copy);
+        return total;
+    }, []).join(" ");
+};
