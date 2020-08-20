@@ -3148,3 +3148,43 @@ var maxProfit = function (prices) {
         [0, 0]
     )[1];
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+var reorderList = function (head) {
+    // 1. find the middle node
+    function findMiddle(fast, slow) {
+        if (!fast || !fast.next) return slow;
+        return findMiddle(fast.next.next, slow.next);
+    }
+
+    // 2. reverse the second half
+    function reverseList(node, prev) {
+        if (!node) return prev;
+        const temp = node.next;
+        node.next = prev;
+        return reverseList(temp, node);
+    }
+
+    // 3. merge first and second half
+    function reorder(l1, l2) {
+        if (!l1 || !l2 || !l2.next) return l1;
+        const temp = l1.next;
+        l1.next = l2;
+        l2.next = reorder(temp, l2.next);
+        return l1;
+    }
+
+    let mid = findMiddle(head, head);
+    mid = reverseList(mid, null);
+    return reorder(head, mid);
+};
