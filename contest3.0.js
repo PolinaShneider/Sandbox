@@ -3188,3 +3188,20 @@ var reorderList = function (head) {
     mid = reverseList(mid, null);
     return reorder(head, mid);
 };
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParity = function (A) {
+    return A.reduce((total, item) => {
+        if (item % 2) {
+            total[1].push(item);
+        } else {
+            total[0].push(item);
+        }
+
+        return total;
+    }, [[], []]).flat();
+
+};

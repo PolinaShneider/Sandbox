@@ -541,3 +541,25 @@ var toGoatLatin = function (S) {
         return total;
     }, []).join(" ");
 };
+
+Array.prototype.flatten = function () {
+    const result = [];
+    while (this.length) {
+        const elem = this.pop();
+
+        if (Array.isArray(elem)) {
+            result.push(...elem);
+        } else {
+            result.push(elem);
+        }
+    }
+
+    console.log(result);
+    result.reverse();
+    console.log(result);
+
+    return result;
+};
+
+console.log([1,2,3,4, [1,2], "hello", true].flatten());
+
