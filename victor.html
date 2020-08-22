@@ -45,13 +45,40 @@
 
       console.log(me.getName()); // Rex
 
-      let a = 3;
+      let calculator = {
+          a: null,
+          b: null,
+          read() {
+              this.a = prompt('a?', 0);
+              this.b = prompt('b?', 0);
+          },
 
-      function a() {
-          return 22;
-      }
+          sum() {
+              return +this.a + +this.b;
+          },
 
-      console.log(typeof a);
+          mul() {
+              return this.a * this.b;
+          }
+      };
+
+      let ladder = {
+          step: 0,
+          up() {
+              this.step++;
+              return this;
+          },
+          down() {
+              this.step--;
+              return this;
+          },
+          showStep: function() { // показывает текущую ступеньку
+              alert( this.step );
+              return this;
+          }
+      };
+
+      console.log(ladder.up().up().down().showStep())
 
   </script>
 </body>
