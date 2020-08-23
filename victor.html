@@ -78,8 +78,18 @@
           }
       };
 
-      console.log(ladder.up().up().down().showStep())
+      const str = "hello";
+      console.log(str[0].toUpperCase() + str.slice(1));
 
+      function checkSpam(str) {
+          return /viagra/i.test(str);
+      }
+
+      function extractCurrencyValue(str) {
+          if (/\$/.test(str)) {
+              return +str.slice(1)
+          } else return +str
+      }
   </script>
 </body>
 </html>

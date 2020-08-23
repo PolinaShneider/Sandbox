@@ -561,5 +561,77 @@ Array.prototype.flatten = function () {
     return result;
 };
 
-console.log([1,2,3,4, [1,2], "hello", true].flatten());
+function getMaxSubSum(arr) {
+    const sums = [];
+    for (let a = 0; a < arr.length; a++) {
+        for (let b = a; b < arr.length; b++) {
+            let sum = 0;
+            for (let i = a; i <= b; i++) {
+                sum += arr[i];
+            }
+            sums.push(sum);
+        }
+    }
+    return Math.max(...sums);
+}
 
+function getMaxSubSum(arr) {
+    let maxS = 0;
+    for (let a = 0; a < arr.length; a++) {
+        let sum = 0;
+        for (let b = a; b < arr.length; b++) {
+            sum += arr[b];
+            maxS = Math.max(maxS, sum);
+        }
+    }
+    return maxS;
+}
+
+/**
+ * https://learn.javascript.ru/array
+ * @param arr
+ * @returns {number}
+ */
+function getMaxSubSum(arr) {
+    let maxSum = 0;
+    let partialSum = 0;
+
+    for (let item of arr) { // для каждого элемента массива
+        partialSum += item; // добавляем значение элемента к partialSum
+        maxSum = Math.max(maxSum, partialSum); // запоминаем максимум на данный момент
+        if (partialSum < 0) partialSum = 0; // ноль если отрицательное
+    }
+
+    return maxSum;
+}
+
+console.assert(getMaxSubSum([-1, 2, 3, -9]) === 5);
+console.assert(getMaxSubSum([2, -1, 2, 3, -9]) === 6);
+console.assert(getMaxSubSum([-1, 2, 3, -9, 11]) === 11);
+console.assert(getMaxSubSum([-2, -1, 1, 2]) === 3);
+console.assert(getMaxSubSum([100, -9, 2, -3, 5]) === 100);
+console.assert(getMaxSubSum([1, 2, 3]) === 6);
+
+function camelize(str) {
+    return str.split('-').reduce((total, item, index) => {
+        if (index) {
+            total.push(item.charAt(0).toUpperCase() + item.slice(1))
+        } else {
+            total.push(item)
+        }
+
+        return total;
+    }, []).join('');
+}
+
+function filterRange(arr, a, b) {
+    return arr.filter((item) => item >= a && item <= b);
+}
+
+function filterRangeInPlace(arr, a, b) {
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] < a || arr[i] > b) {
+            arr.splice(i, 1)
+        }
+    }
+}
