@@ -635,3 +635,72 @@ function filterRangeInPlace(arr, a, b) {
         }
     }
 }
+
+function sum(a) {
+    return function (b) {
+        return a + b;
+    }
+}
+
+// console.log(sum(2)(4));
+
+function add(n) {
+    var func = function (x) {
+        if (typeof x === "undefined") {
+            x = 0;
+        }
+        return add(n + x);
+    };
+
+    func.toString = function () {
+        return n;
+    };
+
+    return func;
+}
+
+// console.log(+add(1)(2)(3)()()(6));
+
+/**
+ * Similar to Promise.all but a concurrency limit
+ *
+ * @param {Array} iterable Array of functions that returns a promise
+ * @param {Object} concurrency max number of parallel promises running
+ */
+function promiseAllThrottled(iterable, { concurrency = 3 } = {}) {
+    const promises = [];
+
+    function enqueue(current = 0, queue = []) {
+        // return if done
+        if (current === iterable.length) { return Promise.resolve(); }
+        // take one promise from collection
+        const promise = iterable[current];
+        const activatedPromise = promise();
+        // add promise to the final result array
+        promises.push(activatedPromise);
+        // add current activated promise to queue and remove it when done
+        const autoRemovePromise = activatedPromise.then(() => {
+            // remove promise from the queue when done
+            return queue.splice(queue.indexOf(autoRemovePromise), 1);
+        });
+        // add promise to the queue
+        queue.push(autoRemovePromise);
+
+        // if queue length >= concurrency, wait for one promise to finish before adding more.
+        const readyForMore = queue.length < concurrency ? Promise.resolve() : Promise.race(queue);
+        return readyForMore.then(() => enqueue(current + 1, queue));
+    }
+
+    return enqueue()
+        .then(() => Promise.all(promises));
+}
+
+// simulate 10 async tasks that takes 5 seconds to complete.
+// https://adrianmejia.com/promises-tutorial-concurrency-in-javascript-node/
+const requests = Array(10)
+    .fill()
+    .map((_, i) => () => new Promise((resolve => setTimeout(() => { console.log(`exec'ing task #${i}`), resolve(`task #${i}`); }, 5000))));
+
+promiseAllThrottled(requests, { concurrency: 3 })
+    .then(console.log)
+    .catch(error => console.error('Oops something went wrong', error));
