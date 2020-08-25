@@ -667,12 +667,14 @@ function add(n) {
  * @param {Array} iterable Array of functions that returns a promise
  * @param {Object} concurrency max number of parallel promises running
  */
-function promiseAllThrottled(iterable, { concurrency = 3 } = {}) {
+function promiseAllThrottled(iterable, {concurrency = 3} = {}) {
     const promises = [];
 
     function enqueue(current = 0, queue = []) {
         // return if done
-        if (current === iterable.length) { return Promise.resolve(); }
+        if (current === iterable.length) {
+            return Promise.resolve();
+        }
         // take one promise from collection
         const promise = iterable[current];
         const activatedPromise = promise();
@@ -699,8 +701,109 @@ function promiseAllThrottled(iterable, { concurrency = 3 } = {}) {
 // https://adrianmejia.com/promises-tutorial-concurrency-in-javascript-node/
 const requests = Array(10)
     .fill()
-    .map((_, i) => () => new Promise((resolve => setTimeout(() => { console.log(`exec'ing task #${i}`), resolve(`task #${i}`); }, 5000))));
+    .map((_, i) => () => new Promise((resolve => setTimeout(() => {
+        console.log(`exec'ing task #${i}`), resolve(`task #${i}`);
+    }, 5000))));
 
-promiseAllThrottled(requests, { concurrency: 3 })
+promiseAllThrottled(requests, {concurrency: 3})
     .then(console.log)
     .catch(error => console.error('Oops something went wrong', error));
+
+function work(a, b) {
+    console.log(a + b); // произвольная функция или метод
+}
+
+function spy(func) {
+
+    function wrapper(...args) {
+        wrapper.calls.push(args);
+        return func.apply(this, arguments);
+    }
+
+    wrapper.calls = [];
+
+    return wrapper;
+}
+
+work = spy(work);
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+function delay(f, ms) {
+    return function () {
+        setTimeout(() => f.apply(this, arguments), ms);
+    };
+}
+
+function debounce(f, ms) {
+
+    let isCooldown = false;
+
+    return function () {
+        if (isCooldown) return;
+
+        f.apply(this, arguments);
+
+        isCooldown = true;
+
+        setTimeout(() => isCooldown = false, ms);
+    };
+
+}
+
+/**
+ * @constructor
+ * @param {Integer[]} v1
+ * @param {Integer[]} v1
+ */
+var ZigzagIterator = function ZigzagIterator(v1, v2) {
+    this.v1 = v1;
+    this.v2 = v2;
+
+    this.index = -1;
+};
+
+
+/**
+ * @this ZigzagIterator
+ * @returns {boolean}
+ */
+ZigzagIterator.prototype.hasNext = function hasNext() {
+    return this.v1.length || this.v2.length;
+};
+
+/**
+ * @this ZigzagIterator
+ * @returns {integer}
+ */
+ZigzagIterator.prototype.next = function next() {
+    this.index++;
+
+    if (!(this.index % 2) && this.v1.length) {
+        return this.v1.shift();
+    } else if (this.index % 2 && this.v2.length) {
+        return this.v2.shift();
+    } else {
+        return this.v1.length ? this.v1.shift() : this.v2.shift()
+    }
+};
+
+/**
+ * Your ZigzagIterator will be called like this:
+ * var i = new ZigzagIterator(v1, v2), a = [];
+ * while (i.hasNext()) a.push(i.next());
+ */
+
+Function.prototype.defer = function (ms) {
+    let f = this;
+    return function (...args) {
+        setTimeout(() => f.apply(this, args), ms);
+    }
+};
+
+function f(a, b) {
+    console.log(a + b);
+}
+
+f.defer(1000)(1, 2);
