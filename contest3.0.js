@@ -3391,3 +3391,62 @@ var mincostTickets = function (days, costs) {
     return dp[lastDay];
 };
 
+function PromiseAll(promises) {
+    const data = [];
+    promises.forEach((item, index, arr) => {
+        item((resolve) => {
+            resolve()
+        })
+    });
+
+    if (data.length === promises.length) {
+        return data;
+    }
+}
+
+function all(promises) {
+    return new Promise(function (resolve, reject) {
+        let count = promises.length;
+        const result = [];
+        const checkDone = function () {
+            if (--count === 0) resolve(result)
+        };
+        promises.forEach(function (p, i) {
+            p.then(function (x) {
+                result[i] = x
+            }, reject).then(checkDone)
+        })
+    })
+}
+
+Promise.prototype.finally = function (fn) {
+    const onFinally = callback => Promise.resolve(fn()).then(callback);
+    return this.then(
+        result => onFinally(() => result),
+        reason => onFinally(() => Promise.reject(reason))
+    );
+};
+
+Promise.prototype.finally = function (cb) {
+    const res = () => this;
+    const fin = () => Promise.resolve(cb()).then(res);
+    return this.then(fin, fin);
+};
+
+Promise.prototype.myAllSettled = function (arr = []) {
+    return new Promise(function processIterable(resolve, reject) {
+        let result = [];
+        arr.forEach((item) => {
+            item
+                .then((value) => {
+                    result.push({status: "fulfilled", value: value});
+                    if (arr.length === result.length) resolve(result);
+                })
+                .catch((err) => {
+                    result.push({status: "rejected", reason: `${err}`});
+                    if (arr.length === result.length) resolve(result);
+                });
+        });
+    });
+};
+
