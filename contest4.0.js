@@ -807,3 +807,25 @@ function f(a, b) {
 }
 
 f.defer(1000)(1, 2);
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var fizzBuzz = function (n) {
+    const map = {};
+
+    for (let i = 1; i <= n; i++) {
+        map[i] = "";
+
+        if (i % 3 === 0) {
+            map[i] += "Fizz";
+        }
+
+        if (i % 5 === 0) {
+            map[i] += "Buzz";
+        }
+    }
+
+    return Object.entries(map).map(([key, value]) => value ? value : key)
+};
