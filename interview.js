@@ -100,6 +100,68 @@ function factorial(n) {
     return (n > 1) ? n * factorial(n - 1) : n;
 }
 
-console.log(factorial(5));
+// console.log(factorial(5));
 
 // 5 = 1 * 2 * 3 * 4 * 5 = 120
+
+function spy(func) {
+
+    function wrapper() {
+        wrapper.calls.push(arguments);
+        return func.apply(this, arguments);
+    }
+
+    wrapper.calls = [];
+
+    return wrapper;
+}
+
+function work(a, b) {
+    // console.log( a + b ); // произвольная функция или метод
+}
+
+work = spy(work);
+
+function debounce(fn, ms) {
+    let stop = false;
+
+    return function () {
+        if (stop) {
+            return;
+        }
+
+        fn.apply(this, arguments);
+        stop = true;
+
+        setTimeout(() => stop = false, ms);
+    }
+}
+
+function compress(arr) {
+    arr.sort((a, b) => a - b);
+
+    const res = [];
+    const tmp = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        tmp.push(arr[i]);
+
+        if (arr[i + 1] - arr[i] === 1) {
+            tmp.push(arr[i + 1]);
+        } else {
+            let item = arr[i];
+            if (tmp.length > 1) {
+                item = [tmp[0], tmp.pop()].join('-');
+            }
+            tmp.length = 0;
+            res.push(item)
+        }
+    }
+
+    return res
+}
+
+// сортируем [-1, 1, 2, 3, 5, 6, 10]
+// идем по массиву: если разница между текущим и пред.
+
+console.log(compress([1, 2, 3, 4, 6, 7]));
