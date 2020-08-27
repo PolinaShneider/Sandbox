@@ -554,9 +554,7 @@ Array.prototype.flatten = function () {
         }
     }
 
-    console.log(result);
     result.reverse();
-    console.log(result);
 
     return result;
 };
@@ -705,9 +703,9 @@ const requests = Array(10)
         console.log(`exec'ing task #${i}`), resolve(`task #${i}`);
     }, 5000))));
 
-promiseAllThrottled(requests, {concurrency: 3})
-    .then(console.log)
-    .catch(error => console.error('Oops something went wrong', error));
+// promiseAllThrottled(requests, {concurrency: 3})
+//     .then(console.log)
+//     .catch(error => console.error('Oops something went wrong', error));
 
 function work(a, b) {
     console.log(a + b); // произвольная функция или метод
@@ -726,9 +724,6 @@ function spy(func) {
 }
 
 work = spy(work);
-
-work(1, 2); // 3
-work(4, 5); // 9
 
 function delay(f, ms) {
     return function () {
@@ -806,8 +801,6 @@ function f(a, b) {
     console.log(a + b);
 }
 
-f.defer(1000)(1, 2);
-
 /**
  * @param {number} n
  * @return {string[]}
@@ -829,3 +822,32 @@ var fizzBuzz = function (n) {
 
     return Object.entries(map).map(([key, value]) => value ? value : key)
 };
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[]}
+ */
+var findRightInterval = function (intervals) {
+    const result = [];
+
+    for (let i = 0; i < intervals.length; i++) {
+        let end = intervals[i][1];
+        let [min, idx] = [Infinity, -1];
+        for (let j = 0; j < intervals.length; j++) {
+            if (i === j) {
+                continue;
+            }
+
+            if (intervals[j][0] >= end && intervals[j][0] < min) {
+                [min, idx] = [intervals[j][0], j];
+            }
+        }
+
+        result.push(idx);
+    }
+
+    return result;
+};
+
+// [-1, 0, 1]
+console.log(findRightInterval([[3, 4], [2, 3], [1, 2]]))
