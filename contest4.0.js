@@ -849,5 +849,42 @@ var findRightInterval = function (intervals) {
     return result;
 };
 
-// [-1, 0, 1]
-console.log(findRightInterval([[3, 4], [2, 3], [1, 2]]))
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function (nums) {
+    let maxOnes = 0;
+    const {arr} = nums.reduce((total, item, index, arr) => {
+        if (item) {
+            total.len++
+        } else {
+            maxOnes = Math.max(total.len, maxOnes);
+            total.arr.push(total.len, '*');
+            total.len = 0;
+        }
+
+        if (index === arr.length - 1 && total.len) {
+            maxOnes = Math.max(total.len, maxOnes);
+            total.arr.push(total.len);
+        }
+
+        return total
+    }, {
+        arr: [],
+        len: 0
+    });
+
+    let max = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (!isNaN(arr[i - 1]) && !isNaN(arr[i + 1])) {
+            max = Math.max(max, arr[i - 1] + arr[i + 1] + 1);
+        }
+    }
+
+    if (nums.length < 3 && !nums.every(Boolean)) {
+        return maxOnes + 1;
+    }
+
+    return Math.max(max, maxOnes);
+};
