@@ -1142,7 +1142,7 @@ var findJudge = function (N, trust) {
  * @return {number[][]}
  */
 var floodFill = function (image, sr, sc, newColor) {
-    const dfs = (image, row, col, newColor, origColor) => {
+    var dfs = (image, row, col, newColor, origColor) => {
         if (
             row >= 0
             && row < image.length
@@ -3284,7 +3284,7 @@ const hasPath = (maze, start, destination) => {
 // 0-up 1-down 2-left 3-right
 const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 
-const dfs = (maze, start, destination) => {
+var dfs = (maze, start, destination) => {
     const [origRow, origCol] = start;
 
     for (const dir of dirs) {
@@ -3459,3 +3459,38 @@ var rand10 = function () {
     return (rand7() + rand7() + rand7() + rand7() + rand7()) % 10 + 1;
 };
 
+async function fetchUrlAsync(url) {
+    for (let n = 0; n < 5; n++) {
+        try {
+            return await fetch(url)
+        } catch (err) {
+        }
+    }
+    throw new Error('Fetch failed after 5 attempts')
+}
+
+function fetchUrl(url, attempt = 5) {
+    return Promise.resolve()
+        .then(() => fetch(url))
+        .catch(() => attempt-- ? fetchUrl(url, attempt) : Promise.reject('Fetch failed after 5 attempts'))
+}
+
+function canOrderN(N) {
+    const arr = new Array(N + 21).fill(false);
+
+    arr[6] = true;
+    arr[9] = true;
+    arr[20] = true;
+
+    for (let i = 1; i <= N; i++) {
+       if (arr[i]) {
+           arr[i + 6] = true;
+           arr[i + 9] = true;
+           arr[i + 20] = true;
+       }
+    }
+
+    return arr[N];
+}
+
+console.log(canOrderN(21));
