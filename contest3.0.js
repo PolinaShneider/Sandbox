@@ -3450,3 +3450,12 @@ Promise.prototype.myAllSettled = function (arr = []) {
     });
 };
 
+/**
+ * The rand7() API is already defined for you.
+ * var rand7 = function() {}
+ * @return {number} a random integer in the range 1 to 7
+ */
+var rand10 = function () {
+    return (rand7() + rand7() + rand7() + rand7() + rand7()) % 10 + 1;
+};
+
