@@ -3483,14 +3483,73 @@ function canOrderN(N) {
     arr[20] = true;
 
     for (let i = 1; i <= N; i++) {
-       if (arr[i]) {
-           arr[i + 6] = true;
-           arr[i + 9] = true;
-           arr[i + 20] = true;
-       }
+        if (arr[i]) {
+            arr[i + 6] = true;
+            arr[i + 9] = true;
+            arr[i + 20] = true;
+        }
     }
 
     return arr[N];
 }
 
-console.log(canOrderN(21));
+/**
+ * @param {Robot} robot
+ * @return {void}
+ */
+var cleanRoom = function (robot) {
+    const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]], visited = new Set();
+
+    /**
+     * @return {void}
+     */
+    function goBack() {
+        robot.turnRight();
+        robot.turnRight();
+        robot.move();
+        robot.turnRight();
+        robot.turnRight();
+    }
+
+    /**
+     * @param {number[]} cell
+     * @param {numver} prev
+     * @return {void}
+     */
+    function backtrack(cell, prev) {
+        visited.add(cell.join());
+        robot.clean();
+        for (let d = 0; d < 4; d++) {
+            const next = (prev + d) % 4;
+            const nextCell = [cell[0] + directions[next][0], cell[1] + directions[next][1]];
+            if (!visited.has(nextCell.join()) && robot.move()) {
+                backtrack(nextCell, next);
+                goBack();
+            }
+            robot.turnRight();
+        }
+    }
+
+    backtrack([0, 0], 0);
+};
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var pancakeSort = function (A) {
+    const results = [];
+
+    for (let i = 0; i < A.length; i++) {
+        for (let j = 0; j < A.length - 1; j++) {
+            if (A[j + 1] > A[j]) {
+                const temp = A[j];
+                A[j] = A[j + 1];
+                A[j + 1] = temp;
+                results.push(j + 1);
+            }
+        }
+    }
+
+    return results;
+};
