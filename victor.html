@@ -13,6 +13,21 @@
     .block-2 { margin-top:20px; }
   </style>
 </head>
+<style>
+  li {
+    display: inline-block;
+    list-style: none;
+    border: 1px solid red;
+  }
+</style>
+
+<ul style="border:1px solid black; padding:0">
+  <li>Инлайн Блок<br>3 строки<br>высота/ширина явно не заданы</li>
+  <li style="width:100px;height:100px">Инлайн<br>Блок 100x100</li>
+  <li style="width:60px;height:60px">Инлайн<br>Блок 60x60</li>
+  <li style="width:100px;height:60px">Инлайн<br>Блок 100x60</li>
+  <li style="width:60px;height:100px">Инлайн<br>Блок 60x100</li>
+</ul>
 <body>
   <div style="max-height: 50px; background: yellow; display: inline-block; border: 1px solid red">
     <div>
