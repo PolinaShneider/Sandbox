@@ -186,7 +186,7 @@
               results.push(promise);
 
               const promiseToRemove = promise.then(() => {
-                  return queue.splice(index, 1)
+                  return queue.splice(queue.indexOf(promise), 1)
               });
 
               queue.push(promiseToRemove);
