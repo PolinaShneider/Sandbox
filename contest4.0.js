@@ -888,3 +888,76 @@ var findMaxConsecutiveOnes = function (nums) {
 
     return Math.max(max, maxOnes);
 };
+
+function zipArray(arr) {
+    if (!Array.isArray(arr)) return arr;
+
+    // We can get not sorted array
+    arr = arr.sort((a, b) => a - b);
+
+    // Check for standart size for that function
+    if (arr.length < 2) return arr.join('');
+
+    // We can't start from slice, like a --2,3
+    let isSlice = false;
+    let res = '';
+
+    arr.forEach((cur, i) => {
+        // I can't pop, becose isEq will be not correct!
+        if (i === arr.length - 1) return;
+        // Checks is next elem ordered
+        const isEq = cur + 1 === arr[i + 1];
+
+        if (!isEq) {
+            // Always when !isEq, we write devided result
+            res += `${cur},`;
+            isSlice = false;
+        } else if (!isSlice && isEq) {
+            // On every slice-start
+            res += `${cur}-`;
+            isSlice = true;
+        }
+    });
+
+    // Write last elem
+    res += arr[arr.length - 1];
+    return res;
+}
+
+function zipArray(arr) {
+    arr.sort((a, b) => a - b);
+
+    const result = [];
+    const temp = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i + 1] - arr[i] === 1) {
+            temp.push(arr[i], arr[i + 1]);
+        } else {
+            let item = arr[i];
+            if (temp.length > 1) {
+                item = [temp[0], temp.pop()].join('-');
+                temp.length = 0;
+            }
+            result.push(item.toString());
+        }
+    }
+
+    return result;
+}
+
+function zipString(str) {
+    const map = {};
+
+    for (let elem of str) {
+        map[elem] = ++map[elem] || 1;
+    }
+
+    return Object.entries(map).reduce((total, item) => {
+        const [key, val] = item;
+        total += val > 1 ? `${key}${val}` : `${key}`;
+        return total;
+    }, '');
+}
+
+console.log(zipString('AAaBBBbb'));

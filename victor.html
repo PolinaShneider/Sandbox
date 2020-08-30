@@ -134,6 +134,69 @@
       worker.slow = cachingDecorator(worker.slow); // теперь сделаем её кеширующей
 
       worker.slow(2);
+
+      // function asyncRequestTurn(urls, limit = 0) {
+      //     const results = [];
+      //
+      //     function enqueue(index = 0, queue = []) {
+      //         if (results.length === urls.length) {
+      //             return Promise.resolve();
+      //         }
+      //
+      //         const activatedPromise = fetch(urls[index]).then(it => it.json());
+      //
+      //         results.push(activatedPromise);
+      //
+      //         const promiseToRemove = activatedPromise.then(() => {
+      //             return queue.splice(index, 1);
+      //         });
+      //
+      //         queue.push(promiseToRemove);
+      //
+      //         const readyForMore = queue.length < limit ? Promise.resolve() : Promise.race(queue);
+      //
+      //         return readyForMore.then(() => enqueue(index + 1, queue))
+      //     }
+      //
+      //     return enqueue()
+      //         .then(() => Promise.all(results));
+      // }
+
+      asyncRequestTurn([
+          'https://api.github.com/orgs/nodejs',
+          'https://api.github.com/orgs/codex-team',
+          'https://api.github.com/orgs/yandex',
+          'https://api.github.com/orgs/infobip',
+          'https://api.github.com/orgs/google',
+          'https://api.github.com/orgs/axibase',
+          'https://api.github.com/orgs/epam'
+      ], 2)
+          .then(console.log)
+          .catch(error => console.error('Oops something went wrong', error));
+
+      function asyncRequestTurn(urls, limit = 5) {
+          const results = [];
+
+          function enqueue(index = 0, queue = []) {
+              if (results.length === urls.length) {
+                  return Promise.resolve();
+              }
+
+              const promise = fetch(urls[index]).then(it => it.json());
+              results.push(promise);
+
+              const promiseToRemove = promise.then(() => {
+                  return queue.splice(index, 1)
+              });
+
+              queue.push(promiseToRemove);
+
+              const readyForMore = queue.length < limit ? Promise.resolve() : Promise.race(queue);
+              return readyForMore.then(() => enqueue(index + 1, queue));
+          }
+
+          return enqueue().then(() => Promise.all(results))
+      }
   </script>
 </body>
 </html>
