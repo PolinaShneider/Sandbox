@@ -2703,7 +2703,7 @@ var maxDepth = function (root) {
         max = Math.max(max, maxDepth(child));
     }
     return max + 1;
-}
+};
 
 /**
  * @param {number[][]} graph
@@ -3616,4 +3616,47 @@ var largestComponentSize = function (A) {
         }
         return res
     }
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+const maxDepth = root => root ? Math.max(maxDepth(root.left), maxDepth(root.right)) + 1 : 0;
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countPrimes = function (n) {
+    const isPrime = n => {
+        if (n === 2) {
+            return true
+        }
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) {
+                return false
+            }
+        }
+
+        return true
+    };
+
+    if (n === 0 || n === 1) return 0;
+
+    let count = 0;
+    for (let i = 2; i < n; i++) {
+        if (isPrime(i)) {
+            count++
+        }
+    }
+    return count
 };
