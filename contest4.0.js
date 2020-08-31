@@ -960,4 +960,31 @@ function zipString(str) {
     }, '');
 }
 
-console.log(zipString('AAaBBBbb'));
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function (n) {
+    const results = [];
+
+    function helper(left, right, max, str) {
+        if (left === max && right === max) {
+            results.push(str);
+            return;
+        }
+
+        if (left < max) {
+            helper(left + 1, right, max, `${str}(`)
+        }
+
+        if (right < left) {
+            helper(left, right + 1, max, `${str})`)
+        }
+    }
+
+    helper(0, 0, n, '');
+
+    return results;
+};
+
+console.log(generateParenthesis(3))
