@@ -1006,3 +1006,20 @@ var containsNearbyAlmostDuplicate = function (nums, k, t) {
 
     return false;
 };
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function (s) {
+    for (let i = 0; i < s.length - 1; i++) {
+        let pattern = s.substring(0, i + 1);
+        const splitted = s.split(pattern).filter(Boolean).length === 0;
+
+        if (splitted) {
+            return true;
+        }
+    }
+
+    return false;
+};
