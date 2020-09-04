@@ -1023,3 +1023,39 @@ var repeatedSubstringPattern = function (s) {
 
     return false;
 };
+
+/**
+ * @param {string} S
+ * @return {number[]}
+ */
+var partitionLabels = function (S) {
+    const unique = [...new Set(S)];
+    const map = unique.reduce((total, item) => {
+        total[item] = [S.indexOf(item), S.lastIndexOf(item)];
+        return total;
+    }, {});
+
+    const ranges = [];
+
+    // Create ranges out of the letter ranges of the map
+    for (const letter of S) {
+        const [start, end] = map[letter];
+        // first range goes directly in, and also ranges that don't overlap with the most recent one
+        if (ranges.length === 0 || ranges[ranges.length - 1][1] < start) {
+            ranges.push([start, end]);
+        } else {
+            // else we need to merge. only update the right side of the range if the merged range
+            // extends it.
+            if (end > ranges[ranges.length - 1][1]) {
+                ranges[ranges.length - 1][1] = end;
+            }
+        }
+    }
+
+    const out = [];
+    for (const [start, end] of ranges) {
+        out.push(end - start + 1);
+    }
+
+    return out;
+};
