@@ -1059,3 +1059,72 @@ var partitionLabels = function (S) {
 
     return out;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {number[]}
+ */
+var getAllElements = function (root1, root2) {
+    function traverse(root) {
+        let values = [];
+
+        if (!root) {
+            return [];
+        }
+
+        if (root.left) {
+            values = values.concat(traverse(root.left))
+        }
+
+        values.push(root.val);
+
+        if (root.right) {
+            values = values.concat(traverse(root.right))
+        }
+
+        return values;
+    }
+
+    function merge(l1, l2) {
+        const list = [];
+
+        let i = 0;
+        let j = 0;
+
+        while (i < l1.length && j < l2.length) {
+            if (l1[i] < l2[j]) {
+                list.push(l1[i]);
+                i++;
+            } else {
+                list.push(l2[j]);
+                j++;
+            }
+        }
+
+        // Store remaining elements of first array
+        while (i < l1.length) {
+            list.push(l1[i]);
+            i++;
+        }
+
+        // Store remaining elements of second array
+        while (j < l2.length) {
+            list.push(l2[j]);
+            j++;
+        }
+
+        return list;
+
+    }
+
+    return merge(traverse(root1), traverse(root2));
+};
