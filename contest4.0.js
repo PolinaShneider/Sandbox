@@ -1128,3 +1128,66 @@ var getAllElements = function (root1, root2) {
 
     return merge(traverse(root1), traverse(root2));
 };
+
+/**
+ * @param {string[]} arr
+ * @return {number}
+ */
+var maxLength = function (arr) {
+    const result = [];
+    for (let i = 0; i < Math.pow(2, arr.length); i++) {
+        const temp = [];
+        for (let j = 0; j < arr.length; j++) {
+            // & is bitwise AND
+            if ((i & Math.pow(2, j))) {
+                temp.push(arr[j])
+            }
+        }
+        result.push(temp.join(''))
+    }
+
+    return Math.max(...result.filter(hasOnlyUniqueLetters).map(it => it.length), 0);
+
+    function hasOnlyUniqueLetters(str) {
+        return str.length === new Set([...str]).size
+    }
+};
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var minimumMoves = function (arr) {
+    if (arr == null || arr.length === 0) {
+        return 0;
+    }
+
+    let len = arr.length;
+    // dp[i][j] means minimum moves for subarray [i, j]
+    const dp = new Array(len).fill(new Array(len));
+
+    for (let i = 0; i < len; i++) {
+        dp[i][i] = 1;
+    }
+
+    for (let j = 0; j < len; j++) {
+        for (let i = j - 1; i >= 0; i--) {
+            if (i === j - 1) {
+                dp[i][j] = arr[i] === arr[j] ? 1 : 2;
+                continue;
+            }
+            let min = Infinity;
+            if (arr[i] === arr[j]) {
+                min = Math.min(min, dp[i + 1][j - 1]);
+            }
+            // two subarrays [i, k], and (k, j]
+            for (let k = i; k < j; k++) {
+                min = Math.min(min, dp[i][k] + dp[k + 1][j]);
+            }
+            dp[i][j] = min;
+        }
+    }
+    return dp[0][len - 1];
+};
+
+console.log(minimumMoves([1, 3, 4, 1, 5]));
