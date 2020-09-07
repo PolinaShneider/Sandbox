@@ -1190,4 +1190,42 @@ var minimumMoves = function (arr) {
     return dp[0][len - 1];
 };
 
-console.log(minimumMoves([1, 3, 4, 1, 5]));
+/**
+ * @param {string} pattern
+ * @param {string} str
+ * @return {boolean}
+ */
+var wordPattern = function (pattern, str) {
+    const splitted_pattern = pattern.split('');
+    const splitted_str = str.split(' ');
+
+    if (splitted_pattern.length !== splitted_str.length) {
+        return false;
+    }
+
+    const pattern_str_map = {};
+    const str_pattern_map = {};
+
+    for (let i = 0; i < splitted_str.length; i++) {
+        const str_key = splitted_str[i];
+        const pattern_el = splitted_pattern[i];
+
+        if (str_key in str_pattern_map) {
+            if (pattern_el !== str_pattern_map[str_key]) {
+                return false;
+            }
+        } else {
+            str_pattern_map[str_key] = pattern_el;
+        }
+
+        if (pattern_el in pattern_str_map) {
+            if (str_key !== pattern_str_map[pattern_el]) {
+                return false;
+            }
+        } else {
+            pattern_str_map[pattern_el] = str_key;
+        }
+    }
+
+    return true;
+};
