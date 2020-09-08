@@ -1229,3 +1229,38 @@ var wordPattern = function (pattern, str) {
 
     return true;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumRootToLeaf = function (root) {
+    let sum = 0;
+
+    dfs();
+
+    return sum;
+
+    function dfs(node = root, currSum = 0) {
+        if (!node)
+            return;
+
+        currSum *= 2;
+        currSum += node.val;
+
+        if (!node.left && !node.right)
+            return sum += currSum;
+
+        dfs(node.left, currSum);
+        dfs(node.right, currSum);
+
+    }
+};
