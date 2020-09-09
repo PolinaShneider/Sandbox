@@ -1264,3 +1264,42 @@ var sumRootToLeaf = function (root) {
 
     }
 };
+
+/**
+ * @param {string} version1
+ * @param {string} version2
+ * @return {number}
+ */
+var compareVersion = function(version1, version2) {
+    const transform = (arr) => arr.reverse().reduce((current, item, index) => {
+        current += item * Math.pow(10, index);
+        return current;
+    }, 0);
+
+    const makeEqual = (str1, str2) => {
+        const first = str1.split('.').map(Number);
+        const second = str2.split('.').map(Number);
+
+        while (first.length < second.length) {
+            first.push(0)
+        }
+
+        while (second.length < first.length) {
+            second.push(0)
+        }
+
+        return [first, second]
+    };
+
+    const [s1, s2] = makeEqual(version1, version2);
+    const [first, second] = [transform(s1), transform(s2)];
+    console.log(first, second);
+
+    if (first > second) {
+        return 1;
+    } else if (second > first) {
+        return -1;
+    } else {
+        return 0;
+    }
+};
