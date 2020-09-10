@@ -1270,7 +1270,7 @@ var sumRootToLeaf = function (root) {
  * @param {string} version2
  * @return {number}
  */
-var compareVersion = function(version1, version2) {
+var compareVersion = function (version1, version2) {
     const transform = (arr) => arr.reverse().reduce((current, item, index) => {
         current += item * Math.pow(10, index);
         return current;
@@ -1303,3 +1303,31 @@ var compareVersion = function(version1, version2) {
         return 0;
     }
 };
+
+/**
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+var getHint = function (secret, guess) {
+    let A = 0, B = 0, chars = new Map();
+
+    for (let i = 0; i < secret.length; i++) {
+        if (secret[i] === guess[i]) {
+            A++
+        } else {
+            chars.set(secret[i], chars.get(secret[i]) + 1 || 1);
+        }
+    }
+
+
+    for (let i = 0; i < guess.length; i++) {
+        if (chars.get(guess[i]) > 0 && secret[i] !== guess[i]) {
+            ++B && chars.set(guess[i], chars.get(guess[i]) - 1);
+        }
+    }
+
+    return `${A}A${B}B`;
+};
+
+console.log(getHint("011", "110"));
