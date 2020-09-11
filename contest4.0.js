@@ -1330,4 +1330,26 @@ var getHint = function (secret, guess) {
     return `${A}A${B}B`;
 };
 
-console.log(getHint("011", "110"));
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function (nums) {
+    const n = nums.length;
+    if (!n) {
+        return 0;
+    }
+    let curMax = nums[0];
+    let curMin = nums[0];
+    let max = nums[0];
+    
+    for (let i = 1; i < n; i++) {
+        const num = nums[i];
+        const minProd = curMin * num;
+        const maxProd = curMax * num;
+        curMax = Math.max(num, minProd, maxProd);
+        curMin = Math.min(num, minProd, maxProd);
+        max = Math.max(max, curMax);
+    }
+    return max;
+};
