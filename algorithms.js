@@ -247,3 +247,32 @@ var sumOfLeftLeaves = function (root) {
 
     return sum;
 };
+
+/**
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
+ */
+var combinationSum3 = function (k, n) {
+    const arr = [];
+    const results = [];
+
+    function dfs(sum) {
+        if (sum <= 0) {
+            if (!sum && arr.length === k) {
+                results.push([...arr]);
+            }
+            return;
+        }
+
+        for (let i = arr[arr.length - 1] + 1 || 1; i <= 9; i++) {
+            arr.push(i);
+            dfs(sum - i);
+            arr.pop();
+        }
+    }
+
+    dfs(n);
+
+    return results;
+};

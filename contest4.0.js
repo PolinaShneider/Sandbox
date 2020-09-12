@@ -1342,7 +1342,7 @@ var maxProduct = function (nums) {
     let curMax = nums[0];
     let curMin = nums[0];
     let max = nums[0];
-    
+
     for (let i = 1; i < n; i++) {
         const num = nums[i];
         const minProd = curMin * num;
@@ -1352,4 +1352,32 @@ var maxProduct = function (nums) {
         max = Math.max(max, curMax);
     }
     return max;
+};
+
+/**
+ * @param {string} s
+ * @param {number[]} indices
+ * @return {string}
+ */
+var restoreString = function(s, indices) {
+    const arr = s.split('');
+
+    for (let i = 0; i < arr.length; i++) {
+        let item = arr[i];
+        let to = indices[i];
+
+        while(true) {
+            const cc = arr[to];
+            const ccto = indices[to];
+
+            if (to === ccto) break;
+
+            arr[to] = item;
+            indices[to] = to;
+            item = cc;
+            to = ccto;
+        }
+    }
+
+    return arr.join('')
 };
