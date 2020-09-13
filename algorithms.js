@@ -276,3 +276,45 @@ var combinationSum3 = function (k, n) {
 
     return results;
 };
+
+/**
+ * @param {number[][]} intervals
+ * @param {number[]} newInterval
+ * @return {number[][]}
+ */
+var insert = function (intervals, newInterval) {
+    /**
+     * Insert new interval in sorted array
+     */
+    for (let i = 0; i < intervals.length; i++) {
+        if (newInterval[0] < intervals[i][0]) {
+            intervals.splice(i, 0, newInterval);
+            break;
+        }
+
+        if (i === intervals.length - 1) {
+            intervals.push(newInterval);
+            break;
+        }
+    }
+
+    /**
+     * If intervals array was empty just push
+     */
+    if (!intervals.length) {
+        intervals.push(newInterval);
+    }
+
+    const results = [intervals.shift()];
+    intervals.forEach((item) => {
+        if (
+            item[0] <= results[results.length - 1][1]
+        ) {
+            results[results.length - 1][1] = Math.max(results[results.length - 1][1], item[1])
+        } else {
+            results.push(item)
+        }
+    });
+
+    return results;
+};
