@@ -318,3 +318,20 @@ var insert = function (intervals, newInterval) {
 
     return results;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    let prevMax = 0;
+    let currMax = 0;
+    for (const x of nums) {
+        let temp = currMax;
+        currMax = Math.max(prevMax + x, currMax);
+        prevMax = temp;
+    }
+    return currMax;
+};
+
+console.log(rob([2,7,9,3,1]));
