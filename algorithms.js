@@ -324,14 +324,21 @@ var insert = function (intervals, newInterval) {
  * @return {number}
  */
 var rob = function(nums) {
-    let prevMax = 0;
-    let currMax = 0;
-    for (const x of nums) {
-        let temp = currMax;
-        currMax = Math.max(prevMax + x, currMax);
-        prevMax = temp;
-    }
-    return currMax;
-};
+    const n = nums.length;
 
-console.log(rob([2,7,9,3,1]));
+    if (!n) {
+        return 0;
+    }
+
+    if (n === 1) {
+        return nums[0];
+    }
+
+    const result = [nums[0], Math.max(nums[0], nums[1])];
+
+    for (let i = 2; i < nums.length; i++) {
+        result[i] = Math.max(result[i - 1], result[i - 2] + nums[i])
+    }
+
+    return result[nums.length - 1];
+};
