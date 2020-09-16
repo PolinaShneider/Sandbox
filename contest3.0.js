@@ -3741,3 +3741,21 @@ function goUp(node, val) {
     if (node.val > val) return node;
     return goUp(node.parent, val);
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaximumXOR = function (nums) {
+    let max = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+            if (i === j) continue;
+
+            max = Math.max(max, nums[i] ^ nums[j])
+        }
+    }
+
+    return max;
+};
