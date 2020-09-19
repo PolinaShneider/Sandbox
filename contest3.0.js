@@ -3843,3 +3843,23 @@ var sequentialDigits = function (low, high) {
         123456789
     ].filter(num => num >= low && num <= high);
 };
+
+/**
+ * @param {number} low
+ * @param {number} high
+ * @return {number[]}
+ */
+var sequentialDigits = function (low, high) {
+    const result = [];
+    const temp = [];
+
+    for (let j = 1; j <= 9; j++) {
+        for (let i = j; i <= 9; i++) {
+            temp.push(i);
+            result.push(+temp.join(''));
+        }
+        temp.length = 0;
+    }
+
+    return result.filter((item) => item >= low && item <= high).sort((a, b) => a - b);
+};
