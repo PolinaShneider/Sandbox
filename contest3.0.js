@@ -3863,3 +3863,33 @@ var sequentialDigits = function (low, high) {
 
     return result.filter((item) => item >= low && item <= high).sort((a, b) => a - b);
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findPeakElement = function (nums) {
+    let [max, idx] = [-Infinity, -1];
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] > max) {
+            [max, idx] = [nums[i], i]
+        }
+    }
+
+    return idx;
+};
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function (s) {
+    for (let i = 1; i < s.length; i++) {
+        if (s.slice(0, i).repeat(s.length / i) === s) {
+            return true;
+        }
+    }
+
+    return false;
+};
