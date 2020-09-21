@@ -3893,3 +3893,33 @@ var repeatedSubstringPattern = function (s) {
 
     return false;
 };
+
+/**
+ * @param {number[][]} trips
+ * @param {number} capacity
+ * @return {boolean}
+ */
+var carPooling = function(trips, capacity) {
+    const schedule = new Array(1000).fill(0);
+
+    // Loop through the trips to populate our calendar
+    for (const trip of trips) {
+        const [people, start, end] = trip;
+
+        // Increment through the time-slice, adding the number of people
+        // for each specific time-window to our calendar
+        for (let i = start; i < end; i++) {
+
+            // Add the number of people to this time window
+            schedule[i] += people;
+
+            // If will be more people in the car than allowed, return false
+            if (schedule[i] > capacity) {
+                return false;
+            }
+        }
+    }
+
+    // If we got this far, the schedule has been validated. Return true.
+    return true;
+};
