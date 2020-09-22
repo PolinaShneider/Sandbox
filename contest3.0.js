@@ -3899,7 +3899,7 @@ var repeatedSubstringPattern = function (s) {
  * @param {number} capacity
  * @return {boolean}
  */
-var carPooling = function(trips, capacity) {
+var carPooling = function (trips, capacity) {
     const schedule = new Array(1000).fill(0);
 
     // Loop through the trips to populate our calendar
@@ -3922,4 +3922,77 @@ var carPooling = function(trips, capacity) {
 
     // If we got this far, the schedule has been validated. Return true.
     return true;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var majorityElement = function (nums) {
+    // base case
+    if (nums.length === 1) return [nums[0]];
+
+    // create vars
+    let candidate1 = null, candidate2 = null;
+    let counter1 = 0, counter2 = 0;
+
+    // iterate through nums, find 2 candidates
+    for (let i = 0; i < nums.length; i++) {
+        if (candidate1 === nums[i]) {
+            counter1++;
+        } else if (candidate2 === nums[i]) {
+            counter2++;
+        } else if (counter1 === 0) {
+            candidate1 = nums[i];
+            counter1++;
+        } else if (counter2 === 0) {
+            candidate2 = nums[i];
+            counter2++;
+        } else {
+            // if we already have 2 candidates and counters !== 0, decrease counters
+            // if one counter will === 0, we will assign a new candidate in the next iteration
+            counter1--;
+            counter2--;
+        }
+    }
+
+    // count how many times each candidate appears in the nums
+    let appear1 = 0, appear2 = 0;
+    let res = [];   // create arr for only 1 or 2 numbers - our candidates
+
+    nums.forEach(num => {
+        if (num === candidate1) appear1++;
+        if (num === candidate2) appear2++;
+    });
+
+    // check appear1, appear2 if they apear more than n/3 times, push a candidate into resullt array
+    if (appear1 > nums.length / 3) res.push(candidate1);
+    if (appear2 > nums.length / 3) res.push(candidate2);
+
+    return res;
+};
+
+var insert = function (head, insertVal) {
+    if (!head) {
+        let node = new Node(insertVal);
+        node.next = node;
+        return node
+    }
+
+    let current = head;
+
+    while (head) {
+        if (head.next.val > head.val) {
+            if (insertVal >= head.val && insertVal <= head.next.val) break
+        } else if (head.next.val < head.val) {
+            if (insertVal >= head.val || insertVal <= head.next.val) break
+        } else if (head.next === current) {//// we did a cycle
+            break
+        }
+
+        head = head.next
+    }
+
+    head.next = new Node(insertVal, head.next);
+    return head
 };
