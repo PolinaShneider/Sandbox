@@ -3996,3 +3996,24 @@ var insert = function (head, insertVal) {
     head.next = new Node(insertVal, head.next);
     return head
 };
+
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function (gas, cost) {
+    let temp = 0;
+
+    for (let j = 0; j < gas.length; j++) {
+        temp = 0;
+        for (let i = j; i < gas.length + j; i++) {
+            temp += (gas[i % gas.length] - cost[i % cost.length]);
+            if (temp < 0) break;
+        }
+
+        if (temp >= 0) return j;
+    }
+
+    return -1;
+};
