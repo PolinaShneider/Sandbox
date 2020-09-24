@@ -4017,3 +4017,19 @@ var canCompleteCircuit = function (gas, cost) {
 
     return -1;
 };
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
+ */
+var findTheDifference = function (s, t) {
+    const arr1 = s.split('').sort();
+    const arr2 = t.split('').sort();
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return arr2[i];
+    }
+
+    return arr2[arr2.length - 1];
+};
