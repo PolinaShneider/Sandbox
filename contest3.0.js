@@ -4033,3 +4033,16 @@ var findTheDifference = function (s, t) {
 
     return arr2[arr2.length - 1];
 };
+
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var largestNumber = function (nums) {
+    return nums.sort((a, b) => {
+        a = a.toString();
+        b = b.toString();
+
+        return (b + a) - (a + b);
+    }).join('').replace(/^0+/, '0');
+};¬
