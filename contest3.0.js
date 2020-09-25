@@ -4045,4 +4045,4 @@ var largestNumber = function (nums) {
 
         return (b + a) - (a + b);
     }).join('').replace(/^0+/, '0');
-};¬
+};
