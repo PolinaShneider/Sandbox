@@ -342,3 +342,37 @@ var rob = function(nums) {
 
     return result[nums.length - 1];
 };
+
+var maxDepth = function (root) {
+    if (!root) return 0;
+    let max = 0;
+    for (let child of root.children) {
+        max = Math.max(max, maxDepth(child));
+    }
+    return max + 1;
+};
+
+var insert = function (head, insertVal) {
+    if (!head) {
+        let node = new Node(insertVal);
+        node.next = node;
+        return node
+    }
+
+    let current = head;
+
+    while (head) {
+        if (head.next.val > head.val) {
+            if (insertVal >= head.val && insertVal <= head.next.val) break
+        } else if (head.next.val < head.val) {
+            if (insertVal >= head.val || insertVal <= head.next.val) break
+        } else if (head.next === current) {//// we did a cycle
+            break
+        }
+
+        head = head.next
+    }
+
+    head.next = new Node(insertVal, head.next);
+    return head
+};

@@ -2696,15 +2696,6 @@ var exist = function (board, word) {
     return result;
 };
 
-var maxDepth = function (root) {
-    if (!root) return 0;
-    let max = 0;
-    for (let child of root.children) {
-        max = Math.max(max, maxDepth(child));
-    }
-    return max + 1;
-};
-
 /**
  * @param {number[][]} graph
  * @return {number[][]}
@@ -3972,31 +3963,6 @@ var majorityElement = function (nums) {
     return res;
 };
 
-var insert = function (head, insertVal) {
-    if (!head) {
-        let node = new Node(insertVal);
-        node.next = node;
-        return node
-    }
-
-    let current = head;
-
-    while (head) {
-        if (head.next.val > head.val) {
-            if (insertVal >= head.val && insertVal <= head.next.val) break
-        } else if (head.next.val < head.val) {
-            if (insertVal >= head.val || insertVal <= head.next.val) break
-        } else if (head.next === current) {//// we did a cycle
-            break
-        }
-
-        head = head.next
-    }
-
-    head.next = new Node(insertVal, head.next);
-    return head
-};
-
 /**
  * @param {number[]} gas
  * @param {number[]} cost
@@ -4046,3 +4012,52 @@ var largestNumber = function (nums) {
         return (b + a) - (a + b);
     }).join('').replace(/^0+/, '0');
 };
+
+var findLatestWeight = function (weights) {
+    weights.sort((a, b) => a - b);
+
+    while (weights.length > 1) {
+        const first = weights.pop();
+        const second = weights.pop();
+
+        let idx = weights.length;
+        if (first !== second) {
+            const molecule = first - second;
+            for (let i = 0; i < weights.length; i++) {
+                if (molecule <= weights[i]) {
+                    idx = i;
+                    break;
+                }
+            }
+
+            weights.splice(idx, 0, molecule);
+        }
+    }
+
+    return weights[0] || 0;
+};
+
+console.log(findLatestWeight([3, 3, 5, 2, 6]));
+
+var plugin = function (str) {
+    const delimiters = str.split(/[a-z]/i).filter(Boolean);
+    let accum = "";
+    for (let i = str.length - 1; i >= 0; i--) {
+        const symbol = str[i];
+        if (/[a-z]/i.test(symbol)) {
+            accum = symbol + accum;
+        } else {
+            if (accum) {
+                map[accum] = delimiters.pop();
+            }
+            accum = "";
+        }
+    }
+
+    const {mod, elem} = map;
+
+    return {mod, elem};
+};
+
+console.log(plugin("block###elem---mod---mod"));
+
