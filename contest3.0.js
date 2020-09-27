@@ -4013,52 +4013,6 @@ var largestNumber = function (nums) {
     }).join('').replace(/^0+/, '0');
 };
 
-var findLatestWeight = function (weights) {
-    weights.sort((a, b) => a - b);
-
-    while (weights.length > 1) {
-        const first = weights.pop();
-        const second = weights.pop();
-
-        let idx = weights.length;
-        if (first !== second) {
-            const molecule = first - second;
-            for (let i = 0; i < weights.length; i++) {
-                if (molecule <= weights[i]) {
-                    idx = i;
-                    break;
-                }
-            }
-
-            weights.splice(idx, 0, molecule);
-        }
-    }
-
-    return weights[0] || 0;
-};
-
-console.log(findLatestWeight([3, 3, 5, 2, 6]));
-
-var plugin = function (str) {
-    const delimiters = str.split(/[a-z]/i).filter(Boolean);
-    let accum = "";
-    for (let i = str.length - 1; i >= 0; i--) {
-        const symbol = str[i];
-        if (/[a-z]/i.test(symbol)) {
-            accum = symbol + accum;
-        } else {
-            if (accum) {
-                map[accum] = delimiters.pop();
-            }
-            accum = "";
-        }
-    }
-
-    const {mod, elem} = map;
-
-    return {mod, elem};
-};
-
 /**
  * @param {number[]} timeSeries
  * @param {number} duration
