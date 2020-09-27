@@ -4077,3 +4077,56 @@ var findPoisonedDuration = function (timeSeries, duration) {
     return total + duration;
 };
 
+/**
+ * @param {number[][]} matrix
+ * @return {number[][]}
+ */
+var updateMatrix = function (matrix) {
+    const result = new Array(matrix.length);
+
+    for (let i = 0; i < result.length; i++) {
+        result[i] = new Array(matrix.length).fill(Infinity);
+    }
+
+    const queue = [];
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix.length; j++) {
+            if (matrix[i][j] === 0) {
+                result[i][j] = 0;
+                queue.push([i, j]);
+            }
+        }
+    }
+
+    while (queue.length) {
+        const [i, j] = queue.shift();
+
+        if (matrix[i] !== undefined && matrix[i][j + 1] !== undefined) {
+            if (matrix[i][j] + 1 !== result[i][j + 1]) {
+                result[i][j + 1] = Math.min(matrix[i][j] + 1, result[i][j + 1]);
+                queue.push([i, j + 1])
+            }
+        }
+
+        if (matrix[i] !== undefined && matrix[i][j - 1] !== undefined) {
+            if (matrix[i][j] + 1 !== result[i][j - 1]) {
+                result[i][j - 1] = Math.min(matrix[i][j] + 1, result[i][j - 1]);
+                queue.push([i, j - 1])
+            }
+        }
+
+        if (matrix[i - 1] !== undefined && matrix[i - 1][j] !== undefined) {
+            if (matrix[i][j] + 1 !== result[i - 1][j]) {
+                result[i - 1][j] = Math.min(matrix[i][j] + 1, result[i - 1][j]);
+                queue.push([i - 1, j])
+            }
+        }
+
+        if (matrix[i + 1] !== undefined && matrix[i + 1][j] !== undefined) {
+            if (matrix[i][j] + 1 !== result[i + 1][j]) {
+                result[i + 1][j] = Math.min();
+                queue.push([i + 1, j])
+            }
+        }
+    }
+};
