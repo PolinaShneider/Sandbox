@@ -4085,12 +4085,12 @@ var updateMatrix = function (matrix) {
     const result = new Array(matrix.length);
 
     for (let i = 0; i < result.length; i++) {
-        result[i] = new Array(matrix.length).fill(Infinity);
+        result[i] = new Array(matrix[0].length).fill(Infinity);
     }
 
     const queue = [];
     for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix.length; j++) {
+        for (let j = 0; j < matrix[0].length; j++) {
             if (matrix[i][j] === 0) {
                 result[i][j] = 0;
                 queue.push([i, j]);
@@ -4100,33 +4100,44 @@ var updateMatrix = function (matrix) {
 
     while (queue.length) {
         const [i, j] = queue.shift();
+        const current = result[i][j];
 
         if (matrix[i] !== undefined && matrix[i][j + 1] !== undefined) {
-            if (matrix[i][j] + 1 !== result[i][j + 1]) {
-                result[i][j + 1] = Math.min(matrix[i][j] + 1, result[i][j + 1]);
+            const changed = Math.min(current + 1, result[i][j + 1]);
+
+            if (result[i][j + 1] !== changed) {
+                result[i][j + 1] = changed;
                 queue.push([i, j + 1])
             }
         }
 
         if (matrix[i] !== undefined && matrix[i][j - 1] !== undefined) {
-            if (matrix[i][j] + 1 !== result[i][j - 1]) {
-                result[i][j - 1] = Math.min(matrix[i][j] + 1, result[i][j - 1]);
+            const changed = Math.min(current + 1, result[i][j - 1]);
+
+            if (result[i][j - 1] !== changed) {
+                result[i][j - 1] = changed;
                 queue.push([i, j - 1])
             }
         }
 
         if (matrix[i - 1] !== undefined && matrix[i - 1][j] !== undefined) {
-            if (matrix[i][j] + 1 !== result[i - 1][j]) {
-                result[i - 1][j] = Math.min(matrix[i][j] + 1, result[i - 1][j]);
+            const changed = Math.min(current + 1, result[i - 1][j]);
+
+            if (result[i - 1][j] !== changed) {
+                result[i - 1][j] = changed;
                 queue.push([i - 1, j])
             }
         }
 
         if (matrix[i + 1] !== undefined && matrix[i + 1][j] !== undefined) {
-            if (matrix[i][j] + 1 !== result[i + 1][j]) {
-                result[i + 1][j] = Math.min();
+            const changed = Math.min(current + 1, result[i + 1][j]);
+
+            if (result[i + 1][j] !== changed) {
+                result[i + 1][j] = changed;
                 queue.push([i + 1, j])
             }
         }
     }
+
+    return result;
 };
