@@ -4113,3 +4113,32 @@ var numSubarrayProductLessThanK = function (nums, k) {
     }
     return res;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var firstMissingPositive = function (nums) {
+    const map = {};
+    for (let elem of nums) {
+        map[elem] = elem;
+    }
+
+    let prev;
+    let max = -Infinity;
+    for (let key in map) {
+        if (prev !== undefined) {
+            if (map[key] - prev > 1 && prev + 1 > 0) {
+                return prev + 1;
+            }
+        } else {
+            if (map[key] > 1) {
+                return 1;
+            }
+        }
+        prev = map[key];
+        max = Math.max(prev, max);
+    }
+
+    return max > 0 ? max + 1 : 1;
+};
