@@ -4166,3 +4166,19 @@ RecentCounter.prototype.ping = function (t) {
  * var obj = new RecentCounter()
  * var param_1 = obj.ping(t)
  */
+
+/**
+ * @param {number[][]} arrays
+ * @return {number}
+ */
+var maxDistance = function (arrays) {
+    let max = -Infinity;
+    for (let i = 0; i < arrays.length; i++) {
+        for (let j = 0; j < arrays.length; j++) {
+            if (i === j) continue;
+            max = Math.max(max, arrays[i][arrays[i].length - 1] - arrays[j][0])
+        }
+    }
+
+    return max;
+};
