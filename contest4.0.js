@@ -1359,14 +1359,14 @@ var maxProduct = function (nums) {
  * @param {number[]} indices
  * @return {string}
  */
-var restoreString = function(s, indices) {
+var restoreString = function (s, indices) {
     const arr = s.split('');
 
     for (let i = 0; i < arr.length; i++) {
         let item = arr[i];
         let to = indices[i];
 
-        while(true) {
+        while (true) {
             const cc = arr[to];
             const ccto = indices[to];
 
@@ -1380,4 +1380,107 @@ var restoreString = function(s, indices) {
     }
 
     return arr.join('')
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findPairs = function (nums, k) {
+    const map = {};
+    let cnt = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+            if (i === j) continue;
+
+            if (nums[j] - nums[i] === k) {
+                const key = `${nums[i]},${nums[j]}`;
+
+                if (!(key in map)) {
+                    cnt++;
+                }
+
+                map[key] = [nums[i], nums[j]];
+            }
+        }
+    }
+
+    return cnt;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function (root) {
+    function inorder(node) {
+        if (!node) return [];
+
+        let values = [];
+
+        if (node.left) {
+            values = values.concat(inorder(node.left));
+        }
+
+        values.push(node.val);
+
+        if (node.right) {
+            values = values.concat(inorder(node.right))
+        }
+
+        return values;
+    }
+
+    const data = inorder(root);
+    let min = Infinity;
+
+    for (let i = 1; i < data.length; i++) {
+        min = Math.min(min, data[i] - data[i - 1])
+    }
+
+    return min;
+};
+
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function (candidates, target) {
+    const arr = [];
+    const temp = [];
+    const map = {};
+
+    (function dfs(left, start = 0) {
+        if (left <= 0) {
+            if (left === 0) {
+                arr.push([...temp]);
+            }
+
+            return;
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+            temp.push(candidates[i]);
+            dfs(left - candidates[i], i + 1);
+            temp.pop();
+        }
+    })(target);
+
+    arr.forEach(item => {
+        const key = item.sort().toString();
+        map[key] = item;
+    });
+
+    return Object.values(map);
 };
