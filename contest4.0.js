@@ -1484,3 +1484,28 @@ var combinationSum2 = function (candidates, target) {
 
     return Object.values(map);
 };
+
+// 2[3[a]b]
+// 3[abc]4[ab]c
+var decompress = function (str) {
+    const word = [str];
+    const add = [];
+    const mult = [];
+    while (word.length && !/^[a-z]$/i.test(word[0])) {
+        const str = word.pop();
+        const result = str.match(/(\d+)/);
+        mult.push(result ? +result[0] : 1);
+        add.push(str.lastIndexOf(']') >= 0 ? str.slice(str.lastIndexOf(']') + 1) : "");
+        word.push(str.slice(str.indexOf('[') + 1, str.lastIndexOf(']')));
+    }
+
+    let res = '';
+    while (word.length) {
+        res += word.pop().repeat(mult.pop()) + add.pop();
+    }
+
+    return res;
+};
+
+console.log(decompress('2[3[a]b]')); // aaabaaab
+// decompress('3[abc]4[ab]c'); // abcabcabcababababc
