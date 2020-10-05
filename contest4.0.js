@@ -1489,7 +1489,7 @@ var combinationSum2 = function (candidates, target) {
  * @param {string} s
  * @return {string}
  */
-var decodeString = function(s) {
+var decodeString = function (s) {
     const stack = [];
 
     for (const char of s) {
@@ -1513,4 +1513,12 @@ var decodeString = function(s) {
         stack.push(str.repeat(+num));
     }
     return stack.join('');
+};
+
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var bitwiseComplement = function (N) {
+    return parseInt(N.toString(2).split('').map(it => +it ? '0' : '1').join(''), 2);
 };
