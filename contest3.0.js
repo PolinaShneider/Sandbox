@@ -4182,3 +4182,48 @@ var maxDistance = function (arrays) {
 
     return max;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var rotateRight = function (head, k) {
+    let node = head;
+    let counter = 0;
+
+    while (node) {
+        node = node.next;
+        counter++;
+    }
+
+    k = k % counter;
+
+    if (!k) {
+        return head;
+    }
+
+    let i = 0;
+    node = head;
+    while (++i < counter - k) {
+        node = node.next;
+    }
+
+    let real_man = node.next;
+    let real_parent = real_man;
+    while (real_man.next) {
+        real_man = real_man.next;
+    }
+
+    real_man.next = head;
+    node.next = null;
+
+    return real_parent;
+};
