@@ -4227,3 +4227,47 @@ var rotateRight = function (head, k) {
 
     return real_parent;
 };
+
+/**
+ * Initialize your data structure here.
+ */
+var TwoSum = function () {
+    this.map = {};
+};
+
+/**
+ * Add the number to an internal data structure..
+ * @param {number} number
+ * @return {void}
+ */
+TwoSum.prototype.add = function (number) {
+    this.map[number] = ++this.map[number] || 1;
+};
+
+/**
+ * Find if there exists any pair of numbers which sum is equal to the value.
+ * @param {number} value
+ * @return {boolean}
+ */
+TwoSum.prototype.find = function (value) {
+    for (let num in this.map) {
+        const comple = value - num;
+
+        if (num != comple) {
+            if (comple in this.map) {
+                return true;
+            }
+        } else if (this.map[num] > 1) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+/**
+ * Your TwoSum object will be instantiated and called as such:
+ * var obj = new TwoSum()
+ * obj.add(number)
+ * var param_2 = obj.find(value)
+ */
