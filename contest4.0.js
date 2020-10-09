@@ -1522,3 +1522,28 @@ var decodeString = function (s) {
 var bitwiseComplement = function (N) {
     return parseInt(N.toString(2).split('').map(it => +it ? '0' : '1').join(''), 2);
 };
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    let max = '';
+    
+    function isPalindrome(str) {
+        return str === str.split('').reverse().join('');
+    }
+    
+    for (let i = 0; i < s.length; i++) {
+        let str = '';
+        for (let j = i; j < s.length; j++) {
+            str += s[j];
+            
+            if (isPalindrome(str) && str.length > max.length) {
+                max = str;
+            }
+        }
+    }
+    
+    return max;
+};
