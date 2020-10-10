@@ -4271,3 +4271,36 @@ TwoSum.prototype.find = function (value) {
  * obj.add(number)
  * var param_2 = obj.find(value)
  */
+
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var findMinArrowShots = function(points) {
+    if (!points.length) {
+        return 0;
+    }
+
+    points.sort(([,e1], [,e2]) => e1 - e2);
+
+    const intervals = [points[0]];
+
+    let i = 1;
+    let go = i < points.length;
+    while (go) {
+        let current = points[i];
+        const last = intervals[intervals.length - 1];
+        while (go && current[0] <= last[1]) {
+            if (go) {
+                go = ++i < points.length;
+                current = points[i];
+            }
+        }
+
+        if (go) {
+            intervals.push(current);
+        }
+    }
+
+    return intervals.length;
+};
