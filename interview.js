@@ -165,3 +165,39 @@ function compress(arr) {
 // идем по массиву: если разница между текущим и пред.
 
 console.log(compress([1, 2, 3, 4, 6, 7]));
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeDuplicateLetters = function (s) {
+    const map = {};
+
+    for (let i = 0; i < s.length; i++) {
+        const key = s[i];
+        map[key] = i;
+    }
+
+    const stack = [s[0]];
+    const present = {
+        [s[0]]: true,
+    };
+
+    for (let i = 1; i < s.length; i++) {
+        let prev = stack[stack.length - 1];
+        const curr = s[i];
+
+        while (curr < prev && map[prev] >= i && !present[curr]) {
+            const el = stack.pop();
+            prev = stack[stack.length - 1];
+            present[el] = false;
+        }
+
+        if (!(present[curr])) {
+            stack.push(curr);
+            present[curr] = true;
+        }
+    }
+
+    return stack.join('');
+};
