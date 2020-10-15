@@ -4327,3 +4327,21 @@ var rob = function (nums) {
 
     return Math.max(memo1.pop(), memo2.pop());
 };
+
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var minMeetingRooms = function (intervals) {
+    const arr = [];
+    let max = 0;
+
+    for (let i = 0; i < intervals.length; i++) {
+        for (let j = intervals[i][0]; j < intervals[i][1]; j++) {
+            arr[j] = ++arr[j] || 1;
+            max = Math.max(max, arr[j])
+        }
+    }
+
+    return max;
+};
