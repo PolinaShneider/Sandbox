@@ -4345,3 +4345,37 @@ var minMeetingRooms = function (intervals) {
 
     return max;
 };
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    matrix = matrix.flat();
+
+    function binary(arr, elem) {
+        let low = 0;
+        let high = arr.length - 1;
+
+        while (high >= low) {
+            const mid = Math.floor((high + low) / 2);
+
+            if (arr[mid] === target) {
+                return true;
+            }
+
+            if (arr[mid] > target) {
+                high = mid - 1;
+            }
+
+            if (arr[mid] < target) {
+                low = mid + 1;
+            }
+        }
+
+        return false;
+    }
+
+    return binary(matrix, target);
+};
