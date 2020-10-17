@@ -4379,3 +4379,23 @@ var searchMatrix = function (matrix, target) {
 
     return binary(matrix, target);
 };
+
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var findRepeatedDnaSequences = function (s) {
+    const map = {};
+    for (let i = 0; i < s.length; i++) {
+        const key = s.slice(i, i + 10);
+        map[key] = ++map[key] || 1;
+    }
+
+    return Object.entries(map).reduce((total, [value, key]) => {
+        if (key > 1) {
+            total.push(value);
+        }
+
+        return total;
+    }, [])
+};

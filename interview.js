@@ -201,3 +201,34 @@ var removeDuplicateLetters = function (s) {
 
     return stack.join('');
 };
+
+/**
+ * https://medium.com/better-programming/javascript-tips-2-object-array-deep-clone-implementation-2d6a43e43d2a
+ * @param val
+ * @returns {[]|*}
+ */
+function deepCopy(val) {
+    if (val === null || typeof val !== "object") {
+        return val;
+    }
+
+    let copy = Array.isArray(val) ? [] : {};
+
+    for (let key in val) {
+        copy[key] = deepCopy(val[key]);
+    }
+
+    return copy;
+}
+
+const obj = {
+    a: 2,
+    arr: ['hello', 1, 2],
+    size: {
+        w: 90,
+        h: 10
+    }
+};
+
+const copy = deepCopy(obj);
+console.log(copy);
