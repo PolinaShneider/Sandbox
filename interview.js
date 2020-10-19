@@ -100,8 +100,6 @@ function factorial(n) {
     return (n > 1) ? n * factorial(n - 1) : n;
 }
 
-// console.log(factorial(5));
-
 // 5 = 1 * 2 * 3 * 4 * 5 = 120
 
 function spy(func) {
@@ -232,3 +230,11 @@ const obj = {
 
 const copy = deepCopy(obj);
 console.log(copy);
+
+function isRotation(str1, str2) {
+    const concated = str1.repeat(2);
+
+    return concated.indexOf(str2) !== -1;
+}
+
+
