@@ -236,5 +236,3 @@ function isRotation(str1, str2) {
 
     return concated.indexOf(str2) !== -1;
 }
-
-
