@@ -3534,3 +3534,42 @@ console.assert(convertToTitle(52) === "AZ", "convertToTitle #1");
 console.assert(convertToTitle(26) === "Z", "convertToTitle #2");
 console.assert(convertToTitle(1) === "A", "convertToTitle #3");
 console.assert(convertToTitle(701) === "ZY", "convertToTitle #4");
+
+/**
+ * // This is the ArrayReader's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * function ArrayReader() {
+ *
+ *     @param {number} index
+ *     @return {number}
+ *     this.get = function(index) {
+ *         ...
+ *     };
+ * };
+ */
+
+/**
+ * @param {ArrayReader} reader
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (reader, target) {
+    let high = 10 ** 4;
+    let low = 0;
+
+    while (high >= low) {
+        const mid = Math.floor((high + low) / 2);
+
+        if (reader.get(mid) === target) {
+            return mid;
+        }
+
+        if (reader.get(mid) === 2147483647 || reader.get(mid) > target) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    return -1;
+};
