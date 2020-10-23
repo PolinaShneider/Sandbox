@@ -1527,7 +1527,7 @@ var bitwiseComplement = function (N) {
  * @param {string} s
  * @return {string}
  */
-var longestPalindrome = function(s) {
+var longestPalindrome = function (s) {
     let max = '';
 
     function isPalindrome(str) {
@@ -1560,7 +1560,7 @@ var longestPalindrome = function(s) {
  * @param {TreeNode} root
  * @return {number}
  */
-var minDepth = function(root) {
+var minDepth = function (root) {
     if (root == null) {
         return 0;
     }
@@ -1578,4 +1578,21 @@ var minDepth = function(root) {
     }
 
     return min_depth + 1;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var find132pattern = function (nums) {
+    let min_i = Infinity;
+    for (let j = 0; j < nums.length - 1; j++) {
+        min_i = Math.min(min_i, nums[j]);
+        for (let k = j + 1; k < nums.length; k++) {
+            if (nums[k] < nums[j] && min_i < nums[k]) {
+                return true;
+            }
+        }
+    }
+    return false;
 };
