@@ -236,3 +236,43 @@ function isRotation(str1, str2) {
 
     return concated.indexOf(str2) !== -1;
 }
+
+/**
+ * @param {number[]} nums
+ * @return {string[]}
+ */
+var summaryRanges = function (nums) {
+
+    if (nums.length < 2) {
+        return nums.map(it => '' + it);
+    }
+
+    const result = [];
+    const temp = [nums[0]];
+
+    for (let i = 1; i < nums.length; i++) {
+        const current = nums[i];
+
+        if (current - nums[i - 1] > 1) {
+            if (temp.length > 1) {
+                result.push(`${temp.shift()}->${temp.pop()}`)
+            } else {
+                result.push('' + temp[0]);
+            }
+
+            temp.length = 0;
+        }
+
+        temp.push(current);
+
+        if (i === nums.length - 1 && temp.length) {
+            if (temp.length > 1) {
+                result.push(`${temp.shift()}->${temp.pop()}`)
+            } else {
+                result.push('' + temp[0]);
+            }
+        }
+    }
+
+    return result;
+};
