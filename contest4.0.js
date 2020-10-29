@@ -1596,3 +1596,37 @@ var find132pattern = function (nums) {
     }
     return false;
 };
+
+/**
+ * @param {number[]} seats
+ * @return {number}
+ */
+var maxDistToClosest = function (seats) {
+    let first = null, last = null;
+    let max = 0;
+
+    for (let i = 0; i < seats.length; i++) {
+        if (seats[i]) {
+            if (first == null) {
+                first = i;
+            }
+
+            if (last != null) {
+                let dist = i - last;
+                max = Math.max(max, Math.floor(dist / 2));
+            }
+
+            last = i;
+        }
+    }
+
+    if (seats[0] !== 1) {
+        max = Math.max(max, first);
+    }
+
+    if (seats[seats.length - 1] !== 1) {
+        max = Math.max(max, seats.length - 1 - last);
+    }
+
+    return max;
+};

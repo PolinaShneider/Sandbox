@@ -812,3 +812,82 @@ var insertIntoBST = function (root, val) {
 
     return root;
 };
+
+/**
+ * // Definition for a Node.
+ * function Node(val, children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+class Codec {
+    constructor() {
+    }
+
+    /**
+     * @param {Node} root
+     * @return {TreeNode}
+     */
+    // Encodes an n-ary tree to a binary tree.
+    encode = function encode(root) {
+        if (root == null) {
+            return null;
+        }
+
+        const res = new TreeNode(root.val);
+        let tail = null;
+
+        for (let i = 0; i < root.children.length; i++) {
+            let nChild = root.children[i];
+            let next = encode(nChild);
+
+            if (tail == null) {
+                res.left = next;
+                tail = next;
+            } else {
+                tail.right = next;
+                tail = next;
+            }
+        }
+
+        return res;
+    };
+
+    /**
+     * @param {TreeNode} root
+     * @return {Node}
+     */
+    // Decodes your binary tree to an n-ary tree.
+    decode = function decode(root) {
+        if (root == null) {
+            return null;
+        }
+
+        const res = new Node(root.val, []);
+        const firstChild = decode(root.left);
+        if (firstChild != null) {
+            res.children.push(firstChild);
+            let next = root.left.right;
+            while (next != null) {
+                res.children.push(decode(next));
+                next = next.right;
+            }
+        }
+        return res;
+    };
+}
+
+/*
+* Your Codec object will be instantiated and called as such:
+* codec = Codec()
+* codec.decode(codec.encode(root))
+*/
