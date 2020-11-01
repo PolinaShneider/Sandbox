@@ -1661,4 +1661,42 @@ var recoverTree = function (root) {
     [big.val, small.val] = [small.val, big.val];
 };
 
-// test commit for demo!!!
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var getDecimalValue = function (head) {
+    let res = '';
+
+    while (head) {
+        res += head.val;
+        head = head.next;
+    }
+
+    return parseInt(res, 2)
+};
+
+/**
+ * @param {number[][]} intervals
+ * @return {boolean}
+ */
+var canAttendMeetings = function (intervals) {
+    intervals.sort(([a,], [b,]) => a - b);
+    for (let i = 0; i < intervals.length - 1; i++) {
+        const current = intervals[i];
+        const next = intervals[i + 1];
+
+        if (current[1] > next[0]) {
+            return false;
+        }
+    }
+
+    return true;
+};
