@@ -1693,3 +1693,25 @@ var canAttendMeetings = function (intervals) {
 
     return true;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var maxPower = function (s) {
+    let count = 1;
+    let max = 1;
+    for (let i = 0; i < s.length; i++) {
+        const curr = s[i];
+        const next = s[i + 1];
+
+        if (next !== curr) {
+            max = Math.max(count, max);
+            count = 1;
+        } else {
+            count++;
+        }
+    }
+
+    return max;
+};
