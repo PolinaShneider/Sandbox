@@ -1715,3 +1715,20 @@ var maxPower = function (s) {
 
     return max;
 };
+
+/**
+ * @param {number[]} chips
+ * @return {number}
+ */
+var minCostToMoveChips = function (chips) {
+    let even_cnt = 0;
+    let odd_cnt = 0;
+    for (const chip of chips) {
+        if (chip % 2 === 0) {
+            even_cnt++;
+        } else {
+            odd_cnt++;
+        }
+    }
+    return Math.min(odd_cnt, even_cnt);
+};
