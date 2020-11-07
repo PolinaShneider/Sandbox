@@ -1732,3 +1732,38 @@ var minCostToMoveChips = function (chips) {
     }
     return Math.min(odd_cnt, even_cnt);
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function (l1, l2) {
+    function dump(list) {
+        let sum = '';
+
+        while (list) {
+            sum += list.val;
+            list = list.next;
+        }
+
+        return sum;
+    }
+
+    const arr = (BigInt(dump(l1)) + BigInt(dump(l2))).toString().split('');
+    let head = new ListNode(arr.shift());
+    let prev = head;
+    while (arr.length) {
+        head.next = new ListNode(arr.shift());
+        head = head.next;
+    }
+
+    return prev;
+};
