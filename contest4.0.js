@@ -1767,3 +1767,88 @@ var addTwoNumbers = function (l1, l2) {
 
     return prev;
 };
+
+function getBestFitImageIndex(frame, images) {
+    function resize(elementSizes, containerSizes) {
+        const elementRatio = elementSizes.w / elementSizes.h;
+        const containerRatio = containerSizes.w / containerSizes.h;
+
+        let width, height;
+
+        if (containerRatio > elementRatio) {
+            width = containerSizes.w;
+            height = containerSizes.w / elementRatio;
+        } else {
+            width = containerSizes.h * elementRatio;
+            height = containerSizes.h;
+        }
+
+        return {w: width, h: height}
+    }
+
+    let [resExtraArea, index] = [Infinity, -1];
+    const {w: sample_w, h: sample_h} = frame;
+    const frameArea = sample_w * sample_h;
+
+    for (let i = 0; i < images.length; i++) {
+        const {w, h} = images[i];
+
+        if (frameArea === w * h) {
+            return i;
+        }
+
+        const {w: resized_w, h: resized_h} = resize({w, h}, {w: sample_w, h: sample_h});
+        const newArea = resized_w * resized_h;
+        console.log(resized_w, resized_h);
+
+        if (newArea - frameArea < resExtraArea) {
+            resExtraArea = newArea - frameArea;
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+console.log(getBestFitImageIndex({w: 1, h: 1}, [{w: 1, h: 58}, {w: 1.5, h: 2.5}, {w: 2, h: 5}, {w: 1.5, h: 2.5}, {
+    w: 1,
+    h: 6
+}]));
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxAncestorDiff = function (root) {
+    let res = 0;
+
+    recursive(root, root.val, root.val);
+
+    return res;
+
+    function recursive(node, minSoFar, maxSoFar) {
+        if (!node)
+            return;
+
+        let diffWithMax = maxSoFar - node.val;
+
+        let diffWithMin = node.val - minSoFar;
+
+        res = Math.max(res, diffWithMax, diffWithMin);
+
+        minSoFar = Math.min(minSoFar, node.val);
+        maxSoFar = Math.max(maxSoFar, node.val);
+
+        recursive(node.left, minSoFar, maxSoFar);
+        recursive(node.right, minSoFar, maxSoFar);
+
+    }
+};
