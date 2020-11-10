@@ -1810,11 +1810,6 @@ function getBestFitImageIndex(frame, images) {
     return index;
 }
 
-console.log(getBestFitImageIndex({w: 1, h: 1}, [{w: 1, h: 58}, {w: 1.5, h: 2.5}, {w: 2, h: 5}, {w: 1.5, h: 2.5}, {
-    w: 1,
-    h: 6
-}]));
-
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
