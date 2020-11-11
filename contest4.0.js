@@ -1847,3 +1847,29 @@ var maxAncestorDiff = function (root) {
 
     }
 };
+
+/**
+ * @param {number[]} p1
+ * @param {number[]} p2
+ * @param {number[]} p3
+ * @param {number[]} p4
+ * @return {boolean}
+ */
+var validSquare = function (p1, p2, p3, p4) {
+    let map = new Map();
+    let arr = [p1, p2, p3, p4];
+    let largest = 0;
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            let dist = distance(arr[i], arr[j]);
+            map.set(dist, map.get(dist) + 1 || 1);
+            largest = Math.max(largest, map.get(dist));
+        }
+    }
+
+    return map.size === 2 && largest === 4;
+
+    function distance([x_1, y_1], [x_2, y_2]) {
+        return Math.sqrt(Math.pow(x_2 - x_1, 2) + Math.pow(y_2 - y_1, 2))
+    }
+};
