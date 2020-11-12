@@ -1873,3 +1873,34 @@ var validSquare = function (p1, p2, p3, p4) {
         return Math.sqrt(Math.pow(x_2 - x_1, 2) + Math.pow(y_2 - y_1, 2))
     }
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function (nums) {
+    let res = [];
+    let countMap = new Map();
+
+    for (let n of nums) {
+        countMap.set(n, (countMap.get(n) + 1 || 1))
+    }
+
+    function backtrack(nums, arr) {
+        if (arr.length === nums.length) {
+            res.push([...arr]);
+            return
+        }
+        for (let [key, value] of countMap) {
+            if (value === 0) continue;
+            arr.push(key);
+            countMap.set(key, --value);
+            backtrack(nums, arr);
+            arr.pop();
+            countMap.set(key, ++value)
+        }
+    }
+
+    backtrack(nums, []);
+    return res;
+};
