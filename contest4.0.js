@@ -1874,10 +1874,7 @@ var validSquare = function (p1, p2, p3, p4) {
     }
 };
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
+
 var permuteUnique = function (nums) {
     let res = [];
     let countMap = new Map();
