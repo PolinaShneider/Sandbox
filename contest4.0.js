@@ -1901,3 +1901,39 @@ var permuteUnique = function (nums) {
     backtrack(nums, []);
     return res;
 };
+
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function (root) {
+    let startOfNextLevel = root, current = null, lastVisited;
+
+    while (startOfNextLevel) { //traverse every level of the tree
+        current = startOfNextLevel, startOfNextLevel = lastVisited = null;
+
+        while (current) { // traverse level of tree exactly like a linked list
+
+            for (let child of [current.left, current.right]) {
+                if (child) {
+                    if (lastVisited) lastVisited.next = child;
+                    else startOfNextLevel = child;
+                    lastVisited = child;
+                }
+            }
+            current = current.next; //traverse level exactly like a linked list
+        }
+    }
+
+    return root;
+};
