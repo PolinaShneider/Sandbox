@@ -1948,3 +1948,36 @@ var poorPigs = function (buckets, minutesToDie, minutesToTest) {
     const states = minutesToTest / minutesToDie + 1;
     return Math.ceil(Math.log(buckets) / Math.log(states));
 };
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var longestMountain = function (A) {
+    let longestMountainLength = 0;
+    let mountainFrom = A.length;
+
+    for (let i = 1; i < A.length; ++i) {
+        const beforePrevious = i >= 2 ? A[i - 2] : Infinity;
+        const previous = A[i - 1];
+        const current = A[i];
+
+        // update mountainFrom to before when the previous is the foot of a mountain
+        if (current > previous && previous <= beforePrevious) {
+            mountainFrom = i - 1;
+            continue;
+        }
+
+        // update mountainFrom to current when there's flat terrain between current and beforePrevious
+        if (current === previous || beforePrevious === previous) {
+            mountainFrom = i;
+            continue;
+        }
+
+        // start counting mountain length in down trend
+        if (current < previous) {
+            longestMountainLength = Math.max(longestMountainLength, i - mountainFrom + 1);
+        }
+    }
+
+    return longestMountainLength >= 3 ? longestMountainLength : 0;
+};
