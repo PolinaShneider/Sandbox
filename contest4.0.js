@@ -1981,3 +1981,49 @@ var longestMountain = function (A) {
 
     return longestMountainLength >= 3 ? longestMountainLength : 0;
 };
+
+/**
+ * @param {number} p
+ * @param {number} q
+ * @return {number}
+ */
+var mirrorReflection = function (p, q) {
+    if (q === 0) return 0;
+    if (q === p) return 1;
+
+    const gcd = (a, b) => {
+        if (a === b) {
+            return 1;
+        } else if (a > b) {
+            const r = a % b;
+            return r ? gcd(b, r) : b;
+        } else {
+            const r = b & a;
+            return r ? gcd(a, r) : a;
+        }
+    };
+
+    const lcm = (a, b) => {
+        return a * b / gcd(a, b);
+    };
+
+    const total = lcm(p, q);
+    const xCoord = total / p;
+    const yCoord = total / q;
+
+    if (xCoord % 2 === 0) {
+        if (yCoord % 2 === 0) {
+            // We should never reach this
+            return -1;
+        } else {
+            return 0;
+        }
+    } else {
+        if (yCoord % 2 === 0) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+};
+
