@@ -2027,3 +2027,28 @@ var mirrorReflection = function (p, q) {
     }
 };
 
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {boolean}
+ */
+var search = function (nums, target) {
+    return searchR(nums, 0, nums.length - 1, target);
+};
+
+function searchR(nums, left, right, target) {
+    if (left > right) {
+        return false;
+    }
+    if (left === right) {
+        return nums[left] === target;
+    }
+    if (left < right && nums[left] < nums[right] && (target < nums[left] || target > nums[right])) {
+        return false;
+    }
+    const m = Math.floor((left + right) / 2);
+    const isL = searchR(nums, left, m, target);
+    const isR = searchR(nums, m + 1, right, target);
+
+    return !!(isL || isR);
+}
