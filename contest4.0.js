@@ -2058,7 +2058,7 @@ function searchR(nums, left, right, target) {
  * @param {number} n
  * @return {number}
  */
-var atMostNGivenDigitSet = function(digits, n) {
+var atMostNGivenDigitSet = function (digits, n) {
     let count = 0;
 
     /*
@@ -2121,4 +2121,45 @@ var atMostNGivenDigitSet = function(digits, n) {
     count += find(0, nDigits, digits);
 
     return count;
+};
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstringTwoDistinct = function (s) {
+    const map = new Map();
+
+    let l = 0;
+    let r = 0;
+    let maxLength = 0;
+
+    while (r < s.length) {
+        const c = s[r];
+
+        if (map.has(c) || map.size < 2) {
+            maxLength = Math.max(maxLength, r - l + 1);
+        } else if (map.size === 2) {
+            let lastMinKey;
+            let lastMin = Infinity;
+
+            for (const [k, v] of map.entries()) {
+                if (v < lastMin) {
+                    lastMinKey = k;
+                    lastMin = v;
+                }
+            }
+
+            map.delete(lastMinKey);
+            l = lastMin + 1;
+        }
+
+        map.set(c, r);
+        r++;
+    }
+
+
+    maxLength = Math.max(maxLength, s.length - l);
+
+    return maxLength;
 };
