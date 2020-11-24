@@ -2163,3 +2163,34 @@ var lengthOfLongestSubstringTwoDistinct = function (s) {
 
     return maxLength;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var calculate = function (s) {
+    const arr = s.match(/(\d+|[\+\-\*\/])/g);
+    const numStack = [];
+    const op = {
+        '*': (a, b) => a * b,
+        '/': (a, b) => ~~(a / b)
+    };
+
+    for (let i = 0; i < arr.length; i++) {
+        if (/\d+/.test(arr[i])) {
+            if (/-/.test(arr[i - 1])) numStack.push(+arr[i] * -1);
+            else numStack.push(+arr[i]);
+        } else if (/[*\/]/.test(arr[i])) {
+            const a = numStack.pop();
+            const b = +arr[i + 1];
+            numStack.push(op[arr[i++]](a, b));
+        }
+    }
+
+    while (numStack.length > 1) {
+        const a = numStack.pop();
+        const b = numStack.pop();
+        numStack.push(a + b);
+    }
+    return numStack.pop();
+};
