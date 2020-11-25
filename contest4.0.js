@@ -2194,3 +2194,19 @@ var calculate = function (s) {
     }
     return numStack.pop();
 };
+
+/**
+ * @param {number} K
+ * @return {number}
+ */
+var smallestRepunitDivByK = function (K) {
+    if (!(K % 2) || !(K % 5)) return -1; // short circuit
+
+    let len = 0, val = 0, loop = 100000;
+
+    while (loop--) {
+        val = (val * 10 + 1) % K;
+        len++;
+        if (!val) return len;
+    }
+};
