@@ -2210,3 +2210,33 @@ var smallestRepunitDivByK = function (K) {
         if (!val) return len;
     }
 };
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canPartition = function (nums) {
+    let sum = 0;
+    for (let e of nums) sum += e;
+    if (sum % 2) return false;
+    let arr = new Array(nums.length + 1);
+    for (let a = 0; a < arr.length; a++) {
+        arr[a] = new Array((sum / 2) + 1).fill(false);
+    }
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[0].length; j++) {
+            if (i === 0) arr[i][j] = false;
+            if (j === 0) arr[i][j] = true;
+        }
+    }
+    for (let i = 1; i < arr.length; i++) {
+        for (let j = 1; j < arr[0].length; j++) {
+            if (nums[i - 1] <= j) {
+                arr[i][j] = arr[i - 1][j - nums[i - 1]] || arr[i - 1][j];
+            } else {
+                arr[i][j] = arr[i - 1][j];
+            }
+        }
+    }
+    return arr[nums.length][sum / 2];
+};
