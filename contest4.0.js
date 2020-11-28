@@ -2240,3 +2240,29 @@ var canPartition = function (nums) {
     }
     return arr[nums.length][sum / 2];
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+    if (!nums.length || !k) return [];
+
+    const max = Math.max(...nums.slice(0, k)),
+        numbers = [max];
+
+    for (let i = k; i < nums.length; i++) {
+        if (nums[i - k] === numbers[numbers.length - 1]) {
+            if (nums[i] >= nums[i - k]) {
+                numbers[numbers.length] = nums[i];
+            } else {
+                numbers[numbers.length] = Math.max(...nums.slice(i - k + 1, i + 1));
+            }
+        } else {
+            numbers[numbers.length] = Math.max(numbers[numbers.length - 1], nums[i]);
+        }
+    }
+
+    return numbers;
+};
