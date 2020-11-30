@@ -2266,3 +2266,21 @@ var maxSlidingWindow = function (nums, k) {
 
     return numbers;
 };
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function (nums, k) {
+    let res = -Infinity;
+    for (let s = 0; s < nums.length - k + 1; s++) {
+        let sum = 0;
+        for (let i = s; i < nums.length; i++) {
+            sum += nums[i];
+            if (i - s + 1 >= k)
+                res = Math.max(res, sum / (i - s + 1));
+        }
+    }
+    return res;
+};
