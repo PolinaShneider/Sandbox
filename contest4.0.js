@@ -2317,3 +2317,36 @@ var getSkyline = function (buildings) {
     }
     return result;
 };
+
+/**
+ * @param {string[]} words
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var shortestDistance = function (words, word1, word2) {
+    const first = [];
+    const second = [];
+
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] === word1) {
+            first.push(i);
+        }
+
+        if (words[i] === word2) {
+            second.push(i);
+        }
+    }
+
+    let min = Infinity;
+    for (let i = 0; i < first.length; i++) {
+        for (let j = 0; j < second.length; j++) {
+            const candidate = Math.abs(first[i] - second[j]);
+            if (candidate < min) {
+                min = candidate;
+            }
+        }
+    }
+
+    return min;
+};
