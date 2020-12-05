@@ -2418,3 +2418,21 @@ var increasingBST = function (root) {
     inorder(root);
     return newRoot.right;
 };
+
+/**
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
+ */
+var canPlaceFlowers = function(flowerbed, n) {
+    let sum = 0;
+
+    flowerbed.map((x, i) => {
+        if (!flowerbed[i - 1] && !x && !flowerbed[i + 1]) {
+            sum++;
+            flowerbed[i] = 1;
+        }
+    });
+
+    return n <= sum;
+};
