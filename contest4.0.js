@@ -2493,3 +2493,19 @@ var generateMatrix = function (n) {
     }
     return mat
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    const map = {};
+    for (let i = nums.length - 1; i >= 0; i--) {
+        map[nums[i]] = ++map[nums[i]] || 1;
+
+        if (map[nums[i]] > 2) {
+            nums.splice(i, 1)
+        }
+    }
+    return nums.length
+};
