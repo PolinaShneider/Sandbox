@@ -2498,7 +2498,7 @@ var generateMatrix = function (n) {
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     const map = {};
     for (let i = nums.length - 1; i >= 0; i--) {
         map[nums[i]] = ++map[nums[i]] || 1;
@@ -2508,4 +2508,42 @@ var removeDuplicates = function(nums) {
         }
     }
     return nums.length
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var subtreeWithAllDeepest = function (root) {
+    if (!root) return root;
+
+    const left = getDepth(root.left);
+    const right = getDepth(root.right);
+
+    if (left > right) {
+        return subtreeWithAllDeepest(root.left);
+    }
+
+    if (left < right) {
+        return subtreeWithAllDeepest(root.right);
+    }
+
+    return root;
+};
+
+const getDepth = (node) => {
+    if (!node) return 0;
+
+    const left = getDepth(node.left);
+    const right = getDepth(node.right);
+
+    return Math.max(left, right) + 1;
 };
