@@ -2574,7 +2574,7 @@ const maxCoins = (nums) => {
  * @param {string} s
  * @return {string[][]}
  */
-var partition = function(s) {
+var partition = function (s) {
     const output = [];
     const partitions = [];
     const isPalindrome = str => str === str.split('').reverse().join('');
@@ -2615,12 +2615,12 @@ var partition = function(s) {
  * @param {ListNode} head
  * @return {ListNode}
  */
-var plusOne = function(head) {
+var plusOne = function (head) {
     let first = new ListNode(0)
     first.next = head
     let farRightNine = first
 
-    while(head) {
+    while (head) {
         if (head.val !== 9) {
             farRightNine = head
         }
@@ -2630,9 +2630,35 @@ var plusOne = function(head) {
     farRightNine.val++
     farRightNine = farRightNine.next
 
-    while(farRightNine) {
+    while (farRightNine) {
         farRightNine.val = 0
         farRightNine = farRightNine.next
     }
     return first.val === 0 ? first.next : first
+};
+
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @param {number[]} C
+ * @param {number[]} D
+ * @return {number}
+ */
+var fourSumCount = function (A, B, C, D) {
+    if (!A || !B || !C || !D) return [];
+    // cuadratic solution... counter, reduced from sum_of_two
+    let memory = new Map();
+    for (let i of A) {
+        for (let j of B) {
+            memory.set(-(i + j), memory.get(-(i + j)) + 1 || 1);
+        }
+    }
+    // look in the map if we have seen the complement of this sum
+    let output = 0;
+    for (let m of C) {
+        for (let n of D) {
+            output += memory.has(m + n) ? memory.get(m + n) : 0;
+        }
+    }
+    return output;
 };
