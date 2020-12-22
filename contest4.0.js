@@ -2737,3 +2737,43 @@ var smallestRangeII = function (A, K) {
 
     return res
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} u
+ * @return {TreeNode}
+ */
+var findNearestRightNode = function (root, u) {
+    if (!root) {
+        return null;
+    }
+    let queue = [root];
+    while (queue) {
+        // length is the length of the current level we are looking at
+        const length = queue.length;
+        for (let i = 0; i < length; i++) {
+            const curr = queue.shift();
+            if (curr === u && i !== length - 1) {
+                return queue.shift();
+            } else if (curr === u) {
+                return null;
+            }
+            if (curr.left) {
+                queue.push(curr.left);
+            }
+            if (curr.right) {
+                queue.push(curr.right);
+            }
+        }
+    }
+    // u is for sure in the tree, then it wont reach here
+    return null;
+};
