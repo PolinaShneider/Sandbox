@@ -2910,3 +2910,24 @@ var reachNumber = function (target) {
     }
     return steps;
 };
+
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+var lengthOfLongestSubstringKDistinct = function (s, k) {
+    let hash = {}, distinct = 0, max = 0;
+    let start = 0, end = 0;
+    while (end < s.length) {
+        if (hash[s[end]] == null || hash[s[end]] <= 0) distinct++;
+        hash[s[end]] = hash[s[end]] + 1 || 1;
+        end++;
+        while (distinct > k) {
+            hash[s[start]]--;
+            if (hash[s[start++]] === 0) distinct--;
+        }
+        max = Math.max(max, end - start);
+    }
+    return max;
+};
