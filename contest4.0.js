@@ -2971,3 +2971,22 @@ var getNeighbors = function (r, c, board) {
     }
     return count;
 };
+
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var largestRectangleArea = function (heights) {
+    const stack = [-1];
+    let res = 0;
+    heights.push(0);
+    for (let i in heights) {
+        while (heights[stack[stack.length - 1]] > heights[i]) {
+            const ceilIndex = stack.pop();
+            const leftIndex = stack[stack.length - 1];
+            res = Math.max(res, (i - leftIndex - 1) * heights[ceilIndex]);
+        }
+        stack.push(i);
+    }
+    return res;
+};
