@@ -2990,3 +2990,34 @@ var largestRectangleArea = function (heights) {
     }
     return res;
 };
+
+/**
+ * @param {number[]} arr
+ * @param {number[][]} pieces
+ * @return {boolean}
+ */
+var canFormArray = function (arr, pieces) {
+    let i = 0
+
+    const checkPieces = () => {
+        for (let piece of pieces) {
+            if (piece.includes(arr[i])) {
+                for (let j = 0; j < piece.length; j++) {
+                    if (arr[i] != piece[j])
+                        return false;
+                    i++;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    while (i < arr.length) {
+        if (!checkPieces())
+            return false;
+    }
+
+    return true;
+};
