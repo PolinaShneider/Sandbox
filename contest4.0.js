@@ -3010,4 +3010,24 @@ var getTargetCopy = function (original, cloned, target) {
     if (original.val === target.val) return cloned;
     return getTargetCopy(original.left, cloned.left, target) || getTargetCopy(original.right, cloned.right, target)
 };
+var deleteDuplicates = function (head) {
+    const dummyHead = new ListNode();
+    let curr = head, currD = dummyHead, num;
 
+    while (curr) {
+        num = curr.val;
+
+        while (curr.next && curr.next.val === num) {
+            while (curr && curr.val === num) curr = curr.next;
+            if (!curr) break;
+            num = curr.val
+        }
+
+        if (!curr) break;
+        currD.next = curr;
+        curr = curr.next;
+        currD = currD.next;
+        currD.next = null;
+    }
+    return dummyHead.next;
+};
