@@ -3031,3 +3031,17 @@ var deleteDuplicates = function (head) {
     }
     return dummyHead.next;
 };
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number}
+ */
+var findKthPositive = function (arr, k) {
+    let i = 1, j = 0;
+    while (k) {
+        (arr[j] != i) ? k-- : j++;
+        i++;
+    }
+    return i - 1;
+};
