@@ -3051,7 +3051,7 @@ var findKthPositive = function (arr, k) {
  * @param {string} num2
  * @return {string}
  */
-var multiply = function(num1, num2) {
+var multiply = function (num1, num2) {
     return (BigInt(num1) * BigInt(num2)).toString();
 };
 
@@ -3060,6 +3060,39 @@ var multiply = function(num1, num2) {
  * @param {string[]} word2
  * @return {boolean}
  */
-var arrayStringsAreEqual = function(word1, word2) {
+var arrayStringsAreEqual = function (word1, word2) {
     return word1.join('') === word2.join('');
+};
+
+/**
+ * // Definition for a Node.
+ * function Node(val, children) {
+ *    this.val = val === undefined ? 0 : val;
+ *    this.children = children === undefined ? [] : children;
+ * };
+ */
+
+/**
+ * @param {Node[]} tree
+ * @return {Node}
+ */
+var findRoot = function (tree) {
+    const memo = new Map();
+
+    const dfs = function (node) {
+        if (!node) return 0;
+        if (memo.has(node)) return memo.get(node);
+        let count = 0;
+        for (let child of node.children) {
+            count += dfs(child);
+        }
+        memo.set(node, count + 1);
+        return count + 1;
+    };
+
+    for (let i = 0; i < tree.length; i++) {
+        const count = dfs(tree[i]);
+        if (count === tree.length) return tree[i];
+    }
+    return null;
 };
