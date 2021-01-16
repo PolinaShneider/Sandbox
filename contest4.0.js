@@ -3122,19 +3122,38 @@ var findRoot = function (tree) {
  * @param {number} x
  * @return {number}
  */
-var minOperations = function(nums, x) {
+var minOperations = function (nums, x) {
     const sum = nums.reduce((acc, cur) => acc + cur, 0);
     const target = sum - x;
 
-    if(target < 0) return -1;
-    if(!target) return nums.length;
+    if (target < 0) return -1;
+    if (!target) return nums.length;
 
     let start = 0, runningSum = 0, maxLen = -Infinity;
 
-    for(let i = 0; i < nums.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
         runningSum += nums[i];
-        while(runningSum > target) runningSum -= nums[start++];
-        if(runningSum === target) maxLen = Math.max(maxLen, i-start+1);
+        while (runningSum > target) runningSum -= nums[start++];
+        if (runningSum === target) maxLen = Math.max(maxLen, i - start + 1);
     }
-    return maxLen === -Infinity ? -1 : nums.length-maxLen;
+    return maxLen === -Infinity ? -1 : nums.length - maxLen;
+};
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var getMaximumGenerated = function (n) {
+    if (!n) {
+        return 0;
+    }
+
+    const arr = [0, 1];
+
+    for (let i = 0; i < n / 2; i++) {
+        arr[2 * i] = arr[i];
+        arr[2 * i + 1] = arr[i] + arr[i + 1];
+    }
+
+    return Math.max(...arr);
 };

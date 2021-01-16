@@ -59,7 +59,7 @@ function dfs(root) {
     return values;
 }
 
-function bfs(root) {
+function dfsIterative(root) {
     const stack = [root];
     const values = [];
     while (stack.length) {
@@ -80,7 +80,7 @@ console.log(`        1
        / \\
       5  6`);
 console.log("DFS", dfs(root));
-console.log("BFS", bfs(root));
+console.log("dfsIterative", dfsIterative(root));
 console.log("\n");
 
 /**
