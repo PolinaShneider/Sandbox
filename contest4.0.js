@@ -3215,3 +3215,18 @@ var dfs = function (nestedList, depth) {
 var depthSum = function (nestedList) {
     return dfs(nestedList, 1);
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countVowelStrings = function (n) {
+    return 5 + 10 * combination(n - 1, 1) + 10 * combination(n - 1, 2) + 5 * combination(n - 1, 3) + combination(n - 1, 4);
+};
+
+function combination(n, k) {
+    if (k === 1)
+        return n;
+
+    return combination(n - 1, k - 1) * n / k;
+}
