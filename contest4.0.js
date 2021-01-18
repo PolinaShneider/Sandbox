@@ -3230,3 +3230,26 @@ function combination(n, k) {
 
     return combination(n - 1, k - 1) * n / k;
 }
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxOperations = function (nums, k) {
+    const map = {};
+    let count = 0;
+
+    for(let i = 0; i < nums.length; i++) {
+        const complement = k - nums[i];
+
+        if ((complement in map)) {
+            map[complement] = --map[complement];
+            if (!map[complement]) delete map[complement];
+            count++;
+        } else {
+            map[nums[i]] = ++map[nums[i]] || 1;
+        }
+    }
+    return count;
+};
