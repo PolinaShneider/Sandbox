@@ -3240,7 +3240,7 @@ var maxOperations = function (nums, k) {
     const map = {};
     let count = 0;
 
-    for(let i = 0; i < nums.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
         const complement = k - nums[i];
 
         if ((complement in map)) {
@@ -3252,4 +3252,34 @@ var maxOperations = function (nums, k) {
         }
     }
     return count;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var mostCompetitive = function (nums, k) {
+    if (k === nums.length) return nums;
+
+    const L = nums.length;
+    let list = nums.slice(L - k, L);
+
+    let peek = 0;
+
+    while (peek < k - 1 && list[peek] <= list[peek + 1])
+        peek++;
+
+    for (let i = L - k - 1; i >= 0; i--) {
+        if (nums[i] > list[0])
+            continue;
+
+        list.splice(peek, 1);
+        list.splice(0, 0, nums[i]);
+
+        while (peek < k - 1 && list[peek] <= list[peek + 1])
+            peek++;
+    }
+
+    return list;
 };
