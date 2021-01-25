@@ -3379,4 +3379,26 @@ var mergeList = (l1, l2) => {
         l2.next = mergeList(l1, l2.next);
         return l2;
     }
-}
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var kLengthApart = function (nums, k) {
+    let count = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i]) {
+            if (i && count < k) {
+                return false;
+            } else {
+                count = 0;
+            }
+        } else {
+            count++;
+        }
+    }
+
+    return true;
+};
