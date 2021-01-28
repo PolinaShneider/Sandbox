@@ -3460,3 +3460,19 @@ var concatenatedBinary = function (n) {
     }
     return num;
 };
+
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {string}
+ */
+var getSmallestString = function (n, k) {
+    const arr = Array(n).fill(1);
+    k -= n;
+
+    while (k) {
+        arr[--n] += Math.min(k, 25);
+        k -= Math.min(k, 25);
+    }
+    return arr.reduce((acc, cur) => acc + String.fromCharCode(cur + 96), '')
+};
