@@ -3476,3 +3476,21 @@ var getSmallestString = function (n, k) {
     }
     return arr.reduce((acc, cur) => acc + String.fromCharCode(cur + 96), '')
 };
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var countCornerRectangles = function (grid) {
+    let res = 0, m = grid.length, n = grid[0].length;
+    for (let i = 0; i < m - 1; i++) {
+        for (let j = i + 1; j < m; j++) {
+            let count = 0;
+            for (let k = 0; k < n; k++) {
+                if (grid[i][k] === 1 && grid[j][k] === 1) count++;
+            }
+            res += count * (count - 1) / 2
+        }
+    }
+    return res;
+};
