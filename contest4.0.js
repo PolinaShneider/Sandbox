@@ -3563,3 +3563,21 @@ var nextPermutation = function (nums) {
         [nums[i], nums[j]] = [nums[j], nums[i]];
     }
 };
+
+/**
+ * @param {number} height
+ * @param {number} width
+ * @param {number[]} tree
+ * @param {number[]} squirrel
+ * @param {number[][]} nuts
+ * @return {number}
+ */
+var minDistance = function (height, width, tree, squirrel, nuts) {
+    const treeSum = 2 * nuts.reduce((sum, nut) => sum + dist(tree, nut), 0);
+    const maxReductionBySquirrel = Math.max(...nuts.map(nut => dist(tree, nut) - dist(squirrel, nut)));
+    return treeSum - maxReductionBySquirrel;
+};
+
+function dist(a, b) {
+    return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+}
