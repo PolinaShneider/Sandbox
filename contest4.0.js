@@ -3605,3 +3605,30 @@ var trimBST = function (root, low, high) {
     root.right = trimBST(root.right, low, high);
     return root;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function (head) {
+    let list = head;
+
+    while (list) {
+        if (list.val === 'visited') {
+            return true;
+        } else {
+            list.val = 'visited';
+            list = list.next ? list.next : null;
+        }
+    }
+
+    return false;
+};
