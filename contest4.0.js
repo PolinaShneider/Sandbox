@@ -3632,3 +3632,23 @@ var hasCycle = function (head) {
 
     return false;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLHS = function (nums) {
+    let map = {}, res = 0;
+
+    for (let n of nums) {
+        map[n] = ~~map[n] + 1;
+    }
+
+    for (let n in map) {
+        if (map[+n + 1]) {
+            res = Math.max(res, map[n] + map[+n + 1])
+        }
+    }
+
+    return res
+};
