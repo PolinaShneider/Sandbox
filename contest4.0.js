@@ -3652,3 +3652,32 @@ var findLHS = function (nums) {
 
     return res
 };
+
+/**
+ * @param {string} path
+ * @return {string}
+ */
+var simplifyPath = function (path) {
+    const parts = path.split(/\/+/g).filter(
+        (item) => Boolean(item) && item !== '.'
+    );
+
+    const result = [];
+    let toDelete = 0;
+
+    while (parts.length) {
+        const current = parts.pop();
+
+        if (current === "..") {
+            toDelete++;
+        } else {
+            if (toDelete) {
+                toDelete--;
+            } else {
+                result.push(current);
+            }
+        }
+    }
+
+    return '/' + result.reverse().join('/');
+};
