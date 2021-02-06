@@ -3681,3 +3681,32 @@ var simplifyPath = function (path) {
 
     return '/' + result.reverse().join('/');
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    let values = [];
+    traverse(root, 0);
+    return values;
+
+    function traverse(root, depth) {
+        if (!root) return;
+        traverse(root.right, depth + 1);
+        if (values[depth] == undefined) {
+            values[depth] = root.val;
+        }
+        traverse(root.left, depth + 1);
+    }
+    // Time Complexity: O(N), we visit every node exactly once
+    // Space Complexity: O(H), call stack can go as deep as height of tree
+};
