@@ -3694,7 +3694,7 @@ var simplifyPath = function (path) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-var rightSideView = function(root) {
+var rightSideView = function (root) {
     let values = [];
     traverse(root, 0);
     return values;
@@ -3707,6 +3707,34 @@ var rightSideView = function(root) {
         }
         traverse(root.left, depth + 1);
     }
+
     // Time Complexity: O(N), we visit every node exactly once
     // Space Complexity: O(H), call stack can go as deep as height of tree
+};
+
+/**
+ * @param {string} s
+ * @param {character} c
+ * @return {number[]}
+ */
+var shortestToChar = function (s, c) {
+    let arr = s.split(c);
+    let result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+
+            if (i !== 0 && (i === arr.length - 1 || j < Math.round(arr[i].length / 2)))
+                result.push(j + 1);
+            else
+                result.push(arr[i].length - j);
+
+        }
+
+        if (i !== arr.length - 1)
+            result.push(0);
+
+    }
+
+    return result;
 };
