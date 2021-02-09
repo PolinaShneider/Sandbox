@@ -3738,3 +3738,51 @@ var shortestToChar = function (s, c) {
 
     return result;
 };
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var numDistinctIslands = function (grid) {
+    let islandHashMap = {};
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[row].length; col++) {
+            if (grid[row][col] === 1) {
+                const islandReference = {str: 's'}; // start
+                dfs(grid, row, col, islandReference);
+                islandHashMap[islandReference['str']] = true;
+            }
+        }
+    }
+
+    return Object.keys(islandHashMap).length;
+};
+
+function dfs(grid, row, col, ref) {
+    grid[row][col] = 2; // mark as visited
+    // check up
+    if (grid[row - 1] && grid[row - 1][col] === 1) {
+        ref.str = ref.str + 'u';
+        dfs(grid, row - 1, col, ref);
+    }
+
+    // check down
+    if (grid[row + 1] && grid[row + 1][col] === 1) {
+        ref.str = ref.str + 'd';
+        dfs(grid, row + 1, col, ref);
+    }
+
+    // check left
+    if (grid[row][col - 1] === 1) {
+        ref.str = ref.str + 'l';
+        dfs(grid, row, col - 1, ref);
+    }
+
+    // check right
+    if (grid[row][col + 1] === 1) {
+        ref.str = ref.str + 'r';
+        dfs(grid, row, col + 1, ref);
+    }
+
+    ref.str = ref.str + 'c'; // call back
+}
