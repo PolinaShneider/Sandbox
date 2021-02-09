@@ -3786,3 +3786,31 @@ function dfs(grid, row, col, ref) {
 
     ref.str = ref.str + 'c'; // call back
 }
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function (root) {
+    let sum = 0
+    convertBSTHelper(root)
+    return root
+
+    function convertBSTHelper(root) {
+        if (root === null) return sum
+        convertBSTHelper(root.right, sum)
+        sum += root.val
+        root.val = sum
+        convertBSTHelper(root.left, sum)
+
+        return sum
+    }
+};
