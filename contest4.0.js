@@ -3814,3 +3814,44 @@ var convertBST = function (root) {
         return sum
     }
 };
+
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function (head) {
+    function createNewNodes(node) {
+        if (!node) return;
+        const newNode = new Node(node.val);
+        newNode.next = node.next;
+        node.next = newNode;
+        createNewNodes(newNode.next);
+    }
+
+    function linkRandomNode(node) {
+        if (!node) return;
+        node.next.random = node.random ? node.random.next : null;
+        linkRandomNode(node.next.next);
+    }
+
+    function restoreOriginal(node) {
+        if (!node) return null;
+        const temp = node.next;
+        node.next = node.next.next;
+        temp.next = restoreOriginal(node.next)
+        return temp;
+    }
+
+    createNewNodes(head);
+    linkRandomNode(head);
+    return restoreOriginal(head);
+};
