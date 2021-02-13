@@ -3927,7 +3927,7 @@ PeekingIterator.prototype.hasNext = function () {
 var numberOfSteps = function (num) {
     let steps = 0;
     while (num) {
-        if (num % 2 == 0) {
+        if (num % 2 === 0) {
             num /= 2
         } else {
             num -= 1
@@ -3937,4 +3937,33 @@ var numberOfSteps = function (num) {
     }
 
     return steps;
+};
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var shortestPathBinaryMatrix = function (grid) {
+    let n = grid.length
+    let m = grid[0].length;
+    if (grid[0][0] == 1 || grid[n - 1][m - 1] == 1) return -1
+
+    let dir = [[1, 0], [-1, 0], [1, 1], [-1, 1], [0, 1], [0, -1], [1, -1], [-1, -1]]
+    let visited = Array(n).fill().map(i => Array(m).fill(0))
+    let queue = [[0, 0, 1]]
+
+    while (queue.length) {
+        let [row, col, k] = queue.shift()
+        if (row == n - 1 && col == m - 1) return k
+
+        for (let d of dir) {
+            let x = row + d[0], y = col + d[1]
+            if (x >= 0 && y >= 0 && x < n && y < m && grid[x][y] == 0 && visited[x][y] == 0) {
+                visited[x][y] = 1
+                queue.push([x, y, k + 1])
+            }
+        }
+    }
+
+    return -1
 };
