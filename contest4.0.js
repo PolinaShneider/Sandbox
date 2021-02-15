@@ -3992,3 +3992,19 @@ var isBipartite = function (graph) {
         return true
     }
 };
+
+/**
+ * @param {number[][]} mat
+ * @param {number} k
+ * @return {number[]}
+ */
+var kWeakestRows = function (mat, k) {
+    return mat
+        .map((row, ind) => ({ // returns Array of objects, with properties {ind, sum}, i.e. index and sum of the row
+            ind,
+            sum: row.reduce((acc, item) => acc + item, 0),
+        }))
+        .sort((a, b) => a.sum - b.sum) // sort map
+        .slice(0, k) // get first K items
+        .map(item => item.ind); // from the Array of objects, return only Array of `ind`
+};
