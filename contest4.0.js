@@ -4008,3 +4008,28 @@ var kWeakestRows = function (mat, k) {
         .slice(0, k) // get first K items
         .map(item => item.ind); // from the Array of objects, return only Array of `ind`
 };
+
+/**
+ * @param {number[]} pid
+ * @param {number[]} ppid
+ * @param {number} kill
+ * @return {number[]}
+ */
+var killProcess = function (pid, ppid, kill) {
+    const parents = {};
+    for (let i = 0; i < ppid.length; i++) {
+        parents[ppid[i]] = parents[ppid[i]] || [];
+        parents[ppid[i]].push(pid[i]);
+    }
+    const res = [];
+    dfs(parents, kill, res);
+    return res;
+};
+
+function dfs(parents, kill, res) {
+    res.push(kill);
+    if (!parents[kill]) return;
+    for (let pid of parents[kill]) {
+        dfs(parents, pid, res);
+    }
+}
