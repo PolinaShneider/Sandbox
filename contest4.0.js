@@ -4033,3 +4033,25 @@ function dfs(parents, kill, res) {
         dfs(parents, pid, res);
     }
 }
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function (height) {
+    let l = 0
+    let r = height.length - 1
+    let res = 0
+
+    while (l < r) {
+        let area = (r - l) * Math.min(height[l], height[r])
+        res = Math.max(res, area)
+
+        if (height[l] < height[r]) {
+            l++
+        } else {
+            r--
+        }
+    }
+    return res
+};
