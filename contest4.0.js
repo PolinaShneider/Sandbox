@@ -4055,3 +4055,18 @@ var maxArea = function (height) {
     }
     return res
 };
+
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var numberOfArithmeticSlices = function (A) {
+    let numSlices = 0;
+    for (let i = 0, j = A.length - 2; i < j; i++) { // check every start element
+        for (let ii = i; ii < j; ii++) { //check how many sub arrays you can make
+            if (A[ii + 1] - A[ii] === A[ii + 2] - A[ii + 1]) numSlices++;
+            else break;
+        }
+    }
+    return numSlices;
+};¬
