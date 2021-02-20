@@ -4070,3 +4070,9 @@ var numberOfArithmeticSlices = function (A) {
     }
     return numSlices;
 };
+
+const user = {
+    age: 33
+};
+
+user.student = user.age < 18;
