@@ -4071,8 +4071,17 @@ var numberOfArithmeticSlices = function (A) {
     return numSlices;
 };
 
-const user = {
-    age: 33
-};
+/**
+ * @param {number} X
+ * @param {number} Y
+ * @return {number}
+ */
+var brokenCalc = function (X, Y) {
+    let count = 0;
 
-user.student = user.age < 18;
+    while (Y > X) {
+        Y % 2 ? Y++ : Y /= 2;
+        count++;
+    }
+    return count + (X - Y)
+};
