@@ -4139,3 +4139,20 @@ var searchMatrix = function (matrix, target) {
     }
     return false;
 };
+
+/**
+ * @param {string} S
+ * @return {number}
+ */
+var scoreOfParentheses = function (S) {
+    let score = 0, depth = 0;
+    for (let i = 0, j = S.length; i < j; i++) { // linear left to right iteration
+        if (S.charAt(i) === '(')  // found ( so increment depth
+            depth++;
+        else if (S.charAt(i - 1) === '(')  // found () a core, so time to add its calculated value to score
+            score += 1 << --depth; // binary bit shift operator, doubling value by depth
+        else
+            --depth; // not a core, but need to unwrap a layer of nesting
+    }
+    return score;
+};
