@@ -4176,3 +4176,22 @@ var findUnsortedSubarray = function (nums) {
 
     return right ? right - left + 1 : 0;
 };
+
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+var validateStackSequences = function (pushed, popped) {
+    let stack = []
+    let ptr = 0
+    for (let i = 0; i < pushed.length; i++) {
+        let curr = pushed[i]
+        stack.push(curr)
+        while (stack.length && popped[ptr] === stack[stack.length - 1]) {
+            stack.pop()
+            ptr++
+        }
+    }
+    return stack.length === 0
+};
