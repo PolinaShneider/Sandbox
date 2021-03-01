@@ -4229,3 +4229,24 @@ FreqStack.prototype.pop = function () {
     return result;
 };
 
+/**
+ * @param {string} keyboard
+ * @param {string} word
+ * @return {number}
+ */
+var calculateTime = function (keyboard, word) {
+    const map = new Map()
+
+    for (let i = 0; i < keyboard.length; i++) {
+        map.set(keyboard[i], i);
+    }
+    let prev = 0, dist = 0;
+
+    for (let c of word) {
+        const curr = map.get(c);
+        dist += Math.abs(prev - curr);
+        prev = curr;
+    }
+    return dist;
+};
+
