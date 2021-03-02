@@ -4250,3 +4250,22 @@ var calculateTime = function (keyboard, word) {
     return dist;
 };
 
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findErrorNums = function (nums) {
+    let duplicate;
+
+    nums.unshift(0);
+
+    for (let i = 1; i < nums.length; i++) {
+        let idx = Math.abs(nums[i])
+
+        if (nums[idx] < 0) duplicate = idx;
+        else nums[idx] *= -1;
+    }
+
+    return [duplicate, nums.findIndex(n => n > 0)];
+};
+
