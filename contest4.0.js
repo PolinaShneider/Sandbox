@@ -4269,3 +4269,11 @@ var findErrorNums = function (nums) {
     return [duplicate, nums.findIndex(n => n > 0)];
 };
 
+/**
+ * @param {number[]} candyType
+ * @return {number}
+ */
+var distributeCandies = function (candyType) {
+    return Math.min(candyType.length / 2, new Set(candyType).size)
+};
+
