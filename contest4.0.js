@@ -4277,3 +4277,40 @@ var distributeCandies = function (candyType) {
     return Math.min(candyType.length / 2, new Set(candyType).size)
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
+    if (headA === headB) return headA;
+    let tmpA = headA;
+    let tmpB = headB;
+    let switchedA = false; //Tracks if we switched A to B already to avoid infinte loop
+    let switchedB = false; //Tracks if we switched B to A already to avoid infinte loop
+    while (tmpA && tmpB) {
+        if (tmpA === tmpB) return tmpA;
+        if (tmpA.next === null && !switchedA) {
+            tmpA = headB; //Jump to head of other list
+            switchedA = true;
+        } else {
+            tmpA = tmpA.next;
+        }
+        if (tmpB.next === null && !switchedB) {
+            tmpB = headA; //Jump to head of the other list
+            switchedB = true;
+        } else {
+            tmpB = tmpB.next;
+        }
+    }
+    return null;
+};
+
