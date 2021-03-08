@@ -4393,3 +4393,21 @@ var minimumLengthEncoding = function (words) {
     return res;
 };
 
+/**
+ * @param {string} num
+ * @return {boolean}
+ */
+var isStrobogrammatic = function (num) {
+    const dictionary = {
+        '0': '0',
+        '1': '1',
+        '6': '9',
+        '8': '8',
+        '9': '6',
+    };
+
+    const convert = n => dictionary[n] || "";
+
+    return num === num.split('').map(convert).reverse().join('');
+};
+
