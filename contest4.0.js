@@ -4394,6 +4394,36 @@ var minimumLengthEncoding = function (words) {
 };
 
 /**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} v
+ * @param {number} d
+ * @return {TreeNode}
+ */
+var addOneRow = function (root, v, d) {
+    function callDFS(node, depth, dir) {
+        if (depth === d) {
+            if (dir === 'L') return new TreeNode(v, node, null)
+            else return new TreeNode(v, null, node)
+        }
+        if (!node) return null;
+
+        node.left = callDFS(node.left, depth + 1, 'L');
+        node.right = callDFS(node.right, depth + 1, 'R');
+        return node;
+    }
+
+    return callDFS(root, 1, 'L')
+};
+
+/**
  * @param {string} num
  * @return {boolean}
  */
