@@ -4441,3 +4441,37 @@ var isStrobogrammatic = function (num) {
     return num === num.split('').map(convert).reverse().join('');
 };
 
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function (num) {
+    const dictionary = {
+        '1000': 'M',
+        '900': 'CM',
+        '500': 'D',
+        '400': 'CD',
+        '100': 'C',
+        '90': 'XC',
+        '50': 'L',
+        '40': 'XL',
+        '10': 'X',
+        '9': 'IX',
+        '5': 'V',
+        '4': 'IV',
+        '1': 'I'
+    }
+
+    let result = "";
+
+    for (let elem of Object.keys(dictionary).sort((a, b) => b - a)) {
+        let count = Math.floor(num / elem);
+        if (num >= elem) {
+            num -= elem * count;
+            result += dictionary[elem].repeat(count);
+        }
+    }
+
+    return result;
+};
+
