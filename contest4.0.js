@@ -4493,3 +4493,21 @@ var coinChange = function (coins, amount) {
     return dp[amount] > amount ? -1 : dp[amount];
 };
 
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {boolean}
+ */
+var hasAllCodes = function (s, k) {
+    const all_binaries = Math.pow(2, k)
+    const map = new Map()
+    const size = s.length
+    for (let i = 0; i < size + 1 - k; i++) {
+        const temp = s.substring(i, i + k)
+        if (!map.has(temp)) {
+            map.set(temp, true)
+        }
+    }
+    return map.size == all_binaries
+};
+
