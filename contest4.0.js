@@ -4511,3 +4511,26 @@ var hasAllCodes = function (s, k) {
     return map.size == all_binaries
 };
 
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var numFactoredBinaryTrees = function (arr) {
+    const map = new Map();
+    arr.sort((a, b) => a - b);
+    for (let i = 0; i < arr.length; i++) {
+        let count = 1;
+        for (let j = 0; j < i; j++) {
+            if (arr[i] % arr[j] === 0 && map.has(Math.floor(arr[i] / arr[j]))) {
+                count += map.get(arr[j]) * map.get(Math.floor(arr[i] / arr[j]));
+            }
+        }
+        map.set(arr[i], count);
+    }
+    let total = 0;
+    for (let v of map.values()) {
+        total += v;
+    }
+    return total % 1000000007;
+};
+
