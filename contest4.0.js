@@ -4534,3 +4534,50 @@ var numFactoredBinaryTrees = function (arr) {
     return total % 1000000007;
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var swapNodes = function (head, k) {
+    let n = 0, temp = head, b, s1, s2, c = 1;
+    //finding length of linklist
+    while (temp != null) {
+        n++;
+        temp = temp.next;
+    }
+
+    temp = head;
+    //position of swapping are k and n-k+1
+    b = n - k + 1;
+
+    // the linkedlist's swap position are same
+    if (k == b)
+        return head;
+
+    //pointers to the swapping position
+    while (c <= n) {
+        if (c === k)
+            s1 = temp;
+
+        if (c === b)
+            s2 = temp;
+
+        temp = temp.next;
+        c++;
+    }
+    // swapping
+    c = s1.val;
+    s1.val = s2.val;
+    s2.val = c;
+
+    return head;
+};
+
