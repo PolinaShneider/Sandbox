@@ -4581,3 +4581,48 @@ var swapNodes = function (head, k) {
     return head;
 };
 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {string} s
+ * @return {TreeNode}
+ */
+var str2tree = function (s) {
+    if (!s || !s.length) {
+        return null;
+    }
+    const stack = [];
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === '(') {
+            continue;
+        } else if (s[i] === ')') {
+            stack.pop();
+        } else {
+            let str = s[i];
+            let j = i + 1;
+            while (s[j] >= '0' && s[j] <= '9') {
+                str += s[j];
+                j++;
+            }
+            const node = new TreeNode(Number(str));
+            if (stack.length) {
+                const parent = stack[stack.length - 1];
+                if (!parent.left) {
+                    parent.left = node;
+                } else {
+                    parent.right = node;
+                }
+            }
+            stack.push(node);
+            i = j - 1;
+        }
+    }
+    return stack.length ? stack[0] : null;
+};
+
