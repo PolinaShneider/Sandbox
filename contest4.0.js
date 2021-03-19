@@ -4699,3 +4699,24 @@ var wiggleMaxLength = function (nums) {
     }
     return Math.max(up, down)
 };
+
+/**
+ * @param {number[][]} rooms
+ * @return {boolean}
+ */
+var canVisitAllRooms = function (rooms) {
+    const uniqueKeys = new Set([0]);
+    const availableKeys = [0];
+
+    while (availableKeys.length) {
+        let currentKey = availableKeys.pop();
+        rooms[currentKey].forEach(key => {
+            if (!uniqueKeys.has(key)) {
+                uniqueKeys.add(key);
+                availableKeys.push(key);
+            }
+        });
+    }
+
+    return uniqueKeys.size === rooms.length;
+};
