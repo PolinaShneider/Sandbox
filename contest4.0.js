@@ -4720,3 +4720,27 @@ var canVisitAllRooms = function (rooms) {
 
     return uniqueKeys.size === rooms.length;
 };
+
+var UndergroundSystem = function () {
+    this.custMap = {};
+    this.avgTime = {};
+};
+
+UndergroundSystem.prototype.checkIn = function (id, stationName, t) {
+    this.custMap[id] = {stationName, t};
+};
+
+UndergroundSystem.prototype.checkOut = function (id, stationName, t) {
+    let currentStn = this.custMap[id];
+    let stnString = `${currentStn.stationName}-${stationName}`;
+    delete this.custMap[id];
+    if (this.avgTime[stnString] === undefined)
+        this.avgTime[stnString] = {sum: 0, count: 0}
+    let {sum, count} = this.avgTime[stnString];
+    this.avgTime[stnString] = {sum: sum + t - currentStn.t, count: count + 1};
+};
+
+UndergroundSystem.prototype.getAverageTime = function (startStation, endStation) {
+    let obj = this.avgTime[`${startStation}-${endStation}`];
+    return obj.sum / obj.count;
+};
