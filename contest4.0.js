@@ -4744,3 +4744,14 @@ UndergroundSystem.prototype.getAverageTime = function (startStation, endStation)
     let obj = this.avgTime[`${startStation}-${endStation}`];
     return obj.sum / obj.count;
 };
+
+/**
+ * @param {number} N
+ * @return {boolean}
+ */
+var reorderedPowerOf2 = function (N) {
+    let res = N.toString().split("").sort().join("")
+    for (let i = 0; i < 30; i++)
+        if ((1 << i).toString().split("").sort().join("") === res) return true
+    return false
+};
