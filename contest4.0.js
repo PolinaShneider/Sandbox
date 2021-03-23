@@ -4778,3 +4778,59 @@ var normalize = function (word) {
 var repVowels = function (word) {
     return normalize(word).replace(/[eiou]/g, 'a')
 };
+
+/**
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumMulti = function (arr, target) {
+
+    arr.sort((a, b) => a - b);
+
+    const map = new Map();
+
+    for (let n of arr) {
+        map.set(n, (map.get(n) || 0) + 1);
+    }
+
+    let totalCount = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        let low = i + 1, high = arr.length - 1;
+
+        while (low < high) {
+            const sum = arr[i] + arr[low] + arr[high];
+            if (sum === target) {
+
+                if (arr[i] === arr[high]) {
+                    const freq = map.get(arr[i]);
+                    totalCount += freq * (freq - 1) * (freq - 2) / 6;
+                } else if (arr[i] === arr[low]) {
+                    const freq1 = map.get(arr[i]);
+                    const freq2 = map.get(arr[high]);
+                    totalCount += freq1 * (freq1 - 1) * freq2 / 2;
+                } else if (arr[low] === arr[high]) {
+                    const freq1 = map.get(arr[i]);
+                    const freq2 = map.get(arr[high]);
+                    totalCount += freq1 * freq2 * (freq2 - 1) / 2;
+                } else {
+                    const freq1 = map.get(arr[i]);
+                    const freq2 = map.get(arr[low]);
+                    const freq3 = map.get(arr[high]);
+                    totalCount += freq1 * freq2 * freq3;
+                }
+
+                const currLow = arr[low];
+                const currHigh = arr[high];
+                while (low < high && arr[low] === currLow) low++;
+                while (low < high && arr[high] === currHigh) high--;
+            } else if (sum > target) high--;
+            else low++;
+        }
+        const currI = arr[i];
+        while (arr[i] === currI) i++
+        i--;
+    }
+    return totalCount % (10 ** 9 + 7)
+};
