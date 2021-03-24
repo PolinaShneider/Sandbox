@@ -4834,3 +4834,22 @@ var threeSumMulti = function (arr, target) {
     }
     return totalCount % (10 ** 9 + 7)
 };
+
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var advantageCount = function (A, B) {
+    let sortedA = A.sort((a, b) => a - b); // sort A
+    for (let i = 0, j = B.length; i < j; i++) { // iterate through B
+        if (B[i] < A[A.length - 1]) { // is it possible to beat the current B?
+            let ii = 0; // we can, so starting at zero, find the first value that beats the current B val
+            while (B[i] >= A[ii]) ii++ //keep going
+            B[i] = A.splice(ii, 1); // ok, we have a larger A value, so put it into B which we will return
+        } else {
+            B[i] = A.shift(); // In this case, the current B is even larger than the largest A, so use the smallest A value
+        }
+    }
+    return B;
+};
