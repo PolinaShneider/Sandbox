@@ -4975,3 +4975,58 @@ var countSubstrings = function (s) {
     }
 };
 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var originalDigits = function (s) {
+
+    const map = {
+        0: 'zero',
+        1: 'one',
+        2: 'two',
+        3: 'three',
+        4: 'four',
+        5: 'five',
+        6: 'six',
+        7: 'seven',
+        8: 'eight',
+        9: 'nine'
+    }
+
+    const numList = [0, 2, 4, 6, 8, 1, 3, 7, 5, 9]
+    const charList = ['z', 'w', 'u', 'x', 'g', 'o', 'r', 's', 'v', 'i']
+
+    const sArr = Array(26).fill(0);
+    const ansCount = Array(10).fill(0);
+    let res = ''
+
+    function getId(char) {
+        return char.charCodeAt() - 'a'.charCodeAt();
+    }
+
+    for (let c of s) {
+        const idx = getId(c);
+        sArr[idx]++;
+    }
+
+    for (let i = 0; i < numList.length; i++) {
+        const idx = getId(charList[i]);
+        const count = sArr[idx];
+        if (!count) continue;
+
+        ansCount[numList[i]] = count;
+        const word = map[numList[i]];
+
+        for (let c of word) {
+            const id = getId(c);
+            sArr[id] -= count
+        }
+    }
+
+    for (let i = 0; i < ansCount.length; i++) {
+        res += i.toString().repeat(ansCount[i])
+    }
+    return res;
+};
+
