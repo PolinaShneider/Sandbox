@@ -5130,3 +5130,30 @@ var movesToStamp = function (stamp, target) {
     return output.reverse()
 };
 
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestUniqueNumber = function (A) {
+    const map = {};
+
+    for (let i = 0; i < A.length; i++) {
+        const char = A[i];
+        map[char] = !(char in map);
+    }
+
+    const data = Object.entries(map).reduce((total, [key, value]) => {
+        if (value) {
+            total.push(key);
+        }
+
+        return total;
+    }, [])
+
+    if (!data.length) {
+        return -1;
+    }
+
+    return Math.max(...data)
+};
+
