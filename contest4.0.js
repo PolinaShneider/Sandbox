@@ -5163,8 +5163,8 @@ var largestUniqueNumber = function (A) {
  * @param {number} n
  * @return {number}
  */
-var findMaxForm = function(strs, m, n) {
-    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+var findMaxForm = function (strs, m, n) {
+    const dp = Array.from({length: m + 1}, () => Array(n + 1).fill(0));
 
     for (let i = 0; i < strs.length; i++) {
         const [zeros, ones] = strs[i].split('').reduce(
@@ -5185,3 +5185,23 @@ var findMaxForm = function(strs, m, n) {
     return dp[m][n];
 };
 
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function (s) {
+    let stack = [], dp = Array(s.length + 1).fill(0), max = 0
+
+    for (let i = 0; i < s.length; i++) {
+        if (s.charAt(i) === '(') {
+            stack.push(i)
+        } else {
+            if (stack.length !== 0) {
+                let ele = stack.pop()
+                dp[i + 1] += (2 + dp[i] + dp[ele])
+                max = Math.max(max, dp[i + 1])
+            }
+        }
+    }
+    return max
+};
