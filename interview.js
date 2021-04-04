@@ -200,6 +200,20 @@ var removeDuplicateLetters = function (s) {
     return stack.join('');
 };
 
+const obj = {
+    name: 'Vasya',
+    age: 18,
+    size: {
+        w: 20,
+        h: 15
+    }
+};
+
+const newObj = JSON.parse(JSON.stringify(obj));
+
+obj.age = 20; // newObj.age = 18
+obj.size.h = 100; // newObj.size.h = 15 ?
+
 /**
  * https://medium.com/better-programming/javascript-tips-2-object-array-deep-clone-implementation-2d6a43e43d2a
  * @param val

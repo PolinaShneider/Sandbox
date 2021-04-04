@@ -5205,3 +5205,60 @@ var longestValidParentheses = function (s) {
     }
     return max
 };
+
+/**
+ * @param {number} k
+ */
+class MyCircularQueue {
+
+    constructor(k) {
+        this.capacity = k
+        this.arr = Array(k).fill(null);
+        this.head = 0;
+        this.tail = 0;
+    }
+
+    enQueue(value) {
+        if (this.isFull()) return false;
+        this.arr[this.tail] = value;
+        this.tail = (this.tail + 1) % this.capacity;
+        return true;
+    }
+
+    deQueue() {
+        if (this.isEmpty()) return false;
+        this.arr[this.head] = null;
+        this.head = (this.head + 1) % this.capacity;
+        return true;
+    }
+
+    Front() {
+        if (this.isEmpty()) return -1;
+        return this.arr[this.head]
+    }
+
+    Rear() {
+        if (this.isEmpty()) return -1;
+        const rear = (this.tail + this.capacity - 1) % this.capacity
+        return this.arr[rear];
+    }
+
+    isEmpty() {
+        return this.head === this.tail && this.arr[this.head] === null;
+    }
+
+    isFull() {
+        return this.head === this.tail && this.arr[this.head] !== null;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * var obj = new MyCircularQueue(k)
+ * var param_1 = obj.enQueue(value)
+ * var param_2 = obj.deQueue()
+ * var param_3 = obj.Front()
+ * var param_4 = obj.Rear()
+ * var param_5 = obj.isEmpty()
+ * var param_6 = obj.isFull()
+ */
