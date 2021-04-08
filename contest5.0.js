@@ -24,3 +24,35 @@ var halvesAreAlike = function(s) {
     
     return countVowels(first) === countVowels(second)
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ */
+var inorderSuccessor = function(root, p) {
+    const stack = [];
+    let curr = root, isPassed = false;
+    while (curr || stack.length) {
+        while (curr) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        if (isPassed) {
+            return curr;
+        }
+        if (curr === p) {
+            isPassed = true;
+        }
+        curr = curr.right;
+    }
+    return null;
+};
