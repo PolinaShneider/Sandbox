@@ -123,3 +123,22 @@ var longestIncreasingPath = function (M) {
     return ans
 };
 
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[]}
+ */
+var constructArray = function(n, k) {
+    let ans = [], low = 1, high = k + 1
+    
+    for(let i = 1; i <= n; i++){
+        if(i <= k + 1){
+            ans[i-1] = (i-1) % 2 === 0 ? low++ : high--
+        } else {
+            ans[i-1] = i
+        }
+    }
+    
+    return ans
+}
+
