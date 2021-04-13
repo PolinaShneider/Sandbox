@@ -142,3 +142,71 @@ var constructArray = function(n, k) {
     return ans
 }
 
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * function NestedInteger() {
+ *
+ *     Return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     @return {boolean}
+ *     this.isInteger = function() {
+ *         ...
+ *     };
+ *
+ *     Return the single integer that this NestedInteger holds, if it holds a single integer
+ *     Return null if this NestedInteger holds a nested list
+ *     @return {integer}
+ *     this.getInteger = function() {
+ *         ...
+ *     };
+ *
+ *     Return the nested list that this NestedInteger holds, if it holds a nested list
+ *     Return null if this NestedInteger holds a single integer
+ *     @return {NestedInteger[]}
+ *     this.getList = function() {
+ *         ...
+ *     };
+ * };
+ */
+/**
+ * @constructor
+ * @param {NestedInteger[]} nestedList
+ */
+// idea: retrieve of all data into array then pop one by one
+function NestedIterator(nestedList) {
+    let d = [];
+    for (const e of nestedList) {
+        if (e.isInteger()) {
+            d.push(e.getInteger());
+        } else {
+            dfs(e);
+        }
+    }
+    return {
+        hasNext,
+        next
+    }
+
+    function dfs(input) {
+        if (input.isInteger()) return d.push(input.getInteger());
+        let list = input.getList();
+        for (const e of list) {
+            dfs(e);
+        }
+    }
+
+    function hasNext() {
+        return d.length > 0;
+    }
+
+    function next() {
+        return d.shift();
+    }
+};
+
+/**
+ * Your NestedIterator will be called like this:
+ * var i = new NestedIterator(nestedList), a = [];
+ * while (i.hasNext()) a.push(i.next());
+*/
+
