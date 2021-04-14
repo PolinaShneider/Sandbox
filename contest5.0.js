@@ -128,17 +128,17 @@ var longestIncreasingPath = function (M) {
  * @param {number} k
  * @return {number[]}
  */
-var constructArray = function(n, k) {
+var constructArray = function (n, k) {
     let ans = [], low = 1, high = k + 1
-    
-    for(let i = 1; i <= n; i++){
-        if(i <= k + 1){
-            ans[i-1] = (i-1) % 2 === 0 ? low++ : high--
+
+    for (let i = 1; i <= n; i++) {
+        if (i <= k + 1) {
+            ans[i - 1] = (i - 1) % 2 === 0 ? low++ : high--
         } else {
-            ans[i-1] = i
+            ans[i - 1] = i
         }
     }
-    
+
     return ans
 }
 
@@ -208,5 +208,38 @@ function NestedIterator(nestedList) {
  * Your NestedIterator will be called like this:
  * var i = new NestedIterator(nestedList), a = [];
  * while (i.hasNext()) a.push(i.next());
-*/
+ */
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function (head, x) {
+    let lessDummy = new ListNode(-1);
+    let greaterDummy = new ListNode(-1);
+    let current = head;
+    let less = lessDummy;
+    let greater = greaterDummy;
+    while (current) {
+        if (current.val < x) {
+            less.next = current;
+            less = current;
+        } else if (current.val >= x) {
+            greater.next = current;
+            greater = current;
+        }
+        current = current.next;
+    }
+    greater.next = null;
+    less.next = greaterDummy.next;
+    return lessDummy.next;
+};
 
