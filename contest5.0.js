@@ -243,3 +243,19 @@ var partition = function (head, x) {
     return lessDummy.next;
 };
 
+/**
+ * @param {number[]} data
+ * @return {number}
+ */
+var minSwaps = function (data) {
+    const ones = data.filter(d => d).length;
+    let k = 0;
+    for (let i = 0; i < ones; i += 1) k += data[i];
+    let ans = ones - k;
+    for (let i = ones; i < data.length; i += 1) {
+        k += data[i] - data[i - ones];
+        ans = Math.min(ans, ones - k);
+    }
+    return ans;
+};
+
