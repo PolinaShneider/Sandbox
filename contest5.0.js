@@ -259,3 +259,20 @@ var minSwaps = function (data) {
     return ans;
 };
 
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var removeDuplicates = function (s, k) {
+    let rdStk = [[s[0], 1]]; //s string is at least size 1 so init our stack
+    for (let i = 1; i < s.length; i++) {
+        if (rdStk.length && s[i] === rdStk[rdStk.length - 1][0]) { //is current letter same as top of stack?
+            if (++rdStk[rdStk.length - 1][1] === k) rdStk.pop();
+        } else {
+            rdStk.push([s[i], 1]);
+        }
+    }
+    return rdStk.reduce((str, elm) => str + elm[0].repeat(elm[1]), '');
+};
+
