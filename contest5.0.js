@@ -303,3 +303,31 @@ var numSubmatrixSumTarget = function (matrix, target) {
     return ans;
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+    let temp = new ListNode(0);
+    temp.next = head;
+    let slow = temp,
+        fast = temp;
+
+    while (fast.next !== null) {
+        fast = fast.next
+        if (n-- <= 0) {
+            slow = slow.next;
+        }
+    }
+    slow.next = slow.next.next;
+    return temp.next;
+};
+
