@@ -331,3 +331,32 @@ var removeNthFromEnd = function (head, n) {
     return temp.next;
 };
 
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function (nums, target, counter = 0, map = {}) {
+    if (counter === nums.length) {
+        return 0;
+    }
+
+    if (map[target] >= 0)
+        return map[target];
+
+    if (target === 0) {
+        return 1;
+    } else if (target < 0) {
+        return 0;
+    }
+
+    let output = 0;
+    let tCounter = 0;
+    while (tCounter < nums.length) {
+        output += combinationSum4(nums, target - nums[tCounter], tCounter, map);
+        tCounter++;
+    }
+    map[target] = output;
+    return output;
+};
+
