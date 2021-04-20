@@ -360,3 +360,28 @@ var combinationSum4 = function (nums, target, counter = 0, map = {}) {
     return output;
 };
 
+/**
+ * // Definition for a Node.
+ * function Node(val, children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
+var preorder = function (root) {
+    if (!root) return []
+    var stack = [root];
+    var result = [];
+    while (stack.length) {
+        var node = stack.pop();
+        result.push(node.val);
+        while (node.children.length) {
+            stack.push(node.children.pop());
+        }
+    }
+    return result;
+};
