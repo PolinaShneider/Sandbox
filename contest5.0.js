@@ -398,3 +398,23 @@ var minimumTotal = function (triangle) {
     }
     return triangle[0][0];
 };
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var missingNumber = function(arr) {
+    let left = 0;
+   let right = arr.length-1;
+   let mid;
+   let diff = (arr[right]-arr[left])/arr.length;
+   while (left<right) {
+     mid = Math.floor((right+left)/2);
+     if (arr[mid]==(arr[0]+mid*diff)) {
+       left = mid + 1; 
+     } else {
+       right = mid;
+     }
+   }
+  return arr[0]+diff*left;
+};
