@@ -418,3 +418,28 @@ var missingNumber = function(arr) {
    }
   return arr[0]+diff*left;
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countBinarySubstrings = function(s) {
+    let prevRunLength = 0;
+  let currRunLength = 1;
+  let res = 0;
+
+  for (let i = 1; i < s.length; i += 1) {
+    if (s[i - 1] === s[i]) {
+      currRunLength += 1;
+    } else {
+      prevRunLength = currRunLength;
+      currRunLength = 1;
+    }
+    // must be a substring if length of prev 0s or 1s >= curr 0s or 1s
+    if (prevRunLength >= currRunLength) {
+      res += 1;
+    }
+  }
+
+  return res;
+};
