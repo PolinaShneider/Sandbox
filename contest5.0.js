@@ -443,3 +443,32 @@ var countBinarySubstrings = function(s) {
 
   return res;
 };
+
+/**
+ * @param {number} n
+ * @param {number[][]} connections
+ * @return {number[][]}
+ */
+var criticalConnections = function(n, connections) {
+    let graph = Array.from(Array(n), () => []); //Graph that will store edges of each node
+  let results = []; 
+  let levels = []; //Holds the min level of a node reachable in a cycle
+  for (let pair of connections) { //Convert connection tuples to a graph with edges
+    graph[pair[0]].push(pair[1]);
+    graph[pair[1]].push(pair[0]);
+  }
+  let dfs = (parent, curr, level) => {
+    levels[curr] = level + 1;
+    let currLevel = levels[curr];
+    for (let next of graph[curr]) {
+      if (next === parent) continue;
+      if (!levels[next]) dfs(curr, next, level + 1); //Acts as a "visited" array
+      levels[curr] = Math.min(levels[curr], levels[next]); //Update current node to the min value reachable
+      if (currLevel < levels[next]) { //Not able to reach a node with lesser cycle value a.k.a no cycle
+        results.push([curr, next]); //Critical connection
+      }
+    }
+  };
+  dfs(-1, 0, 0);
+  return results;
+};
