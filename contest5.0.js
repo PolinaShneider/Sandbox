@@ -403,45 +403,45 @@ var minimumTotal = function (triangle) {
  * @param {number[]} arr
  * @return {number}
  */
-var missingNumber = function(arr) {
+var missingNumber = function (arr) {
     let left = 0;
-   let right = arr.length-1;
-   let mid;
-   let diff = (arr[right]-arr[left])/arr.length;
-   while (left<right) {
-     mid = Math.floor((right+left)/2);
-     if (arr[mid]==(arr[0]+mid*diff)) {
-       left = mid + 1; 
-     } else {
-       right = mid;
-     }
-   }
-  return arr[0]+diff*left;
+    let right = arr.length - 1;
+    let mid;
+    let diff = (arr[right] - arr[left]) / arr.length;
+    while (left < right) {
+        mid = Math.floor((right + left) / 2);
+        if (arr[mid] == (arr[0] + mid * diff)) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    return arr[0] + diff * left;
 };
 
 /**
  * @param {string} s
  * @return {number}
  */
-var countBinarySubstrings = function(s) {
+var countBinarySubstrings = function (s) {
     let prevRunLength = 0;
-  let currRunLength = 1;
-  let res = 0;
+    let currRunLength = 1;
+    let res = 0;
 
-  for (let i = 1; i < s.length; i += 1) {
-    if (s[i - 1] === s[i]) {
-      currRunLength += 1;
-    } else {
-      prevRunLength = currRunLength;
-      currRunLength = 1;
+    for (let i = 1; i < s.length; i += 1) {
+        if (s[i - 1] === s[i]) {
+            currRunLength += 1;
+        } else {
+            prevRunLength = currRunLength;
+            currRunLength = 1;
+        }
+        // must be a substring if length of prev 0s or 1s >= curr 0s or 1s
+        if (prevRunLength >= currRunLength) {
+            res += 1;
+        }
     }
-    // must be a substring if length of prev 0s or 1s >= curr 0s or 1s
-    if (prevRunLength >= currRunLength) {
-      res += 1;
-    }
-  }
 
-  return res;
+    return res;
 };
 
 /**
@@ -449,49 +449,96 @@ var countBinarySubstrings = function(s) {
  * @param {number[][]} connections
  * @return {number[][]}
  */
-var criticalConnections = function(n, connections) {
+var criticalConnections = function (n, connections) {
     let graph = Array.from(Array(n), () => []); //Graph that will store edges of each node
-  let results = []; 
-  let levels = []; //Holds the min level of a node reachable in a cycle
-  for (let pair of connections) { //Convert connection tuples to a graph with edges
-    graph[pair[0]].push(pair[1]);
-    graph[pair[1]].push(pair[0]);
-  }
-  let dfs = (parent, curr, level) => {
-    levels[curr] = level + 1;
-    let currLevel = levels[curr];
-    for (let next of graph[curr]) {
-      if (next === parent) continue;
-      if (!levels[next]) dfs(curr, next, level + 1); //Acts as a "visited" array
-      levels[curr] = Math.min(levels[curr], levels[next]); //Update current node to the min value reachable
-      if (currLevel < levels[next]) { //Not able to reach a node with lesser cycle value a.k.a no cycle
-        results.push([curr, next]); //Critical connection
-      }
+    let results = [];
+    let levels = []; //Holds the min level of a node reachable in a cycle
+    for (let pair of connections) { //Convert connection tuples to a graph with edges
+        graph[pair[0]].push(pair[1]);
+        graph[pair[1]].push(pair[0]);
     }
-  };
-  dfs(-1, 0, 0);
-  return results;
+    let dfs = (parent, curr, level) => {
+        levels[curr] = level + 1;
+        let currLevel = levels[curr];
+        for (let next of graph[curr]) {
+            if (next === parent) continue;
+            if (!levels[next]) dfs(curr, next, level + 1); //Acts as a "visited" array
+            levels[curr] = Math.min(levels[curr], levels[next]); //Update current node to the min value reachable
+            if (currLevel < levels[next]) { //Not able to reach a node with lesser cycle value a.k.a no cycle
+                results.push([curr, next]); //Critical connection
+            }
+        }
+    };
+    dfs(-1, 0, 0);
+    return results;
 };
 
 /**
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var rotate = function(matrix) {
-     // Firstly Transpose The Matrix
-   for (let i = 0 ; i < matrix.length;i++){
-       for (let j = i ; j < matrix.length;j++){
-           var Temp = matrix[j][i]
-           matrix[j][i] = matrix[i][j]
-           matrix[i][j] = Temp
-       }
-   }
-   // Secondly Make Reflected Image Of Matrix
-   for (let i = 0 ; i < matrix.length;i++){
-       for (let j = 0 ; j < matrix.length / 2 ;j++){
-           var Temp = matrix[i][j]
-           matrix[i][j] = matrix[i][matrix.length-j-1]
-           matrix[i][matrix.length - j - 1] = Temp
-       }
-   }
+var rotate = function (matrix) {
+    // Firstly Transpose The Matrix
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = i; j < matrix.length; j++) {
+            var Temp = matrix[j][i]
+            matrix[j][i] = matrix[i][j]
+            matrix[i][j] = Temp
+        }
+    }
+    // Secondly Make Reflected Image Of Matrix
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix.length / 2; j++) {
+            var Temp = matrix[i][j]
+            matrix[i][j] = matrix[i][matrix.length - j - 1]
+            matrix[i][matrix.length - j - 1] = Temp
+        }
+    }
+};
+
+/**
+ * @param {number[]} heights
+ * @param {number} bricks
+ * @param {number} ladders
+ * @return {number}
+ */
+var furthestBuilding = function (heights, bricks, ladders) {
+    if (ladders >= heights.length - 1)
+        return heights.length - 1;
+
+    const dp = new Array(heights.length).fill(-Infinity);
+    dp[0] = bricks;
+
+    let res = 0, diff;
+    for (let i = 0; i <= ladders; i++) {
+        let pre = dp[0];
+
+        for (let j = 1; j < heights.length; j++) {
+            if (heights[j] <= heights[j - 1]) {
+                [pre, dp[j]] = [dp[j], dp[j - 1]];
+            } else {
+                diff = heights[j] - heights[j - 1];
+                let temp = dp[j];
+
+                if (i === 0)
+                    dp[j] = dp[j - 1] - diff;
+                else
+                    dp[j] = Math.max(dp[j - 1] - diff, pre);
+
+                if (dp[j] < 0)
+                    break;
+
+                pre = temp;
+
+            }
+            res = Math.max(j, res);
+        }
+
+        // Corner case: if we have enough remaining ladders to achieve the end of buildings, return the last index
+        if (res + (ladders - i) >= heights.length - 1)
+            return heights.length - 1;
+    }
+
+
+    return res;
 };
