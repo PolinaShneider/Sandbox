@@ -572,3 +572,31 @@ var uniquePathsWithObstacles = function (obstacleGrid) {
 
     return backtrack(0, 0);
 };
+
+/**
+ * @param {number[][]} slots1
+ * @param {number[][]} slots2
+ * @param {number} duration
+ * @return {number[]}
+ */
+var minAvailableDuration = function (slots1, slots2, duration) {
+
+    slots1.sort((a, b) => a[0] - b[0])
+    slots2.sort((a, b) => a[0] - b[0])
+
+    let s1 = 0, s2 = 0;
+
+    while (s1 < slots1.length && s2 < slots2.length) {
+        const [b1, e1] = slots1[s1]
+        const [b2, e2] = slots2[s2]
+
+        const start = Math.max(b1, b2)
+        const end = Math.min(e1, e2);
+
+        if (end - start >= duration) return [start, start + duration]
+
+        if (e1 < e2) s1++;
+        else s2++;
+    }
+    return []
+};
