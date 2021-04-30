@@ -600,3 +600,26 @@ var minAvailableDuration = function (slots1, slots2, duration) {
     }
     return []
 };
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} bound
+ * @return {number[]}
+ */
+var powerfulIntegers = function (x, y, bound) {
+    const result = new Set();
+    const xPowMax = (x > 1) ? Math.round(Math.log(bound) / Math.log(x)) : 1;
+    const yPowMax = (y > 1) ? Math.round(Math.log(bound) / Math.log(y)) : 1;
+
+    for (let i = 0; i <= xPowMax; i++) {
+        for (let j = 0; j <= yPowMax; j++) {
+            const candidate = Math.pow(x, i) + Math.pow(y, j);
+            if (candidate <= bound) {
+                result.add(candidate)
+            }
+        }
+    }
+
+    return [...result];
+};
