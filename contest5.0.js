@@ -623,3 +623,36 @@ var powerfulIntegers = function (x, y, bound) {
 
     return [...result];
 };
+
+/**
+ * @param {string[]} words
+ */
+var WordFilter = function (words) {
+    this.dictionary = new Map();
+
+    words.forEach((word, indexWord) => {
+        let prefixString = '';
+        for (let prefix = 0; prefix < word.length; prefix++) {
+            prefixString += word[prefix];
+
+            for (let suffix = 0; suffix < word.length; suffix++) {
+                this.dictionary.set(`${prefixString}-${word.substr(suffix, word.length)}`, indexWord);
+            }
+        }
+    });
+
+
+};
+
+/**
+ * @param {string} prefix
+ * @param {string} suffix
+ * @return {number}
+ */
+WordFilter.prototype.f = function (prefix, suffix) {
+    const key = `${prefix}-${suffix}`;
+
+    return this.dictionary.has(key) ? this.dictionary.get(key) : -1;
+};
+
+
