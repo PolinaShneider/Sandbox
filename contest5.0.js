@@ -679,3 +679,20 @@ var scheduleCourse = function (courses) {
     }
     return maxCount
 };
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var runningSum = function (nums) {
+    return nums.reduce((total, item, index) => {
+        const prev = total[index - 1];
+
+        if (prev !== undefined) {
+            total.push(item + prev);
+        } else {
+            total.push(item);
+        }
+
+        return total;
+    }, []);
+};
