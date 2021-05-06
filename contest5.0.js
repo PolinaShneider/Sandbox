@@ -701,18 +701,43 @@ var runningSum = function (nums) {
  * @param {number[]} nums
  * @return {boolean}
  */
-var checkPossibility = function(nums) {
-  let count = 0;
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] < nums[i - 1]) {
-      if (nums[i] < nums[i - 2]) {
-        nums[i] = nums[i - 1];
-      }
-      count++;
+var checkPossibility = function (nums) {
+    let count = 0;
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] < nums[i - 1]) {
+            if (nums[i] < nums[i - 2]) {
+                nums[i] = nums[i - 1];
+            }
+            count++;
+        }
+        if (count > 1) {
+            return false;
+        }
     }
-    if (count > 1) {
-      return false;
+    return true;
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function (nums) {
+    let arr = Array.from({length: nums.length}).fill(0)
+    let goal = nums.length - 1
+
+    for (let i = 0; i < nums.length; i++) {
+
+        let maxIndex = Math.min(goal, i + nums[i])
+        for (let j = maxIndex; j > i; j--) {
+            if (!arr[j]) {
+                arr[j] = arr[i] + 1
+            } else {
+                break
+            }
+        }
+
+        if (arr[goal]) break
     }
-  }
-  return true;
+
+    return arr.pop()
 };
