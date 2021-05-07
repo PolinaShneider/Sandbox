@@ -788,3 +788,33 @@ var sortedListToBST = function (head) {
         return new TreeNode(list[middle], left, right);
     }
 };
+
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var minDistance = function (word1, word2) {
+    const n1 = word1.length, n2 = word2.length;
+    let f = new Array(n1 + 1).fill(0).map(x => Array(n2 + 1).fill(5000))
+
+    for (let i = 0; i < n1 + 1; i++) {
+        f[i][0] = i;
+    }
+    for (let i = 0; i < n2 + 1; i++) {
+        f[0][i] = i
+    }
+    // console.log(f)
+
+    for (let i = 1; i < n1 + 1; i++) {
+        for (let j = 1; j < n2 + 1; j++) {
+            f[i][j] = Math.min(f[i - 1][j], f[i][j - 1]) + 1
+            if (word1[i - 1] === word2[j - 1]) {
+                f[i][j] = Math.min(f[i][j], f[i - 1][j - 1])
+            }
+        }
+    }
+
+    // console.log(f)
+    return f[n1][n2]
+};
