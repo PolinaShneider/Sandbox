@@ -862,3 +862,29 @@ var isPossible = function (T) {
 
     return true
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countPrimes = function (n) {
+    if (n < 2) return 0;
+
+    const sieve = new Array(n + 1).fill(true);
+
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (sieve[i]) {
+            for (let j = i * i; j <= n; j += i) {
+                sieve[j] = false;
+            }
+        }
+    }
+
+    let count = 0;
+
+    for (let i = 2; i < n; i++) {
+        if (sieve[i] == true) count++;
+    }
+
+    return count;
+};
