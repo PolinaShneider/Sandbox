@@ -888,3 +888,25 @@ var countPrimes = function (n) {
 
     return count;
 };
+
+/**
+ * @param {number[]} cardPoints
+ * @param {number} k
+ * @return {number}
+ */
+var maxScore = function (cardPoints, k) {
+    let windowSize = cardPoints.length - k, arrSum = 0, minWindowSum = Number.MAX_SAFE_INTEGER, windowSum = 0;
+    for (let i = 0; i < cardPoints.length; i++) {
+        arrSum += cardPoints[i];
+        if (i <= windowSize - 1) {//If the window size is less then or equal to the expected size, then just keep adding the new element to the window
+            windowSum += cardPoints[i];
+        } else {//If window size is full then add the latest element and remove the oldest element from the window
+            windowSum += cardPoints[i];
+            windowSum -= cardPoints[i - windowSize];
+        }
+        if (i >= windowSize - 1) {//If the window size is equal to the expected size then check if this window is having the minimun sum
+            minWindowSum = Math.min(minWindowSum, windowSum);
+        }
+    }
+    return arrSum - minWindowSum;
+};
