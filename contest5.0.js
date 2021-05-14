@@ -984,3 +984,68 @@ const ambiguousCoordinates = function (s) {
     }
     return ans;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function (root) {
+    function binaryPreOrderTraversal(root) {
+        // pre-order
+        let values = [root.val];
+
+        if (root.left) {
+            values = values.concat(binaryPreOrderTraversal(root.left));
+        }
+        if (root.right) {
+            values = values.concat(binaryPreOrderTraversal(root.right));
+        }
+
+        return values;
+    }
+
+    if (!root) {
+        return [];
+    }
+
+
+    const data = binaryPreOrderTraversal(root).slice(1);
+    let prev = root;
+    for (let elem of data) {
+        let node = new TreeNode(elem);
+        prev.left = null;
+        prev.right = node;
+        prev = node;
+    }
+};
+
+function mergeAlgo(stat1, stat2) {
+    if (!stat1.length || !stat2.length) {
+        return stat1.length ? stat1 : stat2;
+    }
+
+    const accum = [];
+
+    const [earliest, other] = stat1[0].startDate < stat2[0].startDate ? [stat1, stat2] : [stat2, stat1];
+
+    for (let i = 0; i < earliest.length; i++) {
+        const currentThis = earliest[i];
+        let currentOther = other[i];
+
+        while (currentOther.endTime < currentThis.endTime) {
+            currentOther = other[i + 1]; // следующий, но не i, наверное
+
+            // Сохранять start и end
+            // Стэк!
+        }
+
+
+    }
+}
