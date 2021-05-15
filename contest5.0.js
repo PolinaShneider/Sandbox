@@ -1026,26 +1026,145 @@ var flatten = function (root) {
     }
 };
 
-function mergeAlgo(stat1, stat2) {
-    if (!stat1.length || !stat2.length) {
-        return stat1.length ? stat1 : stat2;
-    }
+const stat1 = [{
+    startDate: '9:00',
+    endDate: '10:20',
+    present: true
+}, {
+    startDate: '10:20',
+    endDate: '10:30',
+    present: false
+}, {
+    startDate: '10:30',
+    endDate: '11:45',
+    present: true
+}, {
+    startDate: '11:45',
+    endDate: '13:15',
+    present: false
+}, {
+    startDate: '13:15',
+    endDate: '14:00',
+    present: true
+}, {
+    startDate: '14:00',
+    endDate: '15:00',
+    present: false
+}, {
+    startDate: '15:00',
+    endDate: '18:00',
+    present: true
+}];
 
+const stat2 = [{
+    startDate: '9:55',
+    endDate: '10:15',
+    present: true
+}, {
+    startDate: '10:15',
+    endDate: '14:00',
+    present: false
+}, {
+    startDate: '14:00',
+    endDate: '15:20',
+    present: true
+}, {
+    startDate: '15:20',
+    endDate: '17:00',
+    present: false
+}, {
+    startDate: '17:00',
+    endDate: '18:20',
+    present: true
+}];
+
+const arr = [{
+    value: '9:55',
+    source: 'camera',
+    type: 'start'
+}, {
+    value: '10:55',
+    source: 'computer',
+    type: 'start'
+}, {
+    value: '12:50',
+    source: 'camera',
+    type: 'end'
+}, {
+    value: '13:10',
+    source: 'camera',
+    type: 'start'
+}, {
+    value: '15:10',
+    source: 'computer',
+    type: 'end'
+}, {
+    value: '15:30',
+    source: 'camera',
+    type: 'end'
+}, {
+    value: '15:50',
+    source: 'camera',
+    type: 'start'
+}, {
+    value: '16:05',
+    source: 'computer',
+    type: 'start'
+}, {
+    value: '20:00',
+    source: 'camera',
+    type: 'end'
+}];
+
+const getTime = (entry) => {
+    const date = new Date();
+    const [hours, min] = entry.split(':');
+    date.setHours(hours, min, 0);
+    return date.getTime();
+};
+
+function mergeAlgo(arr) {
+    const combined = arr.map(it => ({...it, value: getTime(it.value)}));
+    let isCamera = false;
+    let isComputer = false;
+    let start = null;
     const accum = [];
 
-    const [earliest, other] = stat1[0].startDate < stat2[0].startDate ? [stat1, stat2] : [stat2, stat1];
+    combined.sort((a, b) => a.value - b.value);
 
-    for (let i = 0; i < earliest.length; i++) {
-        const currentThis = earliest[i];
-        let currentOther = other[i];
+    for (let i = 0; i < combined.length - 1; i++) {
+        const current = combined[i];
 
-        while (currentOther.endTime < currentThis.endTime) {
-            currentOther = other[i + 1]; // следующий, но не i, наверное
-
-            // Сохранять start и end
-            // Стэк!
+        switch (current.source) {
+            case 'computer':
+                isComputer = !isComputer;
+                break;
+            case 'camera':
+                isCamera = !isCamera;
+                break;
         }
 
-
+        if (isCamera && isComputer) {
+            start = current.value;
+        } else {
+            if (start) {
+                accum.push([start, current.value]);
+                start = null;
+            }
+        }
     }
+
+    return accum;
 }
+
+console.log(mergeAlgo(arr));
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isNumber = function (s) {
+    const n = s.trim();
+    return /^[+-]?([0-9]+|[0-9]+\.[0-9]*|[0-9]*\.[0-9]+)(e[+-]?[0-9]+)?$/i.test(n);
+};
+
