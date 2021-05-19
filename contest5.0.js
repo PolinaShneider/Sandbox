@@ -1078,43 +1078,17 @@ const stat2 = [{
     present: true
 }];
 
-const arr = [{
-    value: '9:55',
-    source: 'camera',
-    type: 'start'
-}, {
-    value: '10:55',
-    source: 'computer',
-    type: 'start'
-}, {
-    value: '12:50',
-    source: 'camera',
-    type: 'end'
-}, {
-    value: '13:10',
-    source: 'camera',
-    type: 'start'
-}, {
-    value: '15:10',
-    source: 'computer',
-    type: 'end'
-}, {
-    value: '15:30',
-    source: 'camera',
-    type: 'end'
-}, {
-    value: '15:50',
-    source: 'camera',
-    type: 'start'
-}, {
-    value: '16:05',
-    source: 'computer',
-    type: 'start'
-}, {
-    value: '20:00',
-    source: 'camera',
-    type: 'end'
-}];
+const arr = [
+    {value: '9:55', source: 'camera', type: 'start'},
+    {value: '10:55', source: 'computer', type: 'start'},
+    {value: '12:50', source: 'camera', type: 'end'},
+    {value: '13:10', source: 'camera', type: 'start'},
+    {value: '15:10', source: 'computer', type: 'end'},
+    {value: '15:30', source: 'camera', type: 'end'},
+    {value: '15:50', source: 'camera', type: 'start'},
+    {value: '16:05', source: 'computer', type: 'start'},
+    {value: '20:00', source: 'camera', type: 'end'}
+];
 
 const getTime = (entry) => {
     const date = new Date();
@@ -1150,46 +1124,6 @@ function mergeAlgo(arr) {
             if (start) {
                 accum.push([start, current.value]);
                 start = null;
-            }
-            const getTime = (entry) => {
-                const date = new Date();
-                const [hours, min] = entry.split(':');
-                date.setHours(hours, min, 0);
-                return date.getTime();
-            };
-
-            function mergeAlgo(arr) {
-                const combined = arr.map(it => ({...it, value: getTime(it.value)}));
-                let isCamera = false;
-                let isComputer = false;
-                let start = null;
-                const accum = [];
-
-                combined.sort((a, b) => a.value - b.value);
-
-                for (let i = 0; i < combined.length - 1; i++) {
-                    const current = combined[i];
-
-                    switch (current.source) {
-                        case 'computer':
-                            isComputer = !isComputer;
-                            break;
-                        case 'camera':
-                            isCamera = !isCamera;
-                            break;
-                    }
-
-                    if (isCamera && isComputer) {
-                        start = current.value;
-                    } else {
-                        if (start) {
-                            accum.push([start, current.value]);
-                            start = null;
-                        }
-                    }
-                }
-
-                return accum;
             }
         }
     }
@@ -1288,4 +1222,13 @@ const findDuplicate = (paths) => {
         }
     }
     return Array.from(m.values()).filter(x => x.length > 1);
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minMoves2 = function (nums) {
+    const mid = nums.sort((a, b) => a - b)[~~(nums.length / 2)]
+    return nums.reduce((a, c) => a + Math.abs(mid - c), 0)
 };
