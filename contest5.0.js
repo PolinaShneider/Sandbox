@@ -1232,3 +1232,43 @@ var minMoves2 = function (nums) {
     const mid = nums.sort((a, b) => a - b)[~~(nums.length / 2)]
     return nums.reduce((a, c) => a + Math.abs(mid - c), 0)
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    if (!root) {
+        return [];
+    }
+
+    const stack = [[root, 0]];
+    const map = {};
+
+    while (stack.length) {
+        let [node, level] = stack.pop();
+
+        if (map[level]) {
+            map[level].push(node.val);
+        } else {
+            map[level] = [node.val];
+        }
+
+        if (node.right) {
+            stack.push([node.right, level + 1])
+        }
+
+        if (node.left) {
+            stack.push([node.left, level + 1])
+        }
+    }
+
+    return Object.values(map);
+};
