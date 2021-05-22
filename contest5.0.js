@@ -1301,3 +1301,46 @@ var findAndReplacePattern = function (words, pattern) {
     const referrer = encode(pattern);
     return words.filter(word => encode(word) === referrer);
 };
+
+/**
+ * Initialize your data structure here.
+ * @param {number} n
+ */
+var TicTacToe = function (n) {
+    this.row = new Array(n).fill(0);
+    this.col = new Array(n).fill(0);
+    this.diagonal = new Array(2).fill(0);
+    this.size = n;
+};
+
+/**
+ * Player {player} makes a move at ({row}, {col}).
+ @param row The row of the board.
+ @param col The column of the board.
+ @param player The player, can be either 1 or 2.
+ @return The current winning condition, can be either:
+ 0: No one wins.
+ 1: Player 1 wins.
+ 2: Player 2 wins.
+ * @param {number} row
+ * @param {number} col
+ * @param {number} player
+ * @return {number}
+ */
+TicTacToe.prototype.move = function (row, col, player) {
+    let update = player == 1 ? 1 : -1
+    this.row[row] += update
+    this.col[col] += update
+    if (row == col) this.diagonal[0] += update;
+    if (row == this.size - col - 1) this.diagonal[1] += update;
+    if (Math.abs(this.row[row]) == this.size || Math.abs(this.col[col]) == this.size || Math.abs(this.diagonal[0]) == this.size || Math.abs(this.diagonal[1]) == this.size) {
+        return player;
+    }
+    return 0;
+};
+
+/**
+ * Your TicTacToe object will be instantiated and called as such:
+ * var obj = new TicTacToe(n)
+ * var param_1 = obj.move(row,col,player)
+ */
