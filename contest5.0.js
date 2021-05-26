@@ -1421,3 +1421,9 @@ var evalRPN = function (tokens) {
 
     return stack[0];
 };
+
+/**
+ * @param {string} n
+ * @return {number}
+ */
+const minPartitions = n => Math.max(...n)
