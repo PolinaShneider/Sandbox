@@ -1426,4 +1426,38 @@ var evalRPN = function (tokens) {
  * @param {string} n
  * @return {number}
  */
-const minPartitions = n => Math.max(...n)
+const minPartitions = n => Math.max(...n);
+
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+var maxProduct = function (words) {
+    const lengths = words.map(word => word.length);
+    let max = 0;
+
+    for (let i = 0; i < words.length; i++) {
+        for (let j = 0; j < words.length; j++) {
+            if (i == j) {
+                continue;
+            }
+
+            let current = words[i].length * words[j].length;
+            if (current > max && noCommonLetters(words[i], words[j])) {
+                max = current;
+            }
+        }
+    }
+
+    function noCommonLetters(first, second) {
+        for (let i = 0; i < first.length; i++) {
+            if (second.includes(first[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return max;
+};
