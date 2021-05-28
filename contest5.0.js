@@ -1461,3 +1461,29 @@ var maxProduct = function (words) {
 
     return max;
 };
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumUniqueSubarray = function (nums) {
+    let start = 0;
+    let end = 0;
+    let current_sum = 0;
+    let max_sum = 0;
+    let set = new Set();
+    while (end < nums.length) {
+        if (!set.has(nums[end])) {
+            set.add(nums[end]);
+            current_sum += nums[end];
+            max_sum = Math.max(max_sum, current_sum);
+            end++
+        } else {
+            let deleteEl = nums[start];
+            set.delete(deleteEl);
+            current_sum = current_sum - deleteEl;
+            start++;
+        }
+    }
+    return max_sum
+};
