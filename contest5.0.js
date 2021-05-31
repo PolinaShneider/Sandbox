@@ -1525,3 +1525,21 @@ var maximumGap = function (nums) {
     }
     return max;
 };
+
+/**
+ * @param {string[]} products
+ * @param {string} searchWord
+ * @return {string[][]}
+ */
+var suggestedProducts = function (products, searchWord) {
+    products.sort();
+    const result = [];
+    let str = "";
+
+    for (let letter of searchWord) {
+        str += letter;
+        result.push(products.filter(item => new RegExp(`^${str}`).test(item)).slice(0, 3));
+    }
+
+    return result;
+};
