@@ -1543,3 +1543,24 @@ var suggestedProducts = function (products, searchWord) {
 
     return result;
 };
+
+/**
+ * @param {number[][]} costs
+ * @return {number}
+ */
+var minCost = function (costs) {
+
+    let red = 0;
+    let green = 1;
+    let blue = 2;
+
+    for (let i = 1; i < costs.length; i++) {
+
+        costs[i][red] = costs[i][red] + Math.min(costs[i - 1][blue], costs[i - 1][green]);
+        costs[i][blue] = costs[i][blue] + Math.min(costs[i - 1][red], costs[i - 1][green]);
+        costs[i][green] = costs[i][green] + Math.min(costs[i - 1][blue], costs[i - 1][red]);
+
+    }
+
+    return Math.min(...costs[costs.length - 1]);
+};
