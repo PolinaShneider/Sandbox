@@ -1593,3 +1593,31 @@ var isInterleave = function (s1, s2, s3) {
 
     return run(0, 0, 0)
 };
+
+/**
+ * @param {number} h
+ * @param {number} w
+ * @param {number[]} horizontalCuts
+ * @param {number[]} verticalCuts
+ * @return {number}
+ */
+var maxArea = function (h, w, horizontalCuts, verticalCuts) {
+    let M = Math.pow(10, 9) + 7;
+    verticalCuts.push(w);
+    horizontalCuts.push(h);
+    verticalCuts.sort((a, b) => a - b);
+    horizontalCuts.sort((a, b) => a - b);
+    let maxWidth = 0;
+    let maxHeight = 0;
+    for (let i = 0; i < verticalCuts.length; i++) {
+        let newWidth = i > 0 ? verticalCuts[i] - verticalCuts[i - 1] : verticalCuts[i]
+        maxWidth = Math.max(maxWidth, newWidth);
+    }
+    for (let i = 0; i < horizontalCuts.length; i++) {
+        let newHeight = i > 0 ? horizontalCuts[i] - horizontalCuts[i - 1] : horizontalCuts[i];
+        maxHeight = Math.max(maxHeight, newHeight);
+    }
+    return (maxWidth * maxHeight) % M;
+    // T.C: O(Mlog(M) + Nlog(N)), M = length of horizontalCuts and N = length of verticalCuts
+    // S.C: O(1)
+};
