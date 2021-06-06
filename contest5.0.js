@@ -1739,4 +1739,33 @@ class MinHeap {
     shouldSwap(child, parent) {
         return child && this.store[child].speed < this.store[parent].speed
     }
-}¬
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function (nums) {
+    const map = new Map();
+    let i = 0,
+        maxLen = 0,
+        len = 1;
+
+    while (i < nums.length) {
+        map.set(nums[i], 0);
+        ++i;
+    }
+    map.forEach((value, key) => {
+        if (value === 0) {
+            map.set(key, 1);
+            len = 1;
+
+            while (map.has(key + len)) {
+                map.set(key + len, 1);
+                ++len;
+            }
+            maxLen = Math.max(maxLen, len);
+        }
+    });
+    return maxLen;
+}
