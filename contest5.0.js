@@ -1947,3 +1947,22 @@ var maximumUnits = function (boxTypes, truckSize) {
 
     return units;
 };
+
+var makesquare = function (nums) {
+    if (nums == null || nums.length == 0) return false;
+    let sum = 0;
+    for (let num of nums) sum += num;
+    if (sum % 4 != 0) return false;
+    nums.sort((a, b) => a - b);
+    return dfs(nums, new Array(4).fill(0), nums.length - 1, sum / 4);
+};
+var dfs = function (nums, sums, index, target) {
+    if (index == -1) return true;
+    for (let i = 0; i < 4; i++) {
+        if (sums[i] + nums[index] > target || (i > 0 && sums[i] == sums[i - 1])) continue;
+        sums[i] += nums[index];
+        if (dfs(nums, sums, index - 1, target)) return true;
+        sums[i] -= nums[index];
+    }
+    return false;
+};
