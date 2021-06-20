@@ -2083,3 +2083,23 @@ var kInversePairs = function (n, k) {
     }
     return dp[n][k];
 };
+
+var swimInWater = function (grid) {
+    let visited = new Set(), time = 0, N = grid.length;
+    let dirs = [[-1, 0], [0, -1], [0, 1], [1, 0]];
+
+    const dfs = (r, c) => {
+        if (r < 0 || r > N - 1 || c < 0 || c > N - 1 || time < grid[r][c] || visited.has(r * N + c)) return;
+        visited.add(r * N + c);
+        for (let [rr, cc] of dirs)
+            dfs(r + rr, c + cc);
+    };
+
+    while (!visited.has(N * N - 1)) {
+        visited.clear();
+        dfs(0, 0);
+        time++;
+    }
+
+    return time - 1;
+};
