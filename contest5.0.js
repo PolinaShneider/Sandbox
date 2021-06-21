@@ -2103,3 +2103,30 @@ var swimInWater = function (grid) {
 
     return time - 1;
 };
+
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+    const rows = [[1], [1, 1]];
+
+    if (!numRows) {
+        return []
+    }
+
+    if (numRows < 2) {
+        return [rows[numRows - 1]];
+    }
+
+    for (let i = 2; i < numRows; i++) {
+        const temp = [1];
+        for (let j = 1; j < i; j++) {
+            temp[j] = rows[i - 1][j - 1] + rows[i - 1][j];
+        }
+        temp.push(1);
+        rows.push(temp);
+    }
+
+    return rows;
+};
