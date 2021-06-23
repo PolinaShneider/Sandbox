@@ -2179,3 +2179,41 @@ var numMatchingSubseq = function (s, words) {
     // return the count
     return count;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+var reverseBetween = function (head, left, right) {
+    if (!head || !head.next) return head;
+
+    let dummy = new ListNode(-1, head);
+    let prev = dummy,
+        current = head,
+        next = null;
+    let z = 1;
+
+    while (z < left && current) {
+        prev = current;
+        current = current.next;
+        ++z;
+    }
+    while (z < right && current) {
+        next = current.next.next;
+        current.next.next = prev.next;
+        prev.next = current.next;
+        current.next = next;
+        ++z;
+    }
+    return dummy.next;
+};
+
