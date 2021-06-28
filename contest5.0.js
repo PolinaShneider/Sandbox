@@ -2327,3 +2327,21 @@ var candy = function (ratings) {
     }
     return sum;
 };
+
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeDuplicatesTwo = function (S) {
+    let indexes = [];
+    for (let i = 0; i < S.length; i++) {
+
+        if (S[i] === S[i + 1]) {
+            indexes.push(i);
+            indexes.push(i + 1);
+            return removeDuplicates(S.replace(S.substr(indexes[0], indexes.length), ''));
+        }
+    }
+
+    return S;
+};
