@@ -2345,3 +2345,21 @@ var removeDuplicatesTwo = function (S) {
 
     return S;
 };
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isArmstrong = function (n) {
+    let v = n;
+    let c, tot = 0;
+    const ln = n.toString().length;
+
+    while (v > 0) {
+        c = v % 10;
+        v = Math.floor(v / 10);
+        tot += c ** ln
+    }
+
+    return tot === n;
+};
