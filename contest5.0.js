@@ -2385,3 +2385,26 @@ var lowestCommonAncestor = function (root, p, q) {
     if (!left) return right;
     return left;
 };
+
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var grayCode = function (n) {
+    let list = []
+    let stack = [];
+    list.push(0);
+    let i = 0;
+    while (i < n) {
+        let len = list.length;
+        let inc = (Math.pow(2, i));
+        for (let j = 0; j < len; j++) {
+            stack.push(list[j]);
+        }
+        while (stack.length > 0) {
+            list.push(stack.pop() + inc);
+        }
+        i++;
+    }
+    return list;
+};
