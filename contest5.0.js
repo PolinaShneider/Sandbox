@@ -2408,3 +2408,21 @@ var grayCode = function (n) {
     }
     return list;
 };
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @param {number} x
+ * @return {number[]}
+ */
+var findClosestElements = function (arr, k, x) {
+    let closestChain = [];
+    for (let i = 0; i < arr.length; i++) {
+        let mapIn = {};
+        mapIn.val = arr[i];
+        mapIn.subs = Math.abs(arr[i] - x);
+        closestChain.push(mapIn);
+    }
+    closestChain.sort((a, b) => a.subs - b.subs);
+    return closestChain.slice(0, k).map(a => a.val).sort((a, b) => a - b);
+};
