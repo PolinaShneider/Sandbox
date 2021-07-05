@@ -2478,3 +2478,28 @@ var countVowelPermutation = function (n) {
     }
     return (dp[n][0] + dp[n][1] + dp[n][2] + dp[n][3] + dp[n][4]) % MOD;
 };
+
+/**
+ * @param {number[][]} mat
+ * @param {number} r
+ * @param {number} c
+ * @return {number[][]}
+ */
+var matrixReshape = function (mat, r, c) {
+    const [m, n] = [mat.length, mat[0].length]
+
+    if (m * n !== r * c) {
+        return mat
+    }
+
+    const newMatrix = Array.from({length: r}, _ => Array(c))
+    const reversedFlattenMatrix = mat.flat().reverse()
+
+    for (let row = 0; row < r; row++) {
+        for (let col = 0; col < c; col++) {
+            newMatrix[row][col] = reversedFlattenMatrix.pop()
+        }
+    }
+
+    return newMatrix
+}
