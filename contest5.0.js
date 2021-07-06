@@ -2503,3 +2503,30 @@ var matrixReshape = function (mat, r, c) {
 
     return newMatrix
 }
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var minSetSize = function (arr) {
+    const map = {};
+    for (let elem of arr) {
+        map[elem] = ++map[elem] || 1;
+    }
+
+    const counter = Object.entries(map).sort(([k1, v1], [k2, v2]) => v2 - v1);
+    const N = arr.length / 2;
+    let accum = 0;
+    let toDelete = [];
+
+    for (let [num, count] of counter) {
+        if (accum < N) {
+            toDelete.push(num);
+            accum += +count;
+        } else {
+            break;
+        }
+    }
+
+    return toDelete.length;
+};
