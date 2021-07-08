@@ -2539,3 +2539,24 @@ var minSetSize = function (arr) {
 var kthSmallest = function (matrix, k) {
     return [].concat(...matrix).sort((a, b) => a - b)[k - 1];
 };
+
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseWords = function (s) {
+    s.reverse();
+    let l = 0;
+    for (let i = 0; i < s.length; i++) {
+        if (s[i + 1] === ' ' || s[i + 1] === undefined) {
+            let r = i;
+            while (l < r) {
+                let temp = s[l];
+                s[l] = s[r];
+                s[r] = temp;
+                l++, r--;
+            }
+            l = i + 2;
+        }
+    }
+}
