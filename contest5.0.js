@@ -2560,3 +2560,22 @@ var reverseWords = function (s) {
         }
     }
 }
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var lengthOfLIS = function (nums) {
+    var n = nums.length;
+    var dp = new Array(n).fill(1);
+    for (var i = 1; i < n; i++) {
+        var max = 0;
+        for (var j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                max = Math.max(max, dp[j]);
+            }
+        }
+        dp[i] = Math.max(dp[i], max + 1);
+    }
+    return Math.max(...dp);
+}
