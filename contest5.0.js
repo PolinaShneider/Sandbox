@@ -2614,3 +2614,40 @@ var numDecodings = function (s) {
     }
     return dp[len] % mod;
 };
+
+/**
+ * initialize your data structure here.
+ */
+var MedianFinder = function () {
+    this.small = new MaxPriorityQueue({priority: (num) => num});
+    this.large = new MinPriorityQueue({priority: (num) => num});
+};
+
+/**
+ * @param {number} num
+ * @return {void}
+ */
+MedianFinder.prototype.addNum = function (num) {
+    this.small.enqueue(num);
+    this.large.enqueue(this.small.dequeue().element);
+    if (this.small.size() < this.large.size()) {
+        this.small.enqueue(this.large.dequeue().element);
+    }
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function () {
+    return this.small.size() > this.large.size()
+        ? this.small.front().element
+        : (this.small.front().element + this.large.front().element) / 2;
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * var obj = new MedianFinder()
+ * obj.addNum(num)
+ * var param_2 = obj.findMedian()
+ */
+
