@@ -2682,3 +2682,14 @@ var findPeakElement = function (nums) {
 
     return idx;
 };
+
+/**
+ * @param {string} order
+ * @param {string} str
+ * @return {string}
+ */
+var customSortString = function (order, str) {
+    const map = {};
+    order.split('').map((c, i) => map[c] = i);
+    return str.split('').sort((c1, c2) => (map[c1] ?? 30) - (map[c2] ?? 30)).join('');
+};
